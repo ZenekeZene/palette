@@ -1,2 +1,0 @@
-# palette
-Created with CodeSandbox
