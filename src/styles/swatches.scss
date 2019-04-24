@@ -1,76 +1,43 @@
-
 .plswatches {
-  position: relative;
-  height: 35vh;
-  width: calc( 35vh + 60px);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 4vh 0;
-  border-bottom: solid 1px $shadow;
+	position: relative;
+	@include flex(flex, center, center);
+	flex-flow: row wrap;
+	width: calc(35vh + 60px);
+	height: 35vh;
+	padding: 4vh 0;
+	border-bottom: solid 1px $shadow;
 
-  div {
-    position: relative;
-    height: 7vh;
-    width: 7vh;
-    margin: $gutter-1-2;
-    border-radius: 50%;
-    background: coral;
-    animation: swatch-appear 1s cubic-bezier(.5,0,.53,1.49) 0s 1;
-    animation-fill-mode: backwards;
-    -webkit-transition: all .5s;
-    transition: all .5s ease-in-out;
+	div {
+		position: relative;
+		@include share(width, height, 7vh);
+		margin: $gutter-1-2;
+		background: coral;
+		border-radius: 50%;
+		animation: swatch-appear 1s cubic-bezier(0.5, 0, 0.53, 1.49) 0s 1;
+		animation-fill-mode: backwards;
+		transition: all 0.5s ease-in-out;
 
-    &::before {
-      content:"";
-      position: absolute;
-      top:0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 10vh;
-      border: solid 0;
-      transition: all .3s ease-in-out;
-    }
-  }
+		&::before {
+			content: '';
+			@include absolute(top left);
+			@include share(width, height, 100%);
+			border-radius: 10vh;
+			border: solid 0;
+			transition: all 0.3s ease-in-out;
+		}
+	}
 
-  .match-swatch {
-    background: $paper !important;
-    box-shadow: 0 0 $gutter-1-2 $shadow !important;
-  }
-
-  .fail-swatch {
-    z-index: 4;
-
-    &::before {
-      top:-4px;
-      left: -4px;
-      z-index:3;
-      border: solid 4px red;
-    }
-
-    &::after {
-      content:"";
-      position: fixed;
-      top: $gutter-4;
-      left: 0;
-      width: 100vw;
-      height: calc(100vh - 48px);
-      z-index:2;
-      background: $paper;
-      opacity: 0.5;
-      transition: all .3s ease-in-out;
-    }
-  }
+	.match-swatch {
+		background: $paper !important;
+		box-shadow: 0 0 $gutter-1-2 $shadow !important;
+	}
 }
 
 @keyframes swatch-appear {
-  0% {-ms-transform: scale(0); /* IE 9 */
-    -webkit-transform: scale(0); /* Safari 3-8 */
-    transform: scale(0);}
-  100%{-ms-transform: scale(1); /* IE 9 */
-    -webkit-transform: scale(1); /* Safari 3-8 */
-    transform: scale(1);}
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
 }

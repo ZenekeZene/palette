@@ -1,26 +1,14 @@
 .plmixer {
-  border-bottom: none;
+	border-bottom: none;
 
-  // Class to be activated when the active color is over its target
-  .drop-target {
-    transform: scale(1.2);
-  }
+	// Class to be activated when the active color is over its target
+	.drop-target {
+		transform: scale(1.2);
+	}
 }
 
 // Class to be activated when the color is matched
 .match-mixer {
-  background: $paper !important;
-  box-shadow: 0 0 $gutter-1-2 $shadow !important;
-}
-
-// Class to be activated when the color is failed
-.fail-mixer {
-  z-index: 4;
-
-  &::before {
-    top:-4px;
-    left: -4px;
-    z-index:3;
-    border: solid 4px red;
-  }
+	background: $paper !important;
+	box-shadow: 0 0 $gutter-1-2 $shadow !important;
 }
