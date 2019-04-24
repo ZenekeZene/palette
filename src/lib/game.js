@@ -35,7 +35,7 @@ function doMix(dropzone, index) {
   let cmyk = color.addColors(dropzone.cmyk, activeColorObject.cmyk);
   // Actualizamos el Mix:
   dropzone.setCMYK(cmyk);
-  // Hacemos el checkeo en los swatches en busca de una coincidencia con nuestro
+  // Hacemos el checkeo en los swatches en busca de una coincidencia con nuestro active + dropzone
   // Si hemos acertado:
   if (checkSuccess(index)) {
     contSuccess++;
@@ -52,11 +52,32 @@ function doMix(dropzone, index) {
       levelSuccessed();
     }
   } else {
+    const {
+      dropzoneWasCorrect,
+      swatchWasCorrect
+    } = searchCorrectSwatchAndDropzone();
     app.removeChild(activeColorObject.nodeElement);
     activeColorObject = null;
     contSuccess = 0;
-    levelFailed();
+    levelFailed(dropzoneWasCorrect, swatchWasCorrect);
   }
+}
+
+function searchCorrectSwatchAndDropzone() {
+  let dropzoneWasCorrect, swatchWasCorrect;
+  for (let i = 0; i < swatches.length; i++) {
+    for (let j = 0; j < dropzones.length; j++) {
+      let cmyk = color.addColors(activeColorObject.cmyk, dropzones[j].cmyk);
+      if (_.isEqual(cmyk, swatches[i].cmyk)) {
+        dropzoneWasCorrect = dropzones[j];
+        swatchWasCorrect = swatches[i];
+      }
+    }
+  }
+  return {
+    dropzoneWasCorrect,
+    swatchWasCorrect
+  };
 }
 
 function getRandomEnabledItem() {

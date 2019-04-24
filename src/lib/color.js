@@ -1,3 +1,6 @@
+const brightnessCoef = 20;
+let swatchesHistorical = [];
+
 function ColorObject(cmyk, nodeElement) {
   this.cmyk = cmyk;
   this.nodeElement = nodeElement;
@@ -54,10 +57,37 @@ function getColorCMYKRandom() {
   cmyk.push(getRandomInterval(0, 100));
   cmyk.push(getRandomInterval(0, 100));
   cmyk.push(0);
-  if (cmyk[0] === 100 && cmyk[1] === 100 && cmyk[2] === 100) {
-    getColorCMYKRandom();
+  if (calculateBrightnessCoefficient(cmyk) <= brightnessCoef) {
+    return getColorCMYKRandom();
   }
+  if (!calculateSimilarCoefficient(cmyk)) {
+    return getColorCMYKRandom();
+  }
+  swatchesHistorical.push(cmyk);
   return cmyk;
+}
+
+function calculateSimilarCoefficient(cmyk) {
+  let cont = 0;
+  for (let i = 0; i < swatchesHistorical.length; i++) {
+    let summation = 0;
+    for (let j = 0; j < cmyk.length; j++) {
+      const absSimilar = Math.abs(cmyk[j] - swatchesHistorical[i][j]);
+      summation += absSimilar;
+    }
+    if (summation > 20) {
+      cont++;
+    }
+  }
+  return cont === swatchesHistorical.length;
+}
+
+function calculateBrightnessCoefficient(cmyk) {
+  let summation = 0;
+  for (let i = 0; i < cmyk.length; i++) {
+    summation += cmyk[i];
+  }
+  return summation;
 }
 
 function getColorRelationed(cmyk) {

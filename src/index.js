@@ -1,3 +1,15 @@
+/* TODO:
+- [x] Colores casi blancos
+- [x] Colores muy parecidos
+- Bajar a local
+- Persistir record
+- Cambiar el grid por el flex
+- [x] Dar feedback del error
+- Explicativo al principio
+- Música ambient / chill / Mobi
+- Recompensa visual entre niveles (¿Quotes de artistas?)
+*/
+
 import "./styles/styles.scss";
 import "animate.css";
 const game = require("./lib/game");
@@ -11,7 +23,7 @@ const numLevels = document.getElementById("numLevels");
 const score = document.getElementById("score");
 
 const levels = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-let levelCurrent = 0;
+let levelCurrent = 7;
 let contSuccessTotal = 0;
 
 function scoreToAument() {
@@ -30,13 +42,17 @@ function levelSuccessed() {
   levelCurrent++;
 }
 
-function levelFailed() {
-  control.classList.add("fadeIn", "animated");
-  control.classList.remove("hide");
-  app.classList.add("fadeOut", "animated");
-  nextButton.classList.add("hide");
-  replayButton.classList.remove("hide");
-  replayButton.classList.add("fadeIn", "animated");
+function levelFailed(dropzoneWasCorrect, swatchWasCorrect) {
+  dropzoneWasCorrect.nodeElement.classList.add("wasCorrect");
+  swatchWasCorrect.nodeElement.classList.add("wasCorrect");
+  setTimeout(() => {
+    control.classList.add("fadeIn", "animated");
+    control.classList.remove("hide");
+    app.classList.add("fadeOut", "animated");
+    nextButton.classList.add("hide");
+    replayButton.classList.remove("hide");
+    replayButton.classList.add("fadeIn", "animated");
+  }, 700);
 }
 
 function handNextLevel() {
@@ -55,6 +71,5 @@ replayButton.addEventListener("click", showLevel);
 
 game.setup(app, levelSuccessed, levelFailed, scoreToAument);
 
-levelCurrent = persist.getData("currentLevel") || 0;
 numLevels.textContent = levelCurrent + 1;
 game.playLevel(levels[levelCurrent]);
