@@ -42,9 +42,21 @@ function levelSuccessed() {
   levelCurrent++;
 }
 
-function levelFailed(dropzoneWasCorrect, swatchWasCorrect) {
+function levelFailed(dropzoneWasCorrect,swatchWasCorrect,swatches,dropzones) {
   dropzoneWasCorrect.nodeElement.classList.add("wasCorrect");
   swatchWasCorrect.nodeElement.classList.add("wasCorrect");
+  const swatchesNotCorrect = swatches.filter(
+    swatch => !swatch.nodeElement.classList.contains("wasCorrect")
+  );
+  for (let i = 0; i < swatchesNotCorrect.length; i++) {
+    swatchesNotCorrect[i].nodeElement.classList.add("match-swatch");
+  }
+  const dropzonesNotCorrect = dropzones.filter(
+    dropzone => !dropzone.nodeElement.classList.contains("wasCorrect")
+  );
+  for (let i = 0; i < dropzonesNotCorrect.length; i++) {
+    dropzonesNotCorrect[i].nodeElement.classList.add("match-swatch");
+  }
   setTimeout(() => {
     control.classList.add("fadeIn", "animated");
     control.classList.remove("hide");

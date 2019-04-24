@@ -2,16 +2,20 @@
 .plswatches {
   position: relative;
   height: 35vh;
-  width: 45vh;
-  display: grid;
-  grid-gap: $gutter;
-  grid-template-columns: auto auto auto auto auto;
-  grid-template-rows: auto auto auto;
+  width: calc( 35vh + 60px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   padding: 4vh 0;
   border-bottom: solid 1px $shadow;
 
   div {
     position: relative;
+    height: 7vh;
+    width: 7vh;
+    margin: $gutter-1-2;
     border-radius: 50%;
     background: coral;
     animation: swatch-appear 1s cubic-bezier(.5,0,.53,1.49) 0s 1;
@@ -30,81 +34,6 @@
       border: solid 0;
       transition: all .3s ease-in-out;
     }
-  }
-
-  &__swatch1 {
-    grid-row: 2;
-    grid-column: 2;
-  }
-
-  &__swatch2 {
-    grid-row: 2;
-    grid-column: 3;
-  }
-
-  &__swatch3 {
-    grid-row: 2;
-    grid-column: 4;
-  }
-
-  &__swatch4 {
-    grid-row: 2;
-    grid-column: 1;
-  }
-
-  &__swatch5 {
-    grid-row: 2;
-    grid-column: 5;
-  }
-
-  &__swatch6 {
-    grid-row: 1;
-    grid-column: 1;
-  }
-
-  &__swatch7 {
-    grid-row: 1;
-    grid-column: 2;
-  }
-
-  &__swatch8 {
-    grid-row: 1;
-    grid-column: 3;
-  }
-
-  &__swatch9 {
-    grid-row: 1;
-    grid-column: 4;
-  }
-
-  &__swatch10 {
-    grid-row: 1;
-    grid-column: 5;
-  }
-
-  &__swatch11 {
-    grid-row: 3;
-    grid-column: 1;
-  }
-
-  &__swatch12 {
-    grid-row: 3;
-    grid-column: 2;
-  }
-
-  &__swatch13 {
-    grid-row: 3;
-    grid-column: 3;
-  }
-
-  &__swatch14 {
-    grid-row: 3;
-    grid-column: 4;
-  }
-
-  &__swatch15 {
-    grid-row: 3;
-    grid-column: 5;
   }
 
   .match-swatch {

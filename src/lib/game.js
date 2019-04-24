@@ -59,7 +59,7 @@ function doMix(dropzone, index) {
     app.removeChild(activeColorObject.nodeElement);
     activeColorObject = null;
     contSuccess = 0;
-    levelFailed(dropzoneWasCorrect, swatchWasCorrect);
+    levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones);
   }
 }
 
