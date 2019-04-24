@@ -1,15 +1,3 @@
-/* TODO:
-- [x] Colores casi blancos
-- [x] Colores muy parecidos
-- [x] Bajar a local
-- Persistir record
-- Cambiar el grid por el flex
-- [x] Dar feedback del error
-- Explicativo al principio
-- Música ambient / chill / Mobi
-- Recompensa visual entre niveles (¿Quotes de artistas?)
-*/
-
 import "./styles/styles.scss";
 import "animate.css";
 const game = require("./lib/game");
