@@ -1,7 +1,7 @@
 /* TODO:
 - [x] Colores casi blancos
 - [x] Colores muy parecidos
-- Bajar a local
+- [x] Bajar a local
 - Persistir record
 - Cambiar el grid por el flex
 - [x] Dar feedback del error
@@ -23,13 +23,13 @@ const numLevels = document.getElementById("numLevels");
 const score = document.getElementById("score");
 
 const levels = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-let levelCurrent = 7;
-let contSuccessTotal = 0;
+let levelCurrent = parseInt(persist.getData("levelCurrent"), 10) || 0;
+let contSuccessTotal = persist.getData("contSuccessTotal") || 0;
 
 function scoreToAument() {
   contSuccessTotal++;
   score.textContent = contSuccessTotal;
-  persist.saveData("currentLevel", contSuccessTotal);
+  persist.saveData("contSuccessTotal", contSuccessTotal);
 }
 
 function levelSuccessed() {
@@ -40,6 +40,7 @@ function levelSuccessed() {
   nextButton.classList.add("fadeIn", "animated");
   replayButton.classList.add("hide");
   levelCurrent++;
+  persist.saveData("levelCurrent", levelCurrent);
 }
 
 function levelFailed(dropzoneWasCorrect,swatchWasCorrect,swatches,dropzones) {
@@ -84,4 +85,6 @@ replayButton.addEventListener("click", showLevel);
 game.setup(app, levelSuccessed, levelFailed, scoreToAument);
 
 numLevels.textContent = levelCurrent + 1;
+
+score.textContent = contSuccessTotal;
 game.playLevel(levels[levelCurrent]);
