@@ -6,7 +6,7 @@
 
 Primer juego casual de este estudio, consiste en un juego de puzzles en el que el usuario ha de mezclar colores para pasar de nivel.
 
-Se encuentra en pleno proceso de desarrollo, utilizando únicamente tecnologías web. En el futuro no se descarta la posibilidad de migrar a un entorno Unity.
+Se encuentra en pleno proceso de desarrollo, utilizando únicamente tecnologías web. En el futuro no se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 
 ### TODO
 

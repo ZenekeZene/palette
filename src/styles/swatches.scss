@@ -1,4 +1,4 @@
-.plswatches {
+.swatches {
 	position: relative;
 	@include flex(flex, center, center);
 	flex-flow: row wrap;
@@ -6,30 +6,68 @@
 	height: 35vh;
 	padding: 4vh 0;
 	border-bottom: solid 1px $shadow;
+}
 
-	div {
-		position: relative;
-		@include share(width, height, 7vh);
-		margin: $gutter-1-2;
-		background: coral;
-		border-radius: 50%;
-		animation: swatch-appear 1s cubic-bezier(0.5, 0, 0.53, 1.49) 0s 1;
-		animation-fill-mode: backwards;
-		transition: all 0.5s ease-in-out;
+.swatch {
+	position: relative;
+	@include share(width, height, 7vh);
+	margin: $gutter-1-2;
+	background: coral;
+	border-radius: 50%;
+	animation: swatch-appear 1s cubic-bezier(0.5, 0, 0.53, 1.49) 0s 1;
+	animation-fill-mode: backwards;
+	transition: all 0.5s ease-in-out;
 
-		&::before {
-			content: '';
-			@include absolute(top left);
-			@include share(width, height, 100%);
-			border-radius: 10vh;
-			border: solid 0;
-			transition: all 0.3s ease-in-out;
-		}
+	&::before {
+		content: '';
+		@include absolute(top left);
+		@include share(width, height, 100%);
+		border-radius: 10vh;
+		border: solid 0;
+		transition: all 0.3s ease-in-out;
 	}
 
-	.match-swatch {
-		background: $paper !important;
-		box-shadow: 0 0 $gutter-1-2 $shadow !important;
+	&__cmyk {
+		display: none;
+		@include absolute(bottom 1rem * -1);
+		font-size: 0.6rem;
+		color: black;
+	}
+
+	&.drag-drop {
+		@include absolute(bottom 1rem);
+		display: inline-block;
+		@include share(width, height, 8vh);
+		transition: none;
+		transform: translate(0, 0);
+		-ms-touch-action: none;
+		touch-action: none;
+		transform: translate(0px, 0px);
+		font-size: 0.6rem;
+		color: white;
+	}
+}
+
+.match-swatch {
+	background: $paper !important;
+	box-shadow: 0 0 $gutter-1-2 $shadow !important;
+}
+
+.wasCorrect {
+	animation: wasCorrectAnimation 2s normal;
+}
+
+@keyframes wasCorrectAnimation {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.3);
+	}
+
+	100% {
+		transform: scale(0);
 	}
 }
 

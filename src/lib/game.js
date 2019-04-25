@@ -13,8 +13,8 @@ let levelSuccessed, levelFailed, scoreToAument;
 
 function checkSuccess(index) {
 	if (_.isEqual(swatches[index].cmyk, dropzones[index].cmyk)) {
-		swatches[index].nodeElement.classList.add('match-swatch');
-		dropzones[index].nodeElement.classList.add('match-mixer');
+		swatches[index].el.classList.add('match-swatch');
+		dropzones[index].el.classList.add('match-mixer');
 		swatches[index].isEnabled = false;
 		dropzones[index].isEnabled = false;
 		return true;
@@ -25,10 +25,10 @@ function checkSuccess(index) {
 
 function updateActive(newActiveColorObject) {
 	// Borramos el Activo viejo:
-	app.removeChild(activeColorObject.nodeElement);
+	app.removeChild(activeColorObject.el);
 	activeColorObject = newActiveColorObject;
-	app.append(activeColorObject.nodeElement);
-	drag.setActiveNode(activeColorObject.nodeElement);
+	app.append(activeColorObject.el);
+	drag.setActiveNode(activeColorObject.el);
 }
 
 function doMix(dropzone, index) {
@@ -41,19 +41,19 @@ function doMix(dropzone, index) {
 		contSuccess++;
 		scoreToAument();
 		if (contSuccess !== swatches.length) {
-			dropzone.nodeElement.classList.add('disabled');
+			dropzone.el.classList.add('disabled');
 			// Seteamos un nuevo activo:
 			let newActiveColorObject = createActiveObject();
 			updateActive(newActiveColorObject);
 		} else {
-			app.removeChild(activeColorObject.nodeElement);
+			app.removeChild(activeColorObject.el);
 			activeColorObject = null;
 			contSuccess = 0;
 			levelSuccessed();
 		}
 	} else {
 		const { dropzoneWasCorrect, swatchWasCorrect } = searchCorrectSwatchAndDropzone();
-		app.removeChild(activeColorObject.nodeElement);
+		app.removeChild(activeColorObject.el);
 		activeColorObject = null;
 		contSuccess = 0;
 		levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones);
@@ -85,7 +85,7 @@ function getRandomEnabledItem() {
 
 function createActiveObject() {
 	const node = document.createElement('div');
-	node.classList.add('plactive__swatch', 'swatch', 'drag-drop', 'active');
+	node.classList.add('active__swatch', 'swatch', 'drag-drop', 'active');
 
 	const indexRandom = getRandomEnabledItem();
 
@@ -124,8 +124,8 @@ function playLevel(numRows, numCols) {
 	swatches = initSwatches(swatchNodes);
 	dropzones = initDropzones(dropzoneNodes);
 	activeColorObject = createActiveObject();
-	drag.init(activeColorObject.nodeElement, dropzones, doMix);
-	app.append(activeColorObject.nodeElement);
+	drag.init(activeColorObject.el, dropzones, doMix);
+	app.append(activeColorObject.el);
 }
 
 function setup(appEntry, levelSuccessedEntry, levelFailedEntry, scoreToAumentEntry) {

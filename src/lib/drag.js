@@ -91,17 +91,17 @@ function initDrag() {
 			const target = event.target;
 			target.classList.remove('drag-active');
 			const isEnabled =
-				!dropZoneCurrent || !dropZoneCurrent.nodeElement.classList.contains('disabled');
+				!dropZoneCurrent || !dropZoneCurrent.el.classList.contains('disabled');
 			if (isEntered && isEnabled) {
-				const rect = offset(dropZoneCurrent.nodeElement);
+				const rect = offset(dropZoneCurrent.el);
 				target.style.transform = `translate(0, 0)`;
 				target.style.position = 'absolute';
 				target.style.left = `${rect.left}px`;
 				target.style.top = `${rect.top}px`;
 				interact(event.target).unset();
 				const index = [].indexOf.call(
-					dropZoneCurrent.nodeElement.parentNode.children,
-					dropZoneCurrent.nodeElement
+					dropZoneCurrent.el.parentNode.children,
+					dropZoneCurrent.el
 				);
 				isEntered = false;
 				setTimeout(callbackWhenDrop(dropZoneCurrent, index), 500);

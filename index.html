@@ -20,10 +20,10 @@
     <div class="home"> <!-- Add class .unveil when play button is pushed-->
       <header class="home-header">
         <div class="home-header__logo"><img src="src/img/logo.svg" alt="Palette logo" height="120"></div>
-        <div class="plheader">
-          <p class="plheader__level">LEVEL 6</p>
-          <p class="plheader__score">40</p>
-          <p class="plheader__share">SHARE</p>
+        <div class="header">
+          <p class="header__level">LEVEL 6</p>
+          <p class="header__score">40</p>
+          <p class="header__share">SHARE</p>
         </div>
       </header>
       <nav class="home-buttons">
@@ -33,14 +33,14 @@
         <a href="" class="home-buttons__about"></a>
       </nav>
     </div>
-    <header class="plheader">
-      <p class="plheader__back"></p>
-      <p class="plheader__level">LEVEL <span id="numLevels"></span></p>
-      <p class="plheader__score"><span id="score"></span></p>
+    <header class="header">
+      <p class="header__back"></p>
+      <p class="header__level">LEVEL <span id="numLevels"></span></p>
+      <p class="header__score"><span id="score"></span></p>
     </header>
     <main id="app">
-      <section id="swatchesGrid" class="plswatches"></section>
-      <section id="mixesGrid" class="plswatches plmixer"></section>
+      <section id="swatchesGrid" class="swatches"></section>
+      <section id="mixesGrid" class="swatches mixer"></section>
       <div class="plactive__base"></div>
     </main>
     <aside id="control" class="control hide">
@@ -53,6 +53,6 @@
       </button>
     </aside>
 
-    <script src="src/index.js"></script>
-  </body>
+		<script src="src/index.js"></script>
+	</body>
 </html>

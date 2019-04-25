@@ -12,7 +12,7 @@ function fillGrid(wrapperGrid) {
 	for (let i = 0; i < size; i++) {
 		const itemNode = document.createElement('div');
 		items.push(itemNode);
-		itemNode.classList.add('swatch', `plswatches__swatch${i + 1}`);
+		itemNode.classList.add('swatch', `swatches__swatch${i + 1}`);
 		wrapperGrid.append(itemNode);
 	}
 	return items;

@@ -22,36 +22,36 @@ function scoreToAument() {
 
 function levelSuccessed() {
 	control.classList.add('fadeIn', 'animated');
-	control.classList.remove('hide');
+	control.classList.remove('hidden');
 	app.classList.add('fadeOut', 'animated');
-	nextButton.classList.remove('hide');
+	nextButton.classList.remove('hidden');
 	nextButton.classList.add('fadeIn', 'animated');
-	replayButton.classList.add('hide');
+	replayButton.classList.add('hidden');
 	levelCurrent++;
 	persist.saveData('levelCurrent', levelCurrent);
 }
 
 function levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones) {
-	dropzoneWasCorrect.nodeElement.classList.add('wasCorrect');
-	swatchWasCorrect.nodeElement.classList.add('wasCorrect');
+	dropzoneWasCorrect.el.classList.add('wasCorrect');
+	swatchWasCorrect.el.classList.add('wasCorrect');
 	const swatchesNotCorrect = swatches.filter(
-		(swatch) => !swatch.nodeElement.classList.contains('wasCorrect')
+		(swatch) => !swatch.el.classList.contains('wasCorrect')
 	);
 	for (let i = 0; i < swatchesNotCorrect.length; i++) {
-		swatchesNotCorrect[i].nodeElement.classList.add('match-swatch');
+		swatchesNotCorrect[i].el.classList.add('match-swatch');
 	}
 	const dropzonesNotCorrect = dropzones.filter(
-		(dropzone) => !dropzone.nodeElement.classList.contains('wasCorrect')
+		(dropzone) => !dropzone.el.classList.contains('wasCorrect')
 	);
 	for (let i = 0; i < dropzonesNotCorrect.length; i++) {
-		dropzonesNotCorrect[i].nodeElement.classList.add('match-swatch');
+		dropzonesNotCorrect[i].el.classList.add('match-swatch');
 	}
 	setTimeout(() => {
 		control.classList.add('fadeIn', 'animated');
-		control.classList.remove('hide');
+		control.classList.remove('hidden');
 		app.classList.add('fadeOut', 'animated');
-		nextButton.classList.add('hide');
-		replayButton.classList.remove('hide');
+		nextButton.classList.add('hidden');
+		replayButton.classList.remove('hidden');
 		replayButton.classList.add('fadeIn', 'animated');
 	}, 700);
 }
@@ -63,7 +63,7 @@ function handNextLevel() {
 
 function showLevel() {
 	game.playLevel(levels[levelCurrent]);
-	control.classList.add('hide');
+	control.classList.add('hidden');
 	app.classList.remove('fadeOut', 'animated');
 }
 
