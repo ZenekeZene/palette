@@ -1,5 +1,5 @@
 function getData(key) {
-  localStorage.getItem(key);
+  return localStorage.getItem(key);
 }
 
 function saveData(key, value) {
