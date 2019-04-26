@@ -9,6 +9,17 @@ const replayButton = document.getElementById('replayButton');
 const control = document.getElementById('control');
 const numLevels = document.getElementById('numLevels');
 const score = document.getElementById('score');
+const playButton = document.getElementById('playButton');
+const backButton = document.getElementById('backButton');
+const homePage = document.getElementById('homePage');
+
+playButton.addEventListener('click', function() {
+	homePage.classList.add('unveil');
+});
+
+backButton.addEventListener('click', function() {
+	homePage.classList.remove('unveil');
+});
 
 const levels = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;

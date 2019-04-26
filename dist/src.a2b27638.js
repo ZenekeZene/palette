@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -149,7 +149,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -184,18 +184,18 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/styles/styles.scss":[function(require,module,exports) {
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/styles/styles.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/animate.css/animate.css":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/animate.css/animate.css":[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -348,7 +348,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"node_modules/ieee754/index.js":[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -434,14 +434,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -2234,7 +2234,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/lodash/lodash.js":[function(require,module,exports) {
+},{"base64-js":"node_modules/base64-js/index.js","ieee754":"node_modules/ieee754/index.js","isarray":"node_modules/isarray/index.js","buffer":"node_modules/buffer/index.js"}],"node_modules/lodash/lodash.js":[function(require,module,exports) {
 var global = arguments[3];
 var Buffer = require("buffer").Buffer;
 var define;
@@ -19346,7 +19346,7 @@ var define;
   }
 }.call(this));
 
-},{"buffer":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/interactjs/dist/interact.js":[function(require,module,exports) {
+},{"buffer":"node_modules/buffer/index.js"}],"node_modules/interactjs/dist/interact.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /**
@@ -26523,7 +26523,7 @@ win.init = init;
 
 
 },{}],"src/lib/drag.js":[function(require,module,exports) {
-var interact = require("interactjs");
+var interact = require('interactjs');
 
 var activeNode, dropzones, callbackWhenDrop;
 
@@ -26538,14 +26538,14 @@ function offset(el) {
 function dragMoveListener(event) {
   var target = event.target,
       // keep the dragged position in the data-x/data-y attributes
-  x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx,
-      y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
-  target.classList.add("drag-active"); // translate the element
+  x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+  target.classList.add('drag-active'); // translate the element
 
-  target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)"; // update the position attributes
+  target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'; // update the position attributes
 
-  target.setAttribute("data-x", x);
-  target.setAttribute("data-y", y);
+  target.setAttribute('data-x', x);
+  target.setAttribute('data-y', y);
 }
 
 function initDrag() {
@@ -26555,20 +26555,17 @@ function initDrag() {
     y: rect.top
   };
   var isEntered = false;
-  var dropZoneCurrent;
-  /* The dragging code for '.draggable' from the demo above
-   * applies to this demo as well so it doesn't have to be repeated. */
-  // enable draggables to be dropped into this
+  var dropZoneCurrent; // enable draggables to be dropped into this
 
-  interact("#mixesGrid .swatch:not(.disabled)").dropzone({
+  interact('#mixesGrid .swatch:not(.disabled)').dropzone({
     // only accept elements matching this CSS selector
-    accept: ".drag-drop",
+    accept: '.drag-drop',
     // Require a 75% element overlap for a drop to be possible
     overlap: 0.25,
     // listen for drop related events:
     ondropactivate: function ondropactivate(event) {
       // add active dropzone feedback
-      event.target.classList.add("drop-active");
+      event.target.classList.add('drop-active');
       var rect = offset(event.relatedTarget);
       origin.x = rect.left;
       origin.y = rect.top;
@@ -26577,8 +26574,8 @@ function initDrag() {
       var draggableElement = event.relatedTarget;
       var dropzoneElement = event.target; // feedback the possibility of a drop
 
-      dropzoneElement.classList.add("drop-target");
-      draggableElement.classList.add("can-drop");
+      dropzoneElement.classList.add('drop-target');
+      draggableElement.classList.add('can-drop');
       isEntered = true;
 
       for (var i = 0; i < dropzones.length; i++) {
@@ -26589,24 +26586,24 @@ function initDrag() {
     },
     ondragleave: function ondragleave(event) {
       // remove the drop feedback style
-      event.target.classList.remove("drop-target");
-      event.relatedTarget.classList.remove("can-drop");
+      event.target.classList.remove('drop-target');
+      event.relatedTarget.classList.remove('can-drop');
       isEntered = false;
       dropZoneCurrent = null;
     },
     ondrop: function ondrop(event) {
-      event.relatedTarget.textContent = "Dropped";
+      event.relatedTarget.textContent = 'Dropped';
     },
     ondropdeactivate: function ondropdeactivate(event) {
       // remove active dropzone feedback
-      event.target.classList.remove("drop-active");
-      event.target.classList.remove("drop-target");
+      event.target.classList.remove('drop-active');
+      event.target.classList.remove('drop-target');
     }
   });
-  interact(".drag-drop").draggable({
+  interact('.drag-drop').draggable({
     inertia: true,
     restrict: {
-      restriction: "parent",
+      restriction: 'parent',
       endOnly: false,
       elementRect: {
         top: 0,
@@ -26620,30 +26617,27 @@ function initDrag() {
     onmove: dragMoveListener,
     onend: function onend(event) {
       var target = event.target;
-      target.classList.remove("drag-active");
-      var isEnabled = !dropZoneCurrent || !dropZoneCurrent.nodeElement.classList.contains("disabled");
+      target.classList.remove('drag-active');
+      var isEnabled = !dropZoneCurrent || !dropZoneCurrent.el.classList.contains('disabled');
 
       if (isEntered && isEnabled) {
-        var _rect = offset(dropZoneCurrent.nodeElement);
+        var _rect = offset(dropZoneCurrent.el);
 
         target.style.transform = "translate(0, 0)";
-        target.style.position = "absolute";
+        target.style.position = 'absolute';
         target.style.left = "".concat(_rect.left, "px");
         target.style.top = "".concat(_rect.top, "px");
         interact(event.target).unset();
-        var index = [].indexOf.call(dropZoneCurrent.nodeElement.parentNode.children, dropZoneCurrent.nodeElement);
+        var index = [].indexOf.call(dropZoneCurrent.el.parentNode.children, dropZoneCurrent.el);
         isEntered = false;
         setTimeout(callbackWhenDrop(dropZoneCurrent, index), 500);
       } else {
         // Out
-        //target.style.position = "fixed";
-        //target.style.bottom = "1rem";
-        target.style.transform = "translate(0, 0)"; // keep the dragged position in the data-x/data-y attributes
+        target.style.transform = 'translate(0, 0)';
+        target.style.webkitTransform = target.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'; // update the position attributes
 
-        target.style.webkitTransform = target.style.transform = "translate(" + 0 + "px, " + 0 + "px)"; // update the position attributes
-
-        target.setAttribute("data-x", 0);
-        target.setAttribute("data-y", 0);
+        target.setAttribute('data-x', 0);
+        target.setAttribute('data-y', 0);
       }
     }
   });
@@ -26666,35 +26660,10 @@ var API = {
 };
 module.exports = API;
 },{"interactjs":"node_modules/interactjs/dist/interact.js"}],"src/lib/grid.js":[function(require,module,exports) {
-var swatchesGrid = document.getElementById("swatchesGrid");
-var mixesGrid = document.getElementById("mixesGrid");
-var numberRows,
-    numberCols,
-    size = 0;
-var cellNodes, mixNodes, swatchNodes, dropzoneNodes;
-
-var changeCSSGrid = function changeCSSGrid() {
-  document.documentElement.style.setProperty("--rowNum", numberRows);
-  document.documentElement.style.setProperty("--colNum", numberCols);
-};
-
-function drawGrid(wrapperGrid) {
-  while (wrapperGrid.firstChild) {
-    wrapperGrid.removeChild(wrapperGrid.firstChild);
-  }
-
-  changeCSSGrid();
-  var cellNodes = [];
-
-  for (var i = 0; i < size; i++) {
-    var cellNode = document.createElement("div");
-    cellNode.classList.add("cell");
-    cellNodes.push(cellNode);
-    wrapperGrid.append(cellNode);
-  }
-
-  return cellNodes;
-}
+var swatchesGrid = document.getElementById('swatchesGrid');
+var mixesGrid = document.getElementById('mixesGrid');
+var size = 0;
+var swatchNodes, dropzoneNodes;
 
 function fillGrid(wrapperGrid) {
   while (wrapperGrid.firstChild) {
@@ -26704,9 +26673,9 @@ function fillGrid(wrapperGrid) {
   var items = [];
 
   for (var i = 0; i < size; i++) {
-    var itemNode = document.createElement("div");
+    var itemNode = document.createElement('div');
     items.push(itemNode);
-    itemNode.classList.add("swatch", "plswatches__swatch".concat(i + 1));
+    itemNode.classList.add('swatch', "swatches__swatch".concat(i + 1));
     wrapperGrid.append(itemNode);
   }
 
@@ -26714,9 +26683,7 @@ function fillGrid(wrapperGrid) {
 }
 
 function init(numberOfItems) {
-  size = numberOfItems; //cellNodes = drawGrid(swatchesGrid);
-  //mixNodes = drawGrid(mixesGrid);
-
+  size = numberOfItems;
   swatchNodes = fillGrid(swatchesGrid);
   dropzoneNodes = fillGrid(mixesGrid);
   return {
@@ -26726,24 +26693,23 @@ function init(numberOfItems) {
 }
 
 var API = {
-  init: init,
-  changeCSSGrid: changeCSSGrid
+  init: init
 };
 module.exports = API;
 },{}],"src/lib/color.js":[function(require,module,exports) {
 var brightnessCoef = 20;
 var swatchesHistorical = [];
 
-function ColorObject(cmyk, nodeElement) {
+function ColorObject(cmyk, el) {
   this.cmyk = cmyk;
-  this.nodeElement = nodeElement;
+  this.el = el;
   this.setCMYK(cmyk);
   this.isEnabled = true;
 }
 
 ColorObject.prototype.getCMYK = function () {
-  if (this.nodeElement) {
-    return JSON.parse("[" + this.nodeElement.getAttribute("data-cmyk") + "]");
+  if (this.el) {
+    return JSON.parse('[' + this.el.getAttribute('data-cmyk') + ']');
   }
 
   return null;
@@ -26751,21 +26717,21 @@ ColorObject.prototype.getCMYK = function () {
 
 ColorObject.prototype.setCMYK = function (cmyk) {
   this.cmyk = cmyk;
-  this.nodeElement.setAttribute("data-cmyk", cmyk);
+  this.el.setAttribute('data-cmyk', cmyk);
 
-  while (this.nodeElement.firstChild) {
-    this.nodeElement.firstChild.remove();
+  while (this.el.firstChild) {
+    this.el.firstChild.remove();
   }
 
-  var cmykNode = document.createElement("span");
-  cmykNode.classList.add("swatch__cmyk");
+  var cmykNode = document.createElement('span');
+  cmykNode.classList.add('swatch__cmyk');
   cmykNode.innerHTML = cmyk;
-  this.nodeElement.append(cmykNode);
-  this.nodeElement.style.backgroundColor = getRGBColor(convertCMYKtoRGB(cmyk));
+  this.el.append(cmykNode);
+  this.el.style.backgroundColor = getRGBColor(convertCMYKtoRGB(cmyk));
 };
 
-ColorObject.prototype.isMyNode = function (nodeElement) {
-  return this.nodeElement === nodeElement;
+ColorObject.prototype.isMyNode = function (el) {
+  return this.el === el;
 };
 
 function getRandomInterval(min, max) {
@@ -26888,13 +26854,13 @@ var API = {
 };
 module.exports = API;
 },{}],"src/lib/game.js":[function(require,module,exports) {
-var _ = require("lodash");
+var _ = require('lodash');
 
-var drag = require("./drag");
+var drag = require('./drag');
 
-var grid = require("./grid");
+var grid = require('./grid');
 
-var color = require("./color");
+var color = require('./color');
 
 var app;
 var swatches, dropzones;
@@ -26905,8 +26871,8 @@ var levelSuccessed, levelFailed, scoreToAument;
 
 function checkSuccess(index) {
   if (_.isEqual(swatches[index].cmyk, dropzones[index].cmyk)) {
-    swatches[index].nodeElement.classList.add("match-swatch");
-    dropzones[index].nodeElement.classList.add("match-mixer");
+    swatches[index].el.classList.add('match-swatch');
+    dropzones[index].el.classList.add('match-mixer');
     swatches[index].isEnabled = false;
     dropzones[index].isEnabled = false;
     return true;
@@ -26917,10 +26883,10 @@ function checkSuccess(index) {
 
 function updateActive(newActiveColorObject) {
   // Borramos el Activo viejo:
-  app.removeChild(activeColorObject.nodeElement);
+  app.removeChild(activeColorObject.el);
   activeColorObject = newActiveColorObject;
-  app.append(activeColorObject.nodeElement);
-  drag.setActiveNode(activeColorObject.nodeElement);
+  app.append(activeColorObject.el);
+  drag.setActiveNode(activeColorObject.el);
 }
 
 function doMix(dropzone, index) {
@@ -26934,12 +26900,12 @@ function doMix(dropzone, index) {
     scoreToAument();
 
     if (contSuccess !== swatches.length) {
-      dropzone.nodeElement.classList.add("disabled"); // Seteamos un nuevo activo:
+      dropzone.el.classList.add('disabled'); // Seteamos un nuevo activo:
 
       var newActiveColorObject = createActiveObject();
       updateActive(newActiveColorObject);
     } else {
-      app.removeChild(activeColorObject.nodeElement);
+      app.removeChild(activeColorObject.el);
       activeColorObject = null;
       contSuccess = 0;
       levelSuccessed();
@@ -26949,7 +26915,7 @@ function doMix(dropzone, index) {
         dropzoneWasCorrect = _searchCorrectSwatchA.dropzoneWasCorrect,
         swatchWasCorrect = _searchCorrectSwatchA.swatchWasCorrect;
 
-    app.removeChild(activeColorObject.nodeElement);
+    app.removeChild(activeColorObject.el);
     activeColorObject = null;
     contSuccess = 0;
     levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones);
@@ -26981,15 +26947,14 @@ function getRandomEnabledItem() {
     return swatch.isEnabled === true;
   });
 
-  var sample = _.sample(swatchActives); //console.log(sample.index);
-
+  var sample = _.sample(swatchActives);
 
   return sample.index;
 }
 
 function createActiveObject() {
-  var node = document.createElement("div");
-  node.classList.add("plactive__swatch", "swatch", "drag-drop", "active");
+  var node = document.createElement('div');
+  node.classList.add('active__swatch', 'swatch', 'drag-drop', 'active');
   var indexRandom = getRandomEnabledItem();
   return new color.ColorObject(color.subtractColors(swatches[indexRandom].cmyk, dropzones[indexRandom].cmyk), node);
 }
@@ -27027,8 +26992,8 @@ function playLevel(numRows, numCols) {
   swatches = initSwatches(swatchNodes);
   dropzones = initDropzones(dropzoneNodes);
   activeColorObject = createActiveObject();
-  drag.init(activeColorObject.nodeElement, dropzones, doMix);
-  app.append(activeColorObject.nodeElement);
+  drag.init(activeColorObject.el, dropzones, doMix);
+  app.append(activeColorObject.el);
 }
 
 function setup(appEntry, levelSuccessedEntry, levelFailedEntry, scoreToAumentEntry) {
@@ -27045,7 +27010,7 @@ var API = {
 module.exports = API;
 },{"lodash":"node_modules/lodash/lodash.js","./drag":"src/lib/drag.js","./grid":"src/lib/grid.js","./color":"src/lib/color.js"}],"src/lib/persist.js":[function(require,module,exports) {
 function getData(key) {
-  localStorage.getItem(key);
+  return localStorage.getItem(key);
 }
 
 function saveData(key, value) {
@@ -27064,73 +27029,72 @@ require("./styles/styles.scss");
 
 require("animate.css");
 
-/* TODO:
-- [x] Colores casi blancos
-- [x] Colores muy parecidos
-- Bajar a local
-- Persistir record
-- Cambiar el grid por el flex
-- [x] Dar feedback del error
-- Explicativo al principio
-- Música ambient / chill / Mobi
-- Recompensa visual entre niveles (¿Quotes de artistas?)
-*/
-var game = require("./lib/game");
+var game = require('./lib/game');
 
-var persist = require("./lib/persist");
+var persist = require('./lib/persist');
 
-var app = document.getElementById("app");
-var nextButton = document.getElementById("nextButton");
-var replayButton = document.getElementById("replayButton");
-var control = document.getElementById("control");
-var numLevels = document.getElementById("numLevels");
-var score = document.getElementById("score");
+var app = document.getElementById('app');
+var nextButton = document.getElementById('nextButton');
+var replayButton = document.getElementById('replayButton');
+var control = document.getElementById('control');
+var numLevels = document.getElementById('numLevels');
+var score = document.getElementById('score');
+var playButton = document.getElementById('playButton');
+var backButton = document.getElementById('backButton');
+var homePage = document.getElementById('homePage');
+playButton.addEventListener('click', function () {
+  homePage.classList.add('unveil');
+});
+backButton.addEventListener('click', function () {
+  homePage.classList.remove('unveil');
+});
 var levels = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-var levelCurrent = 7;
-var contSuccessTotal = 0;
+var levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
+var contSuccessTotal = persist.getData('contSuccessTotal') || 0;
 
 function scoreToAument() {
   contSuccessTotal++;
   score.textContent = contSuccessTotal;
-  persist.saveData("currentLevel", contSuccessTotal);
+  persist.saveData('contSuccessTotal', contSuccessTotal);
 }
 
 function levelSuccessed() {
-  control.classList.add("fadeIn", "animated");
-  control.classList.remove("hide");
-  app.classList.add("fadeOut", "animated");
-  nextButton.classList.remove("hide");
-  nextButton.classList.add("fadeIn", "animated");
-  replayButton.classList.add("hide");
+  control.classList.add('fadeIn', 'animated');
+  control.classList.remove('hidden');
+  app.classList.add('fadeOut', 'animated');
+  nextButton.classList.remove('hidden');
+  nextButton.classList.add('fadeIn', 'animated');
+  replayButton.classList.add('hidden');
   levelCurrent++;
+  persist.saveData('levelCurrent', levelCurrent);
 }
 
 function levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones) {
-  dropzoneWasCorrect.nodeElement.classList.add("wasCorrect");
-  swatchWasCorrect.nodeElement.classList.add("wasCorrect");
+  dropzoneWasCorrect.el.classList.add('wasCorrect');
+  swatchWasCorrect.el.classList.add('wasCorrect');
   var swatchesNotCorrect = swatches.filter(function (swatch) {
-    return !swatch.nodeElement.classList.contains("wasCorrect");
+    return !swatch.el.classList.contains('wasCorrect');
   });
 
   for (var i = 0; i < swatchesNotCorrect.length; i++) {
-    swatchesNotCorrect[i].nodeElement.classList.add("match-swatch");
+    swatchesNotCorrect[i].el.classList.add('match-swatch');
   }
 
   var dropzonesNotCorrect = dropzones.filter(function (dropzone) {
-    return !dropzone.nodeElement.classList.contains("wasCorrect");
+    return !dropzone.el.classList.contains('wasCorrect');
   });
 
   for (var _i = 0; _i < dropzonesNotCorrect.length; _i++) {
-    dropzonesNotCorrect[_i].nodeElement.classList.add("match-swatch");
+    dropzonesNotCorrect[_i].el.classList.add('match-swatch');
   }
 
   setTimeout(function () {
-    control.classList.add("fadeIn", "animated");
-    control.classList.remove("hide");
-    app.classList.add("fadeOut", "animated");
-    nextButton.classList.add("hide");
-    replayButton.classList.remove("hide");
-    replayButton.classList.add("fadeIn", "animated");
+    control.classList.add('fadeIn', 'animated');
+    control.classList.remove('hidden');
+    app.classList.add('fadeOut', 'animated');
+    nextButton.classList.add('hidden');
+    replayButton.classList.remove('hidden');
+    replayButton.classList.add('fadeIn', 'animated');
   }, 700);
 }
 
@@ -27141,16 +27105,17 @@ function handNextLevel() {
 
 function showLevel() {
   game.playLevel(levels[levelCurrent]);
-  control.classList.add("hide");
-  app.classList.remove("fadeOut", "animated");
+  control.classList.add('hidden');
+  app.classList.remove('fadeOut', 'animated');
 }
 
-nextButton.addEventListener("click", handNextLevel);
-replayButton.addEventListener("click", showLevel);
+nextButton.addEventListener('click', handNextLevel);
+replayButton.addEventListener('click', showLevel);
 game.setup(app, levelSuccessed, levelFailed, scoreToAument);
 numLevels.textContent = levelCurrent + 1;
+score.textContent = contSuccessTotal;
 game.playLevel(levels[levelCurrent]);
-},{"./styles/styles.scss":"src/styles/styles.scss","animate.css":"node_modules/animate.css/animate.css","./lib/game":"src/lib/game.js","./lib/persist":"src/lib/persist.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./styles/styles.scss":"src/styles/styles.scss","animate.css":"node_modules/animate.css/animate.css","./lib/game":"src/lib/game.js","./lib/persist":"src/lib/persist.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -27178,7 +27143,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60051" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63707" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -27353,5 +27318,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
 //# sourceMappingURL=/src.a2b27638.js.map

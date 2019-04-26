@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Parcel Sandbox</title>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-  </head>
+	<head>
+		<title>Parcel Sandbox</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+			integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+			crossorigin="anonymous"
+		/>
+		<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" />
+	</head>
 
-  <body>
-    <div class="home"> <!-- Add class .unveil when play button is pushed-->
-      <header class="home-header">
-        <div class="home-header__logo"><img src="src/img/logo.svg" alt="Palette logo" height="120"></div>
-        <div class="header">
-          <p class="header__level">LEVEL 6</p>
-          <p class="header__score">40</p>
-          <p class="header__share">SHARE</p>
-        </div>
-      </header>
-      <nav class="home-buttons">
-        <a href="" class="home-buttons__play"></a>
-        <a href="" class="home-buttons__rate"></a>
-        <a href="" class="home-buttons__sound"></a>
-        <a href="" class="home-buttons__about"></a>
-      </nav>
-    </div>
-    <header class="header">
-      <p class="header__back"></p>
-      <p class="header__level">LEVEL <span id="numLevels"></span></p>
-      <p class="header__score"><span id="score"></span></p>
-    </header>
-    <main id="app">
-      <section id="swatchesGrid" class="swatches"></section>
-      <section id="mixesGrid" class="swatches mixer"></section>
-      <div class="plactive__base"></div>
-    </main>
-    <aside id="control" class="control hide">
-      <div class="quote"><p>Creativity takes courage<span>Henry Matisse</span></p></div>
-      <button id="nextButton">
-        <i class="fa fa-play" aria-hidden="true"></i>
-      </button>
-      <button id="replayButton" class="">
-        <i class="fa fa-redo" aria-hidden="true"></i>
-      </button>
-    </aside>
+	<body>
+		<div id="homePage" class="home">
+			<header class="home-header">
+				<div class="home-header__logo">
+					<img src="src/img/logo.svg" alt="Palette logo" height="120" />
+				</div>
+				<div class="header">
+					<p class="header__level">LEVEL 6</p>
+					<p class="header__score">40</p>
+					<p class="header__share">SHARE</p>
+				</div>
+			</header>
+			<nav class="home-buttons">
+				<button id="playButton" class="home-buttons__play"></button>
+				<a href="" class="home-buttons__rate"></a>
+				<a href="" class="home-buttons__sound"></a>
+				<a href="" class="home-buttons__about"></a>
+			</nav>
+		</div>
+		<header class="header">
+			<p id="backButton" class="header__back"></p>
+			<p class="header__level">LEVEL <span id="numLevels"></span></p>
+			<p class="header__score"><span id="score"></span></p>
+		</header>
+		<main id="app">
+			<section id="swatchesGrid" class="swatches"></section>
+			<section id="mixesGrid" class="swatches mixer"></section>
+			<div class="plactive__base"></div>
+		</main>
+		<aside id="control" class="control hidden">
+			<div class="quote">
+				<p>Creativity takes courage<span>Henry Matisse</span></p>
+			</div>
+			<button id="nextButton">
+				<i class="fa fa-play" aria-hidden="true"></i>
+			</button>
+			<button id="replayButton" class="">
+				<i class="fa fa-redo" aria-hidden="true"></i>
+			</button>
+		</aside>
 
 		<script src="src/index.js"></script>
 	</body>
