@@ -16,7 +16,7 @@ Se encuentra en pleno proceso de desarrollo, utilizando únicamente tecnologías
 - [x] Persistir record (**Nota:** tambien estamos persistiendo el nivel actual)
 - [x] Cambiar el grid de Gridlayout a Flexbox
 - [x] Dar feedback del error
-- [ ] Explicativo al principio (flechas, tutorial...)
+- [ ] Explicativo al principio (flechas, tutorial...) -> Pintada, el funcionamiento es el siguiente: La primera vez que se usa el juego, el componente .active__base tiene añadida la clase .tutorial. En el momento en el que se empieza a arrastrar el color activo, esta clase desaparece y todos los mixers reciben la clase .tutorial. En el momento en el que se suelta el primer activo sobre un mixer, desaparece la clase .tutorial de los mixers y no vuelve a aparecer en ningún componente.
 - [ ] Música ambient / chill / Mobi / ([Música procedural](https://github.com/Tonejs/Tone.js/))
 - [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel
 - [ ] Home -> Pintada, falta funcionalidad botón (clase .unveil en .home)
