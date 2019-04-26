@@ -1,0 +1,23 @@
+.control {
+	@include absolute(top left);
+	@include flex(flex, center, center);
+	order: 2;
+	width: 100vw;
+	height: 100vh;
+
+	button {
+		@include share(width, height, 100px);
+		color: $paper;
+		background-color: $cool;
+		border-radius: $gutter;
+		border: none;
+		font-size: 1rem;
+		box-shadow: 0 0 $gutter-1-2 $shadow;
+		transition: all 0.3s ease-in-out;
+
+		&:active {
+			transform: scale(0.95);
+			box-shadow: 0 0 0 $shadow;
+		}
+	}
+}

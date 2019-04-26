@@ -12,18 +12,26 @@ const score = document.getElementById('score');
 const playButton = document.getElementById('playButton');
 const backButton = document.getElementById('backButton');
 const homePage = document.getElementById('homePage');
-
-playButton.addEventListener('click', function() {
-	homePage.classList.add('unveil');
-});
-
-backButton.addEventListener('click', function() {
-	homePage.classList.remove('unveil');
-});
+const homeScore = document.getElementById('homeScore');
+const homeLevel = document.getElementById('homeLevel');
 
 const levels = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
 let contSuccessTotal = persist.getData('contSuccessTotal') || 0;
+
+playButton.addEventListener('click', function() {
+	homePage.classList.add('unveil');
+	app.classList.add('fadeIn', 'animated');
+	app.classList.remove('fadeOut');
+});
+
+backButton.addEventListener('click', function() {
+	homePage.classList.remove('unveil');
+	app.classList.add('fadeOut', 'animated');
+	app.classList.remove('fadeIn');
+	homeScore.textContent = contSuccessTotal;
+	homeLevel.textContent = levelCurrent + 1;
+});
 
 function scoreToAument() {
 	contSuccessTotal++;
@@ -75,7 +83,8 @@ function handNextLevel() {
 function showLevel() {
 	game.playLevel(levels[levelCurrent]);
 	control.classList.add('hidden');
-	app.classList.remove('fadeOut', 'animated');
+	app.classList.remove('fadeOut');
+	app.classList.add('fadeIn', 'animated');
 }
 
 nextButton.addEventListener('click', handNextLevel);
@@ -83,7 +92,9 @@ replayButton.addEventListener('click', showLevel);
 
 game.setup(app, levelSuccessed, levelFailed, scoreToAument);
 
+homeScore.textContent = contSuccessTotal;
+homeLevel.textContent = levelCurrent + 1;
 numLevels.textContent = levelCurrent + 1;
-
 score.textContent = contSuccessTotal;
+
 game.playLevel(levels[levelCurrent]);

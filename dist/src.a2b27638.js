@@ -27042,15 +27042,23 @@ var score = document.getElementById('score');
 var playButton = document.getElementById('playButton');
 var backButton = document.getElementById('backButton');
 var homePage = document.getElementById('homePage');
-playButton.addEventListener('click', function () {
-  homePage.classList.add('unveil');
-});
-backButton.addEventListener('click', function () {
-  homePage.classList.remove('unveil');
-});
+var homeScore = document.getElementById('homeScore');
+var homeLevel = document.getElementById('homeLevel');
 var levels = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 var levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
 var contSuccessTotal = persist.getData('contSuccessTotal') || 0;
+playButton.addEventListener('click', function () {
+  homePage.classList.add('unveil');
+  app.classList.add('fadeIn', 'animated');
+  app.classList.remove('fadeOut');
+});
+backButton.addEventListener('click', function () {
+  homePage.classList.remove('unveil');
+  app.classList.add('fadeOut', 'animated');
+  app.classList.remove('fadeIn');
+  homeScore.textContent = contSuccessTotal;
+  homeLevel.textContent = levelCurrent + 1;
+});
 
 function scoreToAument() {
   contSuccessTotal++;
@@ -27106,12 +27114,15 @@ function handNextLevel() {
 function showLevel() {
   game.playLevel(levels[levelCurrent]);
   control.classList.add('hidden');
-  app.classList.remove('fadeOut', 'animated');
+  app.classList.remove('fadeOut');
+  app.classList.add('fadeIn', 'animated');
 }
 
 nextButton.addEventListener('click', handNextLevel);
 replayButton.addEventListener('click', showLevel);
 game.setup(app, levelSuccessed, levelFailed, scoreToAument);
+homeScore.textContent = contSuccessTotal;
+homeLevel.textContent = levelCurrent + 1;
 numLevels.textContent = levelCurrent + 1;
 score.textContent = contSuccessTotal;
 game.playLevel(levels[levelCurrent]);
@@ -27143,7 +27154,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49431" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52148" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

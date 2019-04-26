@@ -17,14 +17,14 @@
 	</head>
 
 	<body>
-		<div id="homePage" class="home">
+		<div id="homePage" class="home fadeIn animated">
 			<header class="home-header">
-				<div class="home-header__logo">
+				<div class="home-header__logo fadeInDown animated">
 					<img src="src/img/logo.svg" alt="Palette logo" height="120" />
 				</div>
 				<div class="header">
-					<p class="header__level">LEVEL 6</p>
-					<p class="header__score">40</p>
+					<p class="header__level">LEVEL <span id="homeLevel"></span></p>
+					<p id="homeScore" class="header__score">40</p>
 					<p class="header__share">SHARE</p>
 				</div>
 			</header>
@@ -35,16 +35,18 @@
 				<a href="" class="home-buttons__about"></a>
 			</nav>
 		</div>
-		<header class="header">
-			<p id="backButton" class="header__back"></p>
-			<p class="header__level">LEVEL <span id="numLevels"></span></p>
-			<p class="header__score"><span id="score"></span></p>
-		</header>
-		<main id="app">
-			<section id="swatchesGrid" class="swatches"></section>
-			<section id="mixesGrid" class="swatches mixer"></section>
+		<div id="app" class="game" style="opacity: 0;">
+			<header class="header">
+				<p id="backButton" class="header__back"></p>
+				<p class="header__level">LEVEL <span id="numLevels"></span></p>
+				<p class="header__score"><span id="score"></span></p>
+			</header>
+			<main>
+				<section id="swatchesGrid" class="swatches"></section>
+				<section id="mixesGrid" class="swatches mixer"></section>
+			</main>
 			<div class="active__base"></div>
-		</main>
+		</div>
 		<aside id="control" class="control hidden">
 			<div class="quote">
 				<p>Creativity takes courage<span>Henry Matisse</span></p>

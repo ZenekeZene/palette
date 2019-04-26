@@ -1,0 +1,7 @@
+#app {
+	@include flex(flex, start, center);
+	flex-direction: column;
+	height: calc(100vh - 48px); // height header
+}
+
+@import 'home';
