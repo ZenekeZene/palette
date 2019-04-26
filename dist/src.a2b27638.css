@@ -227,13 +227,15 @@ body {
   display: inline-block;
   width: 8vh;
   height: 8vh;
-  transition: none;
-  transform: translate(0, 0);
-  -ms-touch-action: none;
-  touch-action: none;
-  transform: translate(0px, 0px);
+  margin: 0;
   font-size: 0.6rem;
   color: white;
+  -ms-touch-action: none;
+  touch-action: none;
+  -webkit-transition: none;
+  transition: none;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
 }
 
 .match-swatch {
@@ -287,7 +289,7 @@ body {
   transform: scale(1.2);
 }
 .active__base {
-  position: fixed;
+  position: absolute;
   bottom: 1rem;
   transform: scale(1.4);
   display: inline-block;
@@ -435,6 +437,9 @@ body {
   background-color: #fffdff;
   border-radius: 12px;
   box-shadow: 0 0 6px #d3cdc1;
+  border: none;
+  outline: none;
+  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 .home-buttons a:active,

@@ -38,13 +38,15 @@
 		@include absolute(bottom 1rem);
 		display: inline-block;
 		@include share(width, height, 8vh);
-		transition: none;
-		transform: translate(0, 0);
-		-ms-touch-action: none;
-		touch-action: none;
-		transform: translate(0px, 0px);
+		margin: 0;
 		font-size: 0.6rem;
 		color: white;
+		-ms-touch-action: none;
+		touch-action: none;
+		-webkit-transition: none;
+		transition: none;
+		-webkit-transform: translate(0, 0);
+		transform: translate(0, 0);
 	}
 }
 

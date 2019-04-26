@@ -9,7 +9,7 @@
 
 	&__base {
 		$size: 8vh;
-		@include fixed(bottom 1rem);
+		@include absolute(bottom 1rem);
 		transform: scale(1.4);
 		display: inline-block;
 		@include share(width, height, $size);

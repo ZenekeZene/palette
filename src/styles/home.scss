@@ -11,6 +11,7 @@
 	font-size: 0.7rem;
 	background: $paper;
 	box-shadow: 0 0 $gutter $shadow;
+	//-webkit-transition: all 1s ease-in-out;
 	transition: all 1s ease-in-out;
 
 	&.unveil {
@@ -145,6 +146,9 @@
 			background-color: $paper;
 			border-radius: $gutter;
 			box-shadow: 0 0 $gutter-1-2 $shadow;
+			border: none;
+			outline: none;
+			-webkit-transition: all 0.3s ease-in-out;
 			transition: all 0.3s ease-in-out;
 
 			&:active {
