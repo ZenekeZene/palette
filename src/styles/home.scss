@@ -1,5 +1,4 @@
 .home {
-  display: none!important;
   position: fixed;
   top: 0;
   left: 0;
@@ -13,6 +12,13 @@
   z-index: 10; //all the elements in homepage are between 10 and 20 z-index
   font-size: 0.7rem;
   background: $paper;
+  box-shadow: 0 0 $gutter $shadow;
+  transition: all 1s ease-in-out;
+
+  &.unveil {
+    left: -110vw;
+  }
+
 
   &-header {
 
