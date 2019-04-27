@@ -1,6 +1,10 @@
 const interact = require('interactjs');
 
-let activeNode, dropzones, callbackWhenDrop;
+let activeNode,
+	dropzones,
+	callbackWhenDropSuccess,
+	callbackWhenDropFailed,
+	callbackWhenActiveIsDragged;
 
 function offset(el) {
 	const rect = el.getBoundingClientRect();
@@ -8,6 +12,7 @@ function offset(el) {
 }
 
 function dragMoveListener(event) {
+	event.target.classList.remove('tutorial');
 	const target = event.target,
 		// keep the dragged position in the data-x/data-y attributes
 		x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -19,6 +24,7 @@ function dragMoveListener(event) {
 	// update the position attributes
 	target.setAttribute('data-x', x);
 	target.setAttribute('data-y', y);
+	callbackWhenActiveIsDragged();
 }
 
 function initDrag() {
@@ -104,7 +110,7 @@ function initDrag() {
 					dropZoneCurrent.el
 				);
 				isEntered = false;
-				setTimeout(callbackWhenDrop(dropZoneCurrent, index), 500);
+				setTimeout(callbackWhenDropSuccess(dropZoneCurrent, index), 500);
 			} else {
 				// Out
 				target.style.transform = 'translate(0, 0)';
@@ -114,6 +120,7 @@ function initDrag() {
 				// update the position attributes
 				target.setAttribute('data-x', 0);
 				target.setAttribute('data-y', 0);
+				callbackWhenDropFailed();
 			}
 		},
 	});
@@ -123,16 +130,22 @@ function setActiveNode(activeNodeEntry) {
 	activeNode = activeNodeEntry;
 }
 
-function init(activeNodeEntry, dropzonesEntry, callbackWhenDropEntry) {
+function init(
+	activeNodeEntry,
+	dropzonesEntry,
+	callbackWhenDropSuccessEntry,
+	callbackWhenDropFailedEntry,
+	callbackWhenActiveIsDraggedEntry
+) {
 	activeNode = activeNodeEntry;
 	dropzones = dropzonesEntry;
-	callbackWhenDrop = callbackWhenDropEntry;
+	callbackWhenDropSuccess = callbackWhenDropSuccessEntry;
+	callbackWhenDropFailed = callbackWhenDropFailedEntry;
+	callbackWhenActiveIsDragged = callbackWhenActiveIsDraggedEntry;
 	initDrag();
 }
 
-const API = {
+module.exports = {
 	init: init,
 	setActiveNode: setActiveNode,
 };
-
-module.exports = API;

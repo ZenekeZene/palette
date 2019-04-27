@@ -28,7 +28,6 @@ function init(numberOfItems) {
 	};
 }
 
-const API = {
+module.exports = {
 	init: init,
 };
-module.exports = API;

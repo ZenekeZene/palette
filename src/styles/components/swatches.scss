@@ -18,15 +18,6 @@
 	animation-fill-mode: backwards;
 	transition: all 0.5s ease-in-out;
 
-	&::before {
-		content: '';
-		@include absolute(top left);
-		@include share(width, height, 100%);
-		border-radius: 10vh;
-		border: solid 0;
-		transition: all 0.3s ease-in-out;
-	}
-
 	&__cmyk {
 		display: none;
 		@include absolute(bottom 1rem * -1);

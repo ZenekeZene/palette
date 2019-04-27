@@ -2,12 +2,18 @@ const _ = require('lodash');
 const drag = require('./drag');
 const grid = require('./grid');
 const color = require('./color');
+const persist = require('./persist');
 
-let app;
-let swatches, dropzones;
-let swatchNodes, dropzoneNodes;
-let activeColorObject;
-let contSuccess;
+let app,
+	baseActive,
+	swatches,
+	dropzones,
+	swatchNodes,
+	dropzoneNodes,
+	activeColorObject,
+	contSuccess,
+	level;
+let tutorialIsNotLaunched;
 
 let levelSuccessed, levelFailed, scoreToAument;
 
@@ -31,7 +37,24 @@ function updateActive(newActiveColorObject) {
 	drag.setActiveNode(activeColorObject.el);
 }
 
-function doMix(dropzone, index) {
+function doFailed() {
+	if (tutorialIsNotLaunched) {
+		for (let i = 0; i < dropzones.length; i++) {
+			dropzones[i].el.classList.remove('tutorial');
+			baseActive.classList.add('tutorial');
+		}
+	}
+}
+
+function doSuccess(dropzone, index) {
+	if (tutorialIsNotLaunched) {
+		for (let i = 0; i < dropzones.length; i++) {
+			dropzones[i].el.classList.remove('tutorial');
+			baseActive.classList.remove('tutorial');
+		}
+		tutorialIsNotLaunched = false;
+		persist.saveData('tutorialIsNotLaunched', false);
+	}
 	let cmyk = color.addColors(dropzone.cmyk, activeColorObject.cmyk);
 	// Actualizamos el Mix:
 	dropzone.setCMYK(cmyk);
@@ -115,16 +138,31 @@ function initDropzones(dropzoneNodes) {
 	return dropzones;
 }
 
-function playLevel(numRows, numCols) {
+function activeIsMoved() {
+	if (dropzones[0].el.classList.contains('tutorial')) return;
+	if (tutorialIsNotLaunched) {
+		baseActive.classList.remove('tutorial');
+		for (let i = 0; i < dropzones.length; i++) {
+			dropzones[i].el.classList.add('tutorial');
+		}
+	}
+}
+
+function playLevel(numItems) {
 	contSuccess = 0;
 	// Draw grid:
-	({ swatchNodes, dropzoneNodes } = grid.init(numRows, numCols));
+	({ swatchNodes, dropzoneNodes } = grid.init(numItems));
 
 	// Init Swatches, Dropzones and Active
 	swatches = initSwatches(swatchNodes);
 	dropzones = initDropzones(dropzoneNodes);
 	activeColorObject = createActiveObject();
-	drag.init(activeColorObject.el, dropzones, doMix);
+	baseActive = document.getElementById('activeBase');
+	tutorialIsNotLaunched = persist.getData('tutorialIsNotLaunched') !== 'false';
+	if (tutorialIsNotLaunched === true) {
+		baseActive.classList.add('tutorial');
+	}
+	drag.init(activeColorObject.el, dropzones, doSuccess, doFailed, activeIsMoved);
 	app.append(activeColorObject.el);
 }
 
@@ -135,9 +173,7 @@ function setup(appEntry, levelSuccessedEntry, levelFailedEntry, scoreToAumentEnt
 	scoreToAument = scoreToAumentEntry;
 }
 
-const API = {
+module.exports = {
 	setup: setup,
 	playLevel: playLevel,
 };
-
-module.exports = API;
