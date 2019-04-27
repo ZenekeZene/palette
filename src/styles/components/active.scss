@@ -1,15 +1,27 @@
 .active {
 	@include flex(inline, center, center);
 
+	&__swatch,
+	&__base {
+		@include absolute(bottom 1rem);
+	}
+
 	&__swatch {
-		position: absolute;
-		background: yellowgreen;
-		transform: scale(1.2);
+		display: inline-block;
+		@include share(width, height, 8vh);
+		margin: 0;
+		font-size: 0.6rem;
+		color: white;
+		-ms-touch-action: none;
+		touch-action: none;
+		-webkit-transition: none;
+		transition: none;
+		-webkit-transform: translate(0, 0);
+		transform: translate(0, 0);
 	}
 
 	&__base {
 		$size: 8vh;
-		@include absolute(bottom 1rem);
 		transform: scale(1.4);
 		display: inline-block;
 		@include share(width, height, $size);
@@ -26,5 +38,4 @@
 	$size: calc((30vh - 48px) / 3);
 	@include share(width, height, $size);
 	transform: scale(1);
-	transition: transform 0.5s ease-in-out;
 }
