@@ -24,21 +24,6 @@
 		font-size: 0.6rem;
 		color: black;
 	}
-
-	&.drag-drop {
-		@include absolute(bottom 1rem);
-		display: inline-block;
-		@include share(width, height, 8vh);
-		margin: 0;
-		font-size: 0.6rem;
-		color: white;
-		-ms-touch-action: none;
-		touch-action: none;
-		-webkit-transition: none;
-		transition: none;
-		-webkit-transform: translate(0, 0);
-		transform: translate(0, 0);
-	}
 }
 
 .match-swatch {

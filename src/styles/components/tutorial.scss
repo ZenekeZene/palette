@@ -1,63 +1,63 @@
 .active__base.tutorial {
-  &::before {
-    content: "";
-    position: absolute;
-    border: 1px solid $cool;
-    border-radius: 50%;
-    animation: active-tutorial  1.5s ease-in-out infinite;
-  }
+	&::before {
+		content: '';
+		position: absolute;
+		border: 1px solid $cool;
+		border-radius: 50%;
+		animation: active-tutorial 1.5s ease-in-out infinite;
+	}
 }
 
 @keyframes active-tutorial {
 	0% {
+		top: -$gutter;
+		left: -$gutter;
 		width: 8vh;
-    height: 8vh;
-    top: -$gutter;
-    left: -$gutter;
-    opacity: 0;
+		height: 8vh;
+		opacity: 0;
 	}
 
-  50% {
-    opacity: 1;
-  }
+	50% {
+		opacity: 1;
+	}
 
 	100% {
-  	width: 12vh;
-    height: 12vh;
-    top: calc(-2vh - 12px);
-    left: calc(-2vh - 12px);
-    opacity: 0;
+		top: calc(-2vh - 12px);
+		left: calc(-2vh - 12px);
+		width: 12vh;
+		height: 12vh;
+		opacity: 0;
 	}
 }
 
 .mixer .swatch.tutorial {
-  &::before {
-    content: "";
-    position: absolute;
-    border: 1.5px solid $cool;
-    border-radius: 50%;
-    animation: swatch-tutorial  1.5s ease-in-out infinite;
-  }
+	&::before {
+		content: '';
+		position: absolute;
+		border: 1.5px solid $cool;
+		border-radius: 50%;
+		animation: swatch-tutorial 1.5s ease-in-out infinite;
+	}
 }
 
 @keyframes swatch-tutorial {
 	0% {
+		top: -3vh;
+		left: -3vh;
 		width: 13vh;
-    height: 13vh;
-    top: -3vh;
-    left: -3vh;
-    opacity: 0;
+		height: 13vh;
+		opacity: 0;
 	}
 
-  50% {
-    opacity: 1;
-  }
+	50% {
+		opacity: 1;
+	}
 
 	100% {
-  	width: 7vh;
-    height: 7vh;
-    top: 0;
-    left: 0;
-    opacity: 0;
+		top: 0;
+		left: 0;
+		width: 7vh;
+		height: 7vh;
+		opacity: 0;
 	}
 }
