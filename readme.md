@@ -17,7 +17,7 @@ Se encuentra en pleno proceso de desarrollo, utilizando únicamente tecnologías
 - [x] Cambiar el grid de Gridlayout a Flexbox
 - [x] Dar feedback del error
 - [ ] Relacionado con tutorial y curva de aprendizaje: Modificar el sistema de niveles, para que el primer nivel tenga un solo círculo (aprender a arrastrar objetos sin frustraciones), el segundo con dos (ir cogiendo poco a poco la mecánica de colores), el tercero tres... y así hasta el nivel 15
-- [ ] Explicativo al principio (flechas, tutorial...) -> Pintada, el funcionamiento es el siguiente: La primera vez que se usa el juego, el componente .active__base tiene añadida la clase .tutorial. En el momento en el que se empieza a arrastrar el color activo, esta clase desaparece y todos los mixers reciben la clase .tutorial. En el momento en el que se suelta el primer activo sobre un mixer, desaparece la clase .tutorial de los mixers y no vuelve a aparecer en ningún componente.
+- [x] Explicativo al principio (flechas, tutorial...) -> Pintada, el funcionamiento es el siguiente: La primera vez que se usa el juego, el componente .active__base tiene añadida la clase .tutorial. En el momento en el que se empieza a arrastrar el color activo, esta clase desaparece y todos los mixers reciben la clase .tutorial. En el momento en el que se suelta el primer activo sobre un mixer, desaparece la clase .tutorial de los mixers y no vuelve a aparecer en ningún componente.
 - [ ] Música ambient / chill / Mobi / ([Música procedural](https://github.com/Tonejs/Tone.js/))
 - [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel
 - [ ] Home -> Pintada, falta funcionalidad botón (clase .unveil en .home)
