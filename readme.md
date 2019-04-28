@@ -16,13 +16,13 @@ Se encuentra en pleno proceso de desarrollo, utilizando únicamente tecnologías
 - [x] Persistir record (**Nota:** tambien estamos persistiendo el nivel actual)
 - [x] Cambiar el grid de Gridlayout a Flexbox
 - [x] Dar feedback del error
-- [ ] Relacionado con tutorial y curva de aprendizaje: Modificar el sistema de niveles, para que el primer nivel tenga un solo círculo (aprender a arrastrar objetos sin frustraciones), el segundo con dos (ir cogiendo poco a poco la mecánica de colores), el tercero tres... y así hasta el nivel 15
-- [ ] Explicativo al principio (flechas, tutorial...) -> Pintada, el funcionamiento es el siguiente: La primera vez que se usa el juego, el componente .active__base tiene añadida la clase .tutorial. En el momento en el que se empieza a arrastrar el color activo, esta clase desaparece y todos los mixers reciben la clase .tutorial. En el momento en el que se suelta el primer activo sobre un mixer, desaparece la clase .tutorial de los mixers y no vuelve a aparecer en ningún componente.
+- [x] Relacionado con tutorial y curva de aprendizaje: Modificar el sistema de niveles, para que el primer nivel tenga un solo círculo (aprender a arrastrar objetos sin frustraciones), el segundo con dos (ir cogiendo poco a poco la mecánica de colores), el tercero tres... y así hasta el nivel 15
+- [ ] Explicativo al principio (flechas, tutorial...) -> FALTA un texto inicial que explique la mezcla de colores
 - [ ] Música ambient / chill / Mobi / ([Música procedural](https://github.com/Tonejs/Tone.js/))
 - [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel
 - [ ] Home -> Pintada, falta funcionalidad en botones compartir, sonido y about
 - [ ] Settings
-- [ ] Recompensa visual entre niveles (¿Quotes de artistas?)-> Pintada y creado quotes.json, un archivo con 40 frases para alimentarlas.
+- [ ] Recompensa visual entre niveles (¿Quotes de artistas?)-> Pintada y creado quotes.json, un archivo con 40 frases para alimentarlas. -> FALTA la función que lo alimenta
 - [ ] Mínimos de luminosidad para mixers (15) y para swatches (25)
 - [ ] Mínimo de diferencial en la generación del mixer (de 0 a 0.9 ?)
 - [ ] Limitar el número máximo de veces (10) que se ejecuta la condicional de diferencia de colores, para evitar el bug de bucle infinito
