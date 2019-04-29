@@ -15,7 +15,7 @@ const homePage = document.getElementById('homePage');
 const homeScore = document.getElementById('homeScore');
 const homeLevel = document.getElementById('homeLevel');
 
-const levels = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
 let contSuccessTotal = persist.getData('contSuccessTotal') || 0;
 
