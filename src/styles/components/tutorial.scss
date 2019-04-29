@@ -61,3 +61,144 @@
     opacity: 0;
 	}
 }
+
+.tutorial {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  padding: $gutter-2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $paper;
+  box-shadow: 0 0 $gutter-1-2 $shadow;
+
+  &-text {
+    color: $cool;
+    font-size: 0.9rem;
+  }
+
+  &-graphic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: global-tutorial 6s ease-in-out infinite both;
+
+    div {
+      height: 12vh;
+      width: 12vh;
+      border-radius: 50%;
+    }
+
+    &__active {
+      position: relative;
+      margin-bottom: 7vh;
+      background-color: rgb(0,133,196);
+      animation: drop-tutorial 6s ease-in-out infinite both;
+    }
+
+    &__mixer {
+      background-color: rgb(253,208,0);
+      margin-bottom: 7vh;
+      animation: color-tutorial 6s ease-in-out infinite both;
+    }
+
+    &__swatch {
+      position: relative;
+      margin-bottom: 12vh;
+      background-color: rgb(57,102,42);
+
+      &::before {
+        content: "";
+        position: absolute;
+        height: 1px;
+        width: 60vw;
+        left: calc(6vh - 30vw);
+        bottom: -6vh;
+        background: $shadow;
+      }
+    }
+  }
+
+  &-next {
+    position: relative;
+    font-size: 0.5rem;
+    color: $cool;
+
+    &::before {
+      position: absolute;
+      top: 1px;
+      right: 0;
+      width: $gutter;
+      height: $gutter;
+      content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjQgMjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojNTNDNkQ5O30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTguMiwyMi44Yy0wLjYsMC0xLjMtMC4yLTEuOC0wLjdjLTEtMS0xLTIuNiwwLTMuNWw2LjctNi43TDYuNSw1LjFjLTEtMS0xLTIuNiwwLTMuNWMxLTEsMi42LTEsMy41LDBsOC41LDguNQoJYzAuNSwwLjUsMC43LDEuMSwwLjcsMS44cy0wLjMsMS4zLTAuNywxLjhMMTAsMjIuMUM5LjUsMjIuNiw4LjksMjIuOCw4LjIsMjIuOHoiLz4KPC9zdmc+');
+    }
+  }
+}
+
+@keyframes global-tutorial {
+
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes drop-tutorial {
+
+  0% {
+		bottom: 0;
+    opacity: 1;
+	}
+
+  30% {
+		bottom: 0;
+    opacity: 1;
+	}
+
+  50% {
+    bottom: 19vh;
+    opacity: 1;
+  }
+
+  75% {
+    bottom: 19vh;
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 19vh;
+    opacity: 0;
+  }
+}
+
+@keyframes color-tutorial {
+
+	0% {
+		background-color: rgb(253,208,0);
+	}
+
+  50% {
+    background-color: rgb(253,208,0);
+  }
+
+	51% {
+  	background-color: rgb(57,102,42);
+	}
+
+  100% {
+    background-color: rgb(57,102,42);
+  }
+}
