@@ -438,6 +438,7 @@ body {
   animation: drop-tutorial 4s ease-in-out infinite both;
 }
 .tutorial-graphic__mixer {
+  position: relative;
   background-color: #fdd000;
   margin-bottom: 7vh;
   animation: color-tutorial 4s ease-in-out infinite both;
@@ -474,7 +475,7 @@ body {
 
 @keyframes drop-tutorial {
   0% {
-    bottom: 0;
+    bottom: -2vh;
     opacity: 0;
   }
   10% {
@@ -500,10 +501,12 @@ body {
 }
 @keyframes color-tutorial {
   0% {
+    bottom: -2vh;
     background-color: #fdd000;
     opacity: 0;
   }
   10% {
+    bottom: 0;
     background-color: #fdd000;
     opacity: 1;
   }
