@@ -94,13 +94,13 @@
       position: relative;
       margin-bottom: 7vh;
       background-color: rgb(0,133,196);
-      animation: drop-tutorial 8s ease-in-out infinite both;
+      animation: drop-tutorial 4s ease-in-out infinite both;
     }
 
     &__mixer {
       background-color: rgb(253,208,0);
       margin-bottom: 7vh;
-      animation: color-tutorial 8s ease-in-out infinite both;
+      animation: color-tutorial 4s ease-in-out infinite both;
     }
 
     &__swatch {
@@ -122,6 +122,7 @@
 
   &-next {
     position: relative;
+    text-decoration: underline;
     padding: 0 $gutter-2;
     font-size: 0.5rem;
     color: $cool;
@@ -150,17 +151,17 @@
     opacity: 1;
   }
 
-  30% {
+  20% {
 		bottom: 0;
     opacity: 1;
 	}
 
-  50% {
+  45% {
     bottom: 19vh;
     opacity: 1;
   }
 
-  75% {
+  65% {
     bottom: 19vh;
     opacity: 0;
   }
@@ -183,17 +184,17 @@
     opacity: 1;
   }
 
-  50% {
+  45% {
     background-color: rgb(253,208,0);
     opacity: 1;
   }
 
-	51% {
+	46% {
   	background-color: rgb(57,102,42);
     opacity: 1;
 	}
 
-  90% {
+  80% {
     background-color: rgb(57,102,42);
     opacity: 1;
   }

@@ -435,12 +435,12 @@ body {
   position: relative;
   margin-bottom: 7vh;
   background-color: #0085c4;
-  animation: drop-tutorial 8s ease-in-out infinite both;
+  animation: drop-tutorial 4s ease-in-out infinite both;
 }
 .tutorial-graphic__mixer {
   background-color: #fdd000;
   margin-bottom: 7vh;
-  animation: color-tutorial 8s ease-in-out infinite both;
+  animation: color-tutorial 4s ease-in-out infinite both;
 }
 .tutorial-graphic__swatch {
   position: relative;
@@ -458,6 +458,7 @@ body {
 }
 .tutorial-next {
   position: relative;
+  text-decoration: underline;
   padding: 0 24px;
   font-size: 0.5rem;
   color: #53c6d9;
@@ -480,15 +481,15 @@ body {
     bottom: 0;
     opacity: 1;
   }
-  30% {
+  20% {
     bottom: 0;
     opacity: 1;
   }
-  50% {
+  45% {
     bottom: 19vh;
     opacity: 1;
   }
-  75% {
+  65% {
     bottom: 19vh;
     opacity: 0;
   }
@@ -506,15 +507,15 @@ body {
     background-color: #fdd000;
     opacity: 1;
   }
-  50% {
+  45% {
     background-color: #fdd000;
     opacity: 1;
   }
-  51% {
+  46% {
     background-color: #39662a;
     opacity: 1;
   }
-  90% {
+  80% {
     background-color: #39662a;
     opacity: 1;
   }
