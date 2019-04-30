@@ -14,6 +14,7 @@ const backButton = document.getElementById('backButton');
 const homePage = document.getElementById('homePage');
 const homeScore = document.getElementById('homeScore');
 const homeLevel = document.getElementById('homeLevel');
+const quote = document.getElementById('quote');
 
 const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
@@ -47,6 +48,8 @@ function levelSuccessed() {
 	nextButton.classList.add('fadeIn', 'animated');
 	replayButton.classList.add('hidden');
 	levelCurrent++;
+	quote.classList.remove('hiden');
+	quote.classList.add('fadeIn', 'animated');
 	persist.saveData('levelCurrent', levelCurrent);
 }
 
