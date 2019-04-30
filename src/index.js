@@ -14,6 +14,7 @@ const backButton = document.getElementById('backButton');
 const homePage = document.getElementById('homePage');
 const homeScore = document.getElementById('homeScore');
 const homeLevel = document.getElementById('homeLevel');
+const screenTutorial = document.getElementById('screenTutorial');
 const quote = document.getElementById('quote');
 
 const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -32,6 +33,10 @@ backButton.addEventListener('click', function() {
 	app.classList.remove('fadeIn');
 	homeScore.textContent = contSuccessTotal;
 	homeLevel.textContent = levelCurrent + 1;
+});
+
+screenTutorial.addEventListener('click', function() {
+	screenTutorial.classList.add('fadeOut', 'animated');
 });
 
 function scoreToAument() {
