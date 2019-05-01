@@ -1,5 +1,6 @@
 .control {
 	@include absolute(top left);
+	z-index: 2;
 	@include flex(flex, center, center);
 	order: 2;
 	width: 100vw;

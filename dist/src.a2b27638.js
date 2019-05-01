@@ -26525,7 +26525,7 @@ win.init = init;
 },{}],"src/lib/drag.js":[function(require,module,exports) {
 var interact = require('interactjs');
 
-var activeNode, dropzones, callbackWhenDrop;
+var activeNode, dropzones, callbackWhenDropSuccess, callbackWhenDropFailed, callbackWhenActiveIsDragged;
 
 function offset(el) {
   var rect = el.getBoundingClientRect();
@@ -26536,6 +26536,7 @@ function offset(el) {
 }
 
 function dragMoveListener(event) {
+  event.target.classList.remove('tutorial');
   var target = event.target,
       // keep the dragged position in the data-x/data-y attributes
   x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -26546,6 +26547,7 @@ function dragMoveListener(event) {
 
   target.setAttribute('data-x', x);
   target.setAttribute('data-y', y);
+  callbackWhenActiveIsDragged();
 }
 
 function initDrag() {
@@ -26630,7 +26632,7 @@ function initDrag() {
         interact(event.target).unset();
         var index = [].indexOf.call(dropZoneCurrent.el.parentNode.children, dropZoneCurrent.el);
         isEntered = false;
-        setTimeout(callbackWhenDrop(dropZoneCurrent, index), 500);
+        setTimeout(callbackWhenDropSuccess(dropZoneCurrent, index), 500);
       } else {
         // Out
         target.style.transform = 'translate(0, 0)';
@@ -26638,6 +26640,7 @@ function initDrag() {
 
         target.setAttribute('data-x', 0);
         target.setAttribute('data-y', 0);
+        callbackWhenDropFailed();
       }
     }
   });
@@ -26647,18 +26650,19 @@ function setActiveNode(activeNodeEntry) {
   activeNode = activeNodeEntry;
 }
 
-function init(activeNodeEntry, dropzonesEntry, callbackWhenDropEntry) {
+function init(activeNodeEntry, dropzonesEntry, callbackWhenDropSuccessEntry, callbackWhenDropFailedEntry, callbackWhenActiveIsDraggedEntry) {
   activeNode = activeNodeEntry;
   dropzones = dropzonesEntry;
-  callbackWhenDrop = callbackWhenDropEntry;
+  callbackWhenDropSuccess = callbackWhenDropSuccessEntry;
+  callbackWhenDropFailed = callbackWhenDropFailedEntry;
+  callbackWhenActiveIsDragged = callbackWhenActiveIsDraggedEntry;
   initDrag();
 }
 
-var API = {
+module.exports = {
   init: init,
   setActiveNode: setActiveNode
 };
-module.exports = API;
 },{"interactjs":"node_modules/interactjs/dist/interact.js"}],"src/lib/grid.js":[function(require,module,exports) {
 var swatchesGrid = document.getElementById('swatchesGrid');
 var mixesGrid = document.getElementById('mixesGrid');
@@ -26692,10 +26696,9 @@ function init(numberOfItems) {
   };
 }
 
-var API = {
+module.exports = {
   init: init
 };
-module.exports = API;
 },{}],"src/lib/color.js":[function(require,module,exports) {
 var brightnessCoef = 20;
 var swatchesHistorical = [];
@@ -26853,6 +26856,19 @@ var API = {
   getRandomInterval: getRandomInterval
 };
 module.exports = API;
+},{}],"src/lib/persist.js":[function(require,module,exports) {
+function getData(key) {
+  return localStorage.getItem(key);
+}
+
+function saveData(key, value) {
+  localStorage.setItem(key, value);
+}
+
+module.exports = {
+  saveData: saveData,
+  getData: getData
+};
 },{}],"src/lib/game.js":[function(require,module,exports) {
 var _ = require('lodash');
 
@@ -26862,11 +26878,10 @@ var grid = require('./grid');
 
 var color = require('./color');
 
-var app;
-var swatches, dropzones;
-var swatchNodes, dropzoneNodes;
-var activeColorObject;
-var contSuccess;
+var persist = require('./persist');
+
+var app, baseActive, swatches, dropzones, swatchNodes, dropzoneNodes, activeColorObject, contSuccess, level;
+var tutorialIsNotLaunched;
 var levelSuccessed, levelFailed, scoreToAument;
 
 function checkSuccess(index) {
@@ -26889,7 +26904,26 @@ function updateActive(newActiveColorObject) {
   drag.setActiveNode(activeColorObject.el);
 }
 
-function doMix(dropzone, index) {
+function doFailed() {
+  if (tutorialIsNotLaunched) {
+    for (var i = 0; i < dropzones.length; i++) {
+      dropzones[i].el.classList.remove('tutorial');
+      baseActive.classList.add('tutorial');
+    }
+  }
+}
+
+function doSuccess(dropzone, index) {
+  if (tutorialIsNotLaunched) {
+    for (var i = 0; i < dropzones.length; i++) {
+      dropzones[i].el.classList.remove('tutorial');
+      baseActive.classList.remove('tutorial');
+    }
+
+    tutorialIsNotLaunched = false;
+    persist.saveData('tutorialIsNotLaunched', false);
+  }
+
   var cmyk = color.addColors(dropzone.cmyk, activeColorObject.cmyk); // Actualizamos el Mix:
 
   dropzone.setCMYK(cmyk); // Hacemos el checkeo en los swatches en busca de una coincidencia con nuestro active + dropzone
@@ -26981,10 +27015,22 @@ function initDropzones(dropzoneNodes) {
   return dropzones;
 }
 
-function playLevel(numRows, numCols) {
+function activeIsMoved() {
+  if (dropzones[0].el.classList.contains('tutorial')) return;
+
+  if (tutorialIsNotLaunched) {
+    baseActive.classList.remove('tutorial');
+
+    for (var i = 0; i < dropzones.length; i++) {
+      dropzones[i].el.classList.add('tutorial');
+    }
+  }
+}
+
+function playLevel(numItems) {
   contSuccess = 0; // Draw grid:
 
-  var _grid$init = grid.init(numRows, numCols);
+  var _grid$init = grid.init(numItems);
 
   swatchNodes = _grid$init.swatchNodes;
   dropzoneNodes = _grid$init.dropzoneNodes;
@@ -26992,7 +27038,14 @@ function playLevel(numRows, numCols) {
   swatches = initSwatches(swatchNodes);
   dropzones = initDropzones(dropzoneNodes);
   activeColorObject = createActiveObject();
-  drag.init(activeColorObject.el, dropzones, doMix);
+  baseActive = document.getElementById('activeBase');
+  tutorialIsNotLaunched = persist.getData('tutorialIsNotLaunched') !== 'false';
+
+  if (tutorialIsNotLaunched === true) {
+    baseActive.classList.add('tutorial');
+  }
+
+  drag.init(activeColorObject.el, dropzones, doSuccess, doFailed, activeIsMoved);
   app.append(activeColorObject.el);
 }
 
@@ -27003,26 +27056,11 @@ function setup(appEntry, levelSuccessedEntry, levelFailedEntry, scoreToAumentEnt
   scoreToAument = scoreToAumentEntry;
 }
 
-var API = {
+module.exports = {
   setup: setup,
   playLevel: playLevel
 };
-module.exports = API;
-},{"lodash":"node_modules/lodash/lodash.js","./drag":"src/lib/drag.js","./grid":"src/lib/grid.js","./color":"src/lib/color.js"}],"src/lib/persist.js":[function(require,module,exports) {
-function getData(key) {
-  return localStorage.getItem(key);
-}
-
-function saveData(key, value) {
-  localStorage.setItem(key, value);
-}
-
-var API = {
-  saveData: saveData,
-  getData: getData
-};
-module.exports = API;
-},{}],"src/index.js":[function(require,module,exports) {
+},{"lodash":"node_modules/lodash/lodash.js","./drag":"src/lib/drag.js","./grid":"src/lib/grid.js","./color":"src/lib/color.js","./persist":"src/lib/persist.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./styles/styles.scss");
@@ -27154,7 +27192,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50872" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60042" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
