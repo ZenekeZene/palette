@@ -35,7 +35,7 @@
 				<button class="home-buttons__about"></button>
 			</nav>
 		</div>
-		<div id="app" class="game" style="opacity: 0;">
+		<div id="app" class="game animated hidden">
 			<header class="header">
 				<p id="backButton" class="header__back"></p>
 				<p class="header__level">LEVEL <span id="numLevels"></span></p>
@@ -47,20 +47,21 @@
 			</main>
 			<div id="activeBase" class="active__base"></div>
 		</div>
-		<aside id="screenTutorial" class="tutorial">
-			<div class="tutorial-text">
+		<aside id="screenTutorial" class="screentutorial hidden animated">
+			<div class="screentutorial-text">
 				MIX THE COLORS TO MATCH THE SAMPLES
 			</div>
-			<div class="tutorial-graphic">
-				<div class="tutorial-graphic__swatch"></div>
-				<div class="tutorial-graphic__mixer"></div>
-				<div class="tutorial-graphic__active"></div>
+			<div class="screentutorial-graphic">
+				<div class="screentutorial-graphic__swatch"></div>
+				<div class="screentutorial-graphic__mixer"></div>
+				<div class="screentutorial-graphic__active"></div>
 			</div>
-			<a class="tutorial-next">That's all! Shall we get started?</a>
+			<a class="screentutorial-next">That's all! Shall we get started?</a>
 		</aside>
 		<aside id="control" class="control hidden">
 			<div id="quote" class="quote hidden">
-				<p>Creativity takes courage<span>Henry Matisse</span></p>
+				<p id="quotePhrase">Creativity takes courage</p>
+				<span id="quoteAuthor">Henry Matisse</span>
 			</div>
 			<button id="nextButton">
 				<i class="fa fa-play" aria-hidden="true"></i>

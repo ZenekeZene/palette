@@ -1,4 +1,6 @@
 #app {
+	position: relative;
+	z-index: 2;
 	@include flex(flex, start, center);
 	flex-direction: column;
 	height: 100%;
