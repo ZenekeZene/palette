@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "start": "parcel index.html --open",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "clean": "rm -Rf node_modules && rm package-lock.json && npm install"
   },
   "dependencies": {
     "animate.css": "^3.7.0",

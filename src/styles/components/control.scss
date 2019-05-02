@@ -22,3 +22,25 @@
 		}
 	}
 }
+
+.replay {
+	position: fixed;
+  top: 0;
+  left: 0;
+	height: calc(50vh - 50px);
+	width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+	text-align: center;
+	font-size: 0.5rem;
+	color: $shadow;
+
+	span {
+		display: block;
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: $cool;
+	}
+
+}

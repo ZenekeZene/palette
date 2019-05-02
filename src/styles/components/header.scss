@@ -5,7 +5,7 @@
 	width: 100vw;
 	height: $gutter-4;
 
-	& > p {
+	& > p, & > a {
 		position: relative;
 		justify-content: center;
 		padding: $gutter;
@@ -69,7 +69,7 @@
 		color: $paper;
 		background-color: $cool;
 		border-radius: $gutter-1-2;
-	
+
 		&::before {
 		  position: absolute;
 		  top: $gutter-1-2;
