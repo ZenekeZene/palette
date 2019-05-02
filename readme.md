@@ -33,6 +33,7 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
         se pasa de nivel
 -   [ ] Home -> Pintada, falta funcionalidad en botones compartir, sonido y about
 -   [ ] Settings
+-   [ ] Visualizar progresión del juego -> Está pintado, con la progresión pintada mediante css. Únicamente sería necesario añadir las clases .level-1, .level-2... al elemento .progression, pero tal vez quieras refactorizar en js el funcionamiento (lo he adelantado así para ahorrarte trabajo por si acaso)
 -   [x] Recompensa visual entre niveles (¿Quotes de artistas?)-> Pintada y creado quotes.json, un
         archivo con 40 frases para alimentarlas. -> FALTA la función que lo alimenta
 -   [ ] Mínimos de luminosidad para mixers (15) y para swatches (25)
