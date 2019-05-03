@@ -1,6 +1,6 @@
 
 .progression {
-	@include fixed(top left);
+	@include fixed(bottom left);
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
@@ -48,7 +48,7 @@
 			.progression__text {
 				span:after {
 					$porc: (100/15) * $i;
-					content: '#{$porc}%';
+					content: '#{round($porc)}%';
 				}
 			}
 		}

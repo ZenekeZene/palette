@@ -28,6 +28,7 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
         clase desaparece y todos los mixers reciben la clase .tutorial. En el momento en el que se
         suelta el primer activo sobre un mixer, desaparece la clase .tutorial de los mixers y no
         vuelve a aparecer en ningún componente.
+-   [ ] Refactor CSS variables en progression for.
 -   [ ] Música ambient / chill / Mobi / ([Música procedural](https://github.com/Tonejs/Tone.js/))
 -   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando
         se pasa de nivel
