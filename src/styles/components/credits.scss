@@ -1,0 +1,64 @@
+.credits {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  padding: $gutter-2;
+  z-index: 20;
+  font-size: 0.6rem;
+  background: $paper;
+
+  h2,p {
+    font-size: 0.5rem;
+  }
+
+  h2 {
+    padding-top: $gutter-2;
+    font-weight: 700;
+		color: $cool;
+		line-height: 1.2rem;
+  }
+
+  p {
+    margin-bottom: $gutter-1-2;
+		color: $shadow;
+  }
+
+  &-title__logo {
+    margin: $gutter-2 0;
+  }
+
+  &-container {
+    /* Starting position */
+  -moz-transform:translateY(100%);
+  -webkit-transform:translateY(100%);
+  transform:translateY(100%);
+  /* Apply animation to this element */
+  -moz-animation: scroll-up 20s linear infinite;
+  -webkit-animation: scroll-up 20s linear infinite;
+  animation: scroll-up 20s linear infinite;
+  }
+}
+
+
+@-moz-keyframes scroll-up {
+ 0%   { -moz-transform: translateY(100%); }
+ 100% { -moz-transform: translateY(-105%); }
+}
+@-webkit-keyframes scroll-up {
+ 0%   { -webkit-transform: translateY(100%); }
+ 100% { -webkit-transform: translateY(-105%); }
+}
+@keyframes scroll-up {
+ 0%   {
+ -moz-transform: translateY(100%); /* Browser bug fix */
+ -webkit-transform: translateY(100%); /* Browser bug fix */
+ transform: translateY(100%);
+ }
+ 100% {
+ -moz-transform: translateY(-105%); /* Browser bug fix */
+ -webkit-transform: translateY(-105%); /* Browser bug fix */
+ transform: translateY(-105%);
+ }
+}
