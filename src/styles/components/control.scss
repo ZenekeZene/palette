@@ -24,9 +24,7 @@
 }
 
 .replay {
-	position: fixed;
-  top: 0;
-  left: 0;
+	@include fixed(top left);
 	height: calc(50vh - 50px);
 	width: 100vw;
   display: flex;
