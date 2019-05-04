@@ -30,12 +30,26 @@
 			</header>
 			<nav class="home-buttons">
 				<button id="playButton" class="home-buttons__play"></button>
-				<button class="home-buttons__rate"></button>
+				<button class="home-buttons__reset"></button>
 				<button class="home-buttons__sound"></button>
 				<button class="home-buttons__about"></button>
 			</nav>
 		</div>
-		<div class="credits hidden">
+		<aside class="reset">
+			<main class="notification">
+				<h2 class="notification__title">
+					Reset game
+				</h2>
+				<p class="notification__text">
+					Are you sure you want to reset your game? All your progression will be deleted.
+				</p>
+				<div class="notification__button">
+					<button class="notification__button--refuse"></button>
+					<button class="notification__button--acept"></button>
+				</div>
+			</main>
+		</aside>
+		<aside class="credits hidden">
 			<header class="header">
 				<p class="header__back"></p>
 			</header>
@@ -61,7 +75,7 @@
 					<p>Yuka</p>
 				</main>
 			</div>
-		</div>
+		</aside>
 		<div id="app" class="game animated hidden">
 			<header class="header">
 				<p id="backButton" class="header__back"></p>
