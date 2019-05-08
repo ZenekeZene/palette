@@ -134,3 +134,13 @@ numLevels.textContent = levelCurrent + 1;
 score.textContent = contSuccessTotal;
 
 game.playLevel(levels[levelCurrent]);
+
+// Hack for window height with navigation bars
+
+let vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+window.addEventListener('resize', () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+});

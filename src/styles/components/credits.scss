@@ -2,7 +2,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
   padding: $gutter-2 $gutter-4;
   z-index: 20;
