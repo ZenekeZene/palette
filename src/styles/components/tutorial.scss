@@ -113,21 +113,42 @@
 			margin-bottom: 7vh;
 			background-color: rgb(253, 208, 0);
 			animation: color-tutorial 6s ease-in-out infinite both;
+
+			&::after {
+				content:"MIXER";
+				position: absolute;
+				top: 4.3vh;
+				left: 13vh;
+				font-size: 0.5rem;
+				font-weight: 700;
+				color: $shadow;
+			}
 		}
 
 		&__swatch {
 			position: relative;
 			margin-bottom: 12vh;
 			background-color: rgb(57, 102, 42);
+			animation: sample-tutorial 6s ease-in-out infinite both;
 
 			&::before {
 				content: '';
 				position: absolute;
-				bottom: -6vh;
-				left: calc(6vh - 30vw);
-				width: 60vw;
-				height: 1px;
+				bottom: -12vh;
+				left: calc(6vh - 2px);
+				width: 4px;
+				height: 12vh;
 				background: $shadow;
+			}
+
+			&::after {
+				content:"SAMPLE";
+				position: absolute;
+				top: 4.3vh;
+				left: 13vh;
+				font-size: 0.5rem;
+				font-weight: 700;
+				color: $shadow;
 			}
 		}
 	}
@@ -236,6 +257,24 @@
 
 	100% {
 		background-color: rgb(57, 102, 42);
+		opacity: 0;
+	}
+}
+
+@keyframes sample-tutorial {
+	0% {
+		opacity: 0;
+	}
+
+	15% {
+		opacity: 1;
+	}
+
+	80% {
+		opacity: 1;
+	}
+
+	100% {
 		opacity: 0;
 	}
 }

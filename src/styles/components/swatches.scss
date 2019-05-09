@@ -5,7 +5,7 @@
 	width: calc(35vh + 60px);
 	height: 35vh;
 	padding: 4vh 0;
-	border-bottom: solid 1px $shadow;
+	border-bottom: solid 2px $paper;
 }
 
 .swatch {
@@ -14,6 +14,7 @@
 	margin: $gutter-1-2;
 	background: coral;
 	border-radius: 50%;
+	z-index: 14;
 	animation: swatch-appear 1s cubic-bezier(0.5, 0, 0.53, 1.49) 0s 1;
 	animation-fill-mode: backwards;
 	transition: all 0.5s ease-in-out;
@@ -29,6 +30,29 @@
 .match-swatch {
 	background: $paper !important;
 	box-shadow: 0 0 $gutter-1-2 $shadow !important;
+}
+
+
+#swatchesGrid {
+	.swatch {
+		position: relative;
+
+		&::after {
+			content:"";
+			height: calc(35vh - 4px);
+			width: 2px;
+			background-color: $shadow-light;
+			position: absolute;
+			bottom: calc(2px - 35vh);
+			left: calc(50% - 1px);
+			z-index: 11;
+			animation: show-line 0.5s 1s linear both;
+		}
+	}
+
+	.wasCorrect::after, .match-swatch::after {
+			visibility: hidden;
+	}
 }
 
 .wasCorrect {
@@ -55,5 +79,23 @@
 	}
 	100% {
 		transform: scale(1);
+	}
+}
+
+@keyframes show-line {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes hide-line {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
