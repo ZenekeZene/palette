@@ -39,11 +39,11 @@
 
 		&::after {
 			content:"";
-			height: calc(35vh - 4px);
+			height: 35vh;
 			width: 2px;
 			background-color: $shadow-light;
 			position: absolute;
-			bottom: calc(2px - 35vh);
+			bottom: 35vh;
 			left: calc(50% - 1px);
 			z-index: 11;
 			animation: show-line 0.5s 1s linear both;
