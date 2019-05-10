@@ -43,7 +43,7 @@
 			width: 2px;
 			background-color: $shadow-light;
 			position: absolute;
-			bottom: 35vh;
+			bottom: -35vh;
 			left: calc(50% - 1px);
 			z-index: 11;
 			animation: show-line 0.5s 1s linear both;
