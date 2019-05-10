@@ -20,6 +20,8 @@ const quotePhrase = document.getElementById('quotePhrase');
 const quoteAuthor = document.getElementById('quoteAuthor');
 const quote = document.getElementById('quote');
 const quotes = require('./lib/quotes.json');
+const replayText = document.getElementById('replayText');
+
 var quotesArray = [];
 for (var i in quotes) {
 	quotesArray.push([i, quotes[i]]);
@@ -77,9 +79,9 @@ function levelSuccessed() {
 	nextButton.classList.add('fadeIn', 'animated');
 	replayButton.classList.add('hidden');
 	levelCurrent++;
+	replayText.classList.add('hidden');
 	quote.classList.remove('hidden');
 	quote.classList.add('fadeIn', 'animated');
-	quote.classList.remove('hidden');
 	quotePhrase.textContent = quotesSelected[levelCurrent][1].quote;
 	quoteAuthor.textContent = quotesSelected[levelCurrent][1].author;
 	persist.saveData('levelCurrent', levelCurrent);
@@ -106,6 +108,8 @@ function levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones) 
 		app.classList.add('fadeOut', 'animated');
 		nextButton.classList.add('hidden');
 		quote.classList.add('hidden');
+		replayText.classList.remove('hidden');
+		replayText.classList.add('fadeIn', 'animated');
 		replayButton.classList.remove('hidden');
 		replayButton.classList.add('fadeIn', 'animated');
 	}, 700);
