@@ -4,6 +4,7 @@
 	display: flex;
 	width: 100%;
 	height: calc(50vh - 50px);
+	height: calc((var(--vh, 1vh) * 50) - 50px);
 	flex-direction: column;
 	justify-content: flex-end;
 
