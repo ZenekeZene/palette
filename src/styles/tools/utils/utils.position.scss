@@ -62,11 +62,13 @@
 
 @mixin center-fully-absolute() {
 	@include absolute-top-left(50%, 50%);
+	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	@include share(width, height, auto);
 }
 
 @mixin center-horizontally {
+	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%);
 	left: 50%;
 }

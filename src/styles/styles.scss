@@ -9,5 +9,6 @@
 @import 'pages/pages';
 
 .fadeIn {
+	-webkit-animation-delay: 0.5s;
 	animation-delay: 0.5s;
 }

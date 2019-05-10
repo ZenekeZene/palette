@@ -15,8 +15,11 @@
 	background: coral;
 	border-radius: 50%;
 	z-index: 14;
+	-webkit-animation: swatch-appear 1s cubic-bezier(0.5, 0, 0.53, 1.49) 0s 1;
+	-webkit-animation-fill-mode: backwards;
 	animation: swatch-appear 1s cubic-bezier(0.5, 0, 0.53, 1.49) 0s 1;
 	animation-fill-mode: backwards;
+	-webkit-transition: all 0.5s ease-in-out;
 	transition: all 0.5s ease-in-out;
 
 	&__cmyk {
@@ -46,6 +49,7 @@
 			bottom: -35vh;
 			left: calc(50% - 1px);
 			z-index: 11;
+			-webkit-animation: show-line 0.5s 1s linear both;
 			animation: show-line 0.5s 1s linear both;
 		}
 	}
@@ -56,6 +60,7 @@
 }
 
 .wasCorrect {
+	-webkit-animation: wasCorrectAnimation 2s normal;
 	animation: wasCorrectAnimation 2s normal;
 }
 
@@ -73,12 +78,35 @@
 	}
 }
 
+@-webkit-keyframes wasCorrectAnimation {
+	0% {
+		-webkit-transform: scale(1);
+	}
+
+	50% {
+		-webkit-transform: scale(1.3);
+	}
+
+	100% {
+		-webkit-transform: scale(0);
+	}
+}
+
 @keyframes swatch-appear {
 	0% {
 		transform: scale(0);
 	}
 	100% {
 		transform: scale(1);
+	}
+}
+
+@-webkit-keyframes swatch-appear {
+	0% {
+		-webkit-transform: scale(0);
+	}
+	100% {
+		-webkit-transform: scale(1);
 	}
 }
 
@@ -91,11 +119,29 @@
 	}
 }
 
+@-webkit-keyframes show-line {
+	0% {
+		-webkit-opacity: 0;
+	}
+	100% {
+		-webkit-opacity: 1;
+	}
+}
+
 @keyframes hide-line {
 	0% {
 		opacity: 1;
 	}
 	100% {
 		opacity: 0;
+	}
+}
+
+@-webkit-keyframes hide-line {
+	0% {
+		-webkit-opacity: 1;
+	}
+	100% {
+		-webkit-opacity: 0;
 	}
 }

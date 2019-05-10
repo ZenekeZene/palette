@@ -15,9 +15,11 @@
 		border: none;
 		font-size: 1rem;
 		box-shadow: 0 0 $gutter-1-2 $shadow;
+		-webkit-transition: all 0.3s ease-in-out;
 		transition: all 0.3s ease-in-out;
 
 		&:active {
+			-webkit-transform: scale(0.95);
 			transform: scale(0.95);
 			box-shadow: 0 0 0 $shadow;
 		}

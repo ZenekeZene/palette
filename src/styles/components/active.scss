@@ -22,12 +22,14 @@
 
 	&__base {
 		$size: 8vh;
+		-webkit-transform: scale(1.4);
 		transform: scale(1.4);
 		display: inline-block;
 		@include share(width, height, $size);
 		background: $paper;
 		border: solid $gutter $paper;
 		box-shadow: 0 0 $gutter-1-2 $shadow;
+		-webkit-transition: none;
 		transition: none;
 		border-radius: 50%;
 	}
@@ -37,5 +39,6 @@
 	border-radius: 50px;
 	$size: calc((30vh - 48px) / 3);
 	@include share(width, height, $size);
+	-webkit-transform: scale(1);
 	transform: scale(1);
 }

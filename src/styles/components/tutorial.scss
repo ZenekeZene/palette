@@ -4,6 +4,7 @@
 		position: absolute;
 		border: 1px solid $cool;
 		border-radius: 50%;
+		-webkit-animation: active-tutorial 1.5s ease-in-out infinite;
 		animation: active-tutorial 1.5s ease-in-out infinite;
 	}
 }
@@ -30,12 +31,35 @@
 	}
 }
 
+@-webkit-keyframes active-tutorial {
+	0% {
+		top: -$gutter;
+		left: -$gutter;
+		width: 8vh;
+		height: 8vh;
+		-webkit-opacity: 0;
+	}
+
+	50% {
+		-webkit-opacity: 1;
+	}
+
+	100% {
+		top: calc(-2vh - 12px);
+		left: calc(-2vh - 12px);
+		width: 12vh;
+		height: 12vh;
+		-webkit-opacity: 0;
+	}
+}
+
 .mixer .swatch.tutorial {
 	&::before {
 		content: '';
 		position: absolute;
 		border: 1.5px solid $cool;
 		border-radius: 50%;
+		-webkit-animation: swatch-tutorial 1.5s ease-in-out infinite;
 		animation: swatch-tutorial 1.5s ease-in-out infinite;
 	}
 }
@@ -59,6 +83,28 @@
 		width: 7vh;
 		height: 7vh;
 		opacity: 0;
+	}
+}
+
+@-webkit-keyframes swatch-tutorial {
+	0% {
+		top: -3vh;
+		left: -3vh;
+		width: 13vh;
+		height: 13vh;
+		-webkit-opacity: 0;
+	}
+
+	50% {
+		-webkit-opacity: 1;
+	}
+
+	100% {
+		top: 0;
+		left: 0;
+		width: 7vh;
+		height: 7vh;
+		-webkit-opacity: 0;
 	}
 }
 
@@ -95,6 +141,7 @@
 			position: relative;
 			margin-bottom: 7vh;
 			background-color: rgb(0, 133, 196);
+			-webkit-animation: drop-tutorial 6s ease-in-out infinite both;
 			animation: drop-tutorial 6s ease-in-out infinite both;
 
 			&::before {
@@ -104,6 +151,7 @@
 				bottom: -$gutter;
 				width: $gutter-3;
 				height: $gutter-3;
+				-webkit-animation: touch-tutorial 6s ease-in-out infinite both;
 				animation: touch-tutorial 6s ease-in-out infinite both;
 			}
 		}
@@ -112,6 +160,7 @@
 			position: relative;
 			margin-bottom: 7vh;
 			background-color: rgb(253, 208, 0);
+			-webkit-animation: color-tutorial 6s ease-in-out infinite both;
 			animation: color-tutorial 6s ease-in-out infinite both;
 
 			&::after {
@@ -129,6 +178,7 @@
 			position: relative;
 			margin-bottom: 12vh;
 			background-color: rgb(57, 102, 42);
+			-webkit-animation: sample-tutorial 6s ease-in-out infinite both;
 			animation: sample-tutorial 6s ease-in-out infinite both;
 
 			&::before {
@@ -190,6 +240,28 @@
 	}
 }
 
+@-webkit-keyframes touch-tutorial {
+	0% {
+		-webkit-opacity: 0;
+	}
+
+	10% {
+		-webkit-opacity: 0;
+	}
+
+	20% {
+		-webkit-opacity: 1;
+	}
+
+	45% {
+		-webkit-opacity: 1;
+	}
+
+	55% {
+		-webkit-opacity: 0;
+	}
+}
+
 @keyframes drop-tutorial {
 	0% {
 		bottom: 0;
@@ -227,6 +299,43 @@
 	}
 }
 
+@-webkit-keyframes drop-tutorial {
+	0% {
+		bottom: 0;
+		-webkit-opacity: 0;
+	}
+
+	10% {
+		bottom: 0;
+		-webkit-opacity: 1;
+	}
+
+	15% {
+		bottom: 0;
+		-webkit-opacity: 1;
+	}
+
+	45% {
+		bottom: 19vh;
+		-webkit-opacity: 1;
+	}
+
+	55% {
+		bottom: 19vh;
+		-webkit-opacity: 1;
+	}
+
+	75% {
+		bottom: 19vh;
+		-webkit-opacity: 0;
+	}
+
+	100% {
+		bottom: 19vh;
+		-webkit-opacity: 0;
+	}
+}
+
 @keyframes color-tutorial {
 	0% {
 		bottom: 0;
@@ -261,6 +370,40 @@
 	}
 }
 
+@-webkit-keyframes color-tutorial {
+	0% {
+		bottom: 0;
+		background-color: rgb(253, 208, 0);
+		-webkit-opacity: 0;
+	}
+
+	15% {
+		bottom: 0;
+		background-color: rgb(253, 208, 0);
+		-webkit-opacity: 1;
+	}
+
+	45% {
+		background-color: rgb(253, 208, 0);
+		-webkit-opacity: 1;
+	}
+
+	46% {
+		background-color: rgb(57, 102, 42);
+		-webkit-opacity: 1;
+	}
+
+	80% {
+		background-color: rgb(57, 102, 42);
+		-webkit-opacity: 1;
+	}
+
+	100% {
+		background-color: rgb(57, 102, 42);
+		-webkit-opacity: 0;
+	}
+}
+
 @keyframes sample-tutorial {
 	0% {
 		opacity: 0;
@@ -276,5 +419,23 @@
 
 	100% {
 		opacity: 0;
+	}
+}
+
+@-webkit-keyframes sample-tutorial {
+	0% {
+		-webkit-opacity: 0;
+	}
+
+	15% {
+		-webkit-opacity: 1;
+	}
+
+	80% {
+		-webkit-opacity: 1;
+	}
+
+	100% {
+		-webkit-opacity: 0;
 	}
 }

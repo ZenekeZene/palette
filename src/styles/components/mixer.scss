@@ -3,6 +3,7 @@
 
 	// Class to be activated when the active color is over its target
 	.drop-target {
+		-webkit-transform: scale(1.2);
 		transform: scale(1.2);
 	}
 }

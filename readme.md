@@ -30,6 +30,7 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
         vuelve a aparecer en ningún componente.
 -   [x] Hack en las unidades vh para evitar el descuadre por la barra de navegación
 -   [x] Logo de Pil-Pil Games incluido en el juego
+-   [X] Introducir elementos para facilitar comprensión del juego (líneas que relacionan muestras y mixers)
 -   [ ] Refactor CSS variables en progression for.
 -   [ ] Música ambient / chill / Mobi / ([Música procedural](https://github.com/Tonejs/Tone.js/))
 -   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando

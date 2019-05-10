@@ -105,6 +105,7 @@
     background: $hot;
     border-radius: 50%;
     top: 0;
+    -webkit-opacity: 0;
     opacity: 0;
 
     @for $i from 1 through 13 {
@@ -112,7 +113,10 @@
         left: $i * 7%;
         animation: makeItRain $duration * 1ms infinite ease-out;
         animation-delay: #{randomNum(0, $duration * .5)}ms;
-        animation-duration: #{randomNum($duration * .7, $duration * 1.2)}ms
+        animation-duration: #{randomNum($duration * .7, $duration * 1.2)}ms;
+        -webkit-animation: makeItRain $duration * 1ms infinite ease-out;
+        -webkit-animation-delay: #{randomNum(0, $duration * .5)}ms;
+        -webkit-animation-duration: #{randomNum($duration * .7, $duration * 1.2)}ms
       }
     }
 
@@ -127,16 +131,19 @@
     &:nth-child(4n) {
       width: $gutter-2;
       height: $gutter-2;
+      -webkit-animation-duration: $duration * 2ms;
       animation-duration: $duration * 2ms;
     }
 
     &:nth-child(3n) {
       width: $gutter;
       height: $gutter;
+      -webkit-animation-duration: $duration * 2.5ms;
       animation-duration: $duration * 2.5ms;
     }
 
     &:nth-child(6n) {
+      -webkit-animation-delay: $duration * 1.5ms;
       animation-delay: $duration * 1.5ms;
     }
 
@@ -156,6 +163,20 @@
 
     to {
       transform: translateY(100vh);
+    }
+  }
+
+  @-webkit-keyframes makeItRain {
+    from {
+      -webkit-opacity: 0;
+    }
+
+    20% {
+      -webkit-opacity: 0.5;
+    }
+
+    to {
+      -webkit-transform: translateY(100vh);
     }
   }
 
