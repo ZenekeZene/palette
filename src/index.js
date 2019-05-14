@@ -29,6 +29,7 @@ const creditsButton = document.getElementById('creditsButton');
 const creditsPage = document.getElementById('creditsPage');
 const backButtonCredits = document.getElementById('backButtonCredits');
 const progression = document.getElementById('progression');
+const shareLink = document.getElementById('shareLink');
 
 var quotesArray = [];
 for (var i in quotes) {
@@ -85,6 +86,11 @@ creditsButton.addEventListener('click', function(event) {
 backButtonCredits.addEventListener('click', function() {
 	homePage.classList.remove('unveil');
 	creditsPage.classList.add('hidden');
+});
+
+shareLink.addEventListener('click', function(event) {
+	const target = event.target;
+	target.setAttribute('href', `https://twitter.com/intent/tweet?text=I+have+reached+level+${levelCurrent + 1}+playing+@Palette_game!!!+http://palette.ws`);
 });
 
 backButton.addEventListener('click', function() {
