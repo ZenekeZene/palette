@@ -17,15 +17,17 @@ ColorObject.prototype.getCMYK = function() {
 
 ColorObject.prototype.setCMYK = function(cmyk) {
 	this.cmyk = cmyk;
-	this.el.setAttribute('data-cmyk', cmyk);
-	while (this.el.firstChild) {
-		this.el.firstChild.remove();
+	if (this.el) {
+		this.el.setAttribute('data-cmyk', cmyk);
+		while (this.el.firstChild) {
+			this.el.firstChild.remove();
+		}
+		const cmykNode = document.createElement('span');
+		cmykNode.classList.add('swatch__cmyk');
+		cmykNode.innerHTML = cmyk;
+		this.el.append(cmykNode);
+		this.el.style.backgroundColor = getRGBColor(convertCMYKtoRGB(cmyk));
 	}
-	const cmykNode = document.createElement('span');
-	cmykNode.classList.add('swatch__cmyk');
-	cmykNode.innerHTML = cmyk;
-	this.el.append(cmykNode);
-	this.el.style.backgroundColor = getRGBColor(convertCMYKtoRGB(cmyk));
 };
 
 ColorObject.prototype.isMyNode = function(el) {

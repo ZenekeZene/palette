@@ -4,6 +4,9 @@ const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
 
+// ONLY DEVELOPMENT:
+let _isDev = false;
+
 let app,
 	baseActive,
 	swatches,
@@ -14,6 +17,7 @@ let app,
 	contSuccess,
 	level;
 let tutorialIsNotLaunched;
+let numItems = 0;
 
 let levelSuccessed, levelFailed, scoreToAument;
 
@@ -62,12 +66,14 @@ function doSuccess(dropzone, index) {
 	// Si hemos acertado:
 	if (checkSuccess(index)) {
 		contSuccess++;
-		scoreToAument();
 		if (contSuccess !== swatches.length) {
 			dropzone.el.classList.add('disabled');
 			// Seteamos un nuevo activo:
 			let newActiveColorObject = createActiveObject();
 			updateActive(newActiveColorObject);
+			if (_isDev) {
+				_giveMeTheSolution();
+			}
 		} else {
 			app.removeChild(activeColorObject.el);
 			activeColorObject = null;
@@ -107,6 +113,7 @@ function getRandomEnabledItem() {
 }
 
 function createActiveObject() {
+	scoreToAument();
 	const node = document.createElement('div');
 	node.classList.add('active__swatch', 'swatch', 'drag-drop', 'active');
 
@@ -148,10 +155,10 @@ function activeIsMoved() {
 	}
 }
 
-function playLevel(numItems) {
+function playLevel(numItemsEntry) {
 	contSuccess = 0;
+	numItems = numItemsEntry;
 	// Draw grid:
-	console.log('draw grid ' + numItems);
 	({ swatchNodes, dropzoneNodes } = grid.init(numItems));
 
 	// Init Swatches, Dropzones and Active
@@ -165,6 +172,27 @@ function playLevel(numItems) {
 	}
 	drag.init(activeColorObject.el, dropzones, doSuccess, doFailed, activeIsMoved);
 	app.append(activeColorObject.el);
+	if (_isDev) {
+		_giveMeTheSolution();
+	}
+}
+
+function _giveMeTheSolution() {
+	for(let i = 0; i < numItems; i++) {
+		swatches[i].el.style.border = "none";
+		dropzones[i].el.style.border = "none";
+	}
+	for(let i = 0; i < numItems; i++) {
+		const pos = new color.ColorObject(
+			color.addColors(dropzones[i].cmyk, activeColorObject.cmyk),
+			null);
+		if (_.isEqual(swatches[i].cmyk, pos.cmyk)) {
+			swatches[i].el.style.border = "2px solid green";
+			dropzones[i].el.style.border = "2px solid green";
+			console.log('Aciertas con: ' + i);
+			break;
+		}
+	}
 }
 
 function setup(appEntry, levelSuccessedEntry, levelFailedEntry, scoreToAumentEntry) {

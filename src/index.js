@@ -40,7 +40,7 @@ for (var i in quotes) {
 const shuffled = quotesArray.sort(() => 0.5 - Math.random());
 
 // Get sub-array of first n elements after shuffled
-let quotesSelected = shuffled.slice(0, levels.length);
+let quotesSelected = shuffled.slice(0, levels.length + 1);
 
 let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
 let contSuccessTotal = persist.getData('contSuccessTotal') || 0;
@@ -68,6 +68,7 @@ resetCancel.addEventListener('click', function(event) {
 
 resetAccept.addEventListener('click', function(event) {
 	resetPage.classList.add('hidden');
+	persist.saveData('tutorialIsNotLaunched', true);
 	persist.saveData('contSuccessTotal', 0);
 	persist.saveData('levelCurrent', 0);
 	location.reload();
@@ -116,6 +117,15 @@ function scoreToAument() {
 }
 
 function levelSuccessed() {
+	// If is the final level:
+	if (levelCurrent === levels.length - 1) {
+		const finalPage = document.getElementById('finalPage');
+		finalPage.classList.remove('hidden');
+		document.getElementById('contSuccesFinalPage').textContent = contSuccessTotal;
+		document.getElementById('shareLinkFinal').setAttribute('href', `https://twitter.com/intent/tweet?text=I+have+finished+@Palette_game+using+${levelCurrent + 1}+colors!!!+http://palette.ws`);
+		return;
+	}
+
 	control.classList.add('fadeIn', 'animated');
 	control.classList.remove('hidden');
 	app.classList.add('fadeOut', 'animated');
@@ -148,6 +158,8 @@ function levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones) 
 	for (let i = 0; i < dropzonesNotCorrect.length; i++) {
 		dropzonesNotCorrect[i].el.classList.add('reset-swatch');
 	}
+	progression.classList = '';
+	progression.classList.add('progression', `level-${levelCurrent}`);
 	setTimeout(() => {
 		control.classList.add('fadeIn', 'animated');
 		control.classList.remove('hidden');
@@ -167,7 +179,6 @@ function handNextLevel() {
 }
 
 function showLevel() {
-	console.log(levelCurrent);
 	game.playLevel(levels[levelCurrent]);
 	control.classList.add('hidden');
 	app.classList.remove('fadeOut');
@@ -183,6 +194,7 @@ homeScore.textContent = contSuccessTotal;
 homeLevel.textContent = levelCurrent + 1;
 numLevels.textContent = levelCurrent + 1;
 score.textContent = contSuccessTotal;
+
 
 game.playLevel(levels[levelCurrent]);
 

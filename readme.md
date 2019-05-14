@@ -38,7 +38,7 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
         se pasa de nivel
 -   [x] Home -> Pintada, falta funcionalidad en botones reset y about (acceder a las secciones, que están ocultas)y en sonido (conmutar entre sonido y silencio)
 -   [x] Reset del juego -> Pintada, falta funcionalidad (borrar localstorage)
--   [ ] Compartir resultado -> Pintada, falta generar dinámicamente el enlace con el resultado
+-   [x] Compartir resultado -> Pintada, falta generar dinámicamente el enlace con el resultado
 -   [x] Visualizar progresión del juego -> Está pintado, con la progresión pintada mediante css. Únicamente sería necesario añadir las clases .level-1, .level-2... al elemento .progression, pero tal vez quieras refactorizar en js el funcionamiento (lo he adelantado así para ahorrarte trabajo por si acaso)
 -   [x] Recompensa visual entre niveles (¿Quotes de artistas?)-> Pintada y creado quotes.json, un
         archivo con 40 frases para alimentarlas.
@@ -48,7 +48,7 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 -   [ ] Mínimo de diferencial en la generación del mixer (de 0 a 0.9 ?)
 -   [ ] Limitar el número máximo de veces (10) que se ejecuta la condicional de diferencia de
         colores, para evitar el bug de bucle infinito
--   [ ] Hacer que el contador de colores sea por color activo generado (en lugar de por match, así hacemos que el pique sea a ver quién se pasa el juego con menos colores)
+-   [x] Hacer que el contador de colores sea por color activo generado (en lugar de por match, así hacemos que el pique sea a ver quién se pasa el juego con menos colores)
 -   [ ] Hacer testing con usuarios
 -   [ ] Sistema para registrar datos del testing automáticamente (?)
 
