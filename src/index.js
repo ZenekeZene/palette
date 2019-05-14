@@ -21,6 +21,14 @@ const quoteAuthor = document.getElementById('quoteAuthor');
 const quote = document.getElementById('quote');
 const quotes = require('./lib/quotes.json');
 const replayText = document.getElementById('replayText');
+const resetButton = document.getElementById('resetButton');
+const resetPage = document.getElementById('resetPage');
+const resetCancel = document.getElementById('resetCancel');
+const resetAccept = document.getElementById('resetAccept');
+const creditsButton = document.getElementById('creditsButton');
+const creditsPage = document.getElementById('creditsPage');
+const backButtonCredits = document.getElementById('backButtonCredits');
+const progression = document.getElementById('progression');
 
 var quotesArray = [];
 for (var i in quotes) {
@@ -32,7 +40,6 @@ const shuffled = quotesArray.sort(() => 0.5 - Math.random());
 
 // Get sub-array of first n elements after shuffled
 let quotesSelected = shuffled.slice(0, levels.length);
-console.log(quotesSelected);
 
 let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
 let contSuccessTotal = persist.getData('contSuccessTotal') || 0;
@@ -42,11 +49,42 @@ playButton.addEventListener('click', function() {
 	if (persist.getData('tutorialIsNotLaunched') !== 'false') {
 		screenTutorial.classList.remove('hidden');
 		screenTutorial.classList.add('fadeIn');
+		screenTutorial.classList.remove('fadeOut');
 	} else {
 		app.classList.add('fadeIn');
 		app.classList.remove('fadeOut');
 		app.classList.remove('hidden');
 	}
+});
+
+resetButton.addEventListener('click', function(event) {
+	resetPage.classList.remove('hidden');
+});
+
+resetCancel.addEventListener('click', function(event) {
+	resetPage.classList.add('hidden');
+});
+
+resetAccept.addEventListener('click', function(event) {
+	resetPage.classList.add('hidden');
+	persist.saveData('contSuccessTotal', 0);
+	persist.saveData('levelCurrent', 0);
+	location.reload();
+	levelCurrent = 0;
+	contSuccessTotal = 0;
+	homeScore.textContent = contSuccessTotal;
+	homeLevel.textContent = levelCurrent + 1;
+	numLevels.textContent = levelCurrent + 1;
+	score.textContent = contSuccessTotal;
+});
+
+creditsButton.addEventListener('click', function(event) {
+	creditsPage.classList.remove('hidden');
+});
+
+backButtonCredits.addEventListener('click', function() {
+	homePage.classList.remove('unveil');
+	creditsPage.classList.add('hidden');
 });
 
 backButton.addEventListener('click', function() {
@@ -85,6 +123,8 @@ function levelSuccessed() {
 	quotePhrase.textContent = quotesSelected[levelCurrent][1].quote;
 	quoteAuthor.textContent = quotesSelected[levelCurrent][1].author;
 	persist.saveData('levelCurrent', levelCurrent);
+	progression.classList = '';
+	progression.classList.add('progression', `level-${levelCurrent}`);
 }
 
 function levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones) {
@@ -94,13 +134,13 @@ function levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones) 
 		(swatch) => !swatch.el.classList.contains('wasCorrect')
 	);
 	for (let i = 0; i < swatchesNotCorrect.length; i++) {
-		swatchesNotCorrect[i].el.classList.add('match-swatch');
+		swatchesNotCorrect[i].el.classList.add('reset-swatch');
 	}
 	const dropzonesNotCorrect = dropzones.filter(
 		(dropzone) => !dropzone.el.classList.contains('wasCorrect')
 	);
 	for (let i = 0; i < dropzonesNotCorrect.length; i++) {
-		dropzonesNotCorrect[i].el.classList.add('match-swatch');
+		dropzonesNotCorrect[i].el.classList.add('reset-swatch');
 	}
 	setTimeout(() => {
 		control.classList.add('fadeIn', 'animated');
@@ -121,6 +161,7 @@ function handNextLevel() {
 }
 
 function showLevel() {
+	console.log(levelCurrent);
 	game.playLevel(levels[levelCurrent]);
 	control.classList.add('hidden');
 	app.classList.remove('fadeOut');

@@ -29,5 +29,5 @@ function init(numberOfItems) {
 }
 
 module.exports = {
-	init: init,
+	init,
 };

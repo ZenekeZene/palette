@@ -124,15 +124,13 @@ function subtractColors(color1, color2) {
 	return null;
 }
 
-const API = {
-	ColorObject: ColorObject,
-	getRGBColor: getRGBColor,
-	convertCMYKtoRGB: convertCMYKtoRGB,
-	getColorCMYKRandom: getColorCMYKRandom,
-	getColorRelationed: getColorRelationed,
-	addColors: addColors,
-	subtractColors: subtractColors,
-	getRandomInterval: getRandomInterval,
-};
-
-module.exports = API;
+module.exports = {
+	ColorObject,
+	getRGBColor,
+	convertCMYKtoRGB,
+	getColorCMYKRandom,
+	getColorRelationed,
+	addColors,
+	subtractColors,
+	getRandomInterval,
+};;

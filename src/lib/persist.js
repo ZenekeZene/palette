@@ -6,7 +6,12 @@ function saveData(key, value) {
 	localStorage.setItem(key, value);
 }
 
+function removeData(key) {
+	localStorage.removeItem(key);
+}
+
 module.exports = {
-	saveData: saveData,
-	getData: getData,
+	saveData,
+	getData,
+	removeData,
 };

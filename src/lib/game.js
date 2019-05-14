@@ -151,6 +151,7 @@ function activeIsMoved() {
 function playLevel(numItems) {
 	contSuccess = 0;
 	// Draw grid:
+	console.log('draw grid ' + numItems);
 	({ swatchNodes, dropzoneNodes } = grid.init(numItems));
 
 	// Init Swatches, Dropzones and Active
@@ -174,6 +175,6 @@ function setup(appEntry, levelSuccessedEntry, levelFailedEntry, scoreToAumentEnt
 }
 
 module.exports = {
-	setup: setup,
-	playLevel: playLevel,
+	setup,
+	playLevel,
 };

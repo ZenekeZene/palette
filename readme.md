@@ -31,13 +31,13 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 -   [x] Hack en las unidades vh para evitar el descuadre por la barra de navegación
 -   [x] Logo de Pil-Pil Games incluido en el juego
 -   [X] Introducir elementos para facilitar comprensión del juego (líneas que relacionan muestras y mixers)
--   [ ] Refactor CSS variables en progression for.
--   [ ] Cuando se falla un color, emplear la clase .reset-swatch para resetear los demás colores (actualmente se utilizan las clases .match-swatch y .match-mixer, que tienen un pseudoelemento ::after para indicar cuándo se acierta).
+-   [x] Refactor CSS variables en progression for.
+-   [x] Cuando se falla un color, emplear la clase .reset-swatch para resetear los demás colores (actualmente se utilizan las clases .match-swatch y .match-mixer, que tienen un pseudoelemento ::after para indicar cuándo se acierta).
 -   [ ] Música ambient / chill 
 -   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando
         se pasa de nivel
--   [ ] Home -> Pintada, falta funcionalidad en botones reset y about (acceder a las secciones, que están ocultas)y en sonido (conmutar entre sonido y silencio)
--   [ ] Reset del juego -> Pintada, falta funcionalidad (borrar localstorage)
+-   [x] Home -> Pintada, falta funcionalidad en botones reset y about (acceder a las secciones, que están ocultas)y en sonido (conmutar entre sonido y silencio)
+-   [x] Reset del juego -> Pintada, falta funcionalidad (borrar localstorage)
 -   [ ] Compartir resultado -> Pintada, falta generar dinámicamente el enlace con el resultado
 -   [ ] Visualizar progresión del juego -> Está pintado, con la progresión pintada mediante css. Únicamente sería necesario añadir las clases .level-1, .level-2... al elemento .progression, pero tal vez quieras refactorizar en js el funcionamiento (lo he adelantado así para ahorrarte trabajo por si acaso)
 -   [x] Recompensa visual entre niveles (¿Quotes de artistas?)-> Pintada y creado quotes.json, un

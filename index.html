@@ -34,12 +34,12 @@
 			</header>
 			<nav class="home-buttons">
 				<button id="playButton" class="home-buttons__play"></button>
-				<button class="home-buttons__reset"></button>
+				<button id="resetButton" class="home-buttons__reset"></button>
 				<button class="home-buttons__sound"></button>
-				<button class="home-buttons__about"></button>
+				<button id="creditsButton" class="home-buttons__about"></button>
 			</nav>
 		</div>
-		<aside class="reset hidden">
+		<aside id="resetPage" class="reset hidden">
 			<main class="notification">
 				<h2 class="notification__title">
 					Reset game
@@ -48,14 +48,14 @@
 					Are you sure you want to reset your game? All your progression will be deleted.
 				</p>
 				<div class="notification__button">
-					<button class="notification__button--refuse"></button>
-					<button class="notification__button--acept"></button>
+					<button id="resetCancel" class="notification__button--refuse"></button>
+					<button id="resetAccept" class="notification__button--acept"></button>
 				</div>
 			</main>
 		</aside>
-		<aside class="credits hidden">
+		<aside id="creditsPage" class="credits hidden">
 			<header class="header">
-				<p class="header__back"></p>
+				<p id="backButtonCredits" class="header__back"></p>
 			</header>
 			<div class="credits-container">
 				<header class="credits-title">
@@ -69,14 +69,14 @@
 				</header>
 				<main class="credits-text">
 					<h2>Game design and programming</h2>
-					<p>Jorge Fuente</p>
-					<p>Héctor Villar</p>
+					<p>Jorge Fuente 🎨</p>
+					<p>Héctor Villar 👨‍💻</p>
 					<h2>Original music composition</h2>
-					<p>Perico Períquez</p>
+					<p>Hawa A.K.A "LemonHead" 🍋</p>
 					<h2>Special thanks</h2>
-					<p>Leire Noviadehéctor</p>
-					<p>Elena Aguilar</p>
-					<p>Yuka</p>
+					<p>Leire Bartolomé 🕹️</p>
+					<p>Elena Aguilar 🏝️</p>
+					<p>Yuka 🐶</p>
 				</main>
 			</div>
 			<button class="donate-button"></button>
@@ -118,7 +118,7 @@
 			<button id="replayButton" class="">
 				<i class="fa fa-redo" aria-hidden="true"></i>
 			</button>
-			<div class="progression level-1">
+			<div id="progression" class="progression level-1">
 				<p class="progression__text">Game progression: <span>&ensp;&ensp;&ensp;</span></p>
 				<div class="progression__graphic">
 					<div></div>

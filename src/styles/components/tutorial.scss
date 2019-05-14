@@ -115,7 +115,7 @@
 	justify-content: space-between;
 	width: 100vw;
 	height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
+  	height: calc(var(--vh, 1vh) * 100);
 	padding: $gutter-2;
 	background-color: $paper;
 	box-shadow: 0 0 $gutter-1-2 $shadow;

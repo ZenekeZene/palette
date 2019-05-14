@@ -146,6 +146,6 @@ function init(
 }
 
 module.exports = {
-	init: init,
-	setActiveNode: setActiveNode,
+	init,
+	setActiveNode,
 };
