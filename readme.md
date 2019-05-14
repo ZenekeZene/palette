@@ -32,7 +32,8 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 -   [x] Logo de Pil-Pil Games incluido en el juego
 -   [X] Introducir elementos para facilitar comprensión del juego (líneas que relacionan muestras y mixers)
 -   [ ] Refactor CSS variables en progression for.
--   [ ] Música ambient / chill / Mobi / ([Música procedural](https://github.com/Tonejs/Tone.js/))
+-   [ ] Cuando se falla un color, emplear la clase .reset-swatch para resetear los demás colores (actualmente se utilizan las clases .match-swatch y .match-mixer, que tienen un pseudoelemento ::after para indicar cuándo se acierta).
+-   [ ] Música ambient / chill 
 -   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando
         se pasa de nivel
 -   [ ] Home -> Pintada, falta funcionalidad en botones reset y about (acceder a las secciones, que están ocultas)y en sonido (conmutar entre sonido y silencio)
