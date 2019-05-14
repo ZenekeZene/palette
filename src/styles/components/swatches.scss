@@ -5,7 +5,7 @@
 	width: calc(35vh + 60px);
 	height: 35vh;
 	padding: 4vh 0;
-	border-bottom: solid 2px $paper;
+	border-bottom: solid 2px $shadow;
 }
 
 .swatch {
@@ -35,7 +35,7 @@
 	box-shadow: 0 0 $gutter-1-2 $shadow !important;
 }
 
-
+/* For vertical connections, now is prepared for horizontal divider (to be tested)
 #swatchesGrid {
 	.swatch {
 		position: relative;
@@ -58,6 +58,7 @@
 			visibility: hidden;
 	}
 }
+*/
 
 .wasCorrect {
 	-webkit-animation: wasCorrectAnimation 2s normal;

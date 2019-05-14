@@ -184,12 +184,24 @@
 			&::before {
 				content: '';
 				position: absolute;
+				bottom: -6vh;
+				left: -6vh;
+				width: 24vh;
+				height: 2px;
+				background: $shadow;
+			}
+
+/* For vertical connections, now is prepared for horizontal divider (to be tested)
+			&::before {
+				content: '';
+				position: absolute;
 				bottom: -12vh;
 				left: calc(6vh - 2px);
 				width: 4px;
 				height: 12vh;
 				background: $shadow;
 			}
+*/
 
 			&::after {
 				content:"SAMPLE";
