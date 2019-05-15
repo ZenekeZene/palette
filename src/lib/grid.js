@@ -23,8 +23,8 @@ function init(numberOfItems) {
 	swatchNodes = fillGrid(swatchesGrid);
 	dropzoneNodes = fillGrid(mixesGrid);
 	return {
-		swatchNodes: swatchNodes,
-		dropzoneNodes: dropzoneNodes,
+		swatchNodes,
+		dropzoneNodes
 	};
 }
 
