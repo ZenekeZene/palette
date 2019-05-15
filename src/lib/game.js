@@ -4,6 +4,7 @@ const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
 const control = require('./control');
+console.log(_);
 
 let levels;
 
