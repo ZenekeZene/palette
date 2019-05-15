@@ -3,7 +3,7 @@ const persist = require('./persist');
 let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
 
 function levelSuccessed() {
-	levelCurrent++;
+	levelCurrent += 1;
 	persist.saveData('levelCurrent', levelCurrent);
 }
 

@@ -46,7 +46,7 @@ function levelSuccessed() {
 	replayButton.classList.add('hidden');
 	replayText.classList.add('hidden');
 	progression.classList = '';
-	progression.classList.add('progression', `level-${levelCurrent}`);
+	progression.classList.add('progression', `level-${levelCurrent++}`);
 }
 
 function levelFailed() {
@@ -92,13 +92,13 @@ function handEvents() {
 		persist.saveData('tutorialIsNotLaunched', true);
 		persist.saveData('contSuccessTotal', 0);
 		persist.saveData('levelCurrent', 0);
-		location.reload();
 		levelCurrent = 0;
 		contSuccessTotal = 0;
 		homeScore.textContent = contSuccessTotal;
 		homeLevel.textContent = levelCurrent + 1;
 		numLevels.textContent = levelCurrent + 1;
 		score.textContent = contSuccessTotal;
+		location.reload();
 	});
 	
 	creditsButton.addEventListener('click', function(event) {
