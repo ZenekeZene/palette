@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+html
+	head
+		title Palette
+		meta(charset="UTF-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1")
+		link(rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+			integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+			crossorigin="anonymous")
+		link(href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet")
+
+	body
+		aside#homePage.home.fadeIn.animated
+			header.home-header
+				.home-header__logo.fadeInDown.animated
+					img(src="src/img/logo.svg" alt="Palette logo" height="120")
+				.header
+					p.header__level LEVEL
+						span#homeLevel
+					p#homeScore.header__score 40
+					a#shareLink.header__share(href="https://twitter.com/intent/tweet?text=I+have+reached+level+5+playing+@Palette_game!!!+http://palette.ws") SHARE
+			nav.home-buttons
+				button#playButton.home-buttons__play
+				button#resetButton.home-buttons__reset
+				button.home-buttons__sound
+				button#creditsButton.home-buttons__about
+		aside#resetPage.reset.hidden
+			main.notification
+				h2.notification__title Reset game
+				p.notification__text Are you sure you want to reset your game? All your progression will be deleted.
+				.notification__button
+					button#resetCancel.notification__button--refuse
+					button#resetAccept.notification__button--acept
+		aside#creditsPage.credits.hidden
+			header.header
+				p#backButtonCredits.header__back
+			.credits-container
+				header.credits-title
+				.credits-title__logo
+					img(src="src/img/logo.svg" alt="Palette logo" height="120")
+				p.credits-version v.1.0.0
+				.credits-title__logo
+					img(src="src/img/pilpil-logo.svg" alt="Pil-Pil logo" height="80")
+				main.credits-text
+					h2 Game design and programming
+					p Jorge Fuente 🎨
+					p Héctor Villar 👨‍💻
+					h2 Original music composition
+					p Hawa A.K.A "LemonHead" 🍋
+					h2 Special thanks
+					p Leire Bartolomé 🕹️
+					p Elena Aguilar 🏝️
+					p Yuka 🐶
+			button.donate-button
+		section#app.game.animated.hidden
+			header.header
+				p#backButton.header__back
+				p.header__level LEVEL
+					span#numLevels
+				p.header__score
+					span#score
+			main
+				section#swatchesGrid.swatches
+				section#mixesGrid.swatches.mixer
+			#activeBase.active__base
+		aside#screenTutorial.screentutorial.hidden.animated
+			.screentutorial-text MIX THE COLORS TO MATCH THE SAMPLES
+			.screentutorial-graphic
+				.screentutorial-graphic__swatch
+				.screentutorial-graphic__mixer
+				.screentutorial-graphic__active
+			a.screentutorial-next That's all! Shall we get started?
+		aside#control.control.hidden.animated
+			#quote.quote.hidden.animated
+				p#quotePhrase Creativity takes courage
+				span#quoteAuthor Henry Matisse
+			#replayText.replay.hidden.animated
+				p You almost got it!
+					span TRY AGAIN
+			button#nextButton.animated
+				i.fa.fa-play(aria-hidden="true")
+			button#replayButton.animated
+				i.fa.fa-redo(aria-hidden="true")
+			#progression.progression.level-1
+				p.progression__text Game progression: 
+					span &ensp;&ensp;&ensp;
+				.progression__graphic
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+					div
+		aside#finalPage.final.hidden
+			header.header
+				p.header__back
+			.final-message
+				h2 Congratulations!
+				h3 You have finished Palette using just...
+				p
+					span#contSuccesFinalPage XXXX
+					span colors
+				a#shareLinkFinal.header__share(href="https://twitter.com/intent/tweet?text=I+have+finished+@Palette_game+using+XXXXXXXX+colors!!!+http://palette.ws") SHARE YOUR RECORD
+			.final-donation Support us
+			button.donate-button
+			.confetti
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+				.confetti-piece
+		script(src="src/index.js")
+		script.
+			let vh = window.innerHeight * 0.01;
+			document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+			window.addEventListener('resize', () => {
+				let vh = window.innerHeight * 0.01;
+				document.documentElement.style.setProperty('--vh', `${vh}px`);
+			});
