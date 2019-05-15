@@ -11,6 +11,7 @@ html
 		link(href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet")
 
 	body
+		// HOME PAGE
 		aside#homePage.home.fadeIn.animated
 			header.home-header
 				.home-header__logo.fadeInDown.animated
@@ -25,6 +26,8 @@ html
 				button#resetButton.home-buttons__reset
 				button.home-buttons__sound
 				button#creditsButton.home-buttons__about
+
+		// RESET PAGE
 		aside#resetPage.reset.hidden
 			main.notification
 				h2.notification__title Reset game
@@ -32,6 +35,8 @@ html
 				.notification__button
 					button#resetCancel.notification__button--refuse
 					button#resetAccept.notification__button--acept
+
+		// CREDITS PAGE
 		aside#creditsPage.credits.hidden
 			header.header
 				p#backButtonCredits.header__back
@@ -53,6 +58,8 @@ html
 					p Elena Aguilar 🏝️
 					p Yuka 🐶
 			button.donate-button
+
+		// GAME PAGE
 		section#app.game.animated.hidden
 			header.header
 				p#backButton.header__back
@@ -64,6 +71,8 @@ html
 				section#swatchesGrid.swatches
 				section#mixesGrid.swatches.mixer
 			#activeBase.active__base
+
+		// TUTORIAL PAGE
 		aside#screenTutorial.screentutorial.hidden.animated
 			.screentutorial-text MIX THE COLORS TO MATCH THE SAMPLES
 			.screentutorial-graphic
@@ -71,6 +80,8 @@ html
 				.screentutorial-graphic__mixer
 				.screentutorial-graphic__active
 			a.screentutorial-next That's all! Shall we get started?
+
+		// CONTROL PAGE
 		aside#control.control.hidden.animated
 			#quote.quote.hidden.animated
 				p#quotePhrase Creativity takes courage
@@ -86,21 +97,12 @@ html
 				p.progression__text Game progression: 
 					span &ensp;&ensp;&ensp;
 				.progression__graphic
-					div
-					div
-					div
-					div
-					div
-					div
-					div
-					div
-					div
-					div
-					div
-					div
-					div
-					div
-					div
+					- var n = 0;
+					while n < 15
+						div
+						- n++
+
+		// FINAL PAGE
 		aside#finalPage.final.hidden
 			header.header
 				p.header__back
@@ -114,19 +116,11 @@ html
 			.final-donation Support us
 			button.donate-button
 			.confetti
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
-				.confetti-piece
+				- var n = 0;
+				while n < 13
+					.confetti-piece
+					- n++
+
 		script(src="src/index.js")
 		script.
 			let vh = window.innerHeight * 0.01;
