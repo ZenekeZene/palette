@@ -159,14 +159,11 @@ function initDropzones(dropzoneNodes) {
 }
 
 function playLevel() {
-	levelCurrent = persist.getData('levelCurrent');
+	levelCurrent =  parseInt(persist.getData('levelCurrent'), 10) || 0;;
 	contSuccess = 0;
 	numItems = levels[levelCurrent];
 	// Draw grid:
-	const data = grid.init(numItems);
-	console.log(data);
-	swatchNodes = data.swatchNodes;
-	dropzoneNodes = data.dropzoneNodes;
+	({swatchNodes, dropzoneNodes} = grid.init(numItems));
 
 	// Init Swatches, Dropzones and Active
 	console.log(swatchNodes);
