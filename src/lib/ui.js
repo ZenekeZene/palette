@@ -46,12 +46,12 @@ function levelSuccessed() {
 	replayButton.classList.add('hidden');
 	replayText.classList.add('hidden');
 	progression.classList = '';
-	progression.classList.add('progression', `level-${levelCurrent++}`);
+	progression.classList.add('progression', `level-${levelCurrent + 1}`);
 }
 
 function levelFailed() {
 	progression.classList = '';
-	progression.classList.add('progression', `level-${levelCurrent++}`);
+	progression.classList.add('progression', `level-${levelCurrent + 1}`);
 	setTimeout(() => {
 		control.classList.add('fadeIn');
 		control.classList.remove('hidden');
