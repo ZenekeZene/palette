@@ -33,22 +33,24 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 -   [X] Introducir elementos para facilitar comprensión del juego (líneas que relacionan muestras y mixers)
 -   [x] Refactor CSS variables en progression for.
 -   [x] Cuando se falla un color, emplear la clase .reset-swatch para resetear los demás colores (actualmente se utilizan las clases .match-swatch y .match-mixer, que tienen un pseudoelemento ::after para indicar cuándo se acierta).
--   [ ] Música ambient / chill 
--   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando
-        se pasa de nivel
 -   [x] Home -> Pintada, falta funcionalidad en botones reset y about (acceder a las secciones, que están ocultas)y en sonido (conmutar entre sonido y silencio)
 -   [x] Reset del juego -> Pintada, falta funcionalidad (borrar localstorage)
 -   [x] Compartir resultado -> Pintada, falta generar dinámicamente el enlace con el resultado
 -   [x] Visualizar progresión del juego -> Está pintado, con la progresión pintada mediante css. Únicamente sería necesario añadir las clases .level-1, .level-2... al elemento .progression, pero tal vez quieras refactorizar en js el funcionamiento (lo he adelantado así para ahorrarte trabajo por si acaso)
 -   [x] Recompensa visual entre niveles (¿Quotes de artistas?)-> Pintada y creado quotes.json, un
         archivo con 40 frases para alimentarlas.
+-   [x] Hacer que el contador de colores sea por color activo generado (en lugar de por match, así hacemos que el pique sea a ver quién se pasa el juego con menos colores)
+-   [x] Pulir animaciones de entrada de créditos y reset.
+-   [ ] Quitar inertia en el drag.
+-   [ ] Música ambient / chill
+-   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando
+        se pasa de nivel
 -   [x] Pantalla final del juego, cuando se superan los 15 niveles -> Pintada, falta incorporar funcionalidad (aparición al superar el nivel 15, botón de compartir resultado)
 -   [ ] Integrar sistema de monetización. Idea: donativos voluntarios através de esta plataforma (botón en los créditos y cuando te pasas el juego): https://www.buymeacoffee.com/). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Pintado, faltaría crear la cuenta y linkar a la página de pagos.
 -   [ ] Mínimos de luminosidad para mixers (15) y para swatches (25)
 -   [ ] Mínimo de diferencial en la generación del mixer (de 0 a 0.9 ?)
 -   [ ] Limitar el número máximo de veces (10) que se ejecuta la condicional de diferencia de
         colores, para evitar el bug de bucle infinito
--   [x] Hacer que el contador de colores sea por color activo generado (en lugar de por match, así hacemos que el pique sea a ver quién se pasa el juego con menos colores)
 -   [ ] Hacer testing con usuarios
 -   [ ] Sistema para registrar datos del testing automáticamente (?)
 
