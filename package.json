@@ -2,7 +2,7 @@
 	"name": "Palette",
 	"version": "1.0.0",
 	"description": "Juego casual de PilPilGames",
-	"main": "index.html",
+	"main": "index.pug",
 	"scripts": {
 		"start": "parcel index.pug --open",
 		"build": "parcel build index.pug",
