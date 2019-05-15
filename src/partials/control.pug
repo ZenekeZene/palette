@@ -1,0 +1,20 @@
+// CONTROL PAGE
+aside#control.control.hidden.animated
+	#quote.quote.hidden.animated
+		p#quotePhrase Creativity takes courage
+		span#quoteAuthor Henry Matisse
+	#replayText.replay.hidden.animated
+		p You almost got it!
+			span TRY AGAIN
+	button#nextButton.animated
+		i.fa.fa-play(aria-hidden="true")
+	button#replayButton.animated
+		i.fa.fa-redo(aria-hidden="true")
+	#progression.progression.level-1
+		p.progression__text Game progression: 
+			span &ensp;&ensp;&ensp;
+		.progression__graphic
+			- var n = 0;
+			while n < 15
+				div
+				- n++

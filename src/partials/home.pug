@@ -1,0 +1,15 @@
+// HOME PAGE
+aside#homePage.home.fadeIn.animated
+	header.home-header
+		.home-header__logo.fadeInDown.animated
+			img(src="src/img/logo.svg" alt="Palette logo" height="120")
+		.header
+			p.header__level LEVEL
+				span#homeLevel
+			p#homeScore.header__score 40
+			a#shareLink.header__share(href="https://twitter.com/intent/tweet?text=I+have+reached+level+5+playing+@Palette_game!!!+http://palette.ws") SHARE
+	nav.home-buttons
+		button#playButton.home-buttons__play
+		button#resetButton.home-buttons__reset
+		button.home-buttons__sound
+		button#creditsButton.home-buttons__about

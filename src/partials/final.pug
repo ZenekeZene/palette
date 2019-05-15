@@ -1,0 +1,18 @@
+// FINAL PAGE
+aside#finalPage.final.hidden
+	header.header
+		p.header__back
+	.final-message
+		h2 Congratulations!
+		h3 You have finished Palette using just...
+		p
+			span#contSuccesFinalPage XXXX
+			span colors
+		a#shareLinkFinal.header__share(href="https://twitter.com/intent/tweet?text=I+have+finished+@Palette_game+using+XXXXXXXX+colors!!!+http://palette.ws") SHARE YOUR RECORD
+	.final-donation Support us
+	button.donate-button
+	.confetti
+		- var n = 0;
+		while n < 13
+			.confetti-piece
+			- n++
