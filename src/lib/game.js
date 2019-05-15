@@ -4,7 +4,6 @@ const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
 const control = require('./control');
-console.log(_);
 
 let levels;
 
@@ -110,6 +109,7 @@ function searchCorrectSwatchAndDropzone() {
 
 function getRandomEnabledItem() {
 	const swatchActives = swatches.filter((swatch) => swatch.isEnabled === true);
+	console.log(swatchActives);
 	const sample = _.sample(swatchActives);
 	return sample.index;
 }
