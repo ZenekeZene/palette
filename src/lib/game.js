@@ -164,6 +164,7 @@ function playLevel() {
 	numItems = levels[levelCurrent];
 	// Draw grid:
 	const data = grid.init(numItems);
+	console.log(data);
 	swatchNodes = data.swatchNodes;
 	dropzoneNodes = data.dropzoneNodes;
 
