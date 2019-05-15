@@ -45,7 +45,7 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 -   [ ] Música ambient / chill
 -   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando
         se pasa de nivel
--   [ ] Pantalla final del juego, cuando se superan los 15 niveles -> Pintada, falta incorporar funcionalidad (aparición al superar el nivel 15, botón de compartir resultado)
+-   [x] Pantalla final del juego, cuando se superan los 15 niveles -> Pintada, falta incorporar funcionalidad (aparición al superar el nivel 15, botón de compartir resultado)
 -   [ ] Integrar sistema de monetización. Idea: donativos voluntarios através de esta plataforma (botón en los créditos y cuando te pasas el juego): https://www.buymeacoffee.com/). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Pintado, faltaría crear la cuenta y linkar a la página de pagos.
 -   [ ] Mínimos de luminosidad para mixers (15) y para swatches (25)
 -   [ ] Mínimo de diferencial en la generación del mixer (de 0 a 0.9 ?)

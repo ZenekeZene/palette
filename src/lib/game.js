@@ -3,6 +3,9 @@ const drag = require('./drag');
 const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
+const control = require('./control');
+
+let levels;
 
 // ONLY DEVELOPMENT:
 let _isDev = false;
@@ -15,18 +18,16 @@ let app,
 	dropzoneNodes,
 	activeColorObject,
 	contSuccess,
-	level;
+	statusObserver;
 let tutorialIsNotLaunched;
-let numItems = 0;
+	numItems = 0;
 
-let levelSuccessed, levelFailed, scoreToAument;
-
-function checkSuccess(index) {
-	if (_.isEqual(swatches[index].cmyk, dropzones[index].cmyk)) {
-		swatches[index].el.classList.add('match-swatch');
-		dropzones[index].el.classList.add('match-mixer');
-		swatches[index].isEnabled = false;
-		dropzones[index].isEnabled = false;
+function checkSuccess(indexToCheck) {
+	if (_.isEqual(swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
+		swatches[indexToCheck].el.classList.add('match-swatch');
+		dropzones[indexToCheck].el.classList.add('match-mixer');
+		swatches[indexToCheck].isEnabled = false;
+		dropzones[indexToCheck].isEnabled = false;
 		return true;
 	} else {
 		return false;
@@ -78,14 +79,14 @@ function doSuccess(dropzone, index) {
 			app.removeChild(activeColorObject.el);
 			activeColorObject = null;
 			contSuccess = 0;
-			levelSuccessed();
+			statusObserver.notify('success', levelCurrent);
 		}
 	} else {
 		const { dropzoneWasCorrect, swatchWasCorrect } = searchCorrectSwatchAndDropzone();
 		app.removeChild(activeColorObject.el);
 		activeColorObject = null;
 		contSuccess = 0;
-		levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones);
+		statusObserver.notify('fail', { dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones });
 	}
 }
 
@@ -113,7 +114,7 @@ function getRandomEnabledItem() {
 }
 
 function createActiveObject() {
-	scoreToAument();
+	statusObserver.notify('scoreToAument');
 	const node = document.createElement('div');
 	node.classList.add('active__swatch', 'swatch', 'drag-drop', 'active');
 
@@ -123,6 +124,16 @@ function createActiveObject() {
 		color.subtractColors(swatches[indexRandom].cmyk, dropzones[indexRandom].cmyk),
 		node
 	);
+}
+
+function activeIsMoved() {
+	if (dropzones[0].el.classList.contains('tutorial')) return;
+	if (tutorialIsNotLaunched) {
+		baseActive.classList.remove('tutorial');
+		for (let i = 0; i < dropzones.length; i++) {
+			dropzones[i].el.classList.add('tutorial');
+		}
+	}
 }
 
 function initSwatches(swatchesNodes) {
@@ -145,19 +156,10 @@ function initDropzones(dropzoneNodes) {
 	return dropzones;
 }
 
-function activeIsMoved() {
-	if (dropzones[0].el.classList.contains('tutorial')) return;
-	if (tutorialIsNotLaunched) {
-		baseActive.classList.remove('tutorial');
-		for (let i = 0; i < dropzones.length; i++) {
-			dropzones[i].el.classList.add('tutorial');
-		}
-	}
-}
-
-function playLevel(numItemsEntry) {
+function playLevel() {
+	levelCurrent = persist.getData('levelCurrent');
 	contSuccess = 0;
-	numItems = numItemsEntry;
+	numItems = levels[levelCurrent];
 	// Draw grid:
 	({ swatchNodes, dropzoneNodes } = grid.init(numItems));
 
@@ -170,7 +172,7 @@ function playLevel(numItemsEntry) {
 	if (tutorialIsNotLaunched === true) {
 		baseActive.classList.add('tutorial');
 	}
-	drag.init(activeColorObject.el, dropzones, doSuccess, doFailed, activeIsMoved);
+	drag.init(activeColorObject.el, dropzones, statusObserver, activeIsMoved);
 	app.append(activeColorObject.el);
 	if (_isDev) {
 		_giveMeTheSolution();
@@ -195,11 +197,21 @@ function _giveMeTheSolution() {
 	}
 }
 
-function setup(appEntry, levelSuccessedEntry, levelFailedEntry, scoreToAumentEntry) {
+function setup(appEntry, statusObserverEntry, levelsEntry) {
 	app = appEntry;
-	levelSuccessed = levelSuccessedEntry;
-	levelFailed = levelFailedEntry;
-	scoreToAument = scoreToAumentEntry;
+	statusObserver = statusObserverEntry;
+	levels = levelsEntry;
+	statusObserver.subscribe(function(status, data) {
+		switch(status) {
+			case 'playLevel': playLevel(); break;
+			case 'dropSuccess':
+				const {dropZoneCurrent, index } = data[0];
+				doSuccess(dropZoneCurrent, index); break;
+			case 'dropFail': doFailed(); break;
+			case 'activeIsMoved': activeIsMoved(); break;
+		}
+	});
+	control.init(statusObserverEntry);
 }
 
 module.exports = {
