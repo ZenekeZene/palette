@@ -1,10 +1,6 @@
 const interact = require('interactjs');
 
-let activeNode,
-	dropzones,
-	callbackWhenDropSuccess,
-	callbackWhenDropFailed,
-	callbackWhenActiveIsDragged;
+let activeNode, dropzones;
 
 function offset(el) {
 	const rect = el.getBoundingClientRect();
@@ -24,7 +20,7 @@ function dragMoveListener(event) {
 	// update the position attributes
 	target.setAttribute('data-x', x);
 	target.setAttribute('data-y', y);
-	callbackWhenActiveIsDragged();
+	statusObserver.notify('activeIsMoved');
 }
 
 function initDrag() {
@@ -110,7 +106,7 @@ function initDrag() {
 					dropZoneCurrent.el
 				);
 				isEntered = false;
-				setTimeout(callbackWhenDropSuccess(dropZoneCurrent, index), 500);
+				setTimeout(statusObserver.notify('dropSuccess', { dropZoneCurrent, index }), 500);
 			} else {
 				// Out
 				target.style.transform = 'translate(0, 0)';
@@ -120,7 +116,7 @@ function initDrag() {
 				// update the position attributes
 				target.setAttribute('data-x', 0);
 				target.setAttribute('data-y', 0);
-				callbackWhenDropFailed();
+				statusObserver.notify('dropFail');
 			}
 		},
 	});
@@ -133,15 +129,11 @@ function setActiveNode(activeNodeEntry) {
 function init(
 	activeNodeEntry,
 	dropzonesEntry,
-	callbackWhenDropSuccessEntry,
-	callbackWhenDropFailedEntry,
-	callbackWhenActiveIsDraggedEntry
+	statusObserverEntry,
 ) {
 	activeNode = activeNodeEntry;
 	dropzones = dropzonesEntry;
-	callbackWhenDropSuccess = callbackWhenDropSuccessEntry;
-	callbackWhenDropFailed = callbackWhenDropFailedEntry;
-	callbackWhenActiveIsDragged = callbackWhenActiveIsDraggedEntry;
+	statusObserver = statusObserverEntry;
 	initDrag();
 }
 

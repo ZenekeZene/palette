@@ -1,7 +1,5 @@
 const persist = require('./persist');
 
-let statusObserver;
-
 let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
 
 function levelSuccessed() {

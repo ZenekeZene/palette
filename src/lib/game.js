@@ -8,7 +8,7 @@ const control = require('./control');
 let levels;
 
 // ONLY DEVELOPMENT:
-let _isDev = true;
+let _isDev = false;
 
 let app,
 	baseActive,
@@ -17,7 +17,8 @@ let app,
 	swatchNodes,
 	dropzoneNodes,
 	activeColorObject,
-	contSuccess;
+	contSuccess,
+	statusObserver;
 let tutorialIsNotLaunched;
 	numItems = 0;
 
@@ -125,6 +126,16 @@ function createActiveObject() {
 	);
 }
 
+function activeIsMoved() {
+	if (dropzones[0].el.classList.contains('tutorial')) return;
+	if (tutorialIsNotLaunched) {
+		baseActive.classList.remove('tutorial');
+		for (let i = 0; i < dropzones.length; i++) {
+			dropzones[i].el.classList.add('tutorial');
+		}
+	}
+}
+
 function initSwatches(swatchesNodes) {
 	let swatches = [];
 	for (let i = 0; i < swatchesNodes.length; i++) {
@@ -145,16 +156,6 @@ function initDropzones(dropzoneNodes) {
 	return dropzones;
 }
 
-function activeIsMoved() {
-	if (dropzones[0].el.classList.contains('tutorial')) return;
-	if (tutorialIsNotLaunched) {
-		baseActive.classList.remove('tutorial');
-		for (let i = 0; i < dropzones.length; i++) {
-			dropzones[i].el.classList.add('tutorial');
-		}
-	}
-}
-
 function playLevel() {
 	levelCurrent = persist.getData('levelCurrent');
 	contSuccess = 0;
@@ -171,7 +172,7 @@ function playLevel() {
 	if (tutorialIsNotLaunched === true) {
 		baseActive.classList.add('tutorial');
 	}
-	drag.init(activeColorObject.el, dropzones, doSuccess, doFailed, activeIsMoved);
+	drag.init(activeColorObject.el, dropzones, statusObserver, activeIsMoved);
 	app.append(activeColorObject.el);
 	if (_isDev) {
 		_giveMeTheSolution();
@@ -196,15 +197,18 @@ function _giveMeTheSolution() {
 	}
 }
 
-let statusObserver;
-
 function setup(appEntry, statusObserverEntry, levelsEntry) {
 	app = appEntry;
 	statusObserver = statusObserverEntry;
 	levels = levelsEntry;
-	statusObserver.subscribe(function(status) {
-		if (status === 'playLevel') {
-			playLevel();
+	statusObserver.subscribe(function(status, data) {
+		switch(status) {
+			case 'playLevel': playLevel(); break;
+			case 'dropSuccess':
+				const {dropZoneCurrent, index } = data[0];
+				doSuccess(dropZoneCurrent, index); break;
+			case 'dropFail': doFailed(); break;
+			case 'activeIsMoved': activeIsMoved(); break;
 		}
 	});
 	control.init(statusObserverEntry);
