@@ -108,7 +108,9 @@ function searchCorrectSwatchAndDropzone() {
 }
 
 function getRandomEnabledItem() {
-	const swatchActives = swatches.filter((swatch) => swatch.isEnabled === true);
+	const swatchActives = swatches.filter(function(swatch) {
+		return swatch.isEnabled === true;
+	});
 	console.log(swatchActives);
 	const sample = _.sample(swatchActives);
 	return sample.index;
