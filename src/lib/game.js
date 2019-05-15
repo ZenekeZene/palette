@@ -163,9 +163,9 @@ function playLevel() {
 	contSuccess = 0;
 	numItems = levels[levelCurrent];
 	// Draw grid:
-	const { swatchNodesLocal, swatchNodesLocal } = grid.init(numItems);
+	const { swatchNodesLocal, dropzoneNodesLocal } = grid.init(numItems);
 	swatchNodes = swatchNodesLocal;
-	dropzoneNodes = swatchNodesLocal;
+	dropzoneNodes = dropzoneNodesLocal;
 
 	// Init Swatches, Dropzones and Active
 	console.log(swatchNodes);
