@@ -166,7 +166,6 @@ function playLevel() {
 	({swatchNodes, dropzoneNodes} = grid.init(numItems));
 
 	// Init Swatches, Dropzones and Active
-	console.log(swatchNodes);
 	swatches = initSwatches(swatchNodes);
 	dropzones = initDropzones(dropzoneNodes);
 	activeColorObject = createActiveObject();
