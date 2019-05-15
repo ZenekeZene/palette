@@ -17,7 +17,7 @@
 	</head>
 
 	<body>
-		<div id="homePage" class="home fadeIn animated">
+		<aside id="homePage" class="home fadeIn animated">
 			<header class="home-header">
 				<div class="home-header__logo fadeInDown animated">
 					<img src="src/img/logo.svg" alt="Palette logo" height="120" />
@@ -38,7 +38,7 @@
 				<button class="home-buttons__sound"></button>
 				<button id="creditsButton" class="home-buttons__about"></button>
 			</nav>
-		</div>
+		</aside>
 		<aside id="resetPage" class="reset hidden">
 			<main class="notification">
 				<h2 class="notification__title">
@@ -81,7 +81,7 @@
 			</div>
 			<button class="donate-button"></button>
 		</aside>
-		<div id="app" class="game animated hidden">
+		<section id="app" class="game animated hidden">
 			<header class="header">
 				<p id="backButton" class="header__back"></p>
 				<p class="header__level">LEVEL <span id="numLevels"></span></p>
@@ -92,7 +92,7 @@
 				<section id="mixesGrid" class="swatches mixer"></section>
 			</main>
 			<div id="activeBase" class="active__base"></div>
-		</div>
+		</section>
 		<aside id="screenTutorial" class="screentutorial hidden animated">
 			<div class="screentutorial-text">
 				MIX THE COLORS TO MATCH THE SAMPLES
@@ -104,18 +104,18 @@
 			</div>
 			<a class="screentutorial-next">That's all! Shall we get started?</a>
 		</aside>
-		<aside id="control" class="control hidden">
-			<div id="quote" class="quote hidden">
+		<aside id="control" class="control hidden animated">
+			<div id="quote" class="quote hidden animated">
 				<p id="quotePhrase">Creativity takes courage</p>
 				<span id="quoteAuthor">Henry Matisse</span>
 			</div>
-			<div id="replayText" class="replay hidden">
+			<div id="replayText" class="replay hidden animated">
 				<p>You almost got it! <span>TRY AGAIN</span></p>
 			</div>
-			<button id="nextButton">
+			<button id="nextButton" class="animated">
 				<i class="fa fa-play" aria-hidden="true"></i>
 			</button>
-			<button id="replayButton" class="">
+			<button id="replayButton" class="animated">
 				<i class="fa fa-redo" aria-hidden="true"></i>
 			</button>
 			<div id="progression" class="progression level-1">

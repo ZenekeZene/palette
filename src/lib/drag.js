@@ -84,7 +84,7 @@ function initDrag() {
 	});
 
 	interact('.drag-drop').draggable({
-		inertia: true,
+		inertia: false,
 		restrict: {
 			restriction: 'parent',
 			endOnly: false,

@@ -3,9 +3,12 @@ const drag = require('./drag');
 const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
+const control = require('./control');
+
+let levels;
 
 // ONLY DEVELOPMENT:
-let _isDev = false;
+let _isDev = true;
 
 let app,
 	baseActive,
@@ -14,19 +17,16 @@ let app,
 	swatchNodes,
 	dropzoneNodes,
 	activeColorObject,
-	contSuccess,
-	level;
+	contSuccess;
 let tutorialIsNotLaunched;
-let numItems = 0;
+	numItems = 0;
 
-let levelSuccessed, levelFailed, scoreToAument;
-
-function checkSuccess(index) {
-	if (_.isEqual(swatches[index].cmyk, dropzones[index].cmyk)) {
-		swatches[index].el.classList.add('match-swatch');
-		dropzones[index].el.classList.add('match-mixer');
-		swatches[index].isEnabled = false;
-		dropzones[index].isEnabled = false;
+function checkSuccess(indexToCheck) {
+	if (_.isEqual(swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
+		swatches[indexToCheck].el.classList.add('match-swatch');
+		dropzones[indexToCheck].el.classList.add('match-mixer');
+		swatches[indexToCheck].isEnabled = false;
+		dropzones[indexToCheck].isEnabled = false;
 		return true;
 	} else {
 		return false;
@@ -78,14 +78,14 @@ function doSuccess(dropzone, index) {
 			app.removeChild(activeColorObject.el);
 			activeColorObject = null;
 			contSuccess = 0;
-			levelSuccessed();
+			statusObserver.notify('success', levelCurrent);
 		}
 	} else {
 		const { dropzoneWasCorrect, swatchWasCorrect } = searchCorrectSwatchAndDropzone();
 		app.removeChild(activeColorObject.el);
 		activeColorObject = null;
 		contSuccess = 0;
-		levelFailed(dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones);
+		statusObserver.notify('fail', { dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones });
 	}
 }
 
@@ -113,7 +113,7 @@ function getRandomEnabledItem() {
 }
 
 function createActiveObject() {
-	scoreToAument();
+	statusObserver.notify('scoreToAument');
 	const node = document.createElement('div');
 	node.classList.add('active__swatch', 'swatch', 'drag-drop', 'active');
 
@@ -155,9 +155,10 @@ function activeIsMoved() {
 	}
 }
 
-function playLevel(numItemsEntry) {
+function playLevel() {
+	levelCurrent = persist.getData('levelCurrent');
 	contSuccess = 0;
-	numItems = numItemsEntry;
+	numItems = levels[levelCurrent];
 	// Draw grid:
 	({ swatchNodes, dropzoneNodes } = grid.init(numItems));
 
@@ -195,11 +196,18 @@ function _giveMeTheSolution() {
 	}
 }
 
-function setup(appEntry, levelSuccessedEntry, levelFailedEntry, scoreToAumentEntry) {
+let statusObserver;
+
+function setup(appEntry, statusObserverEntry, levelsEntry) {
 	app = appEntry;
-	levelSuccessed = levelSuccessedEntry;
-	levelFailed = levelFailedEntry;
-	scoreToAument = scoreToAumentEntry;
+	statusObserver = statusObserverEntry;
+	levels = levelsEntry;
+	statusObserver.subscribe(function(status) {
+		if (status === 'playLevel') {
+			playLevel();
+		}
+	});
+	control.init(statusObserverEntry);
 }
 
 module.exports = {
