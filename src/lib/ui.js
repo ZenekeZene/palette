@@ -51,7 +51,7 @@ function levelSuccessed() {
 
 function levelFailed() {
 	progression.classList = '';
-	progression.classList.add('progression', `level-${levelCurrent}`);
+	progression.classList.add('progression', `level-${levelCurrent++}`);
 	setTimeout(() => {
 		control.classList.add('fadeIn');
 		control.classList.remove('hidden');
