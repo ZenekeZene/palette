@@ -108,11 +108,9 @@ function searchCorrectSwatchAndDropzone() {
 }
 
 function getRandomEnabledItem() {
-	console.log(swatches);
 	const swatchActives = swatches.filter(function(swatch) {
 		return swatch.isEnabled === true;
 	});
-	console.log(swatchActives);
 	const sample = _.sample(swatchActives);
 	return sample.index;
 }
@@ -169,6 +167,7 @@ function playLevel() {
 
 	// Init Swatches, Dropzones and Active
 	swatches = initSwatches(swatchNodes);
+	console.log(swatches);
 	dropzones = initDropzones(dropzoneNodes);
 	activeColorObject = createActiveObject();
 	baseActive = document.getElementById('activeBase');
