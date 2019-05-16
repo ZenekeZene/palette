@@ -1,8 +1,7 @@
 const persist = require('./persist');
 const quote = require('./quote');
 let contSuccessTotal = persist.getData('contSuccessTotal') || 0;
-let levels;
-let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
+let levels, levelCurrent, statusObserver;
 
 const nextButton = document.getElementById('nextButton');
 const replayButton = document.getElementById('replayButton');
@@ -24,10 +23,9 @@ const resetAccept = document.getElementById('resetAccept');
 const creditsButton = document.getElementById('creditsButton');
 const creditsPage = document.getElementById('creditsPage');
 const backButtonCredits = document.getElementById('backButtonCredits');
+const backButtonFinal = document.getElementById('backButtonFinal');
 const progression = document.getElementById('progression');
 const shareLink = document.getElementById('shareLink');
-
-let statusObserver;
 
 function levelSuccessed() {
 	if (levelCurrent === levels.length - 1) {
@@ -38,6 +36,9 @@ function levelSuccessed() {
 		return;
 	}
 
+	levelCurrent += 1;
+	persist.saveData('levelCurrent', levelCurrent);
+
 	control.classList.add('fadeIn');
 	control.classList.remove('hidden');
 	app.classList.add('fadeOut');
@@ -46,12 +47,14 @@ function levelSuccessed() {
 	replayButton.classList.add('hidden');
 	replayText.classList.add('hidden');
 	progression.classList = '';
-	progression.classList.add('progression', `level-${levelCurrent + 1}`);
+	progression.classList.add('progression', `level-${levelCurrent}`);
+	homeLevel.textContent = levelCurrent + 1;
+	numLevels.textContent = levelCurrent + 1;
 }
 
 function levelFailed() {
 	progression.classList = '';
-	progression.classList.add('progression', `level-${levelCurrent + 1}`);
+	progression.classList.add('progression', `level-${levelCurrent}`);
 	setTimeout(() => {
 		control.classList.add('fadeIn');
 		control.classList.remove('hidden');
@@ -66,6 +69,11 @@ function levelFailed() {
 
 function handEvents() {
 	playButton.addEventListener('click', function() {
+		levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
+		if (levelCurrent === levels.length) {
+			resetPage.classList.remove('hidden');
+			return false;
+		}
 		homePage.classList.add('unveil');
 		statusObserver.notify('playLevel');
 		if (persist.getData('tutorialIsNotLaunched') !== 'false') {
@@ -101,7 +109,7 @@ function handEvents() {
 		location.reload();
 	});
 	
-	creditsButton.addEventListener('click', function(event) {
+	creditsButton.addEventListener('click', function() {
 		creditsPage.classList.remove('hidden');
 	});
 	
@@ -109,6 +117,11 @@ function handEvents() {
 		homePage.classList.remove('unveil');
 		creditsPage.classList.add('hidden');
 	});
+
+	backButtonFinal.addEventListener('click', function() {
+		homePage.classList.remove('unveil');
+		finalPage.classList.add('hidden');
+	})
 	
 	shareLink.addEventListener('click', function(event) {
 		const target = event.target;
@@ -153,10 +166,11 @@ function scoreToAument() {
 	persist.saveData('contSuccessTotal', contSuccessTotal);
 }
 
-function init(statusObserverEntry, levelsEntry) {
+function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	quote.init(statusObserverEntry, levelsEntry.length);
 	statusObserver = statusObserverEntry;
 	levels = levelsEntry;
+	levelCurrent = levelCurrentEntry;
 	statusObserver.subscribe(function(status) {
 		if (status === 'success') {
 			levelSuccessed();
@@ -168,7 +182,6 @@ function init(statusObserverEntry, levelsEntry) {
 	});
 
 	handEvents();
-
 	homeScore.textContent = contSuccessTotal;
 	homeLevel.textContent = levelCurrent + 1;
 	numLevels.textContent = levelCurrent + 1;

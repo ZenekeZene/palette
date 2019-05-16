@@ -3,9 +3,8 @@ const drag = require('./drag');
 const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
-const control = require('./control');
 
-let levels;
+let levels, levelCurrent;
 
 // ONLY DEVELOPMENT:
 let _isDev = false;
@@ -18,9 +17,10 @@ let app,
 	dropzoneNodes,
 	activeColorObject,
 	contSuccess,
-	statusObserver;
-let tutorialIsNotLaunched;
-	numItems = 0;
+	statusObserver,
+	tutorialIsNotLaunched;
+
+let	numItems = 0;
 
 function checkSuccess(indexToCheck) {
 	if (_.isEqual(swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
@@ -79,6 +79,8 @@ function doSuccess(dropzone, index) {
 			app.removeChild(activeColorObject.el);
 			activeColorObject = null;
 			contSuccess = 0;
+			levelCurrent += 1;
+			persist.saveData('levelCurrent', levelCurrent);
 			statusObserver.notify('success', levelCurrent);
 		}
 	} else {
@@ -86,7 +88,21 @@ function doSuccess(dropzone, index) {
 		app.removeChild(activeColorObject.el);
 		activeColorObject = null;
 		contSuccess = 0;
-		statusObserver.notify('fail', { dropzoneWasCorrect, swatchWasCorrect, swatches, dropzones });
+		statusObserver.notify('fail');
+		dropzoneWasCorrect.el.classList.add('wasCorrect');
+		swatchWasCorrect.el.classList.add('wasCorrect');
+		const swatchesNotCorrect = swatches.filter(
+			(swatch) => !swatch.el.classList.contains('wasCorrect')
+		);
+		for (let i = 0; i < swatchesNotCorrect.length; i++) {
+			swatchesNotCorrect[i].el.classList.add('reset-swatch');
+		}
+		const dropzonesNotCorrect = dropzones.filter(
+			(dropzone) => !dropzone.el.classList.contains('wasCorrect')
+		);
+		for (let i = 0; i < dropzonesNotCorrect.length; i++) {
+			dropzonesNotCorrect[i].el.classList.add('reset-swatch');
+		}
 	}
 }
 
@@ -159,7 +175,6 @@ function initDropzones(dropzoneNodes) {
 }
 
 function playLevel() {
-	levelCurrent =  parseInt(persist.getData('levelCurrent'), 10) || 0;;
 	contSuccess = 0;
 	numItems = levels[levelCurrent];
 	// Draw grid:
@@ -199,10 +214,11 @@ function _giveMeTheSolution() {
 	}
 }
 
-function setup(appEntry, statusObserverEntry, levelsEntry) {
+function setup(appEntry, statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	app = appEntry;
 	statusObserver = statusObserverEntry;
 	levels = levelsEntry;
+	levelCurrent = levelCurrentEntry;
 	statusObserver.subscribe(function(status, data) {
 		switch(status) {
 			case 'playLevel': playLevel(); break;
@@ -213,7 +229,6 @@ function setup(appEntry, statusObserverEntry, levelsEntry) {
 			case 'activeIsMoved': activeIsMoved(); break;
 		}
 	});
-	control.init(statusObserverEntry);
 }
 
 module.exports = {
