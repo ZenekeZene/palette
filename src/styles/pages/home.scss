@@ -6,7 +6,7 @@
 	height: 100vh;
 	height: calc(var(--vh, 1vh) * 100);
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: space-between;
 	align-items: center;
 	padding: $gutter-2;
 	font-size: 0.7rem;
@@ -21,7 +21,7 @@
 
 	&-header {
 		&__logo {
-			padding-bottom: $gutter;
+			padding-bottom: $gutter-2;
 		}
 	}
 
@@ -35,7 +35,7 @@
 		}
 
 		&__level {
-			width: 120px;
+			width: 50px;
 			text-align: left;
 		}
 
@@ -172,5 +172,11 @@
 				box-shadow: 0 0 0 $shadow;
 			}
 		}
+	}
+
+	.donate-button {
+		position: relative;
+		bottom: 0;
+		left: 0;
 	}
 }
