@@ -4,8 +4,6 @@ const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
 
-let mixesGrid = document.getElementById('mixesGrid');
-
 let levels, levelCurrent;
 
 // ONLY DEVELOPMENT:
@@ -24,6 +22,8 @@ let app,
 
 let	numItems = 0;
 
+const limitActive = document.getElementById('limitActive');
+
 function checkSuccess(indexToCheck) {
 	if (_.isEqual(swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
 		swatches[indexToCheck].el.classList.add('match-swatch');
@@ -38,9 +38,9 @@ function checkSuccess(indexToCheck) {
 
 function updateActive(newActiveColorObject) {
 	// Borramos el Activo viejo:
-	app.removeChild(activeColorObject.el);
+	limitActive.removeChild(activeColorObject.el);
 	activeColorObject = newActiveColorObject;
-	app.append(activeColorObject.el);
+	limitActive.append(activeColorObject.el);
 	drag.setActiveNode(activeColorObject.el);
 }
 
@@ -78,7 +78,7 @@ function doSuccess(dropzone, index) {
 				_giveMeTheSolution();
 			}
 		} else {
-			app.removeChild(activeColorObject.el);
+			limitActive.removeChild(activeColorObject.el);
 			activeColorObject = null;
 			contSuccess = 0;
 			levelCurrent += 1;
@@ -87,7 +87,7 @@ function doSuccess(dropzone, index) {
 		}
 	} else {
 		const { dropzoneWasCorrect, swatchWasCorrect } = searchCorrectSwatchAndDropzone();
-		app.removeChild(activeColorObject.el);
+		limitActive.removeChild(activeColorObject.el);
 		activeColorObject = null;
 		contSuccess = 0;
 		statusObserver.notify('fail');
@@ -187,13 +187,12 @@ function playLevel() {
 	dropzones = initDropzones(dropzoneNodes);
 	activeColorObject = createActiveObject();
 	baseActive = document.getElementById('activeBase');
-	console.log(baseActive);
 	tutorialIsNotLaunched = persist.getData('tutorialIsNotLaunched') !== 'false';
 	if (tutorialIsNotLaunched === true) {
 		baseActive.classList.add('tutorial');
 	}
 	drag.init(activeColorObject.el, dropzones, statusObserver, activeIsMoved);
-	mixesGrid.append(activeColorObject.el);
+	limitActive.append(activeColorObject.el);
 	if (_isDev) {
 		_giveMeTheSolution();
 	}

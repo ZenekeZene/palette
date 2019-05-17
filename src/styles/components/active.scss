@@ -1,15 +1,20 @@
 .active {
+	$size-active: 8vh;
 	@include flex(inline, center, center);
 
 	&__swatch,
 	&__base {
-		@include absolute(bottom 1.5rem);
+		@include absolute(bottom 1rem);
+		left: 50%;
+		margin-left: -$size-active / 2;
 	}
 
 	&__swatch {
 		display: inline-block;
-		@include share(width, height, 8vh);
-		margin: 0;
+		@include share(width, height, $size-active);
+		margin-top: 0;
+		margin-right: 0;
+		margin-bottom: 0;
 		font-size: 0.6rem;
 		color: white;
 		-ms-touch-action: none;

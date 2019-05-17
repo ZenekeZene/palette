@@ -2,9 +2,8 @@
 	position: relative;
 	@include flex(flex, center, center);
 	flex-flow: row wrap;
-	width: calc(100vw - 60px);
+	width: calc(35vh + 60px);
 	height: 35vh;
-	margin: 0 auto;
 	padding: 4vh 0;
 	border-bottom: solid 2px $shadow;
 }

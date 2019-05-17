@@ -94,7 +94,7 @@ function initDrag() {
 				!dropZoneCurrent || !dropZoneCurrent.el.classList.contains('disabled');
 			if (isEntered && isEnabled) {
 				const rect = offset(dropZoneCurrent.el);
-				target.style.transform = 'translate(0, 0)';
+				target.style.webkitTransform = target.style.transform = 'translate(0, 0)';
 				target.style.position = 'absolute';
 				target.style.left = `${rect.left}px`;
 				target.style.top = `${rect.top}px`;
@@ -109,7 +109,7 @@ function initDrag() {
 				// Out
 				target.style.transform = 'translate(0, 0)';
 				target.style.webkitTransform = target.style.transform =
-					'translate(0px, 0px)';
+					'translate(0, 0)';
 
 				// update the position attributes
 				target.setAttribute('data-x', 0);
