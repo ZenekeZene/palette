@@ -3,6 +3,7 @@ const drag = require('./drag');
 const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
+const sound = require('./sound');
 
 let levels, levelCurrent;
 
@@ -74,6 +75,7 @@ function doSuccess(dropzone, index) {
 			// Seteamos un nuevo activo:
 			let newActiveColorObject = createActiveObject();
 			updateActive(newActiveColorObject);
+			statusObserver.notify('stepSuccess');
 			if (_isDev) {
 				_giveMeTheSolution();
 			}
@@ -231,6 +233,7 @@ function setup(appEntry, statusObserverEntry, levelsEntry, levelCurrentEntry) {
 			case 'activeIsMoved': activeIsMoved(); break;
 		}
 	});
+	sound.init(statusObserver);
 }
 
 module.exports = {
