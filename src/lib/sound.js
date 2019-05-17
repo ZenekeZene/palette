@@ -1,4 +1,4 @@
-const Tone = require("Tone");
+const Tone = require("tone");
 let statusObserver;
 
 function init(statusObserverEntry) {
