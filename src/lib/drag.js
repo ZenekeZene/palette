@@ -15,7 +15,7 @@ function dragMoveListener(event) {
 		y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 	target.classList.add('drag-active');
 	// translate the element
-	target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+	target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`;
 
 	// update the position attributes
 	target.setAttribute('data-x', x);
@@ -38,9 +38,7 @@ function initDrag() {
 		accept: '.drag-drop',
 		// Require a 75% element overlap for a drop to be possible
 		overlap: 0.25,
-
 		// listen for drop related events:
-
 		ondropactivate: function(event) {
 			// add active dropzone feedback
 			event.target.classList.add('drop-active');
@@ -84,7 +82,7 @@ function initDrag() {
 		restrict: {
 			restriction: 'parent',
 			endOnly: false,
-			elementRect: { top: 0, left: 0, bottom: 1, right: 0 },
+			elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
 		},
 		autoScroll: false,
 		// dragMoveListener from the dragging demo above
@@ -96,7 +94,7 @@ function initDrag() {
 				!dropZoneCurrent || !dropZoneCurrent.el.classList.contains('disabled');
 			if (isEntered && isEnabled) {
 				const rect = offset(dropZoneCurrent.el);
-				target.style.transform = `translate(0, 0)`;
+				target.style.transform = 'translate(0, 0)';
 				target.style.position = 'absolute';
 				target.style.left = `${rect.left}px`;
 				target.style.top = `${rect.top}px`;
@@ -111,7 +109,7 @@ function initDrag() {
 				// Out
 				target.style.transform = 'translate(0, 0)';
 				target.style.webkitTransform = target.style.transform =
-					'translate(' + 0 + 'px, ' + 0 + 'px)';
+					'translate(0px, 0px)';
 
 				// update the position attributes
 				target.setAttribute('data-x', 0);

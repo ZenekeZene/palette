@@ -1,4 +1,5 @@
-const brightnessCoef = 20;
+const brightnessCoef = 30;
+const differencialCoef = 20;
 let swatchesHistorical = [];
 
 function ColorObject(cmyk, el) {
@@ -50,20 +51,26 @@ function convertCMYKtoRGB(cmyk) {
 	color.push(255 * (1 - cmyk[1] / 100) * (1 - cmyk[3] / 100));
 	color.push(255 * (1 - cmyk[2] / 100) * (1 - cmyk[3] / 100));
 	return color;
-	//return convert.cmyk.rgb(`${cmyk[0]}%`, `${cmyk[1]}%`, `${cmyk[2]}%`, `${cmyk[3]}%`);
 }
 
-function getColorCMYKRandom() {
+function getColorCMYKRandom(contRepetitions) {
 	const cmyk = [];
 	cmyk.push(getRandomInterval(0, 100));
 	cmyk.push(getRandomInterval(0, 100));
 	cmyk.push(getRandomInterval(0, 100));
 	cmyk.push(0);
-	if (calculateBrightnessCoefficient(cmyk) <= brightnessCoef) {
-		return getColorCMYKRandom();
+	if (contRepetitions) {
+		contRepetitions++;
+	} else {
+		contRepetitions = 0;
 	}
-	if (!calculateSimilarCoefficient(cmyk)) {
-		return getColorCMYKRandom();
+	if (contRepetitions < 10) {
+		if (calculateBrightnessCoefficient(cmyk) <= brightnessCoef) {
+			return getColorCMYKRandom(contRepetitions);
+		}
+		if (!calculateSimilarCoefficient(cmyk)) {
+			return getColorCMYKRandom(contRepetitions);
+		}
 	}
 	swatchesHistorical.push(cmyk);
 	return cmyk;
@@ -77,7 +84,7 @@ function calculateSimilarCoefficient(cmyk) {
 			const absSimilar = Math.abs(cmyk[j] - swatchesHistorical[i][j]);
 			summation += absSimilar;
 		}
-		if (summation > 20) {
+		if (summation > differencialCoef) {
 			cont++;
 		}
 	}

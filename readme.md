@@ -41,16 +41,19 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
         archivo con 40 frases para alimentarlas.
 -   [x] Hacer que el contador de colores sea por color activo generado (en lugar de por match, así hacemos que el pique sea a ver quién se pasa el juego con menos colores)
 -   [x] Pulir animaciones de entrada de créditos y reset.
--   [ ] Quitar inertia en el drag.
+-   [x] Quitar inertia en el drag.
 -   [ ] Música ambient / chill
 -   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando
         se pasa de nivel
 -   [x] Pantalla final del juego, cuando se superan los 15 niveles -> Pintada, falta incorporar funcionalidad (aparición al superar el nivel 15, botón de compartir resultado)
 -   [ ] Integrar sistema de monetización. Idea: donativos voluntarios através de esta plataforma (botón en los créditos y cuando te pasas el juego): https://www.buymeacoffee.com/). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Pintado, faltaría crear la cuenta y linkar a la página de pagos.
--   [ ] Mínimos de luminosidad para mixers (15) y para swatches (25)
--   [ ] Mínimo de diferencial en la generación del mixer (de 0 a 0.9 ?)
--   [ ] Limitar el número máximo de veces (10) que se ejecuta la condicional de diferencia de
+-   [x] Añadir al share normal 'using X colors'.
+-   [x] Mínimos de luminosidad para swatches (25, 30)
+-	[ ] Mínimos de luminosidad para mixers (15) 
+-   [-] Mínimo de diferencial en la generación del mixer (de 0 a 0.9 ?)
+-   [x] Limitar el número máximo de veces (10) que se ejecuta la condicional de diferencia de
         colores, para evitar el bug de bucle infinito
+-   [x] Limitar el arrastre del swatch.
 -   [ ] Hacer testing con usuarios
 -   [ ] Sistema para registrar datos del testing automáticamente (?)
 

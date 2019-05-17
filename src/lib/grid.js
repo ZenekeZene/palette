@@ -5,9 +5,9 @@ let size = 0;
 let swatchNodes, dropzoneNodes;
 
 function fillGrid(wrapperGrid) {
-	while (wrapperGrid.firstChild) {
-		wrapperGrid.removeChild(wrapperGrid.firstChild);
-	}
+	//while (wrapperGrid.firstChild) {
+		//wrapperGrid.removeChild(wrapperGrid.firstChild);
+	//}
 	let items = [];
 	for (let i = 0; i < size; i++) {
 		const itemNode = document.createElement('div');

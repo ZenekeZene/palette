@@ -4,6 +4,8 @@ const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
 
+let mixesGrid = document.getElementById('mixesGrid');
+
 let levels, levelCurrent;
 
 // ONLY DEVELOPMENT:
@@ -185,12 +187,13 @@ function playLevel() {
 	dropzones = initDropzones(dropzoneNodes);
 	activeColorObject = createActiveObject();
 	baseActive = document.getElementById('activeBase');
+	console.log(baseActive);
 	tutorialIsNotLaunched = persist.getData('tutorialIsNotLaunched') !== 'false';
 	if (tutorialIsNotLaunched === true) {
 		baseActive.classList.add('tutorial');
 	}
 	drag.init(activeColorObject.el, dropzones, statusObserver, activeIsMoved);
-	app.append(activeColorObject.el);
+	mixesGrid.append(activeColorObject.el);
 	if (_isDev) {
 		_giveMeTheSolution();
 	}
