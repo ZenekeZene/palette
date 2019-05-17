@@ -92,7 +92,7 @@ function doSuccess(dropzone, index) {
 		limitActive.removeChild(activeColorObject.el);
 		activeColorObject = null;
 		contSuccess = 0;
-		statusObserver.notify('fail');
+		statusObserver.notify('fail'); 
 		dropzoneWasCorrect.el.classList.add('wasCorrect');
 		swatchWasCorrect.el.classList.add('wasCorrect');
 		const swatchesNotCorrect = swatches.filter(
