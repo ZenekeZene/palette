@@ -32,7 +32,7 @@ function levelSuccessed() {
 		const finalPage = document.getElementById('finalPage');
 		finalPage.classList.remove('hidden');
 		document.getElementById('contSuccesFinalPage').textContent = contSuccessTotal;
-		document.getElementById('shareLinkFinal').setAttribute('href', `https://twitter.com/intent/tweet?text=I+have+finished+@Palette_game+using+${contSuccessTotal}+colors!!!+http://palette.ws`);
+		document.getElementById('shareLinkFinal').setAttribute('href', `https://twitter.com/intent/tweet?text=I+have+finished+@PlayPalette+using+${contSuccessTotal}+colors!!!+http://palette.ws`);
 		return;
 	}
 
@@ -126,7 +126,7 @@ function handEvents() {
 
 	shareLink.addEventListener('click', function(event) {
 		const target = event.target;
-		target.setAttribute('href', `https://twitter.com/intent/tweet?text=I+have+reached+level+${levelCurrent + 1}+playing+@Palette_game+using+${contSuccessTotal}+colors!!!+http://palette.ws`);
+		target.setAttribute('href', `https://twitter.com/intent/tweet?text=I+have+reached+level+${levelCurrent + 1}+playing+@PlayPalette+using+${contSuccessTotal}+colors!!!+http://palette.ws`);
 	});
 
 	backButton.addEventListener('click', function() {
