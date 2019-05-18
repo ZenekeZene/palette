@@ -53,8 +53,10 @@
 	box-shadow: 0 0 $gutter-1-2 $shadow !important;
 }
 
-/* For vertical connections, now is prepared for horizontal divider (to be tested)
-#swatchesGrid {
+
+#swatchesGrid.initial {
+	border-bottom: none;
+	
 	.swatch {
 		position: relative;
 
@@ -76,7 +78,7 @@
 			visibility: hidden;
 	}
 }
-*/
+
 
 .wasCorrect {
 	-webkit-animation: wasCorrectAnimation 2s normal;
