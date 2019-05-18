@@ -86,15 +86,15 @@ function handEvents() {
 			app.classList.remove('hidden');
 		}
 	});
-	
+
 	resetButton.addEventListener('click', function(event) {
 		resetPage.classList.remove('hidden');
 	});
-	
+
 	resetCancel.addEventListener('click', function(event) {
 		resetPage.classList.add('hidden');
 	});
-	
+
 	resetAccept.addEventListener('click', function(event) {
 		resetPage.classList.add('hidden');
 		persist.saveData('tutorialIsNotLaunched', true);
@@ -108,11 +108,11 @@ function handEvents() {
 		score.textContent = contSuccessTotal;
 		location.reload();
 	});
-	
+
 	creditsButton.addEventListener('click', function() {
 		creditsPage.classList.remove('hidden');
 	});
-	
+
 	backButtonCredits.addEventListener('click', function() {
 		homePage.classList.remove('unveil');
 		creditsPage.classList.add('hidden');
@@ -120,14 +120,15 @@ function handEvents() {
 
 	backButtonFinal.addEventListener('click', function() {
 		homePage.classList.remove('unveil');
+		app.classList.add('hidden');
 		finalPage.classList.add('hidden');
 	})
-	
+
 	shareLink.addEventListener('click', function(event) {
 		const target = event.target;
 		target.setAttribute('href', `https://twitter.com/intent/tweet?text=I+have+reached+level+${levelCurrent + 1}+playing+@Palette_game+using+${contSuccessTotal}+colors!!!+http://palette.ws`);
 	});
-	
+
 	backButton.addEventListener('click', function() {
 		homePage.classList.remove('unveil');
 		app.classList.add('fadeOut', 'animated');
@@ -135,7 +136,7 @@ function handEvents() {
 		homeScore.textContent = contSuccessTotal;
 		homeLevel.textContent = levelCurrent + 1;
 	});
-	
+
 	screenTutorial.addEventListener('click', function() {
 		screenTutorial.classList.remove('fadeIn');
 		screenTutorial.classList.add('fadeOut');
@@ -143,7 +144,7 @@ function handEvents() {
 		app.classList.remove('fadeOut');
 		app.classList.remove('hidden');
 	});
-	
+
 	nextButton.addEventListener('click', handNextLevel);
 	replayButton.addEventListener('click', showLevel);
 }
@@ -189,5 +190,5 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 }
 
 module.exports = {
-	init	
+	init
 }

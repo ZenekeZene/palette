@@ -7,6 +7,17 @@
 	padding: $gutter-4 $gutter-2 $gutter-2 $gutter-2;
 	font-size: 0.6rem;
 	background: $paper;
+	-webkit-opacity: 1;
+	opacity: 1;
+	transition: opacity 1s ease-out;
+	-webkit-transition: opacity 1s ease-out;
+
+	&.hidden {
+		-webkit-opacity: 0;
+		opacity: 0;
+		transition: opacity 1s ease-out;
+		-webkit-transition: opacity 1s ease-out;
+	}
 
 	&-message {
 		position: relative;
