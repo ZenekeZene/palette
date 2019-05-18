@@ -35,8 +35,8 @@
 		top: calc(50% - 8px);
 		-webkit-opacity: 0;
 		opacity: 0;
-		-webkit-transition: top 0.6s ease-out 0.4s, -webkit-opacity .4s ease-out 0.4s;
-		transition: top 0.6s ease-out 0.4s, opacity .4s ease-out 0.4s;
+		-webkit-transition: top .6s ease-out, -webkit-opacity .4s ease-out;
+		transition: top .6s ease-out, opacity .4s ease-out;
 	}
 }
 
