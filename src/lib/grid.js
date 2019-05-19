@@ -5,9 +5,7 @@ let size = 0;
 let swatchNodes, dropzoneNodes;
 
 function fillGrid(wrapperGrid) {
-	while (wrapperGrid.firstChild) {
-		wrapperGrid.removeChild(wrapperGrid.firstChild);
-	}
+	cleanGrid(wrapperGrid);
 	let items = [];
 	for (let i = 0; i < size; i++) {
 		const itemNode = document.createElement('div');
@@ -16,6 +14,17 @@ function fillGrid(wrapperGrid) {
 		wrapperGrid.append(itemNode);
 	}
 	return items;
+}
+
+function cleanAll() {
+	cleanGrid(swatchesGrid);
+	cleanGrid(mixesGrid);
+}
+
+function cleanGrid(wrapperGrid) {
+	while (wrapperGrid.firstChild) {
+		wrapperGrid.removeChild(wrapperGrid.firstChild);
+	}
 }
 
 function init(numberOfItems) {
@@ -30,4 +39,6 @@ function init(numberOfItems) {
 
 module.exports = {
 	init,
+	cleanGrid,
+	cleanAll,
 };

@@ -122,6 +122,7 @@ function handEvents() {
 		homePage.classList.remove('unveil');
 		app.classList.add('hidden');
 		finalPage.classList.add('hidden');
+		statusObserver.notify('cleanLevel');
 	})
 
 	shareLink.addEventListener('click', function(event) {
@@ -135,6 +136,7 @@ function handEvents() {
 		app.classList.remove('fadeIn');
 		homeScore.textContent = contSuccessTotal;
 		homeLevel.textContent = levelCurrent + 1;
+		statusObserver.notify('cleanLevel');
 	});
 
 	screenTutorial.addEventListener('click', function() {

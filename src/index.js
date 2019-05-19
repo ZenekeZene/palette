@@ -11,7 +11,6 @@ function init() {
 	const statusObserver = new Observable();
 	const app = document.getElementById('app');
 	game.setup(app, statusObserver, levels, levelCurrent);
-	ui.init(statusObserver, levels, levelCurrent);
 }
 
 document.addEventListener('DOMContentLoaded', function(event) {

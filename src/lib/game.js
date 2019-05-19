@@ -4,6 +4,7 @@ const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
 const sound = require('./sound');
+const ui = require('./ui');
 
 let levels, levelCurrent;
 
@@ -200,6 +201,12 @@ function playLevel() {
 	}
 }
 
+function cleanLevel() {
+	grid.cleanAll();
+	limitActive.removeChild(activeColorObject.el);
+	activeColorObject = null;
+}
+
 function _giveMeTheSolution() {
 	for(let i = 0; i < numItems; i++) {
 		swatches[i].el.style.border = "none";
@@ -231,8 +238,10 @@ function setup(appEntry, statusObserverEntry, levelsEntry, levelCurrentEntry) {
 				doSuccess(dropZoneCurrent, index); break;
 			case 'dropFail': doFailed(); break;
 			case 'activeIsMoved': activeIsMoved(); break;
+			case 'cleanLevel': cleanLevel(); break;
 		}
 	});
+	ui.init(statusObserver, levels, levelCurrent);
 	sound.init(statusObserver);
 }
 
