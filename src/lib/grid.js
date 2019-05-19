@@ -2,7 +2,7 @@ let swatchesGrid = document.getElementById('swatchesGrid');
 let mixesGrid = document.getElementById('mixesGrid');
 
 let size = 0;
-let swatchNodes, dropzoneNodes;
+let swatchNodes, dropzoneNodes, levelCurrent;
 
 function fillGrid(wrapperGrid) {
 	cleanGrid(wrapperGrid);
@@ -27,9 +27,15 @@ function cleanGrid(wrapperGrid) {
 	}
 }
 
-function init(numberOfItems) {
-	size = numberOfItems;
+function init(levelCurrentEntry, sizeEntry) {
+	levelCurrent = levelCurrentEntry;
+	size = sizeEntry;
 	swatchNodes = fillGrid(swatchesGrid);
+	if (levelCurrent < 5) {
+		swatchesGrid.classList.add('initial');
+	} else {
+		swatchesGrid.classList.remove('initial');
+	}
 	dropzoneNodes = fillGrid(mixesGrid);
 	return {
 		swatchNodes,

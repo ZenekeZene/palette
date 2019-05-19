@@ -72,13 +72,14 @@
 
 		&::after {
 			content:"";
-			height: 35vh;
-			width: 2px;
-			background-color: $shadow-light;
 			position: absolute;
+			top: auto;
 			bottom: -35vh;
 			left: calc(50% - 1px);
 			z-index: 11;
+			height: 35vh;
+			width: 2px;
+			background-color: $shadow-light;
 			-webkit-animation: show-line 0.5s 1s linear both;
 			animation: show-line 0.5s 1s linear both;
 		}

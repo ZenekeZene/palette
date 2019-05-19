@@ -11,8 +11,7 @@ let levels, levelCurrent;
 // ONLY DEVELOPMENT:
 let _isDev = false;
 
-let app,
-	baseActive,
+let baseActive,
 	swatches,
 	dropzones,
 	swatchNodes,
@@ -183,7 +182,7 @@ function playLevel() {
 	contSuccess = 0;
 	numItems = levels[levelCurrent];
 	// Draw grid:
-	({swatchNodes, dropzoneNodes} = grid.init(numItems));
+	({swatchNodes, dropzoneNodes} = grid.init(levelCurrent, numItems));
 
 	// Init Swatches, Dropzones and Active
 	swatches = initSwatches(swatchNodes);
@@ -225,8 +224,7 @@ function _giveMeTheSolution() {
 	}
 }
 
-function setup(appEntry, statusObserverEntry, levelsEntry, levelCurrentEntry) {
-	app = appEntry;
+function setup(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	statusObserver = statusObserverEntry;
 	levels = levelsEntry;
 	levelCurrent = levelCurrentEntry;
