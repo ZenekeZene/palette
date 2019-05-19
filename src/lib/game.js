@@ -3,7 +3,6 @@ const drag = require('./drag');
 const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
-const sound = require('./sound');
 const ui = require('./ui');
 
 let levels, levelCurrent;
@@ -196,7 +195,10 @@ function playLevel() {
 	drag.init(activeColorObject.el, dropzones, statusObserver, activeIsMoved);
 	limitActive.append(activeColorObject.el);
 	if (_isDev) {
+		document.getElementById('app').classList.add('--is-dev');
 		_giveMeTheSolution();
+	} else {
+		document.getElementById('app').classList.remove('--is-dev');
 	}
 }
 
@@ -208,16 +210,18 @@ function cleanLevel() {
 
 function _giveMeTheSolution() {
 	for(let i = 0; i < numItems; i++) {
-		swatches[i].el.style.border = "none";
-		dropzones[i].el.style.border = "none";
+		swatches[i].el.classList.remove('--is-correct');
+		dropzones[i].el.classList.remove('--is-correct');
 	}
 	for(let i = 0; i < numItems; i++) {
 		const pos = new color.ColorObject(
 			color.addColors(dropzones[i].cmyk, activeColorObject.cmyk),
 			null);
 		if (_.isEqual(swatches[i].cmyk, pos.cmyk)) {
-			swatches[i].el.style.border = "2px solid green";
-			dropzones[i].el.style.border = "2px solid green";
+			swatches[i].el.classList.add('--is-correct');
+			dropzones[i].el.classList.add('--is-correct');
+			//swatches[i].el.style.border = "2px solid green";
+			//dropzones[i].el.style.border = "2px solid green";
 			console.log('Aciertas con: ' + i);
 			break;
 		}
@@ -240,7 +244,6 @@ function setup(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 		}
 	});
 	ui.init(statusObserver, levels, levelCurrent);
-	sound.init(statusObserver);
 }
 
 module.exports = {

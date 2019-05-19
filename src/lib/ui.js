@@ -1,7 +1,8 @@
 const persist = require('./persist');
 const quote = require('./quote');
+const sound = require('./sound');
 let contSuccessTotal = persist.getData('contSuccessTotal') || 0;
-let levels, levelCurrent, statusObserver;
+let levels, levelCurrent, statusObserver, mute;
 
 const nextButton = document.getElementById('nextButton');
 const replayButton = document.getElementById('replayButton');
@@ -22,6 +23,7 @@ const resetCancel = document.getElementById('resetCancel');
 const resetAccept = document.getElementById('resetAccept');
 const creditsButton = document.getElementById('creditsButton');
 const creditsPage = document.getElementById('creditsPage');
+const soundButton = document.getElementById('soundButton');
 const backButtonCredits = document.getElementById('backButtonCredits');
 const backButtonFinal = document.getElementById('backButtonFinal');
 const progression = document.getElementById('progression');
@@ -147,6 +149,13 @@ function handEvents() {
 		app.classList.remove('hidden');
 	});
 
+	soundButton.addEventListener('click', function() {
+		mute = !mute;
+		persist.saveData('mute', mute);
+		event.target.classList.toggle('--silence');
+		statusObserver.notify('mute', mute);
+	})
+
 	nextButton.addEventListener('click', handNextLevel);
 	replayButton.addEventListener('click', showLevel);
 }
@@ -189,6 +198,11 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	homeLevel.textContent = levelCurrent + 1;
 	numLevels.textContent = levelCurrent + 1;
 	score.textContent = contSuccessTotal;
+	mute = persist.getData('mute') || false;
+	sound.init(statusObserver, mute);
+	if (mute) {
+		soundButton.classList.add('--silence');
+	}
 }
 
 module.exports = {

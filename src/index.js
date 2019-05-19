@@ -11,6 +11,6 @@ function init() {
 	game.setup(statusObserver, levels, levelCurrent);
 }
 
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', function() {
 	init();
 })
