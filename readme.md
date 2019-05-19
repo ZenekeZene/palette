@@ -43,7 +43,7 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 -   [x] Pulir animaciones de entrada de créditos y reset.
 -   [x] Quitar inertia en el drag.
 -   [ ] Insertar clase .initial en #swatchesGrid durante los 5 primeros niveles de Juego
--   [ ] Corregir bug que duplica los colores activos
+-   [x] Corregir bug que duplica los colores activos
 -   [ ] Música ambient / chill
 -   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando
         se pasa de nivel
