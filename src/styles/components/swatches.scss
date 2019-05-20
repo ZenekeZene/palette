@@ -86,7 +86,7 @@
 	.swatch {
 		position: relative;
 
-		&::after {
+		&::before {
 			content:"";
 			position: absolute;
 			top: auto;
@@ -101,7 +101,7 @@
 		}
 	}
 
-	.wasCorrect::after, .match-swatch::after {
+	.wasCorrect::before, .match-swatch::before {
 			visibility: hidden;
 	}
 }
