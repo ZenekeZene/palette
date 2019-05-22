@@ -13,20 +13,28 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 ### TODO
 
 -   [ ] Música ambient / chill
--   [?] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
--   [ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de esta plataforma (botón en los créditos y cuando te pasas el  juego): https://www.buymeacoffee.com/). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
+-   [ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
+-   [ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): https://www.buymeacoffee.com/). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
 -   [ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...)
 -   [ ] Integrar Cordova
 -   [ ] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda)
 -   [ ] Crear un sistema de vidas. Subtareas:
-        [ ]  a) Crear un sistema de 30 vidas que reinician el juego cuando se agotan
+        [ ]  a) Crear un sistema de 25 vidas que reinician el juego cuando se agotan
         [ ]  b) Dar una vida extra al superar cada nivel
-        [ ]  c) Modificar cabecera para reflejar vidas
-        [ ]  d) Modificar la pantalla de fin de juego con dos versiones: Si terminas todos los niveles, y si se te acaban las vidas
+        [ ]  c) Modificar cabeceras (home y game) para reflejar vidas
+        [ ]  d) Modificar la pantalla de fin de juego con dos versiones: Si terminas todos los niveles, y si se te  acaban las vidas
         [ ]  e) Modificar la pantalla intercalada entre niveles para reflejar la vida extra
         [ ]  f) Eliminar botón de reinicio de la home  
+        [ ]  g) Modificar el flujo de compartir resultado: Únicamente para juegos terminados.
 -   [ ] Integrar, si fuese necesario, un sistema de métricas (Google Analytics, Firebase...). Si fuese el caso, subtarea:
         [ ]  a) Crear página de EULA
+-   [ ] Crear un sistema de puntuación sencillo: Al hacer un match, se suman 10 puntos al marcador. Subtareas:
+        [ ]  a) Crear el sistema de generación y registro de la puntuación
+        [ ]  b) Representar la puntuación en la cabecera del juego
+        [ ]  c) Representar los mejores resultados del jugador en la home
+
+-----------------------------------------
+
 -   [x] Colores casi blancos
 -   [x] Colores muy parecidos
 -   [x] Bajar a local
@@ -73,4 +81,4 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 
 ### WISHLIST
 -   [ ] Investigar integración con Google Play Services para creación de un ranking público global
--   [ ] Crear un sistema de puntuación
+-   [ ] Integrar un sistema de "Mensajes" personales de los jugadores en el ranking
