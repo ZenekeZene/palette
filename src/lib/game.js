@@ -4,18 +4,19 @@ const grid = require('./grid');
 const color = require('./color');
 const persist = require('./persist');
 const ui = require('./ui');
+const spy  = require('./spy');
 
 let levels, levelCurrent;
 
 // ONLY DEVELOPMENT:
-let _isDev = false;
+let _isDev = true;
 
 let baseActive,
 	swatches,
 	dropzones,
 	swatchNodes,
 	dropzoneNodes,
-	activeColorObject,
+	activeColor,
 	contSuccess,
 	statusObserver,
 	tutorialIsNotLaunched;
@@ -24,7 +25,7 @@ let	numItems = 0;
 
 const limitActive = document.getElementById('limitActive');
 
-function checkSuccess(indexToCheck) {
+function isSuccessfulMix(indexToCheck) {
 	if (_.isEqual(swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
 		swatches[indexToCheck].el.classList.add('match-swatch');
 		dropzones[indexToCheck].el.classList.add('match-mixer');
@@ -36,84 +37,91 @@ function checkSuccess(indexToCheck) {
 	}
 }
 
-function updateActive(newActiveColorObject) {
-	// Borramos el Activo viejo:
-	limitActive.removeChild(activeColorObject.el);
-	activeColorObject = newActiveColorObject;
-	limitActive.append(activeColorObject.el);
-	drag.setActiveNode(activeColorObject.el);
+function updateActive(newactiveColor) {
+	limitActive.removeChild(activeColor.el);
+	activeColor = newactiveColor;
+	limitActive.append(activeColor.el);
+	drag.setActiveNode(activeColor.el);
 }
 
-function doFailed() {
+function doStep(dropzone, index) {
 	if (tutorialIsNotLaunched) {
-		for (let i = 0; i < dropzones.length; i++) {
-			dropzones[i].el.classList.remove('tutorial');
-			baseActive.classList.add('tutorial');
-		}
+		launchTutorial();
 	}
-}
 
-function doSuccess(dropzone, index) {
-	if (tutorialIsNotLaunched) {
-		for (let i = 0; i < dropzones.length; i++) {
-			dropzones[i].el.classList.remove('tutorial');
-			baseActive.classList.remove('tutorial');
-		}
-		tutorialIsNotLaunched = false;
-		persist.saveData('tutorialIsNotLaunched', false);
-	}
-	let cmyk = color.addColors(dropzone.cmyk, activeColorObject.cmyk);
-	// Actualizamos el Mix:
-	dropzone.setCMYK(cmyk);
-	// Hacemos el checkeo en los swatches en busca de una coincidencia con nuestro active + dropzone
-	// Si hemos acertado:
-	if (checkSuccess(index)) {
+	const colorMixed = mix(dropzone.cmyk, activeColor.cmyk);
+	dropzone.setCMYK(colorMixed);
+
+	if (isSuccessfulMix(index)) {
 		contSuccess++;
 		if (contSuccess !== swatches.length) {
-			dropzone.el.classList.add('disabled');
-			// Seteamos un nuevo activo:
-			let newActiveColorObject = createActiveObject();
-			updateActive(newActiveColorObject);
-			statusObserver.notify('stepSuccess');
-			if (_isDev) {
-				_giveMeTheSolution();
-			}
+			handSuccessfulMix(dropzone);
 		} else {
-			limitActive.removeChild(activeColorObject.el);
-			activeColorObject = null;
-			contSuccess = 0;
-			levelCurrent += 1;
-			persist.saveData('levelCurrent', levelCurrent);
-			statusObserver.notify('success', levelCurrent);
+			handGameFinished();
 		}
 	} else {
-		const { dropzoneWasCorrect, swatchWasCorrect } = searchCorrectSwatchAndDropzone();
-		limitActive.removeChild(activeColorObject.el);
-		activeColorObject = null;
-		contSuccess = 0;
-		statusObserver.notify('fail'); 
-		dropzoneWasCorrect.el.classList.add('wasCorrect');
-		swatchWasCorrect.el.classList.add('wasCorrect');
-		const swatchesNotCorrect = swatches.filter(
-			(swatch) => !swatch.el.classList.contains('wasCorrect')
-		);
-		for (let i = 0; i < swatchesNotCorrect.length; i++) {
-			swatchesNotCorrect[i].el.classList.add('reset-swatch');
-		}
-		const dropzonesNotCorrect = dropzones.filter(
-			(dropzone) => !dropzone.el.classList.contains('wasCorrect')
-		);
-		for (let i = 0; i < dropzonesNotCorrect.length; i++) {
-			dropzonesNotCorrect[i].el.classList.add('reset-swatch');
-		}
+		handFailedMix();
 	}
+}
+
+function mix(color1, color2) {
+	return color.addColors(color1, color2);
+}
+
+function launchTutorial() {
+	for (let i = 0; i < dropzones.length; i++) {
+		dropzones[i].el.classList.remove('tutorial');
+		baseActive.classList.remove('tutorial');
+	}
+	tutorialIsNotLaunched = false;
+	persist.saveData('tutorialIsNotLaunched', false);
+}
+
+function handSuccessfulMix(dropzone) {
+	dropzone.el.classList.add('disabled');
+	updateActive(createActive());
+	statusObserver.notify('stepSuccess');
+	if (_isDev) {
+		spy._giveMeTheSolution(numItems, swatches, dropzones, activeColor);
+	}
+}
+
+function handFailedMix() {
+	const { dropzoneWasCorrect, swatchWasCorrect } = searchCorrectSwatchAndDropzone();
+	limitActive.removeChild(activeColor.el);
+	activeColor = null;
+	contSuccess = 0;
+	statusObserver.notify('fail'); 
+	dropzoneWasCorrect.el.classList.add('wasCorrect');
+	swatchWasCorrect.el.classList.add('wasCorrect');
+	const swatchesNotCorrect = swatches.filter(
+		(swatch) => !swatch.el.classList.contains('wasCorrect')
+	);
+	for (let i = 0; i < swatchesNotCorrect.length; i++) {
+		swatchesNotCorrect[i].el.classList.add('reset-swatch');
+	}
+	const dropzonesNotCorrect = dropzones.filter(
+		(dropzone) => !dropzone.el.classList.contains('wasCorrect')
+	);
+	for (let i = 0; i < dropzonesNotCorrect.length; i++) {
+		dropzonesNotCorrect[i].el.classList.add('reset-swatch');
+	}
+}
+
+function handGameFinished() {
+	limitActive.removeChild(activeColor.el);
+	activeColor = null;
+	contSuccess = 0;
+	levelCurrent += 1;
+	persist.saveData('levelCurrent', levelCurrent);
+	statusObserver.notify('success', levelCurrent);
 }
 
 function searchCorrectSwatchAndDropzone() {
 	let dropzoneWasCorrect, swatchWasCorrect;
 	for (let i = 0; i < swatches.length; i++) {
 		for (let j = 0; j < dropzones.length; j++) {
-			let cmyk = color.addColors(activeColorObject.cmyk, dropzones[j].cmyk);
+			let cmyk = color.addColors(activeColor.cmyk, dropzones[j].cmyk);
 			if (_.isEqual(cmyk, swatches[i].cmyk)) {
 				dropzoneWasCorrect = dropzones[j];
 				swatchWasCorrect = swatches[i];
@@ -134,8 +142,8 @@ function getRandomEnabledItem() {
 	return sample.index;
 }
 
-function createActiveObject() {
-	statusObserver.notify('scoreToAument');
+function createActive() {
+	statusObserver.notify('increaseScore');
 	const node = document.createElement('div');
 	node.classList.add('active__swatch', 'swatch', 'drag-drop', 'active');
 
@@ -157,6 +165,20 @@ function activeIsMoved() {
 	}
 }
 
+function dropSuccessful(data) {
+	const {dropZoneCurrent, index } = data[0];
+	doStep(dropZoneCurrent, index);
+}
+
+function dropFailed() {
+	if (tutorialIsNotLaunched) {
+		for (let i = 0; i < dropzones.length; i++) {
+			dropzones[i].el.classList.remove('tutorial');
+			baseActive.classList.add('tutorial');
+		}
+	}
+}
+
 function initSwatches(swatchesNodes) {
 	let swatches = [];
 	for (let i = 0; i < swatchesNodes.length; i++) {
@@ -171,7 +193,7 @@ function initDropzones(dropzoneNodes) {
 	const dropzones = [];
 	for (let i = 0; i < dropzoneNodes.length; i++) {
 		dropzones.push(
-			new color.ColorObject(color.getColorRelationed(swatches[i].cmyk), dropzoneNodes[i])
+			new color.ColorObject(color.getColorRelated(swatches[i].cmyk), dropzoneNodes[i])
 		);
 	}
 	return dropzones;
@@ -186,17 +208,17 @@ function playLevel() {
 	// Init Swatches, Dropzones and Active
 	swatches = initSwatches(swatchNodes);
 	dropzones = initDropzones(dropzoneNodes);
-	activeColorObject = createActiveObject();
+	activeColor = createActive();
 	baseActive = document.getElementById('activeBase');
 	tutorialIsNotLaunched = persist.getData('tutorialIsNotLaunched') !== 'false';
 	if (tutorialIsNotLaunched === true) {
 		baseActive.classList.add('tutorial');
 	}
-	drag.init(activeColorObject.el, dropzones, statusObserver, activeIsMoved);
-	limitActive.append(activeColorObject.el);
+	drag.init(activeColor.el, dropzones, statusObserver, activeIsMoved);
+	limitActive.append(activeColor.el);
 	if (_isDev) {
 		document.getElementById('app').classList.add('--is-dev');
-		_giveMeTheSolution();
+		spy._giveMeTheSolution(numItems, swatches, dropzones, activeColor);
 	} else {
 		document.getElementById('app').classList.remove('--is-dev');
 	}
@@ -204,49 +226,39 @@ function playLevel() {
 
 function cleanLevel() {
 	grid.cleanAll();
-	limitActive.removeChild(activeColorObject.el);
-	activeColorObject = null;
+	limitActive.removeChild(activeColor.el);
+	activeColor = null;
 }
 
-function _giveMeTheSolution() {
-	for(let i = 0; i < numItems; i++) {
-		swatches[i].el.classList.remove('--is-correct');
-		dropzones[i].el.classList.remove('--is-correct');
-	}
-	for(let i = 0; i < numItems; i++) {
-		const pos = new color.ColorObject(
-			color.addColors(dropzones[i].cmyk, activeColorObject.cmyk),
-			null);
-		if (_.isEqual(swatches[i].cmyk, pos.cmyk)) {
-			swatches[i].el.classList.add('--is-correct');
-			dropzones[i].el.classList.add('--is-correct');
-			//swatches[i].el.style.border = "2px solid green";
-			//dropzones[i].el.style.border = "2px solid green";
-			console.log('Aciertas con: ' + i);
-			break;
+function execAction(action, data) {
+	const actions = {
+		playLevel,
+		cleanLevel,
+		dropSuccessful,
+		dropFailed,
+		activeIsMoved,
+	};
+	if (actions[action]) {
+		if (data) {
+			return actions[action](data);
+		} else {
+			return actions[action]();
 		}
 	}
 }
 
-function setup(statusObserverEntry, levelsEntry, levelCurrentEntry) {
+function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	statusObserver = statusObserverEntry;
 	levels = levelsEntry;
 	levelCurrent = levelCurrentEntry;
+
 	statusObserver.subscribe(function(status, data) {
-		switch(status) {
-			case 'playLevel': playLevel(); break;
-			case 'dropSuccess':
-				const {dropZoneCurrent, index } = data[0];
-				doSuccess(dropZoneCurrent, index); break;
-			case 'dropFail': doFailed(); break;
-			case 'activeIsMoved': activeIsMoved(); break;
-			case 'cleanLevel': cleanLevel(); break;
-		}
+		execAction(status, data);
 	});
 	ui.init(statusObserver, levels, levelCurrent);
 }
 
 module.exports = {
-	setup,
+	init,
 	playLevel,
 };

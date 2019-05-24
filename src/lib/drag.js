@@ -104,7 +104,7 @@ function initDrag() {
 					dropZoneCurrent.el
 				);
 				isEntered = false;
-				setTimeout(statusObserver.notify('dropSuccess', { dropZoneCurrent, index }), 500);
+				setTimeout(statusObserver.notify('dropSuccessful', { dropZoneCurrent, index }), 500);
 			} else {
 				// Out
 				target.style.transform = 'translate(0, 0)';
@@ -114,7 +114,7 @@ function initDrag() {
 				// update the position attributes
 				target.setAttribute('data-x', 0);
 				target.setAttribute('data-y', 0);
-				statusObserver.notify('dropFail');
+				statusObserver.notify('dropFailed');
 			}
 		},
 	});

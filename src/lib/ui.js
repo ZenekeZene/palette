@@ -172,7 +172,7 @@ function showLevel() {
 	app.classList.add('fadeIn');
 }
 
-function scoreToAument() {
+function increaseScore() {
 	contSuccessTotal++;
 	score.textContent = contSuccessTotal;
 	persist.saveData('contSuccessTotal', contSuccessTotal);
@@ -188,8 +188,8 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 			levelSuccessed();
 		} else if (status === 'fail') {
 			levelFailed();
-		} else if (status === 'scoreToAument') {
-			scoreToAument();
+		} else if (status === 'increaseScore') {
+			increaseScore();
 		}
 	});
 

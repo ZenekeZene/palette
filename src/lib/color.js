@@ -99,7 +99,7 @@ function calculateBrightnessCoefficient(cmyk) {
 	return summation;
 }
 
-function getColorRelationed(cmyk) {
+function getColorRelated(cmyk) {
 	let colorRelationed = [];
 	for (let i = 0; i < cmyk.length; i++) {
 		const percentage = Math.random(0, 1).toFixed(2);
@@ -138,7 +138,7 @@ module.exports = {
 	getRGBColor,
 	convertCMYKtoRGB,
 	getColorCMYKRandom,
-	getColorRelationed,
+	getColorRelated,
 	addColors,
 	subtractColors,
 	getRandomInterval,
