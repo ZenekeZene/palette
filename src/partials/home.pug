@@ -7,10 +7,20 @@ aside#homePage.home.fadeIn.animated
 			p.header__level LEVEL&nbsp;
 				span#homeLevel
 			p#homeScore.header__score 40
-			a#shareLink.header__share(href="https://twitter.com/intent/tweet?text=I+have+reached+level+5+playing+@Palette_game!!!+http://palette.ws") SHARE
+			p.header__lives 17
 	nav.home-buttons
 		button#playButton.home-buttons__play
-		button#resetButton.home-buttons__reset
+		button#rateButton.home-buttons__rate
 		button#soundButton.home-buttons__sound
+		button#resetButton.home-buttons__reset
 		button#creditsButton.home-buttons__about
+		button#eulaButton.home-buttons__eula
+	section.home-hiscore
+		.hiscore__title HI SCORE
+		.hiscore__body
+			p.header__level LEVEL 11
+			p.header__score 40
+			a#shareLink.header__share(href="https://twitter.com/intent/tweet?text=I+have+reached+level+5+playing+@Palette_game!!!+http://palette.ws") SHARE
+
+
 	a.donate-button(href="https://www.buymeacoffee.com/PilPilGames")

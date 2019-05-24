@@ -42,21 +42,21 @@ npm run start
 -	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
 -	[ ] Integrar Cordova.
 -	[ ] Investigar: ¿Y si nos dejamos de coef. diferencial y jugamos sólo con la luminosidad? (Jorge)
--	[ ] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda).
+-	[?] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad
 -	[ ] Crear un sistema de vidas. Subtareas:
 	-	[ ] a) Crear un sistema de 25 vidas que reinician el juego cuando se agotan
 	-	[ ] b) Dar una vida extra al superar cada nivel
-	-	[ ] c) Modificar cabeceras (home y game) para reflejar vidas
+	-	[x] c) Modificar cabeceras (home y game) para reflejar vidas--> Pintado, falta integrar funcionalidad
 	-	[ ] d) Modificar la pantalla de fin de juego con dos versiones: Si terminas todos los niveles, y si se te acaban las vidas
 	-	[ ] e) Modificar la pantalla intercalada entre niveles para reflejar la vida extra
-	-	[ ] f) Eliminar botón de reinicio de la home.
+	-	[x] f) Eliminar botón de reinicio de la home.
 	-	[ ] g) Modificar el flujo de compartir resultado: Únicamente para juegos terminados.
 -	[ ] Integrar, si fuese necesario, un sistema de métricas (Google Analytics, Firebase...). Si fuese el caso, subtarea:
 		[ ] a) Crear página de EULA.
 -	[ ] Crear un sistema de puntuación sencillo: Al hacer un match, se suman 10 puntos al marcador. Subtareas:
 		[ ] a) Crear el sistema de generación y registro de la puntuación.
-		[ ] b) Representar la puntuación en la cabecera del juego.
-		[ ] c) Representar los mejores resultados del jugador en la home.
+		[?] b) Representar la puntuación en la cabecera del juego.--> Pintado, falta integrar funcionalidad
+		[?] c) Representar los mejores resultados del jugador en la home.--> Pintado, falta integrar funcionalidad
 -	[ ] Música ambient / chill
 -	[ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
 
