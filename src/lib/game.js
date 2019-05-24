@@ -9,7 +9,7 @@ const spy  = require('./spy');
 let levels, levelCurrent;
 
 // ONLY DEVELOPMENT:
-let _isDev = true;
+let _isDev = false;
 
 let baseActive,
 	swatches,

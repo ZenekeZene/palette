@@ -10,12 +10,33 @@ mezclar colores para pasar de nivel.
 Se encuentra en pleno proceso de desarrollo, utilizando únicamente tecnologías web. En el futuro no
 se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 
+---
+
+### INSTALAR
+- Clona el proyecto:
+```
+git clone https://github.com/ZenekeZene/palette.git
+```
+
+- Instala las dependencias:
+```
+npm install
+```
+- Lanza la aplicación:
+```
+npm run start
+```
+
+**Nota:** Es importante para una correcta visualización de la aplicación en su formato web lanzarla en resolución mobile.
+
+---
+
 ### TODO
 
--	[ ] ¡Arreglar **EL BUG**!
+-	[ ] ¡Arreglar **EL BUG** que crashea el hilo de ejecución JS! ([Probar con esto](https://github.com/liriliri/eruda))
 -	[ ] Todo colores naranjas en Iphone8.
 -	[ ] Escribir informe de testing.
--	[ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): https://www.buymeacoffee.com/). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
+-	[ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
 -	[ ] Mínimo de luminosidad para el activo.
 -	[ ] Latido para el activo.
 -	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
@@ -38,7 +59,10 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 		[ ] c) Representar los mejores resultados del jugador en la home.
 -	[ ] Música ambient / chill
 -	[ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
------------------------------------------
+
+---
+
+###	TODO [DONE]
 
 -   [x] Colores casi blancos
 -   [x] Colores muy parecidos
@@ -83,9 +107,13 @@ se descarta la posibilidad de migrar a un entorno Unity, Phaser, etc.
 	-	[ ] Mínimos de luminosidad para mixers (15).
 	-	[ ] Mínimo de diferencial en la generación del mixer (de 0 a 0.9 ?).
 
+---
+
 ### WISHLIST
 -   [ ] Investigar integración con Google Play Services para creación de un ranking público global.
 -   [ ] Integrar un sistema de "Mensajes" personales de los jugadores en el ranking.
+
+---
 
 ### USERS A TESTAR
 - [ ] Fran
