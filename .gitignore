@@ -102,3 +102,6 @@ typings/
 
 .DS_Store
 dist/
+android/
+ios/
+.gradle/
