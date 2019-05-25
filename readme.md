@@ -38,21 +38,21 @@ npm run start
 -	[ ] Escribir informe de testing.
 -	[ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
 -	[ ] Mínimo de luminosidad para el activo.
--	[ ] Latido para el activo.
+-	[?] Latido para el activo. --> No se ha podido integrar porque interfiere con el sistema de drag & drop
 -	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
 -	[ ] Integrar Cordova.
 -	[ ] Investigar: ¿Y si nos dejamos de coef. diferencial y jugamos sólo con la luminosidad? (Jorge)
 -	[?] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad
 -	[ ] Crear un sistema de vidas. Subtareas:
 	-	[ ] a) Crear un sistema de 25 vidas que reinician el juego cuando se agotan
-	-	[?] b) Dar una vida extra al superar cada nivel --> Pintado, falta hacer que el icono aparezca solamente cuando se sube de nivel, e integrar funcionalidad de +1 vida. 
+	-	[ ] b) Dar una vida extra al superar cada nivel
 	-	[?] c) Modificar cabeceras (home y game) para reflejar vidas--> Pintado, falta integrar funcionalidad
 	-	[ ] d) Modificar la pantalla de fin de juego con dos versiones: Si terminas todos los niveles, y si se te acaban las vidas
-	-	[ ] e) Modificar la pantalla intercalada entre niveles para reflejar la vida extra
+	-	[?] e) Modificar la pantalla intercalada entre niveles para reflejar la vida extra --> Pintado, falta hacer que el icono aparezca solamente cuando se sube de nivel, e integrar funcionalidad de +1 vida.
 	-	[x] f) Eliminar botón de reinicio de la home.
 	-	[ ] g) Modificar el flujo de compartir resultado: Únicamente para juegos terminados.
 -	[ ] Integrar, si fuese necesario, un sistema de métricas (Google Analytics, Firebase...). Si fuese el caso, subtarea:
-		[ ] a) Crear página de EULA.
+		[ ] a) Crear página de EULA (en web externa, para hacer más fácil el mantenimiento).
 -	[ ] Crear un sistema de puntuación sencillo: Al hacer un match, se suman 10 puntos al marcador. Subtareas:
 		[ ] a) Crear el sistema de generación y registro de la puntuación.
 		[?] b) Representar la puntuación en la cabecera del juego.--> Pintado, falta integrar funcionalidad

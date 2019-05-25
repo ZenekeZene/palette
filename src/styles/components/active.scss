@@ -23,6 +23,8 @@
 		transition: none;
 		-webkit-transform: translate(0, 0);
 		transform: translate(0, 0);
+		-webkit-animation: color-beat 2s ease-in-out 1s infinite;
+		animation: color-beat 2s ease-in-out 1s infinite;
 	}
 
 	&__base {
@@ -47,3 +49,31 @@
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
+
+/* This animation doesn't work with drag & drop
+@-webkit-keyframes color-beat {
+	0%   { -webkit-transform: scale(0.95); }
+	50% { -webkit-transform: scale(1.05); }
+	100%   { -webkit-transform: scale(0.95); }
+}
+
+@keyframes color-beat {
+ 	0%   {
+		-moz-transform: scale(0.95);
+		-webkit-transform: scale(0.95);
+		transform: scale(0.95);
+	 }
+
+	50% {
+		-moz-transform: scale(1.05);
+		-webkit-transform: scale(1.05); // Browser bug fix
+		transform: scale(1.05);
+ 	}
+
+	100%   {
+		-moz-transform: scale(0.95);
+		-webkit-transform: scale(0.95);
+		transform: scale(0.95);
+	 }
+}
+*/

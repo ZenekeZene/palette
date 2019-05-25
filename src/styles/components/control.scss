@@ -47,9 +47,12 @@
 }
 
 .hidden .liveup {
+	-webkit-transform: scale(0.4);
 	transform: scale(0.4);
+	-webkit-opacity: 0;
 	opacity: 0;
-	transition: transform 1.2s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.2s cubic-bezier(.5,.27,.58,1.41) 1.5s;
+	-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.2s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.2s;
+	transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.2s cubic-bezier(.5,.27,.58,1.41) 1.2s;
 }
 
 .liveup {
@@ -62,9 +65,12 @@
 	color: $paper;
 	font-size: 0.8rem;
 	font-weight: 500;
+	-webkit-transform: scale(1);
 	transform: scale(1);
+	-webkit-opacity: 1;
 	opacity: 1;
-	transition: transform 1.2s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.2s cubic-bezier(.5,.27,.58,1.41) 1.5s;
+	-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.2s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.2s;
+	transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.2s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.2s;
 
 	&::before {
 		position: absolute;
