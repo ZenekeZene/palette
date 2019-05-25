@@ -52,13 +52,14 @@ npm run start
 	-	[x] f) Eliminar botón de reinicio de la home.
 	-	[x] g) Modificar el flujo de compartir resultado: Únicamente para juegos terminados.
 -	[ ] Integrar, si fuese necesario, un sistema de métricas (Google Analytics, Firebase...). Si fuese el caso, subtarea:
-		[ ] a) Crear página de EULA (en web externa, para hacer más fácil el mantenimiento).
+    - [ ] a) Crear página de EULA (en web externa, para hacer más fácil el mantenimiento).
 -	[ ] Crear un sistema de puntuación sencillo: Al hacer un match, se suman 10 puntos al marcador. Subtareas:
-		[ ] a) Crear el sistema de generación y registro de la puntuación.
-		[?] b) Representar la puntuación en la cabecera del juego.--> Pintado, falta integrar funcionalidad
-		[?] c) Representar los mejores resultados del jugador en la home.--> Pintado, falta integrar funcionalidad
+    - [ ] a) Crear el sistema de generación y registro de la puntuación.
+    - [ ] [?] b) Representar la puntuación en la cabecera del juego.--> Pintado, falta integrar funcionalidad
+    - [ ] [?] c) Representar los mejores resultados del jugador en la home.--> Pintado, falta integrar funcionalidad.
 -	[ ] Música ambient / chill
 -	[ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
+- [ ] El tutorial no se parece a lo que nos vamos a encontrar luego en el juego. ¿Y si probamos a que se parezca la máximo posible para generar la mínima fricción de entendimiento de la mecánica?
 
 ---
 
@@ -70,16 +71,8 @@ npm run start
 -   [x] Persistir record (**Nota:** tambien estamos persistiendo el nivel actual)
 -   [x] Cambiar el grid de Gridlayout a Flexbox
 -   [x] Dar feedback del error
--   [x] Relacionado con tutorial y curva de aprendizaje: Modificar el sistema de niveles, para que
-		el primer nivel tenga un solo círculo (aprender a arrastrar objetos sin frustraciones), el
-		segundo con dos (ir cogiendo poco a poco la mecánica de colores), el tercero tres... y así
-		hasta el nivel 15
--   [x] Explicativo al principio (flechas, tutorial...) -> Pintada, el funcionamiento es el
-		siguiente: La primera vez que se usa el juego, el componente .active\_\_base tiene añadida
-		la clase .tutorial. En el momento en el que se empieza a arrastrar el color activo, esta
-		clase desaparece y todos los mixers reciben la clase .tutorial. En el momento en el que se
-		suelta el primer activo sobre un mixer, desaparece la clase .tutorial de los mixers y no
-		vuelve a aparecer en ningún componente.
+-   [x] Relacionado con tutorial y curva de aprendizaje: Modificar el sistema de niveles, para que el primer nivel tenga un solo círculo (aprender a arrastrar objetos sin frustraciones), el segundo con dos (ir cogiendo poco a poco la mecánica de colores), el tercero tres... y así hasta el nivel 15
+-   [x] Explicativo al principio (flechas, tutorial...) -> Pintada, el funcionamiento es el siguiente: La primera vez que se usa el juego, el componente .active\_\_base tiene añadida la clase .tutorial. En el momento en el que se empieza a arrastrar el color activo, esta clase desaparece y todos los mixers reciben la clase .tutorial. En el momento en el que se suelta el primer activo sobre un mixer, desaparece la clase .tutorial de los mixers y no vuelve a aparecer en ningún componente.
 -   [x] Hack en las unidades vh para evitar el descuadre por la barra de navegación
 -   [x] Logo de Pil-Pil Games incluido en el juego
 -   [X] Introducir elementos para facilitar comprensión del juego (líneas que relacionan muestras y mixers)
@@ -89,8 +82,7 @@ npm run start
 -   [x] Reset del juego -> Pintada, falta funcionalidad (borrar localstorage)
 -   [x] Compartir resultado -> Pintada, falta generar dinámicamente el enlace con el resultado
 -   [x] Visualizar progresión del juego -> Está pintado, con la progresión pintada mediante css. Únicamente sería necesario añadir las clases .level-1, .level-2... al elemento .progression, pero tal vez quieras refactorizar en js el funcionamiento (lo he adelantado así para ahorrarte trabajo por si acaso)
--   [x] Recompensa visual entre niveles (¿Quotes de artistas?)-> Pintada y creado quotes.json, un
-		archivo con 40 frases para alimentarlas.
+-   [x] Recompensa visual entre niveles (¿Quotes de artistas?)-> Pintada y creado quotes.json, un archivo con 40 frases para alimentarlas.
 -   [x] Hacer que el contador de colores sea por color activo generado (en lugar de por match, así hacemos que el pique sea a ver quién se pasa el juego con menos colores)
 -   [x] Pulir animaciones de entrada de créditos y reset.
 -   [x] Quitar inertia en el drag.
