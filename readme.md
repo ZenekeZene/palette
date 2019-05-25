@@ -45,8 +45,8 @@ npm run start
 -	[?] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad
 -	[ ] Crear un sistema de vidas. Subtareas:
 	-	[ ] a) Crear un sistema de 25 vidas que reinician el juego cuando se agotan
-	-	[ ] b) Dar una vida extra al superar cada nivel
-	-	[x] c) Modificar cabeceras (home y game) para reflejar vidas--> Pintado, falta integrar funcionalidad
+	-	[?] b) Dar una vida extra al superar cada nivel --> Pintado, falta hacer que el icono aparezca solamente cuando se sube de nivel, e integrar funcionalidad de +1 vida. 
+	-	[?] c) Modificar cabeceras (home y game) para reflejar vidas--> Pintado, falta integrar funcionalidad
 	-	[ ] d) Modificar la pantalla de fin de juego con dos versiones: Si terminas todos los niveles, y si se te acaban las vidas
 	-	[ ] e) Modificar la pantalla intercalada entre niveles para reflejar la vida extra
 	-	[x] f) Eliminar botón de reinicio de la home.

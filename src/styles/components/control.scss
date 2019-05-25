@@ -49,11 +49,13 @@
 .hidden .liveup {
 	transform: scale(0.4);
 	opacity: 0;
+	transition: transform 1.2s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.2s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 }
 
 .liveup {
 	position: fixed;
 	top: calc(75vh - 10px);
+	top: calc((var(--vh, 1vh) * 75) - 10px);
 	height: 20px;
 	width: 100px;
 	padding-right: $gutter;
