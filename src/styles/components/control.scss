@@ -69,10 +69,10 @@
 	transform: scale(1);
 	-webkit-opacity: 1;
 	opacity: 1;
-	-webkit-animation: life-appear 1.5s cubic-bezier(0.5, 0, 0.53, 1.49) 1s 1;
-	-webkit-animation-fill-mode: backwards;
-	animation: life-appear 1.5s cubic-bezier(0.5, 0, 0.53, 1.49) 1s 1;
-	animation-fill-mode: backwards;
+	-webkit-animation: life-appear 1.5s ease-in-out 1s 1;
+	-webkit-animation-fill-mode: both;
+	animation: life-appear 1.5s ease-in-out 1s 1;
+	animation-fill-mode: both;
 	//-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 	//transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 
