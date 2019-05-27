@@ -69,9 +69,9 @@
 	transform: scale(1);
 	-webkit-opacity: 1;
 	opacity: 1;
-	-webkit-animation: life-appear 1.5s ease-in-out 1s 1;
+	-webkit-animation: life-appear 1.5s ease-in-out 0.5s 1;
 	-webkit-animation-fill-mode: both;
-	animation: life-appear 1.5s ease-in-out 1s 1;
+	animation: life-appear 1.5s ease-in-out 0.5s 1;
 	animation-fill-mode: both;
 	//-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 	//transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
@@ -87,26 +87,36 @@
 	}
 
 	@keyframes life-appear {
-		from {
-			opacity: 0;
-			transform: scale(0.5);
+		0% {
+			opacity: 1;
+			transform: scale(1);
 		}
 
-		to {
+		50% {
+			opacity: 0.6;
+			transform: scale(0.8);
+		}
+
+		100% {
 			opacity: 1;
 			transform: scale(1);
 		}
 	}
 
 	@-webkit-keyframes life-appear {
-		from {
+		0% {
 			-webkit-opacity: 1;
 			-webkit-transform: scale(1);
 		}
 
-		to {
-			-webkit-opacity: 0;
-			-webkit-transform: scale(0.5);
+		50% {
+			-webkit-opacity: 0.6;
+			-webkit-transform: scale(0.8);
+		}
+
+		100% {
+			-webkit-opacity: 1;
+			-webkit-transform: scale(1);
 		}
 	}
 }
