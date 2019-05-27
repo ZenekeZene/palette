@@ -35,7 +35,7 @@ npm run start
 
 -	[ ] ¡Arreglar **EL BUG** que crashea el hilo de ejecución JS! ([Probar con esto](https://github.com/liriliri/eruda))
 -	[ ] Todo colores naranjas en Iphone8.
--	[ ] Escribir informe de testing.
+-	[x] Escribir informe de testing.
 -	[ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
 -	[ ] Mínimo de luminosidad para el activo.
 -	[x] Latido para el activo. --> No se ha podido integrar porque interfiere con el sistema de drag & drop

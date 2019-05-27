@@ -51,8 +51,8 @@
 	transform: scale(0.4);
 	-webkit-opacity: 0;
 	opacity: 0;
-	-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
-	transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
+	//-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
+	//transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 }
 
 .liveup {
@@ -69,8 +69,12 @@
 	transform: scale(1);
 	-webkit-opacity: 1;
 	opacity: 1;
-	-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
-	transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
+	-webkit-animation: life-appear 1.5s cubic-bezier(0.5, 0, 0.53, 1.49) 1s 1;
+	-webkit-animation-fill-mode: backwards;
+	animation: life-appear 1.5s cubic-bezier(0.5, 0, 0.53, 1.49) 1s 1;
+	animation-fill-mode: backwards;
+	//-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
+	//transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 
 	&::before {
 		position: absolute;
@@ -80,5 +84,29 @@
 		right: 0;
 		z-index: -1;
 		content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzNiAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzYgMjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRTRCQkFDO30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTE3LjUsMy45YzMuOC01LjQsOS4xLTQsMTEuNi0wLjhjMi42LDMuNSwxLjQsOC42LTEuNCwxMS40cy0xMC4xLDktMTAuMSw5cy03LjMtNi4xLTEwLjEtOVMzLjMsNi43LDYsMy4yCglDOC40LTAuMSwxMy43LTEuNSwxNy41LDMuOXoiLz4KPC9zdmc+');
+	}
+
+	@keyframes life-appear {
+		from {
+			opacity: 0;
+			transform: scale(0.5);
+		}
+
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	@-webkit-keyframes life-appear {
+		from {
+			-webkit-opacity: 1;
+			-webkit-transform: scale(1);
+		}
+
+		to {
+			-webkit-opacity: 0;
+			-webkit-transform: scale(0.5);
+		}
 	}
 }
