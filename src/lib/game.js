@@ -200,6 +200,7 @@ function initDropzones(dropzoneNodes) {
 }
 
 function playLevel() {
+	levelCurrent = Number(persist.getData('levelCurrent')) || 0;
 	contSuccess = 0;
 	numItems = levels[levelCurrent];
 	// Draw grid:
@@ -226,7 +227,9 @@ function playLevel() {
 
 function cleanLevel() {
 	grid.cleanAll();
-	limitActive.removeChild(activeColor.el);
+	if (activeColor && limitActive) {
+		limitActive.removeChild(activeColor.el);
+	}
 	activeColor = null;
 }
 

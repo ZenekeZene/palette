@@ -1,8 +1,8 @@
 const persist = require('./persist');
 const quote = require('./quote');
 const sound = require('./sound');
-let contSuccessTotal = persist.getData('contSuccessTotal') || 0;
-const livesInitial = 25;
+let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
+const livesInitial = 1;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let levels, levelCurrent, statusObserver, mute;
 
@@ -42,6 +42,7 @@ const countSuccessFinal = document.getElementsByClassName('js-contSuccesFinalPag
 const levelCurrentFinal = document.getElementsByClassName('js-levelCurrentFinalPage');
 const highLevel = document.getElementById('highlevel');
 const highScore = document.getElementById('highscore');
+const homeHighScore = document.getElementById('homeHighScore');
 
 function showFinalPage(isGameCompleted) {
 	control.classList.add('hidden');
@@ -99,6 +100,7 @@ function getRecord() {
 function handRecord() {
 	const {levelRecord, scoreRecord } = getRecord();
 	if (levelRecord) {
+		homeHighScore.classList.remove('hidden');
 		if (levelCurrent > levelRecord) {
 			persist.saveData('record', `${levelCurrent}|${contSuccessTotal}`);
 			updateRecord(levelCurrent, contSuccessTotal);
@@ -111,6 +113,14 @@ function handRecord() {
 	} else {
 		persist.saveData('record', `${levelCurrent}|${contSuccessTotal}`);
 		updateRecord(levelCurrent, contSuccessTotal);
+	}
+}
+
+function showRecord() {
+	const {levelRecord, scoreRecord} = getRecord();
+	if (levelRecord) {
+		updateRecord(levelRecord, scoreRecord);
+		homeHighScore.classList.remove('hidden');
 	}
 }
 
@@ -127,6 +137,7 @@ function updateRecord(level, score) {
 function levelSuccessed() {
 	if (levelCurrent === levels.length - 1) {
 		showFinalPage(true);
+		return;
 	}
 
 	levelCurrent += 1;
@@ -177,7 +188,7 @@ function levelFailed() {
 
 function handEvents() {
 	playButton.addEventListener('click', function() {
-		levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
+		levelCurrent = Number(persist.getData('levelCurrent')) || 0;
 		if (levelCurrent === levels.length) {
 			resetPage.classList.remove('hidden');
 			return false;
@@ -234,7 +245,9 @@ function handEvents() {
 		homePage.classList.remove('unveil');
 		app.classList.add('hidden');
 		finalPage.classList.add('hidden');
-
+		homeScore.textContent = contSuccessTotal;
+		homeLevel.textContent = levelCurrent + 1;
+		showRecord();
 		statusObserver.notify('cleanLevel');
 	})
 
@@ -272,16 +285,16 @@ function handNextLevel() {
 }
 
 function showLevel() {
-	statusObserver.notify('playLevel');
+	statusObserver.notify('playLevel', levelCurrent);
 	control.classList.add('hidden');
 	app.classList.remove('fadeOut');
 	app.classList.add('fadeIn');
 }
 
 function increaseScore() {
-	contSuccessTotal += 10;
+	contSuccessTotal += Number(10);
 	score.textContent = contSuccessTotal;
-	persist.saveData('contSuccessTotal', contSuccessTotal);
+	persist.saveData('contSuccessTotal', Number(contSuccessTotal));
 }
 
 function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
@@ -312,10 +325,7 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	lives = Number(persist.getData('lives')) || livesInitial;
 	homeLives.textContent = lives;
 	
-	const {levelRecord, scoreRecord} = getRecord();
-	if (levelRecord) {
-		updateRecord(levelRecord, scoreRecord);
-	}
+	showRecord();
 }
 
 module.exports = {
