@@ -7,7 +7,7 @@ aside#homePage.home.fadeIn.animated
 			p.header__level LEVEL&nbsp;
 				span#homeLevel
 			p#homeScore.header__score 40
-			p.header__lives 17
+			p#homeLives.header__lives 17
 	nav.home-buttons
 		button#playButton.home-buttons__play
 		button#rateButton.home-buttons__rate
@@ -18,8 +18,8 @@ aside#homePage.home.fadeIn.animated
 	section.home-hiscore
 		.hiscore__title HI SCORE
 		.hiscore__body
-			p.header__level LEVEL 11
-			p.header__score 40
+			p.header__level LEVEL #[span#highlevel 0]
+			p#highscore.header__score 0
 			a#shareLink.header__share(href="https://twitter.com/intent/tweet?text=I+have+reached+level+5+playing+@Palette_game!!!+http://palette.ws") SHARE
 
 

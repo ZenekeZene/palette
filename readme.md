@@ -43,12 +43,12 @@ npm run start
 -	[ ] Integrar Cordova.
 -	[ ] Investigar: ¿Y si nos dejamos de coef. diferencial y jugamos sólo con la luminosidad? (Jorge)
 -	[?] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad
--	[ ] Crear un sistema de vidas. Subtareas:
-	-	[ ] a) Crear un sistema de 25 vidas que reinician el juego cuando se agotan
-	-	[ ] b) Dar una vida extra al superar cada nivel
-	-	[?] c) Modificar cabeceras (home y game) para reflejar vidas --> Pintado, falta integrar funcionalidad
-	-	[?] d) Modificar la pantalla de fin de juego con dos versiones: Si terminas todos los niveles, y si se te acaban las vidas --> Pintado, falta integrar funcionalidad que muestre una u otra (conmutar entre las dos capas .final-message)
-	-	[?] e) Modificar la pantalla intercalada entre niveles para reflejar la vida extra --> Pintado, falta hacer que el icono aparezca solamente cuando se sube de nivel, e integrar funcionalidad de +1 vida.
+-	[x] Crear un sistema de vidas. Subtareas:
+	-	[x] a) Crear un sistema de 25 vidas que reinician el juego cuando se agotan
+	-	[x] b) Dar una vida extra al superar cada nivel
+	-	[x] c) Modificar cabeceras (home y game) para reflejar vidas --> Pintado, falta integrar funcionalidad
+	-	[x] d) Modificar la pantalla de fin de juego con dos versiones: Si terminas todos los niveles, y si se te acaban las vidas --> Pintado, falta integrar funcionalidad que muestre una u otra (conmutar entre las dos capas .final-message)
+	-	[x] e) Modificar la pantalla intercalada entre niveles para reflejar la vida extra --> Pintado, falta hacer que el icono aparezca solamente cuando se sube de nivel, e integrar funcionalidad de +1 vida.
 	-	[x] f) Eliminar botón de reinicio de la home.
 	-	[x] g) Modificar el flujo de compartir resultado: Únicamente para juegos terminados.
 -	[ ] Integrar, si fuese necesario, un sistema de métricas (Google Analytics, Firebase...). Si fuese el caso, subtarea:
