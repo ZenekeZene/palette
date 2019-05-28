@@ -2,7 +2,7 @@ const persist = require('./persist');
 const quote = require('./quote');
 const sound = require('./sound');
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
-const livesInitial = 1;
+const livesInitial = 25;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let levels, levelCurrent, statusObserver, mute;
 
