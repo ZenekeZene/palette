@@ -54,6 +54,7 @@ function doStep(dropzone, index) {
 
 	if (isSuccessfulMix(index)) {
 		contSuccess++;
+		statusObserver.notify('increaseScore');
 		if (contSuccess !== swatches.length) {
 			handSuccessfulMix(dropzone);
 		} else {
@@ -143,7 +144,6 @@ function getRandomEnabledItem() {
 }
 
 function createActive() {
-	statusObserver.notify('increaseScore');
 	const node = document.createElement('div');
 	node.classList.add('active__swatch', 'swatch', 'drag-drop', 'active');
 
