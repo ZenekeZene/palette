@@ -57,7 +57,7 @@ npm run start
     - [x] a) Crear el sistema de generación y registro de la puntuación.
     - [x] b) Representar la puntuación en la cabecera del juego.--> Pintado, falta integrar funcionalidad
     - [x] c) Representar los mejores resultados del jugador en la home.--> Pintado, falta integrar funcionalidad.
-    - [ ] d) Sólo enseñar el cuadro de mejores resultados de haber resultados juas juas juas
+    - [x] d) Sólo enseñar el cuadro de mejores resultados de haber resultados juas juas juas
 -	[ ] Música ambient / chill
 -	[ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
 - [ ] El tutorial no se parece a lo que nos vamos a encontrar luego en el juego. ¿Y si probamos a que se parezca la máximo posible para generar la mínima fricción de entendimiento de la mecánica?
