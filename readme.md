@@ -34,11 +34,13 @@ npm run start
 ### TODO
 
 -	[ ] ¡Arreglar **EL BUG** que crashea el hilo de ejecución JS! ([Probar con esto](https://github.com/liriliri/eruda))
+-	[ ] Bug: Al guardar el record, registra un nivel menos.
+-	[ ] Bug: No se muestra corona de laureles.
 -	[ ] Todo colores naranjas en Iphone8.
--	[x] Escribir informe de testing.
+- [ ] El tutorial no se parece a lo que nos vamos a encontrar luego en el juego. OK, se parecerá lo máximo posible.
 -	[ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
 -	[ ] Mínimo de luminosidad para el activo.
--	[x] Latido para el activo. --> No se ha podido integrar porque interfiere con el sistema de drag & drop
+-	[?] Latido para el activo. --> No se ha podido integrar porque interfiere con el sistema de drag & drop ->Ver opciones alternativas (base, height-width-position...)
 -	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
 -	[ ] Integrar Cordova.
 -	[ ] Investigar: ¿Y si nos dejamos de coef. diferencial y jugamos sólo con la luminosidad? (Jorge)
@@ -60,12 +62,14 @@ npm run start
     - [x] d) Sólo enseñar el cuadro de mejores resultados de haber resultados juas juas juas
 -	[ ] Música ambient / chill
 -	[ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
-- [ ] El tutorial no se parece a lo que nos vamos a encontrar luego en el juego. ¿Y si probamos a que se parezca la máximo posible para generar la mínima fricción de entendimiento de la mecánica?
+
 
 ---
 
 ###	TODO [DONE]
 
+
+-		[x] Escribir informe de testing.
 -   [x] Colores casi blancos
 -   [x] Colores muy parecidos
 -   [x] Bajar a local
