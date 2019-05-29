@@ -36,14 +36,23 @@ npm run start
 -	[ ] ¡Arreglar **EL BUG** que crashea el hilo de ejecución JS! ([Probar con esto](https://github.com/liriliri/eruda))
 -	[ ] Bug: Al guardar el record, registra un nivel menos.
 -	[ ] Bug: No se muestra corona de laureles.
+-	[ ] Modificar el sistema de adjudicación de vidas (Pasamos de un sistema lineal a una sucesión de Fibonacci):
+			* Se comienza la partida con 3 vidas
+			* Nivel 1 y 2 -> +0 vidas (el corazón no se muestra)
+			* Nivel 3 y 4 -> +1 vidas
+			* Nivel 5 y 6 -> +2 vidas
+			* Nivel 7 y 8 -> +3 vidas
+			* Nivel 9 y 10 -> +5 vidas
+			* Nivel 11 y 12 -> +8 vidas
+			* Nivel 13 y 14 -> +13 vidas
 -	[ ] Todo colores naranjas en Iphone8.
-- [ ] El tutorial no se parece a lo que nos vamos a encontrar luego en el juego. OK, se parecerá lo máximo posible.
+- [x] El tutorial no se parece a lo que nos vamos a encontrar luego en el juego. OK, se parecerá lo máximo posible.
 -	[ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
--	[ ] Mínimo de luminosidad para el activo.
+-	[ ] Mínimo de luminosidad para el activo (ligeramente diferente, debe calcularse por la diferencia entre swatch y mixer).
+-	[ ] Deshabilitar el coeficiente diferencial para que no interfiera con el mínimo de luminosidad.
 -	[?] Latido para el activo. --> No se ha podido integrar porque interfiere con el sistema de drag & drop ->Ver opciones alternativas (base, height-width-position...)
 -	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
 -	[ ] Integrar Cordova.
--	[ ] Investigar: ¿Y si nos dejamos de coef. diferencial y jugamos sólo con la luminosidad? (Jorge)
 -	[?] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad
 -	[x] Crear un sistema de vidas. Subtareas:
 	-	[x] a) Crear un sistema de 25 vidas que reinician el juego cuando se agotan
