@@ -34,8 +34,8 @@ npm run start
 ### TODO
 
 -	[ ] ¡Arreglar **EL BUG** que crashea el hilo de ejecución JS! ([Probar con esto](https://github.com/liriliri/eruda))
--	[ ] Bug: Al guardar el record, registra un nivel menos.
--	[ ] Bug: No se muestra corona de laureles.
+-	[ ] Bug: Al guardar el record, registra un nivel menos. En la pantalla final, al poner el resumen, también muestra un nivel menos del real.
+-	[x] Bug: No se muestra corona de laureles ni el trofeo.
 -	[ ] Modificar el sistema de adjudicación de vidas (Pasamos de un sistema lineal a una sucesión de Fibonacci):
 			* Se comienza la partida con 3 vidas
 			* Nivel 1 y 2 -> +0 vidas (el corazón no se muestra)
