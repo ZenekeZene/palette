@@ -148,11 +148,20 @@ function createActive() {
 	node.classList.add('active__swatch', 'swatch', 'drag-drop', 'active');
 
 	const indexRandom = getRandomEnabledItem();
+	const cmyk = color.subtractColors(swatches[indexRandom].cmyk, dropzones[indexRandom].cmyk);
+	appendBeatNodeToActiveNode(node, cmyk);
 
 	return new color.ColorObject(
-		color.subtractColors(swatches[indexRandom].cmyk, dropzones[indexRandom].cmyk),
-		node
+		cmyk,
+		node,
 	);
+}
+
+function appendBeatNodeToActiveNode(node, cmyk) {
+	const beatNode = document.createElement('span');
+	beatNode.classList.add('active__beat');
+	node.append(beatNode);
+	beatNode.style.backgroundColor = color.getRGBColor(color.convertCMYKtoRGB(cmyk));
 }
 
 function activeIsMoved() {

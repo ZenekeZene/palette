@@ -20,14 +20,13 @@ ColorObject.prototype.setCMYK = function(cmyk) {
 	this.cmyk = cmyk;
 	if (this.el) {
 		this.el.setAttribute('data-cmyk', cmyk);
-		while (this.el.firstChild) {
-			this.el.firstChild.remove();
-		}
 		const cmykNode = document.createElement('span');
 		cmykNode.classList.add('swatch__cmyk');
 		cmykNode.innerHTML = cmyk;
 		this.el.append(cmykNode);
-		this.el.style.backgroundColor = getRGBColor(convertCMYKtoRGB(cmyk));
+
+		const rgbColor = getRGBColor(convertCMYKtoRGB(cmyk));
+		this.el.style.backgroundColor = rgbColor;
 	}
 };
 
@@ -66,9 +65,6 @@ function getColorCMYKRandom(contRepetitions) {
 	}
 	if (contRepetitions < 10) {
 		if (calculateBrightnessCoefficient(cmyk) <= brightnessCoef) {
-			return getColorCMYKRandom(contRepetitions);
-		}
-		if (!calculateSimilarCoefficient(cmyk)) {
 			return getColorCMYKRandom(contRepetitions);
 		}
 	}

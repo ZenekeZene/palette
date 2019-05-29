@@ -2,8 +2,9 @@ const persist = require('./persist');
 const quote = require('./quote');
 const sound = require('./sound');
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
-const livesInitial = 25;
+const livesInitial = 1;
 let lives = Number(persist.getData('lives')) || livesInitial;
+let lifePrizes = [0, 0, 1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13];
 let levels, levelCurrent, statusObserver, mute;
 
 const nextButton = document.getElementById('nextButton');
@@ -49,7 +50,7 @@ function showFinalPage(isGameCompleted) {
 	finalPage.classList.remove('hidden');
 	for(let i = 0; i < countSuccessFinal.length; i++) {
 		countSuccessFinal[i].textContent = contSuccessTotal;
-		levelCurrentFinal[i].textContent = levelCurrent;
+		levelCurrentFinal[i].textContent = levelCurrent + 1;
 	}
 
 	setFinalMessage(isGameCompleted);
@@ -102,18 +103,20 @@ function handRecord() {
 	if (levelRecord) {
 		homeHighScore.classList.remove('hidden');
 		if (levelCurrent > levelRecord) {
-			persist.saveData('record', `${levelCurrent}|${contSuccessTotal}`);
-			updateRecord(levelCurrent, contSuccessTotal);
+			saveRecord();
 		} else if (levelCurrent == levelRecord) {
 			if (contSuccessTotal > scoreRecord) {
-				persist.saveData('record', `${levelCurrent}|${contSuccessTotal}`);
-				updateRecord(levelCurrent, contSuccessTotal);
+				saveRecord();
 			}
 		}
 	} else {
-		persist.saveData('record', `${levelCurrent}|${contSuccessTotal}`);
-		updateRecord(levelCurrent, contSuccessTotal);
+		saveRecord();
 	}
+}
+
+function saveRecord() {
+	persist.saveData('record', `${levelCurrent + 1}|${contSuccessTotal}`);
+	updateRecord(levelCurrent, contSuccessTotal);
 }
 
 function showRecord() {
@@ -134,19 +137,26 @@ function updateRecord(level, score) {
 	}
 }
 
-function levelSuccessed() {
+function levelSuccessful() {
 	if (levelCurrent === levels.length - 1) {
 		showFinalPage(true);
 		return;
+	}
+	const livesAdded = lifePrizes[levelCurrent];
+	lives += livesAdded;
+	persist.saveData('lives', lives);
+	livesNode.textContent = lives;
+	if (livesAdded === 0) {
+		liveIcon.textContent = 0;
+		liveIcon.classList.add('hidden');
+	} else {
+		liveIcon.textContent = `+ ${livesAdded}`;
+		liveIcon.classList.remove('hidden');
 	}
 
 	levelCurrent += 1;
 	persist.saveData('levelCurrent', levelCurrent);
 
-	lives += 1;
-	persist.saveData('lives', lives);
-	livesNode.textContent = lives;
-	liveIcon.classList.remove('hidden');
 
 	control.classList.add('fadeIn');
 	control.classList.remove('hidden');
@@ -304,7 +314,7 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	levelCurrent = levelCurrentEntry;
 	statusObserver.subscribe(function(status) {
 		if (status === 'success') {
-			levelSuccessed();
+			levelSuccessful();
 		} else if (status === 'fail') {
 			levelFailed();
 		} else if (status === 'increaseScore') {
@@ -323,7 +333,7 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 		soundButton.classList.add('--silence');
 	}
 	lives = Number(persist.getData('lives')) || livesInitial;
-	homeLives.textContent = lives;
+	homeLives.textContent = livesNode.textContent = lives;
 	
 	showRecord();
 }
