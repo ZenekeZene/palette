@@ -2,7 +2,7 @@ const persist = require('./persist');
 const quote = require('./quote');
 const sound = require('./sound');
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
-const livesInitial = 1;
+const livesInitial = 5;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [0, 0, 1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13];
 let levels, levelCurrent, statusObserver, mute;
@@ -231,7 +231,7 @@ function handEvents() {
 		persist.saveData('levelCurrent', 0);
 
 		persist.saveData('lives', livesInitial);
-		homeLives.textContent = lives; 
+		homeLives.textContent = lives;
 
 		levelCurrent = 0;
 		contSuccessTotal = 0;
@@ -334,7 +334,7 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	}
 	lives = Number(persist.getData('lives')) || livesInitial;
 	homeLives.textContent = livesNode.textContent = lives;
-	
+
 	showRecord();
 }
 
