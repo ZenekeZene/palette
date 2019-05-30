@@ -34,9 +34,14 @@ $size-active: 8vh;
 
 		&.drag-active {
 			animation-play-state: paused;
+			border-radius: 50px;
+			$size: calc((30vh - 48px) / 3);
+			@include share(width, height, $size);
+			-webkit-transform: scale(1);
+			transform: scale(1);
 
 			.active__beat {
-				animation: none;
+				display: none;
 			}
 		}
 	}
@@ -54,14 +59,6 @@ $size-active: 8vh;
 		transition: none;
 		border-radius: 50%;
 	}
-}
-
-.drag-active {
-	border-radius: 50px;
-	$size: calc((30vh - 48px) / 3);
-	@include share(width, height, $size);
-	-webkit-transform: scale(1);
-	transform: scale(1);
 }
 
 @keyframes color-beat {

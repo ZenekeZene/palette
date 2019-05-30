@@ -1,5 +1,5 @@
 const brightnessCoef = 30;
-const differencialCoef = 20;
+const rangePercentageRelated = [0.1, 0.9];
 let swatchesHistorical = [];
 
 function ColorObject(cmyk, el) {
@@ -72,21 +72,6 @@ function getColorCMYKRandom(contRepetitions) {
 	return cmyk;
 }
 
-function calculateSimilarCoefficient(cmyk) {
-	let cont = 0;
-	for (let i = 0; i < swatchesHistorical.length; i++) {
-		let summation = 0;
-		for (let j = 0; j < cmyk.length; j++) {
-			const absSimilar = Math.abs(cmyk[j] - swatchesHistorical[i][j]);
-			summation += absSimilar;
-		}
-		if (summation > differencialCoef) {
-			cont++;
-		}
-	}
-	return cont === swatchesHistorical.length;
-}
-
 function calculateBrightnessCoefficient(cmyk) {
 	let summation = 0;
 	for (let i = 0; i < cmyk.length; i++) {
@@ -96,13 +81,14 @@ function calculateBrightnessCoefficient(cmyk) {
 }
 
 function getColorRelated(cmyk) {
-	let colorRelationed = [];
+	let colorRelated = [];
 	for (let i = 0; i < cmyk.length; i++) {
-		const percentage = Math.random(0, 1).toFixed(2);
+		const percentage = Math.random(rangePercentageRelated[0], rangePercentageRelated[1]).toFixed(2);
+		console.log(percentage);
 		const result = parseInt(cmyk[i] * percentage, 10);
-		colorRelationed.push(result);
+		colorRelated.push(result);
 	}
-	return colorRelationed;
+	return colorRelated;
 }
 
 function addColors(color1, color2) {

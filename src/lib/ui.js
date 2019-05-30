@@ -39,8 +39,8 @@ const shareLinkFinal = document.getElementById('shareLinkFinal');
 const shareLinkFinalCompleted = document.getElementById('shareLinkFinalCompleted');
 const livesOutMessage = document.getElementById('lives-out-message');
 const gameEndMessage = document.getElementById('game-end-message');
-const countSuccessFinal = document.getElementsByClassName('js-contSuccesFinalPage');
-const levelCurrentFinal = document.getElementsByClassName('js-levelCurrentFinalPage');
+const countSuccessfulFinal = document.getElementsByClassName('js-contSuccessfulFinalPage');
+const levelCurrentFinal = document.getElementById('levelCurrentFinalPage');
 const highLevel = document.getElementById('highlevel');
 const highScore = document.getElementById('highscore');
 const homeHighScore = document.getElementById('homeHighScore');
@@ -48,10 +48,10 @@ const homeHighScore = document.getElementById('homeHighScore');
 function showFinalPage(isGameCompleted) {
 	control.classList.add('hidden');
 	finalPage.classList.remove('hidden');
-	for(let i = 0; i < countSuccessFinal.length; i++) {
-		countSuccessFinal[i].textContent = contSuccessTotal;
-		levelCurrentFinal[i].textContent = levelCurrent + 1;
+	for(let i = 0; i < countSuccessfulFinal.length; i++) {
+		countSuccessfulFinal[i].textContent = contSuccessTotal;
 	}
+	levelCurrentFinal.textContent = levelCurrent + 1;
 
 	setFinalMessage(isGameCompleted);
 
