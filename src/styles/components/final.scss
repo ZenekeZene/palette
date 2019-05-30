@@ -35,6 +35,10 @@
 			font-weight: 500;
 			font-size: 0.6rem;
 			margin-bottom: $gutter-2;
+
+			span {
+				color: $cool;
+			}
 		}
 
 		span {
@@ -50,7 +54,8 @@
 			span:last-child {
 				display: block;
 				font-weight: 700;
-				font-size: 1.2rem;
+				font-size: 2rem;
+				color: $cool;
 			}
 
 			&::before {
