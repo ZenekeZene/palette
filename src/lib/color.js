@@ -19,6 +19,7 @@ ColorObject.prototype.getCMYK = function() {
 ColorObject.prototype.setCMYK = function(cmyk) {
 	this.cmyk = cmyk;
 	if (this.el) {
+		console.log(this.el);
 		this.el.setAttribute('data-cmyk', cmyk);
 		const cmykNode = document.createElement('span');
 		cmykNode.classList.add('swatch__cmyk');
