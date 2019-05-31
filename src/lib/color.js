@@ -28,6 +28,7 @@ ColorObject.prototype.setCMYK = function(cmyk) {
 		const rgbColor = getRGBColor(convertCMYKtoRGB(cmyk));
 		this.el.style.backgroundColor = rgbColor;
 		this.el.style['backgroundColor'] = rgbColor;
+		this.el.style.setProperty('background-color', rgbColor);
 	}
 };
 
