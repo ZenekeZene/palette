@@ -338,6 +338,6 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	showRecord();
 }
 
-module.exports = {
-	init
-}
+export default {
+	init,
+};

@@ -27,6 +27,7 @@ ColorObject.prototype.setCMYK = function(cmyk) {
 
 		const rgbColor = getRGBColor(convertCMYKtoRGB(cmyk));
 		this.el.style.backgroundColor = rgbColor;
+		this.el.style['backgroundColor'] = rgbColor;
 	}
 };
 
@@ -84,7 +85,6 @@ function getColorRelated(cmyk) {
 	let colorRelated = [];
 	for (let i = 0; i < cmyk.length; i++) {
 		const percentage = Math.random(rangePercentageRelated[0], rangePercentageRelated[1]).toFixed(2);
-		console.log(percentage);
 		const result = parseInt(cmyk[i] * percentage, 10);
 		colorRelated.push(result);
 	}
@@ -115,7 +115,7 @@ function subtractColors(color1, color2) {
 	return null;
 }
 
-module.exports = {
+const color =  {
 	ColorObject,
 	getRGBColor,
 	convertCMYKtoRGB,
@@ -124,4 +124,6 @@ module.exports = {
 	addColors,
 	subtractColors,
 	getRandomInterval,
-};;
+};
+
+export default color;

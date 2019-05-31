@@ -1,10 +1,10 @@
 const _ = require('lodash');
-const drag = require('./drag');
-const grid = require('./grid');
-const color = require('./color');
-const persist = require('./persist');
-const ui = require('./ui');
-const spy  = require('./spy');
+import drag from './drag';
+import grid from './grid';
+import color from './color';
+import persist from './persist';
+import ui from './ui';
+import spy from './spy';
 
 let levels, levelCurrent;
 
@@ -270,7 +270,7 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	ui.init(statusObserver, levels, levelCurrent);
 }
 
-module.exports = {
+export default {
 	init,
 	playLevel,
 };

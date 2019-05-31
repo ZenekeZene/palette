@@ -135,7 +135,7 @@ function init(
 	initDrag();
 }
 
-module.exports = {
+export default {
 	init,
 	setActiveNode,
 };

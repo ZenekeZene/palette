@@ -43,8 +43,9 @@ function init(levelCurrentEntry, sizeEntry) {
 	};
 }
 
-module.exports = {
+const grid = {
 	init,
 	cleanGrid,
 	cleanAll,
-};
+}
+export default grid;

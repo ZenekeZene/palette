@@ -1,7 +1,7 @@
 import './styles/styles.scss';
 import 'animate.css';
-const game = require('./lib/game');
-const persist = require('./lib/persist');
+import game from './lib/game';
+import persist from './lib/persist';
 import Observable from './lib/Observer';
 
 function init() {
