@@ -151,7 +151,7 @@ function levelSuccessful() {
 		liveIcon.textContent = 0;
 		liveIcon.classList.add('hidden');
 	} else {
-		liveIcon.textContent = `+ ${livesAdded}`;
+		liveIcon.textContent = `+${livesAdded}`;
 		liveIcon.classList.remove('hidden');
 	}
 

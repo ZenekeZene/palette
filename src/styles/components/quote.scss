@@ -10,10 +10,11 @@
 
 	p {
 		padding: 0 $gutter-2;
-		font-family: 'Pacifico', cursive;
+		font-family: serif;
 		font-size: 0.9rem;
+		line-height: 1rem;
+		font-style: italic;
 		color: $cool;
-		line-height: 1.4rem;
 	}
 
 	span {
