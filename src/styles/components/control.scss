@@ -59,8 +59,8 @@
 	position: fixed;
 	top: calc(75vh - 10px);
 	top: calc((var(--vh, 1vh) * 75) - 10px);
-	height: 20px;
 	width: 100px;
+	height: 20px;
 	padding-right: $gutter;
 	color: $paper;
 	font-size: 0.8rem;
@@ -78,11 +78,11 @@
 
 	&::before {
 		position: absolute;
-		width: 100px;
-		height: 100px;
 		top: -15px;
 		right: 0;
 		z-index: -1;
+		width: 100px;
+		height: 100px;
 		content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzNiAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzYgMjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRTRCQkFDO30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTE3LjUsMy45YzMuOC01LjQsOS4xLTQsMTEuNi0wLjhjMi42LDMuNSwxLjQsOC42LTEuNCwxMS40cy0xMC4xLDktMTAuMSw5cy03LjMtNi4xLTEwLjEtOVMzLjMsNi43LDYsMy4yCglDOC40LTAuMSwxMy43LTEuNSwxNy41LDMuOXoiLz4KPC9zdmc+');
 	}
 

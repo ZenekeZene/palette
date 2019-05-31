@@ -6,7 +6,8 @@
 	width: 100vw;
 	height: $gutter-4;
 
-	& > p, & > a {
+	& > p,
+	& > a {
 		position: relative;
 		justify-content: center;
 		padding: $gutter 0;
@@ -21,6 +22,7 @@
 	}
 
 	&__back.header__back {
+		bottom: 2px;
 		width: $gutter-4;
 
 		&::before {

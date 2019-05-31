@@ -48,6 +48,7 @@ const homeHighScore = document.getElementById('homeHighScore');
 function showFinalPage(isGameCompleted) {
 	control.classList.add('hidden');
 	finalPage.classList.remove('hidden');
+	finalPage.classList.add('fadeIn');
 	for(let i = 0; i < countSuccessfulFinal.length; i++) {
 		countSuccessfulFinal[i].textContent = contSuccessTotal;
 	}
@@ -243,10 +244,14 @@ function handEvents() {
 	});
 
 	creditsButton.addEventListener('click', function() {
+		homePage.classList.add('fadeOut');
+		homePage.classList.remove('fadeIn');
 		creditsPage.classList.remove('hidden');
 	});
 
 	backButtonCredits.addEventListener('click', function() {
+		homePage.classList.add('fadeIn');
+		homePage.classList.remove('fadeOut');
 		homePage.classList.remove('unveil');
 		creditsPage.classList.add('hidden');
 	});
@@ -255,6 +260,7 @@ function handEvents() {
 		homePage.classList.remove('unveil');
 		app.classList.add('hidden');
 		finalPage.classList.add('hidden');
+		finalPage.classList.remove('fadeIn');
 		homeScore.textContent = contSuccessTotal;
 		homeLevel.textContent = levelCurrent + 1;
 		showRecord();

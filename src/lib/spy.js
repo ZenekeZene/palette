@@ -1,7 +1,7 @@
-const color = require('./color');
+import color from './color';
 const _ = require('lodash');
 
-module.exports = {
+export default {
 	_giveMeTheSolution: function(numItems, swatches, dropzones, activeColor) {
 		for(let i = 0; i < numItems; i++) {
 			swatches[i].el.classList.remove('--is-correct');
