@@ -30,6 +30,7 @@ ColorObject.prototype.setCMYK = function(cmyk) {
 		this.el.style.backgroundColor = rgbColor;
 		this.el.style['backgroundColor'] = rgbColor;
 		this.el.style.setProperty('background-color', rgbColor);
+		this.el.style.webkitBackground = rgbColor.toString();
 	}
 };
 
