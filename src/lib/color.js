@@ -27,10 +27,10 @@ ColorObject.prototype.setCMYK = function(cmyk) {
 		this.el.append(cmykNode);
 
 		const rgbColor = getRGBColor(convertCMYKtoRGB(cmyk));
+		console.log(rgbColor);
 		this.el.style.backgroundColor = rgbColor;
 		this.el.style['backgroundColor'] = rgbColor;
 		this.el.style.setProperty('background-color', rgbColor);
-		this.el.style.webkitBackground = rgbColor.toString();
 	}
 };
 
@@ -50,9 +50,9 @@ function getRGBColor(RGBArray) {
 
 function convertCMYKtoRGB(cmyk) {
 	var color = [];
-	color.push(255 * (1 - cmyk[0] / 100) * (1 - cmyk[3] / 100));
-	color.push(255 * (1 - cmyk[1] / 100) * (1 - cmyk[3] / 100));
-	color.push(255 * (1 - cmyk[2] / 100) * (1 - cmyk[3] / 100));
+	color.push(Math.round(255 * (1 - cmyk[0] / 100) * (1 - cmyk[3] / 100)));
+	color.push(Math.round(255 * (1 - cmyk[1] / 100) * (1 - cmyk[3] / 100)));
+	color.push(Math.round(255 * (1 - cmyk[2] / 100) * (1 - cmyk[3] / 100)));
 	return color;
 }
 
