@@ -33,7 +33,7 @@ npm run start
 
 ### TODO
 
--	[ ] ¡Arreglar **EL BUG** que crashea el hilo de ejecución JS! ([Probar con esto](https://github.com/liriliri/eruda))
+-	[x] ¡Arreglar **EL BUG** que crashea el hilo de ejecución JS! ([Probar con esto](https://github.com/liriliri/eruda))
 -	[x] Bug: Al guardar el record, registra un nivel menos.
 -	[x] Bug: No se muestra corona de laureles.
 -	[x] Modificar el sistema de adjudicación de vidas (Pasamos de un sistema lineal a una sucesión de Fibonacci):
@@ -48,7 +48,7 @@ npm run start
 -	[ ] Todo colores naranjas en Iphone8.
 - [x] El tutorial no se parece a lo que nos vamos a encontrar luego en el juego. OK, se parecerá lo máximo posible.
 -	[ ] Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
--	[ ] Mínimo de luminosidad para el activo (ligeramente diferente, debe calcularse por la diferencia entre swatch y mixer).
+-	[x] Mínimo de luminosidad para el activo (ligeramente diferente, debe calcularse por la diferencia entre swatch y mixer).
 -	[x] Deshabilitar el coeficiente diferencial para que no interfiera con el mínimo de luminosidad.
 -	[x] Latido para el activo. --> No se ha podido integrar porque interfiere con el sistema de drag & drop ->Ver opciones alternativas (base, height-width-position...)
 -	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
