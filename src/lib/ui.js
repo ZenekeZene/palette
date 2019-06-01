@@ -1,3 +1,4 @@
+const interact = require('interactjs');
 const persist = require('./persist');
 const quote = require('./quote');
 const sound = require('./sound');
@@ -44,6 +45,8 @@ const levelCurrentFinal = document.getElementById('levelCurrentFinalPage');
 const highLevel = document.getElementById('highlevel');
 const highScore = document.getElementById('highscore');
 const homeHighScore = document.getElementById('homeHighScore');
+const credits = document.getElementById('credits');
+let creditsInterval;
 
 function showFinalPage(isGameCompleted) {
 	control.classList.add('hidden');
@@ -247,6 +250,7 @@ function handEvents() {
 		homePage.classList.add('fadeOut');
 		homePage.classList.remove('fadeIn');
 		creditsPage.classList.remove('hidden');
+		initCreditsDrag();
 	});
 
 	backButtonCredits.addEventListener('click', function() {
@@ -254,6 +258,7 @@ function handEvents() {
 		homePage.classList.remove('fadeOut');
 		homePage.classList.remove('unveil');
 		creditsPage.classList.add('hidden');
+		clearCredits();
 	});
 
 	backButtonFinal.addEventListener('click', function() {
@@ -341,7 +346,68 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	lives = Number(persist.getData('lives')) || livesInitial;
 	homeLives.textContent = livesNode.textContent = lives;
 
+	interact('.credits-container').draggable({
+		inertia: true,
+		restriction: '.credits',
+		lockAxis: 'y',
+		onmove: (event) => {
+			event.target.classList.remove('--animation-disabled');
+			const target = event.target,
+				// keep the dragged position in the data-x/data-y attributes
+				x = (parseFloat(target.getAttribute('data-x')) || 0) + Math.round(event.dx),
+				y = (parseFloat(target.getAttribute('data-y')) || 0) + Math.round(event.dy);
+			target.classList.add('drag-active');
+			// translate the element
+			target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`;
+
+			// update the posiion attributes
+			target.setAttribute('data-x', x);
+			target.setAttribute('data-y', y);
+		},
+	});
+
 	showRecord();
+}
+
+function initCreditsDrag() {
+	creditsInterval = setInterval(function() {
+		const rect = credits.getBoundingClientRect();
+		if (!insideViewport(rect)) {
+			if (rect.bottom <= 0) {
+				setPositionCredits(0, window.innerHeight);
+			}
+		}
+
+		// keep the dragged position in the data-x/data-y attributes
+			const x = (parseFloat(credits.getAttribute('data-x')) || 0);
+			const y = (parseFloat(credits.getAttribute('data-y')) || 0) - 2;
+			setPositionCredits(x, y);
+	}, 30);
+}
+
+function clearCredits() {
+	clearInterval(creditsInterval);
+	setPositionCredits(0, 0);
+}
+
+function setPositionCredits(x, y) {
+	credits.style.webkitTransform = credits.style.transform = `translate(${x}px, ${y}px)`;
+	// update the posiion attributes
+	credits.setAttribute('data-x', x);
+	credits.setAttribute('data-y', y);
+}
+
+function insideViewport(bounding) {
+	if (
+	bounding.top >= 0 &&
+	bounding.left >= 0 &&
+	bounding.right <= (window.innerWidth || document.documentElement.clientWidth) &&
+	bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+) {
+	return true;
+} else {
+	return false;
+}
 }
 
 export default {

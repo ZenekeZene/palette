@@ -61,37 +61,16 @@
 	}
 
 	&-container {
-		// Starting position
-		-moz-transform:translateY(100%);
-		-webkit-transform:translateY(100%);
-		transform:translateY(100%);
-		// Apply animation to this element
-		-moz-animation: scroll-up 20s linear infinite;
-		-webkit-animation: scroll-up 20s linear infinite;
-		animation: scroll-up 20s linear infinite;
+		position: relative;
+		overflow: hidden;
+		-ms-touch-action: none;
+		touch-action: none;
+		will-change: transform;
 	}
 }
 
-@-moz-keyframes scroll-up {
-	0%   { -moz-transform: translateY(100%); }
-	100% { -moz-transform: translateY(-105%); }
-}
-
-@-webkit-keyframes scroll-up {
-	0%   { -webkit-transform: translateY(100%); }
-	100% { -webkit-transform: translateY(-105%); }
-}
-
-@keyframes scroll-up {
- 	0%   {
-		-moz-transform: translateY(100%);
-		-webkit-transform: translateY(100%);
-		transform: translateY(100%);
-	 }
-
-	100% {
-		-moz-transform: translateY(-105%);
-		-webkit-transform: translateY(-105%); // Browser bug fix
-		transform: translateY(-105%);
- 	}
+.link-final {
+	display: block;
+	margin-top: 5rem;
+	color: $cool;
 }
