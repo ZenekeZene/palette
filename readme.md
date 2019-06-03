@@ -48,14 +48,14 @@ npm run start
 -	[x] Bug: Al guardar el record, registra un nivel menos.
 -	[x] Bug: No se muestra corona de laureles.
 -	[x] Modificar el sistema de adjudicación de vidas (Pasamos de un sistema lineal a una sucesión de Fibonacci):
-			* Se comienza la partida con 3 vidas
-			* Nivel 1 y 2 -> +0 vidas (el corazón no se muestra)
-			* Nivel 3 y 4 -> +1 vidas
-			* Nivel 5 y 6 -> +2 vidas
-			* Nivel 7 y 8 -> +3 vidas
-			* Nivel 9 y 10 -> +5 vidas
-			* Nivel 11 y 12 -> +8 vidas
-			* Nivel 13 y 14 -> +13 vidas
+			* Se comienza la partida con 5 vidas
+			* Nivel 1 y 2 -> +1 vidas
+			* Nivel 3 y 4 -> +2 vidas
+			* Nivel 5 y 6 -> +3 vidas
+			* Nivel 7 y 8 -> +5 vidas
+			* Nivel 9 y 10 -> +8 vidas
+			* Nivel 11 y 12 -> +13 vidas
+			* Nivel 13 y 14 -> +21 vidas
 -	[x] Todo colores naranjas en Iphone8.
 - [x] El tutorial no se parece a lo que nos vamos a encontrar luego en el juego. OK, se parecerá lo máximo posible.
 -	[x] Mínimo de luminosidad para el activo (ligeramente diferente, debe calcularse por la diferencia entre swatch y mixer).
