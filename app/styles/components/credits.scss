@@ -2,26 +2,26 @@
 	@include fixed(top left);
 	z-index: 20;
 	display: block!important;
+	width: 100vw;
 	height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
 	height: calc(var(--vh, 1vh) * 100);
-	width: 100vw;
 	padding: $gutter-2 $gutter-4;
 	font-size: 0.6rem;
 	background: $paper;
 	overflow: hidden;
 	box-shadow: 0 0 $gutter $shadow;
-	transition: top .6s ease-out .3s;
 	-webkit-transition: top .6s ease-out .3s;
+	transition: top .6s ease-out .3s;
 
 	&.hidden {
 		top: calc(100vh + 12px);
-		transition: top .6s ease-out;
 		-webkit-transition: top .6s ease-out;
+		transition: top .6s ease-out;
 
 		.donate-button {
 			bottom: -$gutter-6;
-			transition: bottom .3s ease-out;
 			-webkit-transition: bottom .3s ease-out;
+			transition: bottom .3s ease-out;
 		}
 	}
 

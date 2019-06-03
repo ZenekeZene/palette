@@ -3,6 +3,7 @@ const quotes = require('./quotes.json');
 const quotePhrase = document.getElementById('quotePhrase');
 const quoteAuthor = document.getElementById('quoteAuthor');
 const quoteNode = document.getElementById('quote');
+let numLevels;
 
 var quotesArray = [];
 for (var i in quotes) {

@@ -1,57 +1,38 @@
 const interact = require('interactjs');
 const persist = require('./persist');
 const quote = require('./quote');
-const sound = require('./sound');
+import sound from './sound';
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
 const livesInitial = 5;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [0, 0, 1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13];
 let levels, levelCurrent, statusObserver, mute;
 
-const nextButton = document.getElementById('nextButton');
-const replayButton = document.getElementById('replayButton');
-const control = document.getElementById('control');
-const numLevels = document.getElementById('numLevels');
-const score = document.getElementById('score');
-const livesNode = document.getElementById('lives');
-const liveIcon = document.getElementById('liveIcon');
-const playButton = document.getElementById('playButton');
-const backButton = document.getElementById('backButton');
-const homePage = document.getElementById('homePage');
-const finalPage = document.getElementById('finalPage');
-const homeScore = document.getElementById('homeScore');
-const homeLevel = document.getElementById('homeLevel');
-const homeLives = document.getElementById('homeLives');
-const screenTutorial = document.getElementById('screenTutorial');
+// Cache references to DOM elements.
+var elms = [
+	'control', 'nextButton', 'replayButton', 'playButton', 'backButton',
+	'numLevels', 'score',
+	'lives', 'liveIcon', 'livesText', 'livesOutMessage',
+	'homePage', 'homeScore', 'homeLevel', 'homeLives', 'homeHighScore',
+	'finalPage', 'screenTutorial', 'replayText',
+	'resetPage', 'resetCancel', 'resetAccept', 'resetButton',
+	'credits', 'creditsButton', 'creditsPage', 'backButtonCredits',
+	'soundButton', 'soundButton', 'backButtonFinal', 'progression',
+	'shareLink', 'shareLinkFinal', 'shareLinkFinalCompleted',
+	'gameEndMessage', 'levelCurrentFinalPage', 'highLevel', 'highScore',
+];
+elms.forEach(function(elm) {
+	window[elm] = document.getElementById(elm);
+});
 
-const replayText = document.getElementById('replayText');
-const resetButton = document.getElementById('resetButton');
-const resetPage = document.getElementById('resetPage');
-const resetCancel = document.getElementById('resetCancel');
-const resetAccept = document.getElementById('resetAccept');
-const creditsButton = document.getElementById('creditsButton');
-const creditsPage = document.getElementById('creditsPage');
-const soundButton = document.getElementById('soundButton');
-const backButtonCredits = document.getElementById('backButtonCredits');
-const backButtonFinal = document.getElementById('backButtonFinal');
-const progression = document.getElementById('progression');
-const shareLink = document.getElementById('shareLink');
-const shareLinkFinal = document.getElementById('shareLinkFinal');
-const shareLinkFinalCompleted = document.getElementById('shareLinkFinalCompleted');
-const livesOutMessage = document.getElementById('lives-out-message');
-const gameEndMessage = document.getElementById('game-end-message');
 const countSuccessfulFinal = document.getElementsByClassName('js-contSuccessfulFinalPage');
-const levelCurrentFinal = document.getElementById('levelCurrentFinalPage');
-const highLevel = document.getElementById('highlevel');
-const highScore = document.getElementById('highscore');
-const homeHighScore = document.getElementById('homeHighScore');
-const credits = document.getElementById('credits');
 let creditsInterval;
 
 function showFinalPage(isGameCompleted) {
 	control.classList.add('hidden');
 	finalPage.classList.remove('hidden');
 	finalPage.classList.add('fadeIn');
+
 	for(let i = 0; i < countSuccessfulFinal.length; i++) {
 		countSuccessfulFinal[i].textContent = contSuccessTotal;
 	}
@@ -69,7 +50,7 @@ function showFinalPage(isGameCompleted) {
 	persist.saveData('levelCurrent', 0);
 	persist.saveData('contSuccessTotal', 0);
 
-	livesNode.textContent = lives;
+	livesText.textContent = lives;
 	homeLives.textContent = lives;
 	homeLevel.textContent = levelCurrent;
 	homeScore.textContent = contSuccessTotal;
@@ -149,7 +130,7 @@ function levelSuccessful() {
 	const livesAdded = lifePrizes[levelCurrent];
 	lives += livesAdded;
 	persist.saveData('lives', lives);
-	livesNode.textContent = lives;
+	livesText.textContent = lives;
 	if (livesAdded === 0) {
 		liveIcon.textContent = 0;
 		liveIcon.classList.add('hidden');
@@ -161,9 +142,9 @@ function levelSuccessful() {
 	levelCurrent += 1;
 	persist.saveData('levelCurrent', levelCurrent);
 
-
 	control.classList.add('fadeIn');
 	control.classList.remove('hidden');
+	app.classList.remove('fadeIn');
 	app.classList.add('fadeOut');
 	nextButton.classList.remove('hidden');
 	nextButton.classList.add('fadeIn');
@@ -184,7 +165,7 @@ function levelFailed() {
 			lives -= 1;
 			persist.saveData('lives', lives);
 
-			livesNode.textContent = lives;
+			livesText.textContent = lives;
 			liveIcon.classList.add('hidden');
 			control.classList.add('fadeIn');
 			control.classList.remove('hidden');
@@ -259,6 +240,7 @@ function handEvents() {
 		homePage.classList.remove('unveil');
 		creditsPage.classList.add('hidden');
 		clearCredits();
+		statusObserver.notify('backButton');
 	});
 
 	backButtonFinal.addEventListener('click', function() {
@@ -270,6 +252,7 @@ function handEvents() {
 		homeLevel.textContent = levelCurrent + 1;
 		showRecord();
 		statusObserver.notify('cleanLevel');
+		statusObserver.notify('backButton');
 	})
 
 	backButton.addEventListener('click', function() {
@@ -279,6 +262,7 @@ function handEvents() {
 		homeScore.textContent = contSuccessTotal;
 		homeLevel.textContent = levelCurrent + 1;
 		statusObserver.notify('cleanLevel');
+		statusObserver.notify('backButton');
 	});
 
 	screenTutorial.addEventListener('click', function() {
@@ -344,7 +328,7 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 		soundButton.classList.add('--silence');
 	}
 	lives = Number(persist.getData('lives')) || livesInitial;
-	homeLives.textContent = livesNode.textContent = lives;
+	homeLives.textContent = livesText.textContent = lives;
 
 	interact('.credits-container').draggable({
 		inertia: true,
@@ -379,9 +363,9 @@ function initCreditsDrag() {
 		}
 
 		// keep the dragged position in the data-x/data-y attributes
-			const x = (parseFloat(credits.getAttribute('data-x')) || 0);
-			const y = (parseFloat(credits.getAttribute('data-y')) || 0) - 2;
-			setPositionCredits(x, y);
+		const x = (parseFloat(credits.getAttribute('data-x')) || 0);
+		const y = (parseFloat(credits.getAttribute('data-y')) || 0) - 2;
+		setPositionCredits(x, y);
 	}, 30);
 }
 
@@ -399,15 +383,15 @@ function setPositionCredits(x, y) {
 
 function insideViewport(bounding) {
 	if (
-	bounding.top >= 0 &&
-	bounding.left >= 0 &&
-	bounding.right <= (window.innerWidth || document.documentElement.clientWidth) &&
-	bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-) {
-	return true;
-} else {
-	return false;
-}
+		bounding.top >= 0 &&
+		bounding.left >= 0 &&
+		bounding.right <= (window.innerWidth || document.documentElement.clientWidth) &&
+		bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+	) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 export default {
