@@ -33,7 +33,7 @@ npm run start
 
 ### TODO
 
--	[ ] Abrir cuentas de developers (iOS, Android).
+-	[?] Abrir cuentas de developers (iOS, Android). Cuenta de Android abierta, pendiente iOS.
 -	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
 -	[ ] Integrar Cordova.
 -	[ ] VETE A OPENBANK HÉCTOR!!! Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
@@ -132,13 +132,6 @@ npm run start
 - Hosting y dominio de landing: 43,56 €
 - Plantilla de landing: 16,84€
 - Tasa android developer: 23,16€
+- Efectos de sonido: 38,72€
 
-TOTAL GASTOS REALIZADOS: 83,56€
-
---------------
-Gastos por confirmar:
-- Sonidos: 32€ (Música ambiente: 24€ // Efecto acierto: 4€ // Efecto fallo: 4€)
-	Enlaces a sonidos:
-	https://www.pond5.com/es/stock-music/80307250/spa-music-relax-mindfulness.html
-	https://www.pond5.com/es/sound-effect/35784241/positive-award-02.html
-	https://www.pond5.com/es/sound-effect/57814580/harp-game-over-05.html
+TOTAL GASTOS REALIZADOS: 122,28€
