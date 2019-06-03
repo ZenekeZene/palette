@@ -235,11 +235,13 @@ function playLevel() {
 }
 
 function cleanLevel() {
-	grid.cleanAll();
-	if (activeColor && limitActive) {
-		limitActive.removeChild(activeColor.el);
-	}
-	activeColor = null;
+	setTimeout(() => {
+		grid.cleanAll();
+		if (activeColor && limitActive) {
+			limitActive.removeChild(activeColor.el);
+		}
+		activeColor = null;
+	}, 1000);
 }
 
 function execAction(action, data) {

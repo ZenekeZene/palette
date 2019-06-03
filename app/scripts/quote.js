@@ -3,7 +3,7 @@ const quotes = require('./quotes.json');
 const quotePhrase = document.getElementById('quotePhrase');
 const quoteAuthor = document.getElementById('quoteAuthor');
 const quoteNode = document.getElementById('quote');
-let numLevels;
+let numLevels, statusObserver;
 
 var quotesArray = [];
 for (var i in quotes) {
@@ -14,7 +14,7 @@ for (var i in quotes) {
 const shuffled = quotesArray.sort(() => 0.5 - Math.random());
 let quotesSelected;
 
-function levelSuccessed(data) {
+function levelSuccessful(data) {
 	const levelCurrent = data[0];
 	quoteNode.classList.remove('hidden');
 	quoteNode.classList.add('fadeIn');
@@ -31,7 +31,7 @@ function init(statusObserverEntry, numLevelsEntry) {
 	statusObserver = statusObserverEntry;
 	statusObserver.subscribe(function(status, data) {
 		if (status === 'success') {
-			levelSuccessed(data);
+			levelSuccessful(data);
 		} else if (status === 'fail') {
 			levelFailed();
 		}
@@ -41,7 +41,7 @@ function init(statusObserverEntry, numLevelsEntry) {
 	quotesSelected = shuffled.slice(0, numLevels + 1);
 }
 
-module.exports = {
+export default {
 	init,
 	quotes: quotesSelected,
 }

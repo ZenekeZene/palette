@@ -1,7 +1,8 @@
-const interact = require('interactjs');
-const persist = require('./persist');
-const quote = require('./quote');
+import interact from 'interactjs';
+import persist from './persist';
+import quote from './quote';
 import sound from './sound';
+
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
 const livesInitial = 5;
 let lives = Number(persist.getData('lives')) || livesInitial;
@@ -17,7 +18,7 @@ var elms = [
 	'finalPage', 'screenTutorial', 'replayText',
 	'resetPage', 'resetCancel', 'resetAccept', 'resetButton',
 	'credits', 'creditsButton', 'creditsPage', 'backButtonCredits',
-	'soundButton', 'soundButton', 'backButtonFinal', 'progression',
+	'soundButton', 'backButtonFinal', 'progression',
 	'shareLink', 'shareLinkFinal', 'shareLinkFinalCompleted',
 	'gameEndMessage', 'levelCurrentFinalPage', 'highLevel', 'highScore',
 ];
@@ -240,7 +241,6 @@ function handEvents() {
 		homePage.classList.remove('unveil');
 		creditsPage.classList.add('hidden');
 		clearCredits();
-		statusObserver.notify('backButton');
 	});
 
 	backButtonFinal.addEventListener('click', function() {
@@ -276,7 +276,11 @@ function handEvents() {
 	soundButton.addEventListener('click', function() {
 		mute = !mute;
 		persist.saveData('mute', mute);
-		event.target.classList.toggle('--silence');
+		if (mute) {
+			soundButton.classList.add('--silence');
+		} else {
+			soundButton.classList.remove('--silence');
+		}
 		statusObserver.notify('mute', mute);
 	})
 
@@ -322,11 +326,16 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	homeLevel.textContent = levelCurrent + 1;
 	numLevels.textContent = levelCurrent + 1;
 	score.textContent = contSuccessTotal;
+
 	mute = persist.getData('mute') || false;
-	sound.init(statusObserver, mute);
+	mute = (mute == 'true');
+	
 	if (mute) {
 		soundButton.classList.add('--silence');
+	} else {
+		soundButton.classList.remove('--silence');
 	}
+	sound.init(statusObserver, mute);
 	lives = Number(persist.getData('lives')) || livesInitial;
 	homeLives.textContent = livesText.textContent = lives;
 

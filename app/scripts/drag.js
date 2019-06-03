@@ -1,6 +1,6 @@
 import interact from 'interactjs'
 
-let activeNode, dropzones
+let activeNode, dropzones, statusObserver;
 
 function offset (el) {
 	const rect = el.getBoundingClientRect();

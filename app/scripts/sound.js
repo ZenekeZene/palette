@@ -35,7 +35,7 @@ function init(statusObserverEntry, muteEntry) {
 
 	let ambientSound;
 	statusObserver.subscribe(function(status, data) {
-		if (!mute) {
+		if (mute === false) {
 			if (status === 'playLevel') {
 				if (!ambient.playing(ambientSound)) {
 					ambientSound = ambient.play();
@@ -49,7 +49,8 @@ function init(statusObserverEntry, muteEntry) {
 			} else if (status === 'backButton') {
 				ambient.fade(1, 0, 1250);	
 			}
-		} else if (status === 'mute') {
+		}
+		if (status === 'mute') {
 			mute = data[0];
 		}
 	});
