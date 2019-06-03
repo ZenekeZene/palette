@@ -1,9 +1,9 @@
 {
-  "name": "webpack-pug-scss-boiperplate",
-  "version": "2.1.3",
-  "description": "A webpack boilerplate for building web apps",
+  "name": "Palette",
+  "version": "1.0.0",
+  "description": "Palette, el juego",
   "main": "./app/index.js",
-  "author": "Alex Nozdriukhin",
+  "author": "Héctor Villar Mozo y Jorge Fuente",
   "license": "MIT",
   "scripts": {
     "analyze": "webpack-bundle-analyzer ./stats.json",
