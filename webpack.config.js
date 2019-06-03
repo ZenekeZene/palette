@@ -63,7 +63,7 @@ const commonConfig = merge([
       unsafeCache: true,
       symlinks: false
     },
-    entry: `${paths.app}/scripts`,
+    entry: `${paths.app}`,
     output: {
       path: paths.build,
       publicPath: parts.publicPath
@@ -214,8 +214,8 @@ module.exports = env => {
 }
 
 function getPaths ({
-  sourceDir = 'app',
-  buildDir = 'build',
+  sourceDir = 'src',
+  buildDir = 'dist',
   staticDir = '',
   images = 'img',
   fonts = 'fonts',

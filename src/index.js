@@ -1,10 +1,10 @@
-import game from './game';
-import persist from './persist'
-import Observable from './Observer'
-import '../styles/styles.scss'
+import game from './scripts/game';
+import persist from './scripts/persist'
+import Observable from './scripts/Observer'
+import './styles/styles.scss'
 
 if (process.env.NODE_ENV !== 'production') {
-	require('../index.pug');
+	require('./index.pug');
 }
 
 function init () {

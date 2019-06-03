@@ -7,7 +7,7 @@ function init(statusObserverEntry, muteEntry) {
 	statusObserver = statusObserverEntry;
 	mute = muteEntry;
 	let ambient = new Howl({
-		src: ['app/sounds/music-bg.mp3', 'app/sounds/music-bg.ogg'],
+		src: ['src/sounds/music-bg.mp3', 'src/sounds/music-bg.ogg'],
 		autoplay: false,
 		loop: true,
 		volume: 0.5,
@@ -16,7 +16,7 @@ function init(statusObserverEntry, muteEntry) {
 	});
 
 	const fail = new Howl({
-		src: ['app/sounds/effect-fail.mp3', 'app/sounds/effect-fail.ogg'],
+		src: ['src/sounds/effect-fail.mp3', 'src/sounds/effect-fail.ogg'],
 		autoplay: false,
 		loop: false,
 		volume: 0.5,
@@ -25,7 +25,7 @@ function init(statusObserverEntry, muteEntry) {
 	});
 
 	const success = new Howl({
-		src: ['app/sounds/effect-success.mp3', 'app/sounds/effect-success.ogg'],
+		src: ['src/sounds/effect-success.mp3', 'src/sounds/effect-success.ogg'],
 		autoplay: false,
 		loop: false,
 		volume: 1,
