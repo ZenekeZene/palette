@@ -94,14 +94,12 @@ const commonConfig = merge([
       name: `${paths.fonts}/[name].[hash:8].[ext]`
     }
   }),
-  parts.loadSounds(
-	  {
+  parts.loadSounds({
 		include: paths.app,
 		options: {
-		name: `${paths.sounds}/[name].[hash:8].[ext]`
+			name: `${paths.sounds}/[name].[hash:8].[ext]`
 		}
-	}
-  ),
+	}),
 ])
 
 const productionConfig = merge([
@@ -233,7 +231,7 @@ function getPaths ({
   js = 'scripts',
   css = 'styles'
 } = {}) {
-  const assets = { images, fonts, js, css }
+  const assets = { images, fonts, js, css, sounds }
 
   return Object.keys(assets).reduce((obj, assetName) => {
     const assetPath = assets[assetName]
