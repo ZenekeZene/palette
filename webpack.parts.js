@@ -77,9 +77,6 @@ const sharedCSSLoaders = [
   {
     loader: 'css-loader',
   },
-   {
-		loader: "fast-sass-loader"
-	},
 ]
 
 exports.autoprefix = () => ({
@@ -135,13 +132,10 @@ exports.extractCSS = ({ include, exclude, options, use = [] } = {}) => ({
         include,
         exclude,
 
-        use: [MiniCssExtractPlugin.loader, { loader: "css-loader" }, ...sharedCSSLoaders, ...use]
+        use: [{ loader: "css-loader" }, ...use]
       }
     ]
   },
-  plugins: [
-    new MiniCssExtractPlugin(options)
-  ]
 })
 
 exports.loadImages = ({ include, exclude, options } = {}) => ({
