@@ -1,6 +1,5 @@
 //const Tone = require("tone");
 import { Howl } from 'howler';
-const musicBackground = ;
 let statusObserver;
 let mute;
 
