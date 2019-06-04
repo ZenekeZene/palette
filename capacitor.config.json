@@ -1,0 +1,7 @@
+{
+  "appId": "com.pipilgames.palette",
+  "appName": "Palette",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist"
+}
