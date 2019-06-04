@@ -28,7 +28,7 @@ function init(statusObserverEntry, muteEntry) {
 		src: ['src/sounds/effect-success.mp3', 'src/sounds/effect-success.ogg'],
 		autoplay: false,
 		loop: false,
-		volume: 1,
+		volume: 0.1,
 		html5: true,
 		mobileAutoEnable: true,
 	});
