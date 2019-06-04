@@ -220,6 +220,24 @@ exports.loadFonts = ({ include, exclude, options } = {}) => ({
   }
 })
 
+exports.loadSounds = ({ include, exclude, options } = {}) => ({
+	module: {
+		rules: [
+		{
+			test: /\.(wav|mp3|m4a)(\?v=\d+\.\d+\.\d+)?$/,
+
+			include,
+			exclude,
+
+			use: {
+			loader: 'file-loader',
+			options
+			}
+		}
+		]
+	}
+})
+
 exports.loadJS = ({ include, exclude, options } = {}) => ({
   module: {
     rules: [

@@ -25,6 +25,8 @@ const lintJSOptions = {
   formatter: require('eslint-friendly-formatter')
 }
 
+getPaths({ staticDir: 'some-name' })
+
 /*
   To move all assets to some static folder
   getPaths({ staticDir: 'some-name' })
@@ -91,7 +93,15 @@ const commonConfig = merge([
     options: {
       name: `${paths.fonts}/[name].[hash:8].[ext]`
     }
-  })
+  }),
+  parts.loadSounds(
+	  {
+		include: paths.app,
+		options: {
+		name: `${paths.sounds}/[name].[hash:8].[ext]`
+		}
+	}
+  ),
 ])
 
 const productionConfig = merge([
@@ -218,6 +228,7 @@ function getPaths ({
   buildDir = 'dist',
   staticDir = 'static',
   images = 'img',
+  sounds = 'sounds',
   fonts = 'fonts',
   js = 'scripts',
   css = 'styles'
