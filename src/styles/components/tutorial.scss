@@ -110,15 +110,20 @@
 
 .screentutorial {
 	@include absolute(top left);
+	z-index: 3;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	width: 100vw;
 	height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
+	height: calc(var(--vh, 1vh) * 100);
 	padding: $gutter-2;
 	background-color: $paper;
 	box-shadow: 0 0 $gutter-1-2 $shadow;
+
+	&.fadeOut {
+		z-index: 0;
+	}
 
 	&-text {
 		color: $cool;
@@ -180,17 +185,6 @@
 			-webkit-animation: sample-tutorial 6s ease-in-out infinite both;
 			animation: sample-tutorial 6s ease-in-out infinite both;
 
-		/*	&::before {
-				content: '';
-				position: absolute;
-				bottom: -6vh;
-				left: -6vh;
-				width: 24vh;
-				height: 2px;
-				background: $shadow;
-			}
-		*/
-
 			&::before {
 				content: '';
 				position: absolute;
@@ -215,15 +209,15 @@
 
 		&__base {
 			position: absolute;
-			height: 11vh;
-			width: 11vh;
 			bottom: 7vh;
+			z-index: -1;
+			width: 11vh;
+			height: 11vh;
 			-webkit-transform: scale(1.4);
 			transform: scale(1.4);
 			background: $paper;
 			border: solid $gutter $paper;
 			box-shadow: 0 0 $gutter-1-2 $shadow;
-			z-index: -1;
 		}
 	}
 

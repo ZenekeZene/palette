@@ -1,34 +1,29 @@
-const interact = require('interactjs');
+import interact from 'interactjs'
 
-let activeNode, dropzones;
+let activeNode, dropzones, statusObserver;
 
-function offset(el) {
+function offset (el) {
 	const rect = el.getBoundingClientRect();
 	return { top: rect.top, left: rect.left };
 }
 
-function dragMoveListener(event) {
+function dragMoveListener (event) {
 	event.target.classList.remove('tutorial');
-	const target = event.target,
-		// keep the dragged position in the data-x/data-y attributes
-		x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-		y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+	const target = event.target;
+	// keep the dragged position in the data-x/data-y attributes
+	const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+	const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 	target.classList.add('drag-active');
-	// translate the element
-	target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`;
-
-	// update the position attributes
-	target.setAttribute('data-x', x);
-	target.setAttribute('data-y', y);
+	setPosition(target, x, y);
 	statusObserver.notify('activeIsMoved');
 }
 
-function initDrag() {
+function initDrag () {
 	const rect = activeNode.getBoundingClientRect();
 	const origin = {
 		x: rect.right,
-		y: rect.top,
-	};
+		y: rect.top
+	}
 	let isEntered = false;
 	let dropZoneCurrent;
 
@@ -39,14 +34,14 @@ function initDrag() {
 		// Require a 75% element overlap for a drop to be possible
 		overlap: 0.05,
 		// listen for drop related events:
-		ondropactivate: function(event) {
+		ondropactivate: function (event) {
 			// add active dropzone feedback
 			event.target.classList.add('drop-active');
 			const rect = offset(event.relatedTarget);
 			origin.x = rect.left;
 			origin.y = rect.top;
 		},
-		ondragenter: function(event) {
+		ondragenter: function (event) {
 			var draggableElement = event.relatedTarget;
 			var dropzoneElement = event.target;
 
@@ -60,29 +55,30 @@ function initDrag() {
 				}
 			}
 		},
-		ondragleave: function(event) {
+		ondragleave: function (event) {
 			// remove the drop feedback style
 			event.target.classList.remove('drop-target');
 			event.relatedTarget.classList.remove('can-drop');
 			isEntered = false;
 			dropZoneCurrent = null;
 		},
-		ondrop: function(event) {
+		ondrop: function (event) {
 			event.relatedTarget.textContent = 'Dropped';
 		},
-		ondropdeactivate: function(event) {
+		ondropdeactivate: function (event) {
 			// remove active dropzone feedback
 			event.target.classList.remove('drop-active');
 			event.target.classList.remove('drop-target');
 		},
 	});
 
+	interact('.drag-drop').unset();
 	interact('.drag-drop').draggable({
 		inertia: false,
 		restrict: {
 			restriction: 'parent',
 			endOnly: false,
-			elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
+			elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
 		},
 		autoScroll: false,
 		// dragMoveListener from the dragging demo above
@@ -90,8 +86,7 @@ function initDrag() {
 		onend: (event) => {
 			const target = event.target;
 			target.classList.remove('drag-active');
-			const isEnabled =
-				!dropZoneCurrent || !dropZoneCurrent.el.classList.contains('disabled');
+			const isEnabled = !dropZoneCurrent || !dropZoneCurrent.el.classList.contains('disabled');
 			if (isEntered && isEnabled) {
 				const rect = offset(dropZoneCurrent.el);
 				target.style.webkitTransform = target.style.transform = 'translate(0, 0)';
@@ -101,33 +96,34 @@ function initDrag() {
 				interact(event.target).unset();
 				const index = [].indexOf.call(
 					dropZoneCurrent.el.parentNode.children,
-					dropZoneCurrent.el
-				);
+					dropZoneCurrent.el,
+				)
 				isEntered = false;
 				setTimeout(statusObserver.notify('dropSuccessful', { dropZoneCurrent, index }), 500);
 			} else {
-				// Out
-				target.style.transform = 'translate(0, 0)';
-				target.style.webkitTransform = target.style.transform =
-					'translate(0, 0)';
-
-				// update the position attributes
-				target.setAttribute('data-x', 0);
-				target.setAttribute('data-y', 0);
+				setPosition(target, 0, 0);
 				statusObserver.notify('dropFailed');
 			}
-		},
+		}
 	});
+}
+
+function setPosition(target, x, y) {
+	// translate the element
+	target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`;
+	// update the position attributes
+	target.setAttribute('data-x', x);
+	target.setAttribute('data-y', y);
 }
 
 function setActiveNode(activeNodeEntry) {
 	activeNode = activeNodeEntry;
 }
 
-function init(
+function init (
 	activeNodeEntry,
 	dropzonesEntry,
-	statusObserverEntry,
+	statusObserverEntry
 ) {
 	activeNode = activeNodeEntry;
 	dropzones = dropzonesEntry;
@@ -138,4 +134,4 @@ function init(
 export default {
 	init,
 	setActiveNode,
-};
+}

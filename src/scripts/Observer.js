@@ -4,7 +4,7 @@ export default class Observable {
 	// starts with an empty array of things (observers)
 	// that react to a state change
 	constructor() {
-	  this.observers = [];
+		this.observers = [];
 	}
   
 	// add the ability to subscribe to a new object / DOM element

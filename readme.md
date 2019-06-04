@@ -37,8 +37,8 @@ npm run start
 -	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
 -	[ ] Integrar Cordova.
 -	[ ] VETE A OPENBANK HÉCTOR!!! Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
--	[ ] Música ambient / chill
--	[ ] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
+-	[x] Música ambient / chill
+-	[x] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
 	Funcionamiento de los efectos y música: Cuando se inicia el primer nivel de juego, se inicia la música de fondo, sobre la cual se van superponiendo los sonidos de acierto (no interrumpen la música). Si se da un fallo, la música se para y suena el sonido de fallo. Hasta que no se reinicia de nuevo el nivel no vuelve a arrancar la música (la pantalla de Try Again estaría entonces sobre silencio). No hay más efectos de sonido en todo el juego.
 -	[ ] Subir a stores.
 -	[ ] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad

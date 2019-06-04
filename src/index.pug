@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+doctype html
 html
 	head
 		title Palette
@@ -11,15 +11,13 @@ html
 		link(href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet")
 
 	body
-		include ./src/partials/home.pug
-		include ./src/partials/reset.pug
-		include ./src/partials/credits.pug
-		include ./src/partials/game.pug
-		include ./src/partials/tutorial.pug
-		include ./src/partials/control.pug
-		include ./src/partials/final.pug
-
-		script(src="src/index.js") 
+		include ./partials/home.pug
+		include ./partials/reset.pug
+		include ./partials/credits.pug
+		include ./partials/game.pug
+		include ./partials/tutorial.pug
+		include ./partials/control.pug
+		include ./partials/final.pug
 		script.
 			let vh = window.innerHeight * 0.01;
 			document.documentElement.style.setProperty('--vh', `${vh}px`);

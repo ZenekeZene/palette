@@ -5,7 +5,7 @@
 	order: 2;
 	width: 100vw;
 	height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
+  	height: calc(var(--vh, 1vh) * 100);
 
 	button {
 		@include share(width, height, 100px);
@@ -28,9 +28,9 @@
 
 .replay {
 	@include fixed(top left);
-	height: calc(50vh - 50px);
-	width: 100vw;
   display: flex;
+	width: 100vw;
+	height: calc(50vh - 50px);
   flex-direction: column;
   justify-content: center;
 	text-align: center;
@@ -44,15 +44,6 @@
 		color: $cool;
 	}
 
-}
-
-.hidden .liveup {
-	-webkit-transform: scale(0.4);
-	transform: scale(0.4);
-	-webkit-opacity: 0;
-	opacity: 0;
-	//-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
-	//transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 }
 
 .liveup {
@@ -119,4 +110,13 @@
 			-webkit-transform: scale(1);
 		}
 	}
+}
+
+.hidden .liveup {
+	-webkit-transform: scale(0.4);
+	transform: scale(0.4);
+	-webkit-opacity: 0;
+	opacity: 0;
+	//-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
+	//transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 }
