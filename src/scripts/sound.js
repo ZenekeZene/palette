@@ -1,5 +1,6 @@
 //const Tone = require("tone");
 import { Howl } from 'howler';
+const musicBackground = ;
 let statusObserver;
 let mute;
 
@@ -7,7 +8,7 @@ function init(statusObserverEntry, muteEntry) {
 	statusObserver = statusObserverEntry;
 	mute = muteEntry;
 	let ambient = new Howl({
-		src: ['../sounds/music-bg.mp3', '../sounds/music-bg.ogg'],
+		src: [require("../sounds/music-bg.mp3")],
 		autoplay: false,
 		loop: true,
 		volume: 0.5,
@@ -16,7 +17,7 @@ function init(statusObserverEntry, muteEntry) {
 	});
 
 	const fail = new Howl({
-		src: ['../sounds/effect-fail.mp3', '../sounds/effect-fail.ogg'],
+		src: [require("../sounds/effect-fail.mp3")],
 		autoplay: false,
 		loop: false,
 		volume: 0.5,
@@ -25,7 +26,7 @@ function init(statusObserverEntry, muteEntry) {
 	});
 
 	const success = new Howl({
-		src: ['../sounds/effect-success.mp3', '../sounds/effect-success.ogg'],
+		src: [require("../sounds/effect-success.mp3")],
 		autoplay: false,
 		loop: false,
 		volume: 0.1,

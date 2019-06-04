@@ -25,8 +25,6 @@ const lintJSOptions = {
   formatter: require('eslint-friendly-formatter')
 }
 
-getPaths({ staticDir: 'some-name' })
-
 /*
   To move all assets to some static folder
   getPaths({ staticDir: 'some-name' })
@@ -94,12 +92,6 @@ const commonConfig = merge([
       name: `${paths.fonts}/[name].[hash:8].[ext]`
     }
   }),
-  parts.loadSounds({
-		include: paths.app,
-		options: {
-			name: `${paths.sounds}/[name].[hash:8].[ext]`
-		}
-	}),
 ])
 
 const productionConfig = merge([
@@ -196,8 +188,17 @@ const productionConfig = merge([
     }
   }),
   // should go after loading images
-  parts.optimizeImages()
+  parts.optimizeImages(),
+
+  parts.loadSounds({
+		include: paths.app,
+		options: {
+			name: `${paths.sounds}/[name].[hash:8].[ext]`
+		}
+	}),
 ])
+
+console.log(paths.sounds);
 
 const developmentConfig = merge([
   {
@@ -224,7 +225,7 @@ module.exports = env => {
 function getPaths ({
   sourceDir = 'src',
   buildDir = 'dist',
-  staticDir = 'static',
+  staticDir = '',
   images = 'img',
   sounds = 'sounds',
   fonts = 'fonts',
