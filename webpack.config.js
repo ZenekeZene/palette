@@ -10,7 +10,7 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const CleanPlugin = require('clean-webpack-plugin')
 const { StatsWriterPlugin } = require('webpack-stats-plugin')
 
-const parts = require('./webpack.parts')
+const parts = require('./webpack.parts');
 
 const lintJSOptions = {
   emitWarning: true,
@@ -92,6 +92,12 @@ const commonConfig = merge([
       name: `${paths.fonts}/[name].[hash:8].[ext]`
     }
   }),
+  parts.loadSounds({
+	  	include: paths.app,
+		options: {
+			name: `${paths.sounds}/[name].[hash:8].[ext]`
+		}
+  })
 ])
 
 const productionConfig = merge([
@@ -189,16 +195,7 @@ const productionConfig = merge([
   }),
   // should go after loading images
   parts.optimizeImages(),
-
-  parts.loadSounds({
-		include: paths.app,
-		options: {
-			name: `${paths.sounds}/[name].[hash:8].[ext]`
-		}
-	}),
 ])
-
-console.log(paths.sounds);
 
 const developmentConfig = merge([
   {
@@ -208,7 +205,7 @@ const developmentConfig = merge([
     host: process.env.HOST,
     port: process.env.PORT
   }),
-  parts.loadCSS({ include: paths.app, use: [cssPreprocessorLoader] }),
+  parts.loadCSS({ include: paths.app, use: [{ loader: 'fast-sass-loader' }, {loader: 'css-loader'}] }),
   parts.loadImages({ include: paths.app }),
   parts.loadJS({ include: paths.app })
 ])
@@ -227,12 +224,12 @@ function getPaths ({
   buildDir = 'dist',
   staticDir = '',
   images = 'img',
-  sounds = 'sounds',
   fonts = 'fonts',
+  sounds = 'sounds',
   js = 'scripts',
   css = 'styles'
 } = {}) {
-  const assets = { images, fonts, js, css, sounds }
+  const assets = { images, fonts, js, css, sounds, }
 
   return Object.keys(assets).reduce((obj, assetName) => {
     const assetPath = assets[assetName]

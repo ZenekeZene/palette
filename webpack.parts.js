@@ -75,6 +75,9 @@ exports.lintJS = ({ include, exclude, options }) => ({
 
 const sharedCSSLoaders = [
 	{
+		loader: 'css-loader'
+	},
+	{
 		loader: "fast-sass-loader"
 	},
 ]
@@ -116,7 +119,12 @@ exports.loadCSS = ({ include, exclude, use } = {}) => ({
           {
             loader: 'style-loader'
           },
-          ...sharedCSSLoaders.concat(use)
+          {
+            loader: 'css-loader'
+			},
+			{
+				loader: "fast-sass-loader"
+			},
         ]
       }
     ]
@@ -132,7 +140,7 @@ exports.extractCSS = ({ include, exclude, options, use = [] } = {}) => ({
         include,
         exclude,
 
-        use: [MiniCssExtractPlugin.loader, { loader: "css-loader" }, ...sharedCSSLoaders, ...use]
+        use: [MiniCssExtractPlugin.loader, { loader: "css-loader" }, ...use]
       }
     ]
   },
