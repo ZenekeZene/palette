@@ -47,5 +47,10 @@ html
 				return "unknown";
 			}
 			const isMobile = this.getMobileOperatingSystem();
-			if (isMobile === 'Android' || isMobile === 'iOS')
-				script(src="cordova.js")
+			
+			function openUrl(theUrl) {
+				window.open(theUrl, '_blank', 'location=yes');
+			}
+			
+	if (isMobile === 'Android' || isMobile === 'iOS')
+		script(src="cordova.js")

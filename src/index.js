@@ -5,9 +5,7 @@ import './styles/styles.scss'
 
 if (process.env.NODE_ENV !== 'production') {
 	require('./index.pug');
-} else {
-	require('./cordova.js');
-}
+} 
 
 function init () {
 	const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -18,10 +16,13 @@ function init () {
 
 document.addEventListener('DOMContentLoaded', function () {
 	init();
-})
+});
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
+	initInAppBrowser();
+}
+function initInAppBrowser(){
 	if (cordova) {
 		window.open = cordova.InAppBrowser.open;
 	}
