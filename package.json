@@ -10,6 +10,7 @@
     "build": "webpack --env production --progress",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env development\"",
     "add-android": "npx cap add android && npx cap copy",
+    "open-android": "npx cap open android",
     "add-ios": "npx cap add ios && npx cap sync && npx cap copy",
     "update-native": "npx cap copy && npx cap sync && npx cap update",
     "clean": "rm -Rf node_modules/ && rm package-lock.json && rm -Rf android/ && rm -Rf ios/ && npm install"
@@ -96,6 +97,7 @@
     "@capacitor/cli": "^1.0.0",
     "@capacitor/core": "^1.0.0",
     "@capacitor/ios": "^1.0.0",
+    "cordova-plugin-inappbrowser": "^3.0.0",
     "howler": "^2.1.2"
   }
 }
