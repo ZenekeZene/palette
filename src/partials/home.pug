@@ -14,13 +14,18 @@ aside#homePage.home.fadeIn.animated
 		button#soundButton.home-buttons__sound
 		button#resetButton.home-buttons__reset
 		button#creditsButton.home-buttons__about
-		a#eulaButton.home-buttons__eula(href="http://palette.ws/legal.html")
+		a#eulaButton.home-buttons__eula(onclick="openUrl('http://palette.ws/legal.html')" href="#")
 	section#homeHighScore.home-hiscore.hidden
 		.hiscore__title HI SCORE
 		.hiscore__body
 			p.header__level LEVEL #[span#highLevel 0]
 			p#highScore.header__score 0
-			a#shareLink.header__share(href="https://twitter.com/intent/tweet?text=I+have+reached+level+5+playing+@Palette_game!!!+http://palette.ws") SHARE
+			a#shareLink.header__share(onclick="openUrl('https://twitter.com/intent/tweet?text=I+have+reached+level+5+playing+@Palette_game!!!+http://palette.ws')" href="#") SHARE
 
 
-	a.donate-button(href="https://www.buymeacoffee.com/PilPilGames")
+	a.donate-button(onclick="openUrl('https://www.buymeacoffee.com/PilPilGames')" href="#")
+
+script.
+	function openUrl(theUrl) {
+		window.open({ url: theUrl });
+	}
