@@ -47,5 +47,5 @@ html
 				return "unknown";
 			}
 			const isMobile = this.getMobileOperatingSystem();
-		if (isMobile)
+		if (isMobile === 'Android' || isMobile === 'iOS')
 			script(src="cordova.js")
