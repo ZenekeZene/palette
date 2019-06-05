@@ -250,6 +250,7 @@ function handEvents() {
 		finalPage.classList.remove('fadeIn');
 		homeScore.textContent = contSuccessTotal;
 		homeLevel.textContent = levelCurrent + 1;
+		numLevels.textContent = levelCurrent + 1;
 		showRecord();
 		statusObserver.notify('cleanLevel');
 		statusObserver.notify('backButton');
