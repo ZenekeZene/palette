@@ -133,5 +133,6 @@ npm run start
 - Plantilla de landing: 16,84€
 - Tasa android developer: 23,16€
 - Efectos de sonido: 38,72€
+- Imagen para promoción 10,89€:
 
-TOTAL GASTOS REALIZADOS: 122,28€
+TOTAL GASTOS REALIZADOS: 133,17€
