@@ -1,11 +1,12 @@
 //const Tone = require("tone");
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 let statusObserver;
 let mute;
 
 function init(statusObserverEntry, muteEntry) {
 	statusObserver = statusObserverEntry;
 	mute = muteEntry;
+	Howler.autoUnlock = true;
 	let ambient = new Howl({
 		src: [require("../sounds/music-bg.mp3")],
 		autoplay: false,
@@ -13,6 +14,11 @@ function init(statusObserverEntry, muteEntry) {
 		volume: 0.5,
 		html5: true,
 		mobileAutoEnable: true,
+		onplayerror: function() {
+			ambient.once('unlock', function() {
+				ambient.play();
+			});
+		}
 	});
 
 	const fail = new Howl({
