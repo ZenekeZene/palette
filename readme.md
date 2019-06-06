@@ -141,6 +141,7 @@ AndroidManifes.xml
 - Plantilla de landing: 16,84€
 - Tasa android developer: 23,16€
 - Efectos de sonido: 38,72€
-- Imagen para promoción 10,89€:
+- Imagen para promoción: 10,89€
+- Tasa iOS developer: 99,00€:
 
-TOTAL GASTOS REALIZADOS: 133,17€
+TOTAL GASTOS REALIZADOS: 232,17€
