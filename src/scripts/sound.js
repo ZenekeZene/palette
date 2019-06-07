@@ -2,23 +2,19 @@
 import { Howl, Howler } from 'howler';
 let statusObserver;
 let mute;
+const musicAsset = require("../sounds/music-bg.mp3")
 
 function init(statusObserverEntry, muteEntry) {
 	statusObserver = statusObserverEntry;
 	mute = muteEntry;
 	Howler.autoUnlock = true;
 	let ambient = new Howl({
-		src: [require("../sounds/music-bg.mp3")],
+		src: [musicAsset],
 		autoplay: false,
 		loop: true,
 		volume: 0.5,
-		html5: true,
+		html5: false,
 		mobileAutoEnable: true,
-		onplayerror: function() {
-			ambient.once('unlock', function() {
-				ambient.play();
-			});
-		}
 	});
 
 	const fail = new Howl({
@@ -44,10 +40,8 @@ function init(statusObserverEntry, muteEntry) {
 		if (mute === false) {
 			if (status === 'playLevel') {
 				if (!ambient.playing(ambientSound)) {
-					alert('playLevel. Play');
 					ambientSound = ambient.play();
 				}
-				alert(ambient.volume(ambientSound));
 				ambient.fade(ambient.volume(ambientSound), 1, 1250);
 			} else if (status === 'success' || status === 'stepSuccess') {
 				success.play();
@@ -56,7 +50,6 @@ function init(statusObserverEntry, muteEntry) {
 				fail.play();
 			} else if (status === 'backButton') {
 				ambient.fade(1, 0, 1250);
-				alert('backButton');
 			}
 		}
 		if (status === 'mute') {
