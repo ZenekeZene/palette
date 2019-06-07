@@ -13,6 +13,7 @@ let levels, levelCurrent, statusObserver, mute;
 var elms = [
 	'control', 'nextButton', 'replayButton', 'playButton', 'backButton',
 	'numLevels', 'score',
+	'rateButton',
 	'lives', 'liveIcon', 'livesText', 'livesOutMessage',
 	'homePage', 'homeScore', 'homeLevel', 'homeLives', 'homeHighScore',
 	'finalPage', 'screenTutorial', 'replayText',
@@ -287,6 +288,10 @@ function handEvents() {
 
 	nextButton.addEventListener('click', handNextLevel);
 	replayButton.addEventListener('click', showLevel);
+
+	rateButton.addEventListener('click', function() {
+		openUrl('https://play.google.com/store/apps/details?id=com.pilpilgames.palette');
+	});
 }
 
 function handNextLevel() {
