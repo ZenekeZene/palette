@@ -29,9 +29,13 @@ npm run start
 
 **Nota:** Es importante para una correcta visualización de la aplicación en su formato web lanzarla en resolución mobile.
 **Nota:** Ojo al recrear la plataforma nativa de cero:
-AndroidManifes.xml
+
+####AndroidManifes.xml
 <application ... android:usesCleartextTraffic="true" ...
-*Info.plist
+...
+<activity ... android:screenOrientation="portrait" ...
+
+####*Info.plist
 <key>NSAppTransportSecurity</key>
 <dict>
 	<key>NSAllowsArbitraryLoads</key>
