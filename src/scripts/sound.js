@@ -44,8 +44,10 @@ function init(statusObserverEntry, muteEntry) {
 		if (mute === false) {
 			if (status === 'playLevel') {
 				if (!ambient.playing(ambientSound)) {
+					alert('playLevel. Play');
 					ambientSound = ambient.play();
 				}
+				alert(ambient.volume(ambientSound));
 				ambient.fade(ambient.volume(ambientSound), 1, 1250);
 			} else if (status === 'success' || status === 'stepSuccess') {
 				success.play();
@@ -53,7 +55,8 @@ function init(statusObserverEntry, muteEntry) {
 				ambient.fade(1, 0, 250, ambientSound);
 				fail.play();
 			} else if (status === 'backButton') {
-				ambient.fade(1, 0, 1250);	
+				ambient.fade(1, 0, 1250);
+				alert('backButton');
 			}
 		}
 		if (status === 'mute') {
