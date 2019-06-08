@@ -11,7 +11,8 @@
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env development\"",
     "add-android": "npx cap add android && npx cap copy",
     "open-android": "npx cap open android",
-    "add-ios": "npx cap add ios && npx cap sync && npx cap copy",
+	"add-ios": "npx cap add ios && npx cap sync && npx cap copy",
+	"open-ios": "npx cap open ios",
     "update-native": "npx cap copy && npx cap sync && npx cap update",
     "clean": "rm -Rf node_modules/ && rm package-lock.json && rm -Rf android/ && rm -Rf ios/ && npm install"
   },
