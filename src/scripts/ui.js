@@ -4,7 +4,7 @@ import quote from './quote';
 import sound from './sound';
 
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
-const livesInitial = 5;
+const livesInitial = 1;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21];
 let levels, levelCurrent, statusObserver, mute, shareUrl, shareUrlFinal, shareUrlFinalCompleted;
@@ -294,15 +294,15 @@ function handEvents() {
 	});
 
 	shareLink.addEventListener('click', function() {
-		openUrl(openUrl(shareUrl));
+		openUrl(`https://twitter.com/intent/tweet?text=${shareUrl}`);
 	});
 
 	shareLinkFinal.addEventListener('click', function() {
-		openUrl(openUrl(shareUrl));
+		openUrl(`https://twitter.com/intent/tweet?text=${shareUrlFinal}`);
 	});
 
 	shareLinkFinalCompleted.addEventListener('click', function() {
-		openUrl(openUrl(shareUrl));
+		openUrl(`https://twitter.com/intent/tweet?text=${shareUrlFinalCompleted}`);
 	});
 }
 
