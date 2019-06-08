@@ -7,7 +7,7 @@ let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
 const livesInitial = 5;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21];
-let levels, levelCurrent, statusObserver, mute;
+let levels, levelCurrent, statusObserver, mute, shareUrl, shareUrlFinal, shareUrlFinalCompleted;
 
 // Cache references to DOM elements.
 var elms = [
@@ -62,12 +62,12 @@ function setFinalMessage(gameCompleted) {
 	let textTweet = '';
 	if (!gameCompleted) {
 		textTweet = `I+have+finished+@PlayPalette+with+${contSuccessTotal}+points+at+level+${levelCurrent}`;
-		shareLinkFinal.setAttribute('href', `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`);
+		shareUrlFinal = `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`;
 		gameEndMessage.classList.add('hidden');
 		livesOutMessage.classList.remove('hidden');
 	} else {
 		textTweet = `I+have+overcome+all+the+levels+of+@PlayPalette+with+${contSuccessTotal}+points!!!+http://palette.ws`;
-		shareLinkFinalCompleted.setAttribute('href', `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`);
+		shareUrlFinalCompleted = `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`;
 		livesOutMessage.classList.add('hidden');
 		gameEndMessage.classList.remove('hidden');
 	}
@@ -118,9 +118,9 @@ function updateRecord(level, score) {
 	highLevel.textContent = level;
 	highScore.textContent = score;
 	if (level !== levels.length - 1) {
-		shareLink.setAttribute('href', `I have finished @Palette at level ${level} with ${score} points!!! Can you make it better? http://palette.ws`);
+		shareUrl = `I have finished @Palette at level ${level} with ${score} points!!! Can you make it better? http://palette.ws`;
 	} else {
-		shareLink.setAttribute('href', `I have overcome all the levels of @Palette with ${score} points  at level ${level}!!! http://palette.ws`);
+		shareUrl = `I have overcome all the levels of @Palette with ${score} points  at level ${level}!!! http://palette.ws`;
 	}
 }
 
@@ -291,6 +291,18 @@ function handEvents() {
 
 	rateButton.addEventListener('click', function() {
 		openUrl('https://play.google.com/store/apps/details?id=com.pilpilgames.palette');
+	});
+
+	shareLink.addEventListener('click', function() {
+		openUrl(openUrl(shareUrl));
+	});
+
+	shareLinkFinal.addEventListener('click', function() {
+		openUrl(openUrl(shareUrl));
+	});
+
+	shareLinkFinalCompleted.addEventListener('click', function() {
+		openUrl(openUrl(shareUrl));
 	});
 }
 

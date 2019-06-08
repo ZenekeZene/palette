@@ -3,7 +3,7 @@
 	z-index: 20;
 	display: block!important;
 	width: 100vw;
-	height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+	height: 100vh; // Use vh as a fallback for browsers that do not support Custom Properties
 	height: calc(var(--vh, 1vh) * 100);
 	padding: $gutter-2 $gutter-4;
 	font-size: 0.6rem;
@@ -54,8 +54,7 @@
 		position: absolute;
 		top: $gutter-1-2;
 		left: 0;
-		padding-top: constant(safe-area-inset-top);
-		padding-top: env(safe-area-inset-top);
+		@include apply-safe-notch;
 	}
 
 	&-title__logo {
