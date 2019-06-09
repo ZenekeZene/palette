@@ -118,6 +118,7 @@
 	height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
 	height: calc(var(--vh, 1vh) * 100);
 	padding: $gutter-2;
+	padding-top: $gutter-4;
 	background-color: $paper;
 	box-shadow: 0 0 $gutter-1-2 $shadow;
 
