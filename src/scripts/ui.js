@@ -290,7 +290,14 @@ function handEvents() {
 	replayButton.addEventListener('click', showLevel);
 
 	rateButton.addEventListener('click', function() {
-		openUrl('https://play.google.com/store/apps/details?id=com.pilpilgames.palette');
+		let storeUrl;
+		if (isMobile === 'Android') {
+			storeUrl = 'market://details?id=com.pilpilgames.palette';
+			window.location.replace(storeUrl);
+		} else if (isMobile === 'iOS') {
+			storeUrl = 'https://itunes.apple.com/es/app/palette/id1349535056?mt=8';
+			openUrl(storeUrl);
+		}
 	});
 
 	shareLink.addEventListener('click', function() {
