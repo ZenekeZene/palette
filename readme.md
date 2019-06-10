@@ -42,19 +42,39 @@ npm run start
 	<true/>
 </dict>
 ---
-
 ### TODO
+Hasta que no se cumplen todas las tareas de una fase, no se da por cerrada
 
--	[?] Abrir cuentas de developers (iOS, Android). Cuenta de Android abierta, pendiente iOS.
--	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
--	[ ] Integrar Cordova.
--	[ ] VETE A OPENBANK HÉCTOR!!! Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee (botón en los créditos y cuando te pasas el  juego): ([Buy me a coffe](https://www.buymeacoffee.com/)). Es sencillo, pega mucho con el rollo "creativo" que llevamos y sólo supone un 5% de comisión. -> Falta vincular la cuenta de Paypal definitiva.
--	[x] Música ambient / chill
--	[x] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
-	Funcionamiento de los efectos y música: Cuando se inicia el primer nivel de juego, se inicia la música de fondo, sobre la cual se van superponiendo los sonidos de acierto (no interrumpen la música). Si se da un fallo, la música se para y suena el sonido de fallo. Hasta que no se reinicia de nuevo el nivel no vuelve a arrancar la música (la pantalla de Try Again estaría entonces sobre silencio). No hay más efectos de sonido en todo el juego.
+#### FASE 1
+Para el Indie Burguer, ASAP. No se hace difusión de la publicación.
 -	[ ] Subir a stores.
 -	[ ] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad
 -	[ ] Publicar.
+
+#### FASE 2
+Para difundir la versión 1.0 del juego
+-	[ ] VETE A OPENBANK HÉCTOR!!! Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee
+-	[ ] Arreglar el inapp browser de Twitter
+-	[ ] Mejorar la solución de los headers para iOS (ahora está metido un padding de 24 px para todos los dispositivos)
+
+#### FASE 3
+Para estabilizar la versión 1.1 del juego
+-	[ ] Pasar el juego a vue
+-	[ ] Integrar el plugin de compartir resultados (wassap, twitter, facebook...).
+
+#### FASE 4
+Para evolucionar a la versión 1.2 del juego
+-	[ ] Desarrollar sistema de combos y bonus
+-	[ ] Investigar integración con Google Play Services para creación de un ranking público global.
+
+
+###	TODO [DONE]
+
+-	[x] Abrir cuentas de developers (iOS, Android). Cuenta de Android abierta, pendiente iOS.
+-	[x] Música ambient / chill
+-	[x] Efectos de sonido: Cada vez que se consigue un match de color / Cuando hay un error / Cuando se pasa de nivel. **Note:** Los de ahora son provisionales.
+	Funcionamiento de los efectos y música: Cuando se inicia el primer nivel de juego, se inicia la música de fondo, sobre la cual se van superponiendo los sonidos de acierto (no interrumpen la música). Si se da un fallo, la música se para y suena el sonido de fallo. Hasta que no se reinicia de nuevo el nivel no vuelve a arrancar la música (la pantalla de Try Again estaría entonces sobre silencio). No hay más efectos de sonido en todo el juego.
+
 
 -	[x] ¡Arreglar **EL BUG** que crashea el hilo de ejecución JS! ([Probar con esto](https://github.com/liriliri/eruda))
 -	[x] Bug: Al guardar el record, registra un nivel menos.
@@ -87,11 +107,6 @@ npm run start
 	- [x] b) Representar la puntuación en la cabecera del juego.--> Pintado, falta integrar funcionalidad
 	- [x] c) Representar los mejores resultados del jugador en la home.--> Pintado, falta integrar funcionalidad.
 	- [x] d) Sólo enseñar el cuadro de mejores resultados de haber resultados juas juas juas
-
----
-
-###	TODO [DONE]
-
 -	[x] Escribir informe de testing.
 -	[x] Colores casi blancos
 -	[x] Colores muy parecidos
@@ -130,9 +145,8 @@ npm run start
 ---
 
 ### WISHLIST
--	[ ] Investigar integración con Google Play Services para creación de un ranking público global.
 -	[ ] Integrar un sistema de "Mensajes" personales de los jugadores en el ranking.
--	[ ] Integrar, si fuese necesario, un sistema de métricas (Google Analytics, Firebase...). Si fuese el caso, subtarea.
+-	[ ] Integrar, si fuese necesario, un sistema de métricas (Google Analytics, Firebase...).
 ---
 
 ### USERS A TESTAR
