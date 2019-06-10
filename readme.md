@@ -36,11 +36,26 @@ npm run start
 <activity ... android:screenOrientation="portrait" ...
 
 ####*Info.plist
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleURLName</key>
+		<string>com.pilpilgames.palette</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>palette</string>
+		</array>
+	</dict>
+</array>
+.....
 <key>NSAppTransportSecurity</key>
 <dict>
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 </dict>
+...
+<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 ---
 
 ### TODO
