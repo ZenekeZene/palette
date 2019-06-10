@@ -8,6 +8,7 @@ const livesInitial = 5;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21];
 let levels, levelCurrent, statusObserver, mute, shareUrl, shareUrlFinal, shareUrlFinalCompleted;
+let playEnabled = true;
 
 // Cache references to DOM elements.
 var elms = [
@@ -185,21 +186,24 @@ function levelFailed() {
 
 function handEvents() {
 	playButton.addEventListener('click', function() {
-		levelCurrent = Number(persist.getData('levelCurrent')) || 0;
-		if (levelCurrent === levels.length) {
-			resetPage.classList.remove('hidden');
-			return false;
-		}
-		homePage.classList.add('unveil');
-		statusObserver.notify('playLevel');
-		if (persist.getData('tutorialIsNotLaunched') !== 'false') {
-			screenTutorial.classList.remove('hidden');
-			screenTutorial.classList.add('fadeIn');
-			screenTutorial.classList.remove('fadeOut');
-		} else {
-			app.classList.add('fadeIn');
-			app.classList.remove('fadeOut');
-			app.classList.remove('hidden');
+		if (playEnabled) {
+			levelCurrent = Number(persist.getData('levelCurrent')) || 0;
+			if (levelCurrent === levels.length) {
+				resetPage.classList.remove('hidden');
+				return false;
+			}
+			homePage.classList.add('unveil');
+			statusObserver.notify('playLevel');
+			if (persist.getData('tutorialIsNotLaunched') !== 'false') {
+				screenTutorial.classList.remove('hidden');
+				screenTutorial.classList.add('fadeIn');
+				screenTutorial.classList.remove('fadeOut');
+			} else {
+				app.classList.add('fadeIn');
+				app.classList.remove('fadeOut');
+				app.classList.remove('hidden');
+			}
+			playEnabled = false;
 		}
 	});
 
@@ -237,15 +241,17 @@ function handEvents() {
 	});
 
 	backButtonCredits.addEventListener('click', function() {
+		homePage.classList.remove('unveil');
+		playEnabled = true;
 		homePage.classList.add('fadeIn');
 		homePage.classList.remove('fadeOut');
-		homePage.classList.remove('unveil');
 		creditsPage.classList.add('hidden');
 		clearCredits();
 	});
 
 	backButtonFinal.addEventListener('click', function() {
 		homePage.classList.remove('unveil');
+		playEnabled = true;
 		app.classList.add('hidden');
 		finalPage.classList.add('hidden');
 		finalPage.classList.remove('fadeIn');
@@ -259,6 +265,7 @@ function handEvents() {
 
 	backButton.addEventListener('click', function() {
 		homePage.classList.remove('unveil');
+		playEnabled = true;
 		app.classList.add('fadeOut', 'animated');
 		app.classList.remove('fadeIn');
 		homeScore.textContent = contSuccessTotal;
