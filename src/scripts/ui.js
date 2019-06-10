@@ -295,7 +295,7 @@ function handEvents() {
 			storeUrl = 'market://details?id=com.pilpilgames.palette';
 			window.location.replace(storeUrl);
 		} else if (isMobile === 'iOS') {
-			storeUrl = 'https://itunes.apple.com/es/app/palette/id1349535056?mt=8';
+			storeUrl = 'https://itunes.apple.com/app/id1467492943';
 			openUrl(storeUrl);
 		}
 	});
