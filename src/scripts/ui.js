@@ -8,7 +8,8 @@ const livesInitial = 5;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21];
 let levels, levelCurrent, statusObserver, mute, shareUrl, shareUrlFinal, shareUrlFinalCompleted;
-let playEnabled, creditsEnabled= true;
+let playEnabled = true;
+let creditsEnabled = true;
 
 // Cache references to DOM elements.
 var elms = [

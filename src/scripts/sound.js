@@ -3,12 +3,13 @@ import { Howl, Howler } from 'howler';
 let statusObserver;
 let mute;
 const musicAsset = require("../sounds/music-bg.mp3")
+let ambient, fail, success, ambientSound;
 
 function init(statusObserverEntry, muteEntry) {
 	statusObserver = statusObserverEntry;
 	mute = muteEntry;
 	Howler.autoUnlock = true;
-	let ambient = new Howl({
+	ambient = new Howl({
 		src: [musicAsset],
 		autoplay: false,
 		loop: true,
@@ -17,7 +18,7 @@ function init(statusObserverEntry, muteEntry) {
 		mobileAutoEnable: true,
 	});
 
-	const fail = new Howl({
+	fail = new Howl({
 		src: [require("../sounds/effect-fail.mp3")],
 		autoplay: false,
 		loop: false,
@@ -26,7 +27,7 @@ function init(statusObserverEntry, muteEntry) {
 		mobileAutoEnable: true,
 	});
 
-	const success = new Howl({
+	success = new Howl({
 		src: [require("../sounds/effect-success.mp3")],
 		autoplay: false,
 		loop: false,
@@ -35,7 +36,6 @@ function init(statusObserverEntry, muteEntry) {
 		mobileAutoEnable: true,
 	});
 
-	let ambientSound;
 	statusObserver.subscribe(function(status, data) {
 		if (mute === false) {
 			if (status === 'playLevel') {
@@ -56,6 +56,18 @@ function init(statusObserverEntry, muteEntry) {
 			mute = data[0];
 		}
 	});
+
+	window.addEventListener("focus", function(event) { 
+		if (ambient.playing(ambientSound)) {
+			ambient.fade(0, 1, 250, ambientSound);
+		}
+	}, false);
+
+	window.addEventListener("blur", function(event) { 
+		if (ambient.playing(ambientSound)) {
+			ambient.fade(ambient.volume(ambientSound), 0, 250, ambientSound);
+		}
+	}, false);
 }
 
 export default {
