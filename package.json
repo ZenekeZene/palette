@@ -13,7 +13,7 @@
     "open-android": "npx cap open android",
     "add-ios": "npx cap add ios && npx cap sync && npx cap copy",
     "open-ios": "npx cap open ios",
-    "update-native": "npx cap copy && npx cap sync && npx cap update",
+    "update-native": "npx cap sync && npx cap copy",
     "clean": "rm -Rf node_modules/ && rm package-lock.json && rm -Rf android/ && rm -Rf ios/ && npm install"
   },
   "repository": {
@@ -99,8 +99,6 @@
     "@capacitor/core": "^1.0.0",
     "@capacitor/ios": "^1.0.0",
     "cordova-plugin-inappbrowser": "^3.0.0",
-    "cordova-plugin-splashscreen": "^5.0.2",
-    "cordova-plugin-statusbar": "^2.4.2",
     "howler": "^2.1.2"
   }
 }
