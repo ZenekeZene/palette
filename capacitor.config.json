@@ -3,5 +3,10 @@
   "appName": "Palette",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "dist"
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 3000
+    }
+  }
 }
