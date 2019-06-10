@@ -8,7 +8,7 @@ const livesInitial = 5;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21];
 let levels, levelCurrent, statusObserver, mute, shareUrl, shareUrlFinal, shareUrlFinalCompleted;
-let playEnabled = true;
+let playEnabled, creditsEnabled= true;
 
 // Cache references to DOM elements.
 var elms = [
@@ -234,15 +234,19 @@ function handEvents() {
 	});
 
 	creditsButton.addEventListener('click', function() {
-		homePage.classList.add('fadeOut');
-		homePage.classList.remove('fadeIn');
-		creditsPage.classList.remove('hidden');
-		initCreditsDrag();
+		if (creditsEnabled) {
+			homePage.classList.add('fadeOut');
+			homePage.classList.remove('fadeIn');
+			creditsPage.classList.remove('hidden');
+			initCreditsDrag();
+			creditsEnabled = false;
+		}
 	});
 
 	backButtonCredits.addEventListener('click', function() {
 		homePage.classList.remove('unveil');
 		playEnabled = true;
+		creditsEnabled = true;
 		homePage.classList.add('fadeIn');
 		homePage.classList.remove('fadeOut');
 		creditsPage.classList.add('hidden');
