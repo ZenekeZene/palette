@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Palette</string>
+    <string name="title_activity_main">Palette</string>
+    <string name="package_name">com.pilpilgames.palette</string>
+    <string name="fileprovider_authority">com.pilpilgames.palette.fileprovider</string>
+    <string name="custom_url_scheme">com.pilpilgames.palette</string>
+</resources>
