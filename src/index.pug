@@ -48,10 +48,9 @@ html
 			}
 			isMobile = this.getMobileOperatingSystem();
 			
+			document.body.classList.add(( isMobile.localeCompare('Android') === 0 ? 'android' : 'ios'));
+
 			function openUrl(theUrl) {
 				window.open(theUrl, '_blank', 'location=yes');
 			}
-			
-	if (isMobile === 'Android' || isMobile === 'iOS')
-		script(src="cordova.js")
 
