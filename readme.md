@@ -70,15 +70,16 @@ Hasta que no se cumplen todas las tareas de una fase, no se da por cerrada
 
 #### FASE 1
 Para el Indie Burguer, ASAP. No se hace difusión de la publicación.
--	[ ] Subir a stores.
--	[ ] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad
--	[ ] Publicar.
+-	[x] Subir a stores.
+-	[x] Integrar un botón en la home que dirija a las stores para conseguir valoraciones (debe detectar si es iOs o Android para dirigir a la store que corresponda). --> Pintado, falta integrar funcionalidad
+-	[x] Publicar.
 
 #### FASE 2
 Para difundir la versión 1.0 del juego
--	[ ] VETE A OPENBANK HÉCTOR!!! Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee
--	[ ] Arreglar el inapp browser de Twitter.
--	[ ] Mejorar la solución de los headers para iOS (ahora está metido un padding de 24 px para todos los dispositivos). => Testear posible fix.
+-	[x] VETE A OPENBANK HÉCTOR!!! Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee
+-	[x] Arreglar el inapp browser de Twitter.
+-	[x] Mejorar la solución de los headers para iOS (ahora está metido un padding de 24 px para todos los dispositivos). => Testear posible fix.
+-	[ ] El sonido queda siempre en background en android y a veces se corta. Probar a enlazarlo desde nativo solamente.
 
 #### FASE 3
 Para estabilizar la versión 1.1 del juego
