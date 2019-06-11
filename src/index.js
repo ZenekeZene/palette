@@ -17,10 +17,3 @@ function init () {
 document.addEventListener('DOMContentLoaded', function () {
 	init();
 });
-
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
-	if (cordova) {
-		window.open = cordova.InAppBrowser.open;
-	}
-}
