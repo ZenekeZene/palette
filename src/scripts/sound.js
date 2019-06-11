@@ -65,7 +65,7 @@ function init(statusObserverEntry, muteEntry) {
 
 	window.addEventListener("blur", function(event) { 
 		if (ambient.playing(ambientSound)) {
-			ambient.fade(ambient.volume(ambientSound), 0, 250, ambientSound);
+			ambient.fade(ambient.volume(ambientSound), 0, 1250, ambientSound);
 		}
 	}, false);
 }
