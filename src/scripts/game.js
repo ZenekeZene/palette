@@ -5,6 +5,7 @@ import color from './color';
 import persist from './persist';
 import ui from './ui';
 import spy from './spy';
+import bonus from './bonus';
 
 let levels, levelCurrent;
 
@@ -270,6 +271,7 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 		execAction(status, data);
 	});
 	ui.init(statusObserver, levels, levelCurrent);
+	bonus.init(statusObserver);
 }
 
 export default {

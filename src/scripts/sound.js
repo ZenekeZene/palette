@@ -57,7 +57,7 @@ function init(statusObserverEntry, muteEntry) {
 		}
 	});
 
-	window.addEventListener("focus", function(event) { 
+	window.addEventListener("focus", function(event) {
 		if (ambient.playing(ambientSound)) {
 			ambient.fade(0, 1, 250, ambientSound);
 		}
