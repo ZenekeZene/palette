@@ -1,13 +1,122 @@
-#bonusButton {
-	@include absolute(left bottom);
-	@include flex(flex, start, end);
-	@include share(width, height, 2rem);
-	padding: 0.15rem;
-	color: white;
-	background-color: $cool;
-	border-radius: 0 5rem 0 0;
+.bonus {
+	@include absolute(bottom 1rem right 1rem);
+	width: 8vh;
+	height: 8vh;
 
-	&.--disabled {
+	&__button {
+		@include absolute(bottom right);
+		width: 8vh;
+		height: 8vh;
+		border: none;
+		border-radius: $gutter;
+		outline: none;
+		background-color: $paper;
+		-webkit-opacity: 1;
+		opacity: 1;
+		box-shadow: 0 0 $gutter-1-2 $shadow;
+		-webkit-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+
+		&:active {
+			outline: none;
+			-webkit-transform: scale(0.95);
+			transform: scale(0.95);
+			box-shadow: 0 0 0 $shadow;
+		}
+
+		&::before {
+			position: absolute;
+			top: 2vh;
+			left: 2vh;
+			width: 4vh;
+			content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0OCA0OCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDggNDg7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojODBDNEQ2O30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTM2LjksMTcuNWgtOC40TDM2LDQuNmMxLjItMS45LTAuMi00LjMtMi40LTQuM2gtNi4yYy0zLjMsMC02LjMsMS44LTcuOCw0LjdsLTcuMSwxNS40Yy0yLjEsNCwwLjgsOC44LDUuMyw4LjgKCWgzLjlMMTUsNDQuNGMtMS4xLDIuNSwyLjIsNC42LDQsMi41bDIwLjItMjQuNUM0MC44LDIwLjQsMzkuNCwxNy41LDM2LjksMTcuNXoiLz4KPC9zdmc+');
+		}
+	}
+
+	&__quantity {
+		@include absolute(bottom -18px left);
+		height: $gutter;
+		width: 100%;
+		font-family: Montserrat;
+		font-weight: 700;
+		font-size: 0.5rem;
+		color: $cool;
+		-webkit-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+	}
+
+	&.hidden {
+		display: block!important;
+
+		.bonus__button {
+			-webkit-opacity: 0;
+			opacity: 0;
+			-webkit-transform: scale(0.95);
+			transform: scale(0.95);
+			-webkit-transition: all 0.3s ease-in-out;
+			transition: all 0.3s ease-in-out;
+		}
+
+		.bonus__quantity {
+			-webkit-opacity: 0;
+			opacity: 0;
+			bottom: -24px;
+			-webkit-transition: all 0.3s ease-in-out;
+			transition: all 0.3s ease-in-out;
+		}
+	}
+}
+
+.combo {
+	&::before {
+		content: "SPEED COMBO";
+		position: absolute;
+		left: 0;
+		font-size: 0.3rem;
+		font-weight: 700;
+		text-align: center;
+		width: 100%;
+		color: $cool;
+		height: $gutter;
+		-webkit-animation: getbonus 1.6s normal both;
+		animation: getbonus 1.6s normal both;
+	}
+}
+@keyframes getbonus {
+	0% {
 		opacity: 0;
+		top: -20px;
+	}
+
+	40% {
+		opacity: 1;
+	}
+
+	60% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		top: -38px;
+	}
+}
+@-webkit-keyframes getbonus {
+	0% {
+		-webkit-opacity: 0;
+		top: -20px;
+	}
+
+	40% {
+		-webkit-opacity: 1;
+	}
+
+	60% {
+		-webkit-opacity: 1;
+	}
+
+	100% {
+		-webkit-opacity: 0;
+		top: -40px;
 	}
 }
