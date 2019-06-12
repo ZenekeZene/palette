@@ -4,5 +4,8 @@
 	"cSpell.words": [
 		"plactive"
 	],
-	"git.ignoreLimitWarning": true
+	"git.ignoreLimitWarning": true,
+	"cSpell.ignoreWords": [
+		"dropzones"
+	]
 }

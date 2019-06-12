@@ -46,7 +46,7 @@ function init(statusObserverEntry, muteEntry) {
 				}
 				isPlaying = true;
 				ambient.fade(ambient.volume(ambientSound), 1, 1250);
-			} else if (status === 'success' || status === 'stepSuccess') {
+			} else if (status === 'success' || status === 'stepSuccess' || status === 'stepSuccessBonus') {
 				success.play();
 				isPlaying = false;
 			} else if (status === 'fail') {
