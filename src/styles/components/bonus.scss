@@ -1,7 +1,7 @@
 .bonus {
-		@include absolute(bottom 1rem right 1rem);
-		width: 8vh;
-		height: 8vh;
+	@include absolute(bottom 1rem right 1rem);
+	width: 8vh;
+	height: 8vh;
 
 	&__button {
 		@include absolute(bottom right);
@@ -70,10 +70,11 @@
 .combo {
 	&::before {
 		content: "SPEED COMBO";
-		@include absolute(left);
+		position: absolute;
+		left: 0;
 		font-size: 0.3rem;
-    font-weight: 700;
-    text-align: center;
+		font-weight: 700;
+		text-align: center;
 		width: 100%;
 		color: $cool;
 		height: $gutter;
@@ -81,7 +82,6 @@
 		animation: getbonus 1.6s normal both;
 	}
 }
-
 @keyframes getbonus {
 	0% {
 		opacity: 0;
@@ -101,7 +101,6 @@
 		top: -38px;
 	}
 }
-
 @-webkit-keyframes getbonus {
 	0% {
 		-webkit-opacity: 0;
