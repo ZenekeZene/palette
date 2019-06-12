@@ -72,8 +72,6 @@ function init(statusObserverEntry) {
 	});
 }
 
-const bonus = {
+export default {
 	init,
-} 
-
-export default bonus;
+};

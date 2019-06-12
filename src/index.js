@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 } 
 
 function init () {
-	const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+	const levels = [1, 2, 3];
 	let levelCurrent = parseInt(persist.getData('levelCurrent'), 10) || 0;
 	const statusObserver = new Observable();
 	game.init(statusObserver, levels, levelCurrent);

@@ -2,9 +2,10 @@ import persist from './persist';
 import quote from './quote';
 import sound from './sound';
 import credits from './credits';
+import record from './record';
 
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
-const livesInitial = 5;
+const livesInitial = 1;
 let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21];
 let levels, levelCurrent, statusObserver, mute, shareUrl, shareUrlFinal, shareUrlFinalCompleted;
@@ -16,12 +17,12 @@ var elms = [
 	'numLevels', 'score',
 	'rateButton',
 	'lives', 'liveIcon', 'livesText', 'livesOutMessage',
-	'homePage', 'homeScore', 'homeLevel', 'homeLives', 'homeHighScore',
+	'homePage', 'homeScore', 'homeLevel', 'homeLives',
 	'finalPage', 'screenTutorial', 'replayText',
 	'resetPage', 'resetCancel', 'resetAccept', 'resetButton',
 	'soundButton', 'backButtonFinal', 'progression',
 	'shareLink', 'shareLinkFinal', 'shareLinkFinalCompleted',
-	'gameEndMessage', 'levelCurrentFinalPage', 'highLevel', 'highScore',
+	'gameEndMessage', 'levelCurrentFinalPage',
 ];
 elms.forEach(function(elm) {
 	window[elm] = document.getElementById(elm);
@@ -40,8 +41,7 @@ function showFinalPage(isGameCompleted) {
 	levelCurrentFinal.textContent = levelCurrent + 1;
 
 	setFinalMessage(isGameCompleted);
-
-	handRecord();
+	statusObserver.notify('handRecord', { levelCurrent, contSuccessTotal });
 
 	lives = livesInitial;
 	levelCurrent = 0;
@@ -60,7 +60,7 @@ function showFinalPage(isGameCompleted) {
 function setFinalMessage(gameCompleted) {
 	let textTweet = '';
 	if (!gameCompleted) {
-		textTweet = `I+have+finished+@PlayPalette+with+${contSuccessTotal}+points+at+level+${levelCurrent}`;
+		textTweet = `I+have+finished+@PlayPalette+with+${contSuccessTotal}+points+at+level+${levelCurrent + 1}`;
 		shareUrlFinal = `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`;
 		gameEndMessage.classList.add('hidden');
 		livesOutMessage.classList.remove('hidden');
@@ -69,57 +69,6 @@ function setFinalMessage(gameCompleted) {
 		shareUrlFinalCompleted = `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`;
 		livesOutMessage.classList.add('hidden');
 		gameEndMessage.classList.remove('hidden');
-	}
-}
-
-function getRecord() {
-	let items = [0, 0];
-	const record = persist.getData('record');
-	if (record) {
-		items = record.split('|');
-	}
-	return {
-		levelRecord: Number(items[0]),
-		scoreRecord: Number(items[1]),
-	};
-}
-
-function handRecord() {
-	const {levelRecord, scoreRecord } = getRecord();
-	if (levelRecord) {
-		homeHighScore.classList.remove('hidden');
-		if (levelCurrent > levelRecord) {
-			saveRecord();
-		} else if (levelCurrent == levelRecord) {
-			if (contSuccessTotal > scoreRecord) {
-				saveRecord();
-			}
-		}
-	} else {
-		saveRecord();
-	}
-}
-
-function saveRecord() {
-	persist.saveData('record', `${levelCurrent + 1}|${contSuccessTotal}`);
-	updateRecord(levelCurrent, contSuccessTotal);
-}
-
-function showRecord() {
-	const {levelRecord, scoreRecord} = getRecord();
-	if (levelRecord) {
-		updateRecord(levelRecord, scoreRecord);
-		homeHighScore.classList.remove('hidden');
-	}
-}
-
-function updateRecord(level, score) {
-	highLevel.textContent = level;
-	highScore.textContent = score;
-	if (level !== levels.length - 1) {
-		shareUrl = `I have finished @Palette at level ${level} with ${score} points!!! Can you make it better? http://palette.ws`;
-	} else {
-		shareUrl = `I have overcome all the levels of @Palette with ${score} points  at level ${level}!!! http://palette.ws`;
 	}
 }
 
@@ -240,9 +189,16 @@ function handEvents() {
 		homeScore.textContent = contSuccessTotal;
 		homeLevel.textContent = levelCurrent + 1;
 		numLevels.textContent = levelCurrent + 1;
-		showRecord();
+
+		statusObserver.notify('showRecord');
 		statusObserver.notify('cleanLevel');
 		statusObserver.notify('backButton');
+
+		if (levelCurrent !== levels.length - 1) {
+			shareUrl = `I have finished @Palette at level ${levelCurrent} with ${score} points!!! Can you make it better? http://palette.ws`;
+		} else {
+			shareUrl = `I have overcome all the levels of @Palette with ${score} points  at level ${levelCurrent}!!! http://palette.ws`;
+		}
 	})
 
 	backButton.addEventListener('click', function() {
@@ -360,9 +316,10 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	}
 	sound.init(statusObserver, mute);
 	credits.init(statusObserver);
+	record.init(statusObserver);
+
 	lives = Number(persist.getData('lives')) || livesInitial;
 	homeLives.textContent = livesText.textContent = lives;
-	showRecord();
 }
 
 export default {
