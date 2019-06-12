@@ -54,7 +54,6 @@
 		position: absolute;
 		top: $gutter-2;
 		left: 0;
-		@include apply-safe-notch;
 	}
 
 	&-title__logo {

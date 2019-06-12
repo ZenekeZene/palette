@@ -5,7 +5,6 @@
 	justify-content: space-between;
 	width: 100vw;
 	height: $gutter-4;
-	@include apply-safe-notch;
 
 	& > p,
 	& > a {
