@@ -57,13 +57,13 @@ function init(statusObserverEntry, muteEntry) {
 		}
 	});
 
-	window.addEventListener("focus", function(event) { 
+	window.addEventListener("focusin", function(event) { 
 		if (ambient.playing(ambientSound)) {
 			ambient.fade(0, 1, 250, ambientSound);
 		}
 	}, false);
 
-	window.addEventListener("blur", function(event) { 
+	window.addEventListener("focusout", function(event) { 
 		if (ambient.playing(ambientSound)) {
 			ambient.fade(ambient.volume(ambientSound), 0, 1250, ambientSound);
 		}
