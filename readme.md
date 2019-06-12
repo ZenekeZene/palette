@@ -83,9 +83,11 @@ Para difundir la versión 1.0 del juego
 -	[ ] El sonido queda siempre en background en android y a veces se corta. Probar a enlazarlo desde nativo solamente.
 - [ ] En iOS si se abre una aplicación con teclado, se "empujan" los contenidos.
 -	[ ] Desarrollar sistema de combos y bonus. El funcionamiento es el siguiente: Cuando un jugador acierta un color comienza un contador de tiempo. Si acierta el siguiente color antes de que el contador haya llegado a 1200ms, recibe un bonus. El bonus se materializa como un botón que permite resolver automáticamente un color con el que tenga dudas. Subtareas:
-	1	[ ]	Incluir la notificación de que se ha logrado un combo y el botón para ejecutar el bonus. El botón muestra la cantidad de bonus acumulados (sin límite)
-	2	[ ]	Desarrollar el algoritmo para la adjudicación de un combo (contador tiempo, variable de combos acumulados, mostrar/ocultar botón y mensaje)
-	3	[ ]	Desarrollar el algoritmo para la ejecución del bonus (se resuelve el color activo, se ejecuta animación, se resta un bonus, se refresca el botón de bonus)
+	1	[x]	Incluir la notificación de que se ha logrado un combo y el botón para ejecutar el bonus. El botón muestra la cantidad de bonus acumulados (sin límite)
+	2 [ ]	Visualizar que se gana el combo. Elementos incluidos en front, con las animaciones necesarias para su aparición/desaparición:
+	 Cuando se cumple el requisito para adjudicar un combo, el mixer sobre el que se ha depositado el activo añade la clase .combo // Si el número de combos es igual a 0, el elemento .bonus tiene añadida la clase .hidden, en el momento en el que es mayor o igual a 1, se eleimina esta clase.
+	3	[ ]	Desarrollar el algoritmo para la adjudicación de un combo (contador tiempo, variable de combos acumulados, mostrar/ocultar botón y mensaje)
+	4	[ ]	Desarrollar el algoritmo para la ejecución del bonus (se resuelve el color activo, se ejecuta animación, se resta un bonus, se refresca el botón de bonus)
 
 #### FASE 3
 Para estabilizar la versión 1.1 del juego
