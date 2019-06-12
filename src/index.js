@@ -1,6 +1,6 @@
-import game from './scripts/game';
-import persist from './scripts/persist'
-import Observable from './scripts/Observer'
+import game from './scripts/core/game';
+import persist from './scripts/tools/persist';
+import Observable from './scripts/core/Observer';
 import './styles/styles.scss'
 
 if (process.env.NODE_ENV !== 'production') {

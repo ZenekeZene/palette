@@ -1,8 +1,8 @@
-import persist from './persist';
-import quote from './quote';
-import sound from './sound';
-import credits from './credits';
-import record from './record';
+import record from '../extras/record';
+import persist from '../tools/persist';
+import quote from '../extras/quote/quote';
+import sound from '../extras/sound';
+import credits from '../pages/credits';
 
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
 const livesInitial = 1;

@@ -1,4 +1,4 @@
-import persist from './persist';
+import persist from '../tools/persist';
 let statusObserver;
 const homeHighScore = document.getElementById('homeHighScore');
 const highLevel = document.getElementById('highLevel');

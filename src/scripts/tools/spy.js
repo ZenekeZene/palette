@@ -1,4 +1,4 @@
-import color from './color';
+import color from '../core/color';
 const _ = require('lodash');
 
 export default {

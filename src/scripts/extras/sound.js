@@ -1,8 +1,8 @@
 //const Tone = require("tone");
 import { Howl, Howler } from 'howler';
-import persist from './persist';
+import persist from '../tools/persist';
 let statusObserver, mute;
-const musicAsset = require("../sounds/music-bg.mp3")
+const musicAsset = require("../../sounds/music-bg.mp3")
 let ambient, fail, success, ambientSound;
 let isPlaying = false;
 const soundButton = document.getElementById('soundButton');
@@ -30,7 +30,7 @@ function init(statusObserverEntry) {
 	});
 
 	fail = new Howl({
-		src: [require("../sounds/effect-fail.mp3")],
+		src: [require("../../sounds/effect-fail.mp3")],
 		autoplay: false,
 		loop: false,
 		volume: 0.5,
@@ -39,7 +39,7 @@ function init(statusObserverEntry) {
 	});
 
 	success = new Howl({
-		src: [require("../sounds/effect-success.mp3")],
+		src: [require("../../sounds/effect-success.mp3")],
 		autoplay: false,
 		loop: false,
 		volume: 0.1,

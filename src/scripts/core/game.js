@@ -2,10 +2,10 @@ const _ = require('lodash');
 import drag from './drag';
 import grid from './grid';
 import color from './color';
-import persist from './persist';
 import ui from './ui';
-import spy from './spy';
-import bonus from './bonus';
+import persist from '../tools/persist';
+import spy from '../tools/spy';
+import bonus from '../extras/bonus';
 
 let levels, levelCurrent;
 

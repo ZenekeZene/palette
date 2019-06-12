@@ -1,101 +1,70 @@
 .notification {
-  position: relative;
-  top: 0;
-  padding: $gutter-2;
-  border-radius: $gutter;
-  background: $paper;
+	position: relative;
+	top: 0;
+	padding: $gutter-2;
+	border-radius: $gutter;
+	background: $paper;
 	box-shadow: 0 0 $gutter $cool;
-  -webkit-transition: top .6s cubic-bezier(.08,.49,.4,1.25) .3s;
-  transition: top .6s cubic-bezier(.08,.49,.4,1.25) .3s;
+	-webkit-transition: top .6s cubic-bezier(.08,.49,.4,1.25) .3s;
+	transition: top .6s cubic-bezier(.08,.49,.4,1.25) .3s;
 
-  &__title {
-    padding-bottom: $gutter;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    color: $cool;
-  }
+	&__title {
+		padding-bottom: $gutter;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		color: $cool;
+	}
 
-  &__text {
-    font-size: 0.5rem;
-    color: $shadow-dark;
-  }
+	&__text {
+		font-size: 0.5rem;
+		color: $shadow-dark;
+	}
 
-  &__button {
-    display: flex;
-    justify-content: space-around;
-    margin: $gutter-2 0 $gutter 0;
+	&__button {
+		display: flex;
+		justify-content: space-around;
+		margin: $gutter-2 0 $gutter 0;
 
-    button {
-      position: relative;
-      width: $gutter-5;
-      height: $gutter-5;
-      border-radius: $gutter-1-2;
-      border: none;
-      outline: none;
-      -webkit-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out;
+		button {
+			position: relative;
+			width: $gutter-5;
+			height: $gutter-5;
+			border-radius: $gutter-1-2;
+			border: none;
+			outline: none;
+			-webkit-transition: all 0.3s ease-in-out;
+			transition: all 0.3s ease-in-out;
 
 			&:active {
-        -webkit-transform: scale(0.95);
+				-webkit-transform: scale(0.95);
 				transform: scale(0.95);
 			}
-    }
+		}
 
-    &--refuse {
-      background-color: $hot;
+		&--refuse {
+			background-color: $hot;
 
-      &::before {
-        position: absolute;
-        top: $gutter-3-2;
-        right: $gutter-3-2;
-        width: $gutter-2;
-        height: $gutter-2;
-        content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzNiAzNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzYgMzY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRkZGREZGO30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTI0LjgsMTguM0wzMCwxM2MyLTIsMi01LjEsMC03LjFjLTItMi01LjEtMi03LjEsMGwtNS4yLDUuMkwxMi41LDZjLTItMi01LjEtMi03LjEsMGMtMiwyLTIsNS4xLDAsNy4xbDUuMiw1LjIKCWwtNS4yLDUuMmMtMiwyLTIsNS4xLDAsNy4xYzEsMSwyLjMsMS41LDMuNSwxLjVzMi42LTAuNSwzLjUtMS41bDUuMi01LjJsNS4yLDUuMmMxLDEsMi4zLDEuNSwzLjUsMS41czIuNi0wLjUsMy41LTEuNQoJYzItMiwyLTUuMSwwLTcuMUwyNC44LDE4LjN6Ii8+Cjwvc3ZnPg==');
-      }
-    }
+			&::before {
+				position: absolute;
+				top: $gutter-3-2;
+				right: $gutter-3-2;
+				width: $gutter-2;
+				height: $gutter-2;
+				content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzNiAzNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzYgMzY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRkZGREZGO30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTI0LjgsMTguM0wzMCwxM2MyLTIsMi01LjEsMC03LjFjLTItMi01LjEtMi03LjEsMGwtNS4yLDUuMkwxMi41LDZjLTItMi01LjEtMi03LjEsMGMtMiwyLTIsNS4xLDAsNy4xbDUuMiw1LjIKCWwtNS4yLDUuMmMtMiwyLTIsNS4xLDAsNy4xYzEsMSwyLjMsMS41LDMuNSwxLjVzMi42LTAuNSwzLjUtMS41bDUuMi01LjJsNS4yLDUuMmMxLDEsMi4zLDEuNSwzLjUsMS41czIuNi0wLjUsMy41LTEuNQoJYzItMiwyLTUuMSwwLTcuMUwyNC44LDE4LjN6Ii8+Cjwvc3ZnPg==');
+			}
+		}
 
-    &--acept {
-      background-color: $cool;
+		&--acept {
+			background-color: $cool;
 
-      &::before {
-        position: absolute;
-        top: $gutter-3-2;
-        right: $gutter-3-2;
-        width: $gutter-2;
-        height: $gutter-2;
-        content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzNiAzNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzYgMzY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRkZGREZGO30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTE0LjcsMzEuN2MtMS4zLDAtMi42LTAuNS0zLjYtMS41bC04LjItOC4xYy0yLTItMi01LjItMC4xLTcuMmMyLTIsNS4yLTIsNy4yLTAuMWw0LjYsNC41TDI2LjMsNy41CgljMi0yLDUuMi0yLDcuMi0wLjFjMiwyLDIsNS4yLDAuMSw3LjJMMTguNCwzMC4xQzE3LjQsMzEuMSwxNi4xLDMxLjcsMTQuNywzMS43QzE0LjcsMzEuNywxNC43LDMxLjcsMTQuNywzMS43eiIvPgo8L3N2Zz4=');
-      }
-    }
-  }
-}
-
-.reset {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 20;
-  display: flex !important;
-  width: 100vw;
-  height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
-  padding: $gutter-2;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #53c6d980;
-  -webkit-transition: background-color .3s ease-out, top 0s;
-  transition: background-color .3s ease-out, top 0s;
-
-  &.hidden {
-    top: 100vh;
-    background-color: #53c6d900;
-    -webkit-transition: background-color .3s ease-out .5s, top 0s 1.3;
-    transition: background-color .3s ease-out .5s, top 0s 1.3s;
-
-    .notification {
-      top: 100vh;
-      -webkit-transition: top .6s cubic-bezier(.6,-0.29,.86,.31);
-      transition: top .6s cubic-bezier(.6,-0.29,.86,.31);
-    }
-  }
-
+			&::before {
+				position: absolute;
+				top: $gutter-3-2;
+				right: $gutter-3-2;
+				width: $gutter-2;
+				height: $gutter-2;
+				content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzNiAzNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzYgMzY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojRkZGREZGO30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTE0LjcsMzEuN2MtMS4zLDAtMi42LTAuNS0zLjYtMS41bC04LjItOC4xYy0yLTItMi01LjItMC4xLTcuMmMyLTIsNS4yLTIsNy4yLTAuMWw0LjYsNC41TDI2LjMsNy41CgljMi0yLDUuMi0yLDcuMi0wLjFjMiwyLDIsNS4yLDAuMSw3LjJMMTguNCwzMC4xQzE3LjQsMzEuMSwxNi4xLDMxLjcsMTQuNywzMS43QzE0LjcsMzEuNywxNC43LDMxLjcsMTQuNywzMS43eiIvPgo8L3N2Zz4=');
+			}
+		}
+	}
 }

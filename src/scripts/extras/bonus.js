@@ -1,5 +1,4 @@
-import persist from './persist';
-import spy from './spy';
+import persist from '../tools/persist';
 let statusObserver;
 let contBonus = 0;
 const bonusWrapper = document.getElementById('bonusWrapper');
