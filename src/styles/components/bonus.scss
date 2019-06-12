@@ -35,8 +35,8 @@
 
 	&__quantity {
 		@include absolute(bottom -18px left);
-		height: $gutter;
 		width: 100%;
+		height: $gutter;
 		font-family: Montserrat;
 		font-weight: 700;
 		font-size: 0.5rem;
@@ -46,7 +46,7 @@
 	}
 
 	&.hidden {
-		display: block!important;
+		display: block !important;
 
 		.bonus__button {
 			-webkit-opacity: 0;
@@ -70,18 +70,18 @@
 .combo {
 	&::before {
 		content: "SPEED COMBO";
-		position: absolute;
-		left: 0;
+		@include absolute(left);
+		width: 100%;
+		height: $gutter;
 		font-size: 0.3rem;
 		font-weight: 700;
 		text-align: center;
-		width: 100%;
 		color: $cool;
-		height: $gutter;
 		-webkit-animation: getbonus 1.6s normal both;
 		animation: getbonus 1.6s normal both;
 	}
 }
+
 @keyframes getbonus {
 	0% {
 		opacity: 0;
@@ -101,6 +101,7 @@
 		top: -38px;
 	}
 }
+
 @-webkit-keyframes getbonus {
 	0% {
 		-webkit-opacity: 0;

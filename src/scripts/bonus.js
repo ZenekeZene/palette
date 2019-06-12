@@ -1,6 +1,7 @@
 import persist from './persist';
 let statusObserver;
 let contBonus = 0;
+const bonusWrapper = document.getElementById('bonusWrapper');
 const bonusText = document.getElementById('bonusText');
 const bonusButton = document.getElementById('bonusButton');
 let timerId;
@@ -28,9 +29,9 @@ function useBonus() {
 function updateBonus() {
 	bonusText.innerHTML = contBonus;
 	if (contBonus <= 0) {
-		bonusButton.classList.add('--disabled');
+		bonusWrapper.classList.add('hidden');
 	} else {
-		bonusButton.classList.remove('--disabled');
+		bonusWrapper.classList.remove('hidden');
 	}
 }
 

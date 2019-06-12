@@ -30,6 +30,7 @@ function isSuccessfulMix(indexToCheck) {
 	if (_.isEqual(swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
 		swatches[indexToCheck].el.classList.add('match-swatch');
 		dropzones[indexToCheck].el.classList.add('match-mixer');
+		dropzones[indexToCheck].el.classList.add('combo');
 		swatches[indexToCheck].isEnabled = false;
 		dropzones[indexToCheck].isEnabled = false;
 		return true;
