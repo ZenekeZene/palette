@@ -26,13 +26,15 @@ let	numItems = 0;
 
 const limitActive = document.getElementById('limitActive');
 
-function isSuccessfulMix(indexToCheck) {
+function isSuccessfulMix(indexToCheck, isFromBonus) {
 	if (_.isEqual(swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
 		swatches[indexToCheck].el.classList.add('match-swatch');
 		dropzones[indexToCheck].el.classList.add('match-mixer');
-		dropzones[indexToCheck].el.classList.add('combo');
 		swatches[indexToCheck].isEnabled = false;
 		dropzones[indexToCheck].isEnabled = false;
+		if (!isFromBonus) {
+			dropzones[indexToCheck].el.classList.add('combo');
+		}
 		return true;
 	} else {
 		return false;
@@ -50,7 +52,7 @@ function doStep(dropzone, index, isFromBonus) {
 	const colorMixed = mix(dropzone.cmyk, activeColor.cmyk);
 	dropzone.setCMYK(colorMixed);
 
-	if (isSuccessfulMix(index)) {
+	if (isSuccessfulMix(index, isFromBonus)) {
 		contSuccess++;
 		if (!isFromBonus) {
 			statusObserver.notify('increaseScore');
