@@ -10,7 +10,7 @@ import bonus from './bonus';
 let levels, levelCurrent;
 
 // ONLY DEVELOPMENT:
-let _isDev = false;
+let _isDev = true;
 
 let baseActive,
 	swatches,
@@ -116,7 +116,7 @@ function handGameFinished() {
 	contSuccess = 0;
 	levelCurrent += 1;
 	persist.saveData('levelCurrent', levelCurrent);
-	statusObserver.notify('success', levelCurrent);
+	statusObserver.notify('successLevel', levelCurrent);
 }
 
 function searchCorrectSwatchAndDropzone() {

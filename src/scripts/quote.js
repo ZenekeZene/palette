@@ -30,7 +30,7 @@ function init(statusObserverEntry, numLevelsEntry) {
 	numLevels = numLevelsEntry;
 	statusObserver = statusObserverEntry;
 	statusObserver.subscribe(function(status, data) {
-		if (status === 'success') {
+		if (status === 'successLevel') {
 			levelSuccessful(data);
 		} else if (status === 'fail') {
 			levelFailed();
