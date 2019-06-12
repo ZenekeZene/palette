@@ -16,6 +16,7 @@ function init(statusObserverEntry, muteEntry) {
 		volume: 0.5,
 		html5: false,
 		mobileAutoEnable: true,
+		autoSuspend: false,
 	});
 
 	fail = new Howl({
@@ -57,15 +58,22 @@ function init(statusObserverEntry, muteEntry) {
 		}
 	});
 
-	window.addEventListener("focusin", function(event) { 
-		if (ambient.playing(ambientSound)) {
-			ambient.fade(0, 1, 250, ambientSound);
+	window.addEventListener("focusin", function(event) {
+		console.log('focusin');
+		console.log(ambient.playing(ambientSound));
+		if (!ambient.play(ambientSound)) {
+			ambient.play(ambientSound);
 		}
+		//ambient.play(ambientSound);
+		//ambient.fade(0, 1, 250, ambientSound);
 	}, false);
 
-	window.addEventListener("focusout", function(event) { 
+	window.addEventListener("blur", function(event) {
+		console.log('focusout');
+		console.log(ambient.playing(ambientSound));
+		//ambient.fade(ambient.volume(ambientSound), 0, 1250, ambientSound);
 		if (ambient.playing(ambientSound)) {
-			ambient.fade(ambient.volume(ambientSound), 0, 1250, ambientSound);
+			ambient.pause(ambientSound);
 		}
 	}, false);
 }
