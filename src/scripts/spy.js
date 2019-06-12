@@ -14,8 +14,7 @@ export default {
 			if (_.isEqual(swatches[i].cmyk, pos.cmyk)) {
 				swatches[i].el.classList.add('--is-correct');
 				dropzones[i].el.classList.add('--is-correct');
-				console.info('Aciertas con: ' + i);
-				break;
+				return i;
 			}
 		}
 	}
