@@ -43,7 +43,7 @@ function init(statusObserverEntry, muteEntry) {
 					ambientSound = ambient.play();
 				}
 				ambient.fade(ambient.volume(ambientSound), 1, 1250);
-			} else if (status === 'success' || status === 'stepSuccess') {
+			} else if (status === 'success' || status === 'stepSuccess' || status === 'stepSuccessBonus') {
 				success.play();
 			} else if (status === 'fail') {
 				ambient.fade(1, 0, 250, ambientSound);

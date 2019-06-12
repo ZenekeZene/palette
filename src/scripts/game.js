@@ -10,7 +10,7 @@ import bonus from './bonus';
 let levels, levelCurrent;
 
 // ONLY DEVELOPMENT:
-let _isDev = true;
+let _isDev = false;
 
 let baseActive,
 	swatches,
@@ -45,19 +45,18 @@ function updateActive(newactiveColor) {
 	drag.setActiveNode(activeColor.el);
 }
 
-function doStep(dropzone, index) {
-	if (tutorialIsNotLaunched) {
-		launchTutorial();
-	}
-
+function doStep(dropzone, index, isFromBonus) {
 	const colorMixed = mix(dropzone.cmyk, activeColor.cmyk);
 	dropzone.setCMYK(colorMixed);
 
 	if (isSuccessfulMix(index)) {
 		contSuccess++;
-		statusObserver.notify('increaseScore');
+		if (!isFromBonus) {
+			statusObserver.notify('increaseScore');
+			statusObserver.notify('stepSuccess');
+		}
 		if (contSuccess !== swatches.length) {
-			handSuccessfulMix(dropzone);
+			handSuccessfulMix(dropzone, isFromBonus);
 		} else {
 			handGameFinished();
 		}
@@ -82,7 +81,6 @@ function launchTutorial() {
 function handSuccessfulMix(dropzone) {
 	dropzone.el.classList.add('disabled');
 	updateActive(createActive());
-	statusObserver.notify('stepSuccess');
 	if (_isDev) {
 		spy._giveMeTheSolution(numItems, swatches, dropzones, activeColor);
 	}
@@ -177,6 +175,9 @@ function activeIsMoved() {
 
 function dropSuccessful(data) {
 	const {dropZoneCurrent, index } = data[0];
+	if (tutorialIsNotLaunched) {
+		launchTutorial();
+	}
 	doStep(dropZoneCurrent, index);
 }
 
@@ -236,13 +237,19 @@ function playLevel() {
 }
 
 function cleanLevel() {
-	setTimeout(() => {
+	setTimeout(function() {
 		grid.cleanAll();
 		if (activeColor && limitActive) {
 			limitActive.removeChild(activeColor.el);
 		}
 		activeColor = null;
 	}, 1000);
+}
+
+function bonusUsed() {
+	const index = spy._giveMeTheSolution(numItems, swatches, dropzones, activeColor);
+	doStep(dropzones[index], index, true);
+	statusObserver.notify('stepSuccessBonus');
 }
 
 function execAction(action, data) {
@@ -252,6 +259,7 @@ function execAction(action, data) {
 		dropSuccessful,
 		dropFailed,
 		activeIsMoved,
+		bonusUsed
 	};
 	if (actions[action]) {
 		if (data) {

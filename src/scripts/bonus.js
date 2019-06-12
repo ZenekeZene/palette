@@ -1,20 +1,36 @@
 import persist from './persist';
 let statusObserver;
 let contBonus = 0;
-const bonusNode = document.getElementById('bonusText');
+const bonusText = document.getElementById('bonusText');
+const bonusButton = document.getElementById('bonusButton');
 let timerId;
 let bonusCheck = 0;
-const INTERVAL = 3200; // ms
+const INTERVAL = 2200; // ms
 
-function incrementBonus() {
-	contBonus++;
-	saveBonus();
+function increaseBonus() {
+	contBonus += 1;
 	updateBonus();
+	saveBonus();
+}
+
+function decreaseBonus() {
+	contBonus -= 1;
+	console.log(contBonus);
+	updateBonus();
+	//saveBonus();
+}
+
+function useBonus() {
+	decreaseBonus();
+	statusObserver.notify('bonusUsed');
 }
 
 function updateBonus() {
-	if (bonusNode) {
-		bonusNode.textContent = contBonus;
+	bonusText.innerHTML = contBonus;
+	if (contBonus <= 0) {
+		bonusButton.classList.add('--disabled');
+	} else {
+		bonusButton.classList.remove('--disabled');
 	}
 }
 
@@ -32,7 +48,7 @@ function checkIsBonus() {
 		bonusCheck = true;
 		return false;
 	} else if (bonusCheck) {
-		incrementBonus();
+		increaseBonus();
 		bonusCheck = false;
 	}
 	bonusCheck = true;
@@ -43,13 +59,21 @@ function init(statusObserverEntry) {
 	statusObserver.subscribe(function(status, data) {
 		if (status === 'stepSuccess') {
 			checkIsBonus();
+		} else if (status === 'playLevel') {
+			contBonus = Number(persist.getData('bonus')) || 0;
+			updateBonus();
+		}
+	});
+	
+	bonusButton.addEventListener('touchstart', function() {
+		if (contBonus) {
+			useBonus();
 		}
 	});
 }
 
 const bonus = {
 	init,
-	incrementBonus,
 } 
 
 export default bonus;

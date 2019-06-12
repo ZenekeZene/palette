@@ -1,0 +1,13 @@
+#bonusButton {
+	@include absolute(left bottom);
+	@include flex(flex, start, end);
+	@include share(width, height, 2rem);
+	padding: 0.15rem;
+	color: white;
+	background-color: $cool;
+	border-radius: 0 5rem 0 0;
+
+	&.--disabled {
+		opacity: 0;
+	}
+}
