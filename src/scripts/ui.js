@@ -1,7 +1,7 @@
-import interact from 'interactjs';
 import persist from './persist';
 import quote from './quote';
 import sound from './sound';
+import credits from './credits';
 
 let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
 const livesInitial = 5;
@@ -9,7 +9,6 @@ let lives = Number(persist.getData('lives')) || livesInitial;
 let lifePrizes = [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21];
 let levels, levelCurrent, statusObserver, mute, shareUrl, shareUrlFinal, shareUrlFinalCompleted;
 let playEnabled = true;
-let creditsEnabled = true;
 
 // Cache references to DOM elements.
 var elms = [
@@ -20,7 +19,6 @@ var elms = [
 	'homePage', 'homeScore', 'homeLevel', 'homeLives', 'homeHighScore',
 	'finalPage', 'screenTutorial', 'replayText',
 	'resetPage', 'resetCancel', 'resetAccept', 'resetButton',
-	'credits', 'creditsButton', 'creditsPage', 'backButtonCredits',
 	'soundButton', 'backButtonFinal', 'progression',
 	'shareLink', 'shareLinkFinal', 'shareLinkFinalCompleted',
 	'gameEndMessage', 'levelCurrentFinalPage', 'highLevel', 'highScore',
@@ -30,7 +28,6 @@ elms.forEach(function(elm) {
 });
 
 const countSuccessfulFinal = document.getElementsByClassName('js-contSuccessfulFinalPage');
-let creditsInterval;
 
 function showFinalPage(isGameCompleted) {
 	control.classList.add('hidden');
@@ -234,26 +231,6 @@ function handEvents() {
 		location.reload();
 	});
 
-	creditsButton.addEventListener('click', function() {
-		if (creditsEnabled) {
-			homePage.classList.add('fadeOut');
-			homePage.classList.remove('fadeIn');
-			creditsPage.classList.remove('hidden');
-			initCreditsDrag();
-			creditsEnabled = false;
-		}
-	});
-
-	backButtonCredits.addEventListener('click', function() {
-		homePage.classList.remove('unveil');
-		playEnabled = true;
-		creditsEnabled = true;
-		homePage.classList.add('fadeIn');
-		homePage.classList.remove('fadeOut');
-		creditsPage.classList.add('hidden');
-		clearCredits();
-	});
-
 	backButtonFinal.addEventListener('click', function() {
 		homePage.classList.remove('unveil');
 		playEnabled = true;
@@ -343,6 +320,13 @@ function increaseScore() {
 	persist.saveData('contSuccessTotal', Number(contSuccessTotal));
 }
 
+function showHome() {
+	homePage.classList.remove('unveil');
+	playEnabled = true;
+	homePage.classList.add('fadeIn');
+	homePage.classList.remove('fadeOut');
+}
+
 function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	quote.init(statusObserverEntry, levelsEntry.length);
 	statusObserver = statusObserverEntry;
@@ -355,6 +339,8 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 			levelFailed();
 		} else if (status === 'increaseScore') {
 			increaseScore();
+		} else if (status === 'showHome') {
+			showHome();
 		}
 	});
 
@@ -373,71 +359,10 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 		soundButton.classList.remove('--silence');
 	}
 	sound.init(statusObserver, mute);
+	credits.init(statusObserver);
 	lives = Number(persist.getData('lives')) || livesInitial;
 	homeLives.textContent = livesText.textContent = lives;
-
-	interact('.credits-container').draggable({
-		inertia: true,
-		restriction: '.credits',
-		lockAxis: 'y',
-		onmove: (event) => {
-			event.target.classList.remove('--animation-disabled');
-			const target = event.target,
-				// keep the dragged position in the data-x/data-y attributes
-				x = (parseFloat(target.getAttribute('data-x')) || 0) + Math.round(event.dx),
-				y = (parseFloat(target.getAttribute('data-y')) || 0) + Math.round(event.dy);
-			target.classList.add('drag-active');
-			// translate the element
-			target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`;
-
-			// update the posiion attributes
-			target.setAttribute('data-x', x);
-			target.setAttribute('data-y', y);
-		},
-	});
-
 	showRecord();
-}
-
-function initCreditsDrag() {
-	creditsInterval = setInterval(function() {
-		const rect = credits.getBoundingClientRect();
-		if (!insideViewport(rect)) {
-			if (rect.bottom <= 0) {
-				setPositionCredits(0, window.innerHeight);
-			}
-		}
-
-		// keep the dragged position in the data-x/data-y attributes
-		const x = (parseFloat(credits.getAttribute('data-x')) || 0);
-		const y = (parseFloat(credits.getAttribute('data-y')) || 0) - 2;
-		setPositionCredits(x, y);
-	}, 30);
-}
-
-function clearCredits() {
-	clearInterval(creditsInterval);
-	setPositionCredits(0, 0);
-}
-
-function setPositionCredits(x, y) {
-	credits.style.webkitTransform = credits.style.transform = `translate(${x}px, ${y}px)`;
-	// update the posiion attributes
-	credits.setAttribute('data-x', x);
-	credits.setAttribute('data-y', y);
-}
-
-function insideViewport(bounding) {
-	if (
-		bounding.top >= 0 &&
-		bounding.left >= 0 &&
-		bounding.right <= (window.innerWidth || document.documentElement.clientWidth) &&
-		bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-	) {
-		return true;
-	} else {
-		return false;
-	}
 }
 
 export default {

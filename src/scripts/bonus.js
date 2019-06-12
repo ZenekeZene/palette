@@ -16,9 +16,8 @@ function increaseBonus() {
 
 function decreaseBonus() {
 	contBonus -= 1;
-	console.log(contBonus);
 	updateBonus();
-	//saveBonus();
+	saveBonus();
 }
 
 function useBonus() {
