@@ -1,14 +1,23 @@
 //const Tone = require("tone");
 import { Howl, Howler } from 'howler';
-let statusObserver;
-let mute;
+import persist from './persist';
+let statusObserver, mute;
 const musicAsset = require("../sounds/music-bg.mp3")
 let ambient, fail, success, ambientSound;
 let isPlaying = false;
+const soundButton = document.getElementById('soundButton');
 
-function init(statusObserverEntry, muteEntry) {
+function init(statusObserverEntry) {
 	statusObserver = statusObserverEntry;
-	mute = muteEntry;
+	mute = persist.getData('mute') || false;
+	mute = (mute == 'true');
+
+	if (mute) {
+		soundButton.classList.add('--silence');
+	} else {
+		soundButton.classList.remove('--silence');
+	}
+
 	Howler.autoUnlock = true;
 	ambient = new Howl({
 		src: [musicAsset],
@@ -62,6 +71,17 @@ function init(statusObserverEntry, muteEntry) {
 			mute = data[0];
 		}
 	});
+
+	soundButton.addEventListener('click', function() {
+		mute = !mute;
+		persist.saveData('mute', mute);
+		if (mute) {
+			soundButton.classList.add('--silence');
+		} else {
+			soundButton.classList.remove('--silence');
+		}
+		statusObserver.notify('mute', mute);
+	})
 
 	window.addEventListener("focus", function(event) {
 		if (isPlaying) {

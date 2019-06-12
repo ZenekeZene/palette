@@ -20,7 +20,7 @@ var elms = [
 	'homePage', 'homeScore', 'homeLevel', 'homeLives',
 	'finalPage', 'screenTutorial', 'replayText',
 	'resetPage', 'resetCancel', 'resetAccept', 'resetButton',
-	'soundButton', 'backButtonFinal', 'progression',
+	'backButtonFinal', 'progression',
 	'shareLink', 'shareLinkFinal', 'shareLinkFinalCompleted',
 	'gameEndMessage', 'levelCurrentFinalPage',
 ];
@@ -220,17 +220,6 @@ function handEvents() {
 		app.classList.remove('hidden');
 	});
 
-	soundButton.addEventListener('click', function() {
-		mute = !mute;
-		persist.saveData('mute', mute);
-		if (mute) {
-			soundButton.classList.add('--silence');
-		} else {
-			soundButton.classList.remove('--silence');
-		}
-		statusObserver.notify('mute', mute);
-	})
-
 	nextButton.addEventListener('click', handNextLevel);
 	replayButton.addEventListener('click', showLevel);
 
@@ -306,15 +295,7 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	numLevels.textContent = levelCurrent + 1;
 	score.textContent = contSuccessTotal;
 
-	mute = persist.getData('mute') || false;
-	mute = (mute == 'true');
-
-	if (mute) {
-		soundButton.classList.add('--silence');
-	} else {
-		soundButton.classList.remove('--silence');
-	}
-	sound.init(statusObserver, mute);
+	sound.init(statusObserver);
 	credits.init(statusObserver);
 	record.init(statusObserver);
 

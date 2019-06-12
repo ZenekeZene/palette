@@ -10,7 +10,7 @@ import bonus from './bonus';
 let levels, levelCurrent;
 
 // ONLY DEVELOPMENT:
-let _isDev = false;
+let _isDev = true;
 
 let baseActive,
 	swatches,
@@ -26,15 +26,12 @@ let	numItems = 0;
 
 const limitActive = document.getElementById('limitActive');
 
-function isSuccessfulMix(indexToCheck, isFromBonus) {
+function isSuccessfulMix(indexToCheck) {
 	if (_.isEqual(swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
 		swatches[indexToCheck].el.classList.add('match-swatch');
 		dropzones[indexToCheck].el.classList.add('match-mixer');
 		swatches[indexToCheck].isEnabled = false;
 		dropzones[indexToCheck].isEnabled = false;
-		if (!isFromBonus) {
-			dropzones[indexToCheck].el.classList.add('combo');
-		}
 		return true;
 	} else {
 		return false;
@@ -52,11 +49,11 @@ function doStep(dropzone, index, isFromBonus) {
 	const colorMixed = mix(dropzone.cmyk, activeColor.cmyk);
 	dropzone.setCMYK(colorMixed);
 
-	if (isSuccessfulMix(index, isFromBonus)) {
+	if (isSuccessfulMix(index)) {
 		contSuccess++;
 		if (!isFromBonus) {
 			statusObserver.notify('increaseScore');
-			statusObserver.notify('stepSuccess');
+			statusObserver.notify('stepSuccess', index);
 		}
 		if (contSuccess !== swatches.length) {
 			handSuccessfulMix(dropzone, isFromBonus);
@@ -181,7 +178,7 @@ function dropSuccessful(data) {
 	if (tutorialIsNotLaunched) {
 		launchTutorial();
 	}
-	doStep(dropZoneCurrent, index);
+	doStep(dropZoneCurrent, index, false);
 }
 
 function dropFailed() {
@@ -249,6 +246,10 @@ function cleanLevel() {
 	}, 1000);
 }
 
+function showCombo(index) {
+	dropzones[index[0]].el.classList.add('combo');
+}
+
 function bonusUsed() {
 	const index = spy._giveMeTheSolution(numItems, swatches, dropzones, activeColor);
 	doStep(dropzones[index], index, true);
@@ -262,7 +263,8 @@ function execAction(action, data) {
 		dropSuccessful,
 		dropFailed,
 		activeIsMoved,
-		bonusUsed
+		bonusUsed,
+		showCombo,
 	};
 	if (actions[action]) {
 		if (data) {

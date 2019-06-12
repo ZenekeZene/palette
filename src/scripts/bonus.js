@@ -1,4 +1,5 @@
 import persist from './persist';
+import spy from './spy';
 let statusObserver;
 let contBonus = 0;
 const bonusWrapper = document.getElementById('bonusWrapper');
@@ -38,7 +39,7 @@ function saveBonus() {
 	persist.saveData('bonus', contBonus);
 }
 
-function checkIsBonus() {
+function checkIsBonus(index) {
 	clearTimeout(timerId);
 	timerId = setTimeout(function() {
 		bonusCheck = false;
@@ -49,6 +50,7 @@ function checkIsBonus() {
 		return false;
 	} else if (bonusCheck) {
 		increaseBonus();
+		statusObserver.notify('showCombo', index);
 		bonusCheck = false;
 	}
 	bonusCheck = true;
@@ -58,7 +60,7 @@ function init(statusObserverEntry) {
 	statusObserver = statusObserverEntry;
 	statusObserver.subscribe(function(status, data) {
 		if (status === 'stepSuccess') {
-			checkIsBonus();
+			checkIsBonus(data[0]);
 		} else if (status === 'playLevel') {
 			contBonus = Number(persist.getData('bonus')) || 0;
 			updateBonus();
