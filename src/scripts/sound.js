@@ -4,6 +4,7 @@ let statusObserver;
 let mute;
 const musicAsset = require("../sounds/music-bg.mp3")
 let ambient, fail, success, ambientSound;
+let isPlaying = false;
 
 function init(statusObserverEntry, muteEntry) {
 	statusObserver = statusObserverEntry;
@@ -43,14 +44,18 @@ function init(statusObserverEntry, muteEntry) {
 				if (!ambient.playing(ambientSound)) {
 					ambientSound = ambient.play();
 				}
+				isPlaying = true;
 				ambient.fade(ambient.volume(ambientSound), 1, 1250);
 			} else if (status === 'success' || status === 'stepSuccess') {
 				success.play();
+				isPlaying = false;
 			} else if (status === 'fail') {
 				ambient.fade(1, 0, 250, ambientSound);
 				fail.play();
+				isPlaying = false;
 			} else if (status === 'backButton') {
 				ambient.fade(1, 0, 1250);
+				isPlaying = false;
 			}
 		}
 		if (status === 'mute') {
@@ -58,22 +63,15 @@ function init(statusObserverEntry, muteEntry) {
 		}
 	});
 
-	window.addEventListener("focusin", function(event) {
-		console.log('focusin');
-		console.log(ambient.playing(ambientSound));
-		if (!ambient.play(ambientSound)) {
-			ambient.play(ambientSound);
+	window.addEventListener("focus", function(event) {
+		if (isPlaying) {
+			ambient.fade(0, 1, 250);
 		}
-		//ambient.play(ambientSound);
-		//ambient.fade(0, 1, 250, ambientSound);
 	}, false);
 
 	window.addEventListener("blur", function(event) {
-		console.log('focusout');
-		console.log(ambient.playing(ambientSound));
-		//ambient.fade(ambient.volume(ambientSound), 0, 1250, ambientSound);
-		if (ambient.playing(ambientSound)) {
-			ambient.pause(ambientSound);
+		if (isPlaying) {
+			ambient.fade(1, 0, 250);
 		}
 	}, false);
 }
