@@ -1,9 +1,10 @@
+import { constants } from '../../common';
 const quotes = require('./quotes.json');
+let statusObserver = constants.statusObserver;
 
 const quotePhrase = document.getElementById('quotePhrase');
 const quoteAuthor = document.getElementById('quoteAuthor');
 const quoteNode = document.getElementById('quote');
-let numLevels, statusObserver;
 
 var quotesArray = [];
 for (var i in quotes) {
@@ -26,9 +27,7 @@ function levelFailed() {
 	quoteNode.classList.add('hidden');
 }
 
-function init(statusObserverEntry, numLevelsEntry) {
-	numLevels = numLevelsEntry;
-	statusObserver = statusObserverEntry;
+function init() {
 	statusObserver.subscribe(function(status, data) {
 		if (status === 'successLevel') {
 			levelSuccessful(data);
@@ -38,7 +37,7 @@ function init(statusObserverEntry, numLevelsEntry) {
 	});
 
 	// Get sub-array of first n elements after shuffled
-	quotesSelected = shuffled.slice(0, numLevels + 1);
+	quotesSelected = shuffled.slice(0, constants.levels.length + 1);
 }
 
 export default {

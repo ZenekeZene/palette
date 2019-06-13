@@ -1,5 +1,7 @@
 import interact from 'interactjs';
-let statusObserver;
+import { constants } from '../common';
+const statusObserver = constants.statusObserver;
+
 let creditsEnabled = true;
 let creditsInterval;
 const credits = document.getElementById('credits');
@@ -31,7 +33,7 @@ function clearCredits() {
 
 function setPositionCredits(x, y) {
 	credits.style.webkitTransform = credits.style.transform = `translate(${x}px, ${y}px)`;
-	// update the posiion attributes
+	// update the position attributes
 	credits.setAttribute('data-x', x);
 	credits.setAttribute('data-y', y);
 }
@@ -90,8 +92,7 @@ function handEvents() {
 	});
 }
 
-function init(statusObserverEntry) {
-	statusObserver = statusObserverEntry;
+function init() {
 	handCreditsDrag();
 	handEvents();
 }

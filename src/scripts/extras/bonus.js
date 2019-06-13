@@ -1,12 +1,13 @@
 import persist from '../tools/persist';
-let statusObserver;
+import { constants } from '../common';
+const statusObserver = constants.statusObserver;
+
 let contBonus = 0;
 const bonusWrapper = document.getElementById('bonusWrapper');
 const bonusText = document.getElementById('bonusText');
 const bonusButton = document.getElementById('bonusButton');
 let timerId;
 let bonusCheck = 0;
-const INTERVAL = 2200; // ms
 
 function increaseBonus() {
 	contBonus += 1;
@@ -42,7 +43,7 @@ function checkIsBonus(index) {
 	clearTimeout(timerId);
 	timerId = setTimeout(function() {
 		bonusCheck = false;
-	}, INTERVAL);
+	}, constants.intervalBonus);
 
 	if (bonusCheck === false) {
 		bonusCheck = true;
@@ -55,8 +56,7 @@ function checkIsBonus(index) {
 	bonusCheck = true;
 }
 
-function init(statusObserverEntry) {
-	statusObserver = statusObserverEntry;
+function init() {
 	statusObserver.subscribe(function(status, data) {
 		if (status === 'stepSuccess') {
 			checkIsBonus(data[0]);

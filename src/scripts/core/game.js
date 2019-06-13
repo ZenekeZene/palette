@@ -1,4 +1,5 @@
 const _ = require('lodash');
+import { constants, state } from '../common';
 import drag from './drag';
 import grid from './grid';
 import color from './color';
@@ -7,7 +8,8 @@ import persist from '../tools/persist';
 import spy from '../tools/spy';
 import bonus from '../extras/bonus';
 
-let levels, levelCurrent;
+let levelCurrent = state.levelCurrent;
+const statusObserver = constants.statusObserver;
 
 // ONLY DEVELOPMENT:
 let _isDev = false;
@@ -19,7 +21,6 @@ let baseActive,
 	dropzoneNodes,
 	activeColor,
 	contSuccess,
-	statusObserver,
 	tutorialIsNotLaunched;
 
 let	numItems = 0;
@@ -38,9 +39,9 @@ function isSuccessfulMix(indexToCheck) {
 	}
 }
 
-function updateActive(newactiveColor) {
+function updateActive(newActiveColor) {
 	limitActive.removeChild(activeColor.el);
-	activeColor = newactiveColor;
+	activeColor = newActiveColor;
 	limitActive.append(activeColor.el);
 	drag.setActiveNode(activeColor.el);
 }
@@ -213,7 +214,7 @@ function initDropzones(dropzoneNodes) {
 function playLevel() {
 	levelCurrent = Number(persist.getData('levelCurrent')) || 0;
 	contSuccess = 0;
-	numItems = levels[levelCurrent];
+	numItems =  constants.levels[levelCurrent];
 	// Draw grid:
 	({swatchNodes, dropzoneNodes} = grid.init(levelCurrent, numItems));
 
@@ -275,15 +276,11 @@ function execAction(action, data) {
 	}
 }
 
-function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
-	statusObserver = statusObserverEntry;
-	levels = levelsEntry;
-	levelCurrent = levelCurrentEntry;
-
+function init() {;
 	statusObserver.subscribe(function(status, data) {
 		execAction(status, data);
 	});
-	ui.init(statusObserver, levels, levelCurrent);
+	ui.init(statusObserver);
 	bonus.init(statusObserver);
 }
 

@@ -1,14 +1,15 @@
 //const Tone = require("tone");
 import { Howl, Howler } from 'howler';
+import { constants } from '../common';
 import persist from '../tools/persist';
-let statusObserver, mute;
+let statusObserver = constants.statusObserver;
+let mute;
 const musicAsset = require("../../sounds/music-bg.mp3")
 let ambient, fail, success, ambientSound;
 let isPlaying = false;
 const soundButton = document.getElementById('soundButton');
 
-function init(statusObserverEntry) {
-	statusObserver = statusObserverEntry;
+function init() {
 	mute = persist.getData('mute') || false;
 	mute = (mute == 'true');
 

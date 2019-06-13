@@ -1,6 +1,8 @@
 import interact from 'interactjs'
+import { constants } from '../common';
+const statusObserver = constants.statusObserver;
 
-let activeNode, dropzones, statusObserver;
+let activeNode, dropzones;
 
 function offset (el) {
 	const rect = el.getBoundingClientRect();
@@ -123,11 +125,9 @@ function setActiveNode(activeNodeEntry) {
 function init (
 	activeNodeEntry,
 	dropzonesEntry,
-	statusObserverEntry
 ) {
 	activeNode = activeNodeEntry;
 	dropzones = dropzonesEntry;
-	statusObserver = statusObserverEntry;
 	initDrag();
 }
 

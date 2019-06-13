@@ -1,5 +1,7 @@
 import persist from '../tools/persist';
-let statusObserver;
+import { constants, state } from '../common';
+const score = state.score;
+let statusObserver = constants.statusObserver;
 const homeHighScore = document.getElementById('homeHighScore');
 const highLevel = document.getElementById('highLevel');
 const highScore = document.getElementById('highScore');
@@ -16,25 +18,25 @@ function getRecord() {
 	};
 }
 
-function handRecord(levelCurrent, contSuccessTotal) {
+function handRecord() {
 	const {levelRecord, scoreRecord } = getRecord();
 	if (levelRecord) {
 		homeHighScore.classList.remove('hidden');
 		if (levelCurrent > levelRecord) {
-			saveRecord(levelCurrent, contSuccessTotal);
+			saveRecord(levelCurrent, score);
 		} else if (levelCurrent == levelRecord) {
-			if (contSuccessTotal > scoreRecord) {
-				saveRecord(levelCurrent, contSuccessTotal);
+			if (score > scoreRecord) {
+				saveRecord(levelCurrent, score);
 			}
 		}
 	} else {
-		saveRecord(levelCurrent, contSuccessTotal);
+		saveRecord(levelCurrent, score);
 	}
 }
 
-function saveRecord(levelCurrent, contSuccessTotal) {
-	persist.saveData('record', `${levelCurrent + 1}|${contSuccessTotal}`);
-	updateRecord(levelCurrent, contSuccessTotal);
+function saveRecord() {
+	persist.saveData('record', `${levelCurrent + 1}|${score}`);
+	updateRecord(levelCurrent, score);
 }
 
 function showRecord() {
@@ -50,11 +52,10 @@ function updateRecord(level, score) {
 	highScore.textContent = score;
 }
 
-function init(statusObserverEntry) {
-	statusObserver = statusObserverEntry;
+function init() {
 	statusObserver.subscribe(function(status, data) {
 		if (status === 'handRecord') {
-			handRecord(data[0].levelCurrent, data[0].contSuccessTotal);
+			handRecord();
 		} else if (status === 'showRecord') {
 			showRecord();
 		}

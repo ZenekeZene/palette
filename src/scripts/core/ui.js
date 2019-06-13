@@ -1,87 +1,45 @@
+import { constants, state } from '../common';
 import record from '../extras/record';
 import persist from '../tools/persist';
 import quote from '../extras/quote/quote';
 import sound from '../extras/sound';
 import credits from '../pages/credits';
+import final from '../pages/final';
 
-let contSuccessTotal = Number(persist.getData('contSuccessTotal')) || 0;
-const livesInitial = 1;
-let lives = Number(persist.getData('lives')) || livesInitial;
-let lifePrizes = [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21];
-let levels, levelCurrent, statusObserver, mute, shareUrl, shareUrlFinal, shareUrlFinalCompleted;
+let levelCurrent = state.levelCurrent;
+let score = state.score;
+let lives = Number(persist.getData('lives')) || constants.livesInitial;
+const statusObserver = constants.statusObserver;
+let shareUrl;
 let playEnabled = true;
 
-// Cache references to DOM elements.
-var elms = [
+// Cache references to DOM elements:
+const elms = [
 	'control', 'nextButton', 'replayButton', 'playButton', 'backButton',
-	'numLevels', 'score',
+	'numLevels', 'scoreText',
 	'rateButton',
-	'lives', 'liveIcon', 'livesText', 'livesOutMessage',
+	'lives', 'liveIcon', 'livesText',
 	'homePage', 'homeScore', 'homeLevel', 'homeLives',
-	'finalPage', 'screenTutorial', 'replayText',
+	'screenTutorial', 'replayText',
 	'resetPage', 'resetCancel', 'resetAccept', 'resetButton',
 	'backButtonFinal', 'progression',
-	'shareLink', 'shareLinkFinal', 'shareLinkFinalCompleted',
-	'gameEndMessage', 'levelCurrentFinalPage',
+	'shareLink',
 ];
+
 elms.forEach(function(elm) {
 	window[elm] = document.getElementById(elm);
 });
 
-const countSuccessfulFinal = document.getElementsByClassName('js-contSuccessfulFinalPage');
-
-function showFinalPage(isGameCompleted) {
-	control.classList.add('hidden');
-	finalPage.classList.remove('hidden');
-	finalPage.classList.add('fadeIn');
-
-	for(let i = 0; i < countSuccessfulFinal.length; i++) {
-		countSuccessfulFinal[i].textContent = contSuccessTotal;
-	}
-	levelCurrentFinal.textContent = levelCurrent + 1;
-
-	setFinalMessage(isGameCompleted);
-	statusObserver.notify('handRecord', { levelCurrent, contSuccessTotal });
-
-	lives = livesInitial;
-	levelCurrent = 0;
-	persist.saveData('bonus', 0);
-	contSuccessTotal = 0;
-
-	persist.saveData('lives', lives);
-	persist.saveData('levelCurrent', 0);
-	persist.saveData('contSuccessTotal', 0);
-
-	livesText.textContent = lives;
-	homeLives.textContent = lives;
-	homeLevel.textContent = levelCurrent;
-	homeScore.textContent = contSuccessTotal;
-}
-
-function setFinalMessage(gameCompleted) {
-	let textTweet = '';
-	if (!gameCompleted) {
-		textTweet = `I+have+finished+@PlayPalette+with+${contSuccessTotal}+points+at+level+${levelCurrent + 1}`;
-		shareUrlFinal = `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`;
-		gameEndMessage.classList.add('hidden');
-		livesOutMessage.classList.remove('hidden');
-	} else {
-		textTweet = `I+have+overcome+all+the+levels+of+@PlayPalette+with+${contSuccessTotal}+points!!!+http://palette.ws`;
-		shareUrlFinalCompleted = `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`;
-		livesOutMessage.classList.add('hidden');
-		gameEndMessage.classList.remove('hidden');
-	}
-}
-
 function levelSuccessful() {
-	if (levelCurrent === levels.length - 1) {
-		showFinalPage(true);
+	if (levelCurrent === constants.levels.length - 1) {
+		showFinalPage();
 		return;
 	}
-	const livesAdded = lifePrizes[levelCurrent];
+	const livesAdded = constants.lifePrizes[levelCurrent];
 	lives += livesAdded;
 	persist.saveData('lives', lives);
 	livesText.textContent = lives;
+
 	if (livesAdded === 0) {
 		liveIcon.textContent = 0;
 		liveIcon.classList.add('hidden');
@@ -127,7 +85,7 @@ function levelFailed() {
 			replayButton.classList.remove('hidden');
 			replayButton.classList.add('fadeIn');
 		} else {
-			showFinalPage();
+			statusObserver.notify('showFinalPage', false);
 		}
 	}, 700);
 }
@@ -136,7 +94,7 @@ function handEvents() {
 	playButton.addEventListener('click', function() {
 		if (playEnabled) {
 			levelCurrent = Number(persist.getData('levelCurrent')) || 0;
-			if (levelCurrent === levels.length) {
+			if (levelCurrent === constants.levels.length) {
 				resetPage.classList.remove('hidden');
 				return false;
 			}
@@ -166,18 +124,18 @@ function handEvents() {
 	resetAccept.addEventListener('click', function(event) {
 		resetPage.classList.add('hidden');
 		persist.saveData('tutorialIsNotLaunched', true);
-		persist.saveData('contSuccessTotal', 0);
+		persist.saveData('score', 0);
 		persist.saveData('levelCurrent', 0);
 
-		persist.saveData('lives', livesInitial);
+		persist.saveData('lives', constants.livesInitial);
 		homeLives.textContent = lives;
 
 		levelCurrent = 0;
-		contSuccessTotal = 0;
-		homeScore.textContent = contSuccessTotal;
+		score = 0;
+		homeScore.textContent = score;
 		homeLevel.textContent = levelCurrent + 1;
 		numLevels.textContent = levelCurrent + 1;
-		score.textContent = contSuccessTotal;
+		scoreText.textContent = score;
 		location.reload();
 	});
 
@@ -187,7 +145,7 @@ function handEvents() {
 		app.classList.add('hidden');
 		finalPage.classList.add('hidden');
 		finalPage.classList.remove('fadeIn');
-		homeScore.textContent = contSuccessTotal;
+		homeScore.textContent = score;
 		homeLevel.textContent = levelCurrent + 1;
 		numLevels.textContent = levelCurrent + 1;
 
@@ -195,7 +153,7 @@ function handEvents() {
 		statusObserver.notify('cleanLevel');
 		statusObserver.notify('backButton');
 
-		if (levelCurrent !== levels.length - 1) {
+		if (levelCurrent !== constants.levels.length - 1) {
 			shareUrl = `I have finished @Palette at level ${levelCurrent} with ${score} points!!! Can you make it better? http://palette.ws`;
 		} else {
 			shareUrl = `I have overcome all the levels of @Palette with ${score} points  at level ${levelCurrent}!!! http://palette.ws`;
@@ -207,7 +165,7 @@ function handEvents() {
 		playEnabled = true;
 		app.classList.add('fadeOut', 'animated');
 		app.classList.remove('fadeIn');
-		homeScore.textContent = contSuccessTotal;
+		homeScore.textContent = score;
 		homeLevel.textContent = levelCurrent + 1;
 		statusObserver.notify('cleanLevel');
 		statusObserver.notify('backButton');
@@ -238,14 +196,29 @@ function handEvents() {
 	shareLink.addEventListener('click', function() {
 		openUrl(`https://twitter.com/intent/tweet?text=${shareUrl}`);
 	});
+}
 
-	shareLinkFinal.addEventListener('click', function() {
-		openUrl(`https://twitter.com/intent/tweet?text=${shareUrlFinal}`);
+function showFinalPage(isGameCompleted) {
+	const levelCurrent = levelCurrent;
+	statusObserver.notify('showFinalPage', {
+		isGameCompleted,
+		levelCurrent,
+		score,
 	});
 
-	shareLinkFinalCompleted.addEventListener('click', function() {
-		openUrl(`https://twitter.com/intent/tweet?text=${shareUrlFinalCompleted}`);
-	});
+	lives = constants.livesInitial;
+	levelCurrent = 0;
+	score = 0;
+
+	persist.saveData('bonus', 0);
+	persist.saveData('lives', lives);
+	persist.saveData('levelCurrent', 0);
+	persist.saveData('score', 0);
+
+	livesText.textContent = homeLives.textContent = lives;
+	homeLevel.textContent = levelCurrent;
+	homeScore.textContent = score;
+	statusObserver.notify('handRecord');
 }
 
 function handNextLevel() {
@@ -261,9 +234,9 @@ function showLevel() {
 }
 
 function increaseScore() {
-	contSuccessTotal += Number(10);
-	score.textContent = contSuccessTotal;
-	persist.saveData('contSuccessTotal', Number(contSuccessTotal));
+	score += Number(constants.scorePerSuccess);
+	scoreText.textContent = score;
+	persist.saveData('score', Number(score));
 }
 
 function showHome() {
@@ -273,11 +246,7 @@ function showHome() {
 	homePage.classList.remove('fadeOut');
 }
 
-function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
-	quote.init(statusObserverEntry, levelsEntry.length);
-	statusObserver = statusObserverEntry;
-	levels = levelsEntry;
-	levelCurrent = levelCurrentEntry;
+function init() {
 	statusObserver.subscribe(function(status) {
 		if (status === 'successLevel') {
 			levelSuccessful();
@@ -291,17 +260,20 @@ function init(statusObserverEntry, levelsEntry, levelCurrentEntry) {
 	});
 
 	handEvents();
-	homeScore.textContent = contSuccessTotal;
+	homeScore.textContent = score;
 	homeLevel.textContent = levelCurrent + 1;
 	numLevels.textContent = levelCurrent + 1;
-	score.textContent = contSuccessTotal;
+	scoreText.textContent = score;
 
-	sound.init(statusObserver);
-	credits.init(statusObserver);
-	record.init(statusObserver);
-
-	lives = Number(persist.getData('lives')) || livesInitial;
+	lives = Number(persist.getData('lives')) || constants.livesInitial;
 	homeLives.textContent = livesText.textContent = lives;
+
+	quote.init();
+	sound.init();
+	credits.init();
+	record.init();
+	final.init();
+
 }
 
 export default {
