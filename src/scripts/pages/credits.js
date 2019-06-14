@@ -1,6 +1,12 @@
 import interact from 'interactjs';
 import { constants } from '../common';
 const statusObserver = constants.statusObserver;
+statusObserver.subscribe(function(status) {
+	if (status === 'init') {
+		init();
+	}
+});
+
 
 let creditsEnabled = true;
 let creditsInterval;

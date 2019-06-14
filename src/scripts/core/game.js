@@ -1,5 +1,5 @@
 const _ = require('lodash');
-import { constants, state } from '../common';
+import { constants, mutations } from '../common';
 import drag from './drag';
 import grid from './grid';
 import color from './color';
@@ -8,7 +8,6 @@ import persist from '../tools/persist';
 import spy from '../tools/spy';
 import bonus from '../extras/bonus';
 
-let levelCurrent = state.levelCurrent;
 const statusObserver = constants.statusObserver;
 
 // ONLY DEVELOPMENT:
@@ -92,7 +91,7 @@ function handFailedMix() {
 	limitActive.removeChild(activeColor.el);
 	activeColor = null;
 	contSuccess = 0;
-	statusObserver.notify('fail'); 
+	statusObserver.notify('failedLevel'); 
 	dropzoneWasCorrect.el.classList.add('wasCorrect');
 	swatchWasCorrect.el.classList.add('wasCorrect');
 	const swatchesNotCorrect = swatches.filter(
@@ -113,9 +112,7 @@ function handGameFinished() {
 	limitActive.removeChild(activeColor.el);
 	activeColor = null;
 	contSuccess = 0;
-	levelCurrent += 1;
-	persist.saveData('levelCurrent', levelCurrent);
-	statusObserver.notify('successLevel', levelCurrent);
+	statusObserver.notify('successfulLevel');
 }
 
 function searchCorrectSwatchAndDropzone() {
@@ -212,11 +209,9 @@ function initDropzones(dropzoneNodes) {
 }
 
 function playLevel() {
-	levelCurrent = Number(persist.getData('levelCurrent')) || 0;
 	contSuccess = 0;
-	numItems =  constants.levels[levelCurrent];
-	// Draw grid:
-	({swatchNodes, dropzoneNodes} = grid.init(levelCurrent, numItems));
+	numItems =  constants.levels[mutations.getLevel()];
+	({swatchNodes, dropzoneNodes} = grid.init(numItems));
 
 	// Init Swatches, Dropzones and Active
 	swatches = initSwatches(swatchNodes);
@@ -229,6 +224,7 @@ function playLevel() {
 	}
 	drag.init(activeColor.el, dropzones, statusObserver, activeIsMoved);
 	limitActive.append(activeColor.el);
+	
 	if (_isDev) {
 		document.getElementById('app').classList.add('--is-dev');
 		spy._giveMeTheSolution(numItems, swatches, dropzones, activeColor);

@@ -3,6 +3,7 @@ import { Howl, Howler } from 'howler';
 import { constants } from '../common';
 import persist from '../tools/persist';
 let statusObserver = constants.statusObserver;
+
 let mute;
 const musicAsset = require("../../sounds/music-bg.mp3")
 let ambient, fail, success, ambientSound;
@@ -10,9 +11,8 @@ let isPlaying = false;
 const soundButton = document.getElementById('soundButton');
 
 function init() {
-	mute = persist.getData('mute') || false;
-	mute = (mute == 'true');
-
+	mute = persist.getData('mute') || true;
+	
 	if (mute) {
 		soundButton.classList.add('--silence');
 	} else {
@@ -56,10 +56,10 @@ function init() {
 				}
 				isPlaying = true;
 				ambient.fade(ambient.volume(ambientSound), 1, 1250);
-			} else if (status === 'success' || status === 'stepSuccess' || status === 'stepSuccessBonus') {
+			} else if (status === 'successfulLevel' || status === 'stepSuccess' || status === 'stepSuccessBonus') {
 				success.play();
 				isPlaying = false;
-			} else if (status === 'fail') {
+			} else if (status === 'failedLevel') {
 				ambient.fade(1, 0, 250, ambientSound);
 				fail.play();
 				isPlaying = false;

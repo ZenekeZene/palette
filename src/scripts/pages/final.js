@@ -1,60 +1,50 @@
-import { constants, state } from '../common';
-const levelCurrent = state.levelCurrent;
-const score = state.score;
-const  statusObserver = constants.statusObserver;
-
+import { constants, mutations, config } from '../common';
+const statusObserver = constants.statusObserver;
 const finalPage = document.getElementById('finalPage');
 const control = document.getElementById('control');
-const countSuccessfulFinal = document.getElementsByClassName('js-contSuccessfulFinalPage');
 const livesOutMessage = document.getElementById('livesOutMessage');
-const levelCurrentFinal = document.getElementById('levelCurrentFinal');
 const gameEndMessage = document.getElementById('gameEndMessage');
-const shareLinkFinal = document.getElementById('shareLink');
-const shareLinkFinalCompleted = document.getElementById('shareLinkFinalCompleted');
-let shareUrlFinal, shareUrlFinalCompleted;
+const shareLinkFinal = document.getElementsByClassName('js-shareLinkFinal');
+let shareUrlFinal;
 
 function setFinalMessage(isGameCompleted) {
 	let textTweet = '';
+	const levelCurrent = mutations.getLevel();
+	const score = mutations.getScore();
+	
 	if (!isGameCompleted) {
-		textTweet = `I+have+finished+@PlayPalette+with+${contSuccessTotal}+points+at+level+${levelCurrent + 1}`;
-		shareUrlFinal = `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`;
-		gameEndMessage.classList.add('hidden');
+		textTweet = `I+have+finished+@PlayPalette+with+${score}+points+at+level+${levelCurrent}!!!`;
 		livesOutMessage.classList.remove('hidden');
+		gameEndMessage.classList.add('hidden');
 	} else {
-		textTweet = `I+have+overcome+all+the+levels+of+@PlayPalette+with+${contSuccessTotal}+points!!!+http://palette.ws`;
-		shareUrlFinalCompleted = `https://twitter.com/intent/tweet?text=${textTweet}!!!+http://palette.ws`;
+		textTweet = `I+have+overcome+all+the+levels+of+@PlayPalette+with+${score}+points!!!`;
 		livesOutMessage.classList.add('hidden');
 		gameEndMessage.classList.remove('hidden');
 	}
+	shareUrlFinal = `${config.tweet.pref}${textTweet}${config.tweet.suf}`;
 }
 
 function showFinalPage(isGameCompleted) {
 	control.classList.add('hidden');
 	finalPage.classList.remove('hidden');
 	finalPage.classList.add('fadeIn');
-
-	for(let i = 0; i < countSuccessfulFinal.length; i++) {
-		countSuccessfulFinal[i].textContent = score;
-	}
-	levelCurrentFinal.textContent = levelCurrent + 1;
-
 	setFinalMessage(isGameCompleted);
 }
 
-function handEvents() {
-	shareLinkFinal.addEventListener('click', function() {
-		openUrl(`https://twitter.com/intent/tweet?text=${shareUrlFinal}`);
-	});
+function shareUrl() {
+	openUrl(shareUrlFinal);
+}
 
-	shareLinkFinalCompleted.addEventListener('click', function() {
-		openUrl(`https://twitter.com/intent/tweet?text=${shareUrlFinalCompleted}`);
-	});
+function handEvents() {
+	for (let i = 0; i < shareLinkFinal.length - 1; i++) {
+		shareLinkFinal[i].addEventListener('click', shareUrl);
+	}
 }
 
 function init() {
 	statusObserver.subscribe(function(status, data) {
 		if (status === 'showFinalPage') {
-			const { isGameCompleted } = data[0];
+			const isGameCompleted = data[0];
 			showFinalPage(isGameCompleted);
 		}
 	});

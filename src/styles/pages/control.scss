@@ -46,7 +46,7 @@
 
 }
 
-.liveup {
+.liveUp {
 	position: fixed;
 	top: calc(75vh - 10px);
 	top: calc((var(--vh, 1vh) * 75) - 10px);
@@ -112,7 +112,7 @@
 	}
 }
 
-.hidden .liveup {
+.hidden .liveUp {
 	-webkit-transform: scale(0.4);
 	transform: scale(0.4);
 	-webkit-opacity: 0;

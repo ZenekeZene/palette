@@ -6,16 +6,16 @@ aside#finalPage.final.hidden.animated
 		h2 Well done!
 		h3.
 			You have finished Palette with
-			#[span.js-contSuccessfulFinalPage X] points at level
+			#[span#score X] points at level
 		p.
-			#[span#levelCurrentFinal LEVEL]
-		a#shareLinkFinal.header__share SHARE YOUR RECORD
+			#[span#level LEVEL]
+		a.js-shareLinkFinal.header__share SHARE YOUR RECORD
 	#gameEndMessage.final-message.hidden.game-end
 		h2 Congratulations!
 		h3.
 			You have overcome all the levels of Palette with
 			#[span.js-contSuccessfulFinalPage X] points
-		a#shareLinkFinalCompleted.header__share SHARE YOUR RECORD
+		a.js-shareLinkFinal.header__share SHARE YOUR RECORD
 	.confetti
 		- var n = 0;
 		while n < 13

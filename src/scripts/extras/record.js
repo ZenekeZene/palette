@@ -1,7 +1,8 @@
 import persist from '../tools/persist';
-import { constants, state } from '../common';
-const score = state.score;
+import { constants, mutations } from '../common';
+
 let statusObserver = constants.statusObserver;
+
 const homeHighScore = document.getElementById('homeHighScore');
 const highLevel = document.getElementById('highLevel');
 const highScore = document.getElementById('highScore');
@@ -19,9 +20,12 @@ function getRecord() {
 }
 
 function handRecord() {
+	const levelCurrent = mutations.getLevel();
+	const score = mutations.getScore();
+	console.log(levelCurrent + ' , ' + score);
 	const {levelRecord, scoreRecord } = getRecord();
 	if (levelRecord) {
-		homeHighScore.classList.remove('hidden');
+		homeHighScore.classList.remove('invisible');
 		if (levelCurrent > levelRecord) {
 			saveRecord(levelCurrent, score);
 		} else if (levelCurrent == levelRecord) {
@@ -34,16 +38,16 @@ function handRecord() {
 	}
 }
 
-function saveRecord() {
+function saveRecord(levelCurrent, score) {
 	persist.saveData('record', `${levelCurrent + 1}|${score}`);
 	updateRecord(levelCurrent, score);
 }
 
 function showRecord() {
-	const {levelRecord, scoreRecord} = getRecord();
+	const { levelRecord, scoreRecord } = getRecord();
 	if (levelRecord) {
 		updateRecord(levelRecord, scoreRecord);
-		homeHighScore.classList.remove('hidden');
+		homeHighScore.classList.remove('invisible');
 	}
 }
 

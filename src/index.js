@@ -5,10 +5,6 @@ if (process.env.NODE_ENV !== 'production') {
 	require('./index.pug');
 } 
 
-function init () {
-	game.init();
-}
-
 document.addEventListener('DOMContentLoaded', function () {
-	init();
+	game.init();
 });

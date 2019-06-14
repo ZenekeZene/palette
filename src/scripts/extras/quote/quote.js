@@ -1,5 +1,6 @@
-import { constants } from '../../common';
+import { constants, mutations } from '../../common';
 const quotes = require('./quotes.json');
+
 let statusObserver = constants.statusObserver;
 
 const quotePhrase = document.getElementById('quotePhrase');
@@ -15,29 +16,29 @@ for (var i in quotes) {
 const shuffled = quotesArray.sort(() => 0.5 - Math.random());
 let quotesSelected;
 
-function levelSuccessful(data) {
-	const levelCurrent = data[0];
+function successfulLevel() {
+	let levelCurrent = mutations.getLevel();
 	quoteNode.classList.remove('hidden');
 	quoteNode.classList.add('fadeIn');
 	quotePhrase.textContent = quotesSelected[levelCurrent][1].quote;
 	quoteAuthor.textContent = quotesSelected[levelCurrent][1].author;
 }
 
-function levelFailed() {
+function failedLevel() {
 	quoteNode.classList.add('hidden');
 }
 
 function init() {
-	statusObserver.subscribe(function(status, data) {
-		if (status === 'successLevel') {
-			levelSuccessful(data);
-		} else if (status === 'fail') {
-			levelFailed();
+	statusObserver.subscribe(function(status) {
+		if (status === 'successfulLevel') {
+			successfulLevel();
+		} else if (status === 'failedLevel') {
+			failedLevel();
 		}
 	});
 
 	// Get sub-array of first n elements after shuffled
-	quotesSelected = shuffled.slice(0, constants.levels.length + 1);
+	quotesSelected = shuffled.slice(0, constants.levels.length);
 }
 
 export default {

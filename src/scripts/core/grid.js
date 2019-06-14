@@ -1,8 +1,12 @@
+import { mutations } from '../common';
+
+const levelCurrent = mutations.getLevel();
+
 let swatchesGrid = document.getElementById('swatchesGrid');
 let mixesGrid = document.getElementById('mixesGrid');
 
 let size = 0;
-let swatchNodes, dropzoneNodes, levelCurrent;
+let swatchNodes, dropzoneNodes;
 
 function fillGrid(wrapperGrid) {
 	cleanGrid(wrapperGrid);
@@ -27,8 +31,7 @@ function cleanGrid(wrapperGrid) {
 	}
 }
 
-function init(levelCurrentEntry, sizeEntry) {
-	levelCurrent = levelCurrentEntry;
+function init(sizeEntry) {
 	size = sizeEntry;
 	swatchNodes = fillGrid(swatchesGrid);
 	if (levelCurrent < 5) {

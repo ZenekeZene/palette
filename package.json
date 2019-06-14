@@ -98,6 +98,7 @@
     "@capacitor/cli": "^1.0.0",
     "@capacitor/core": "^1.0.0",
     "@capacitor/ios": "^1.0.0",
+    "bind.js": "^1.1.1",
     "howler": "^2.1.2"
   }
 }

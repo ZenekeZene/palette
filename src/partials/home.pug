@@ -5,9 +5,9 @@ aside#homePage.home.fadeIn.animated
 			img(src="img/logo.svg" alt="Palette logo" height="50")
 		.header
 			p.header__level LEVEL&nbsp;
-				span#homeLevel
-			p#homeScore.header__score 40
-			p#homeLives.header__lives 17
+				span#level
+			p#score.header__score 40
+			p#lives.header__lives 17
 	nav.home-buttons
 		button#playButton.home-buttons__play
 		button#rateButton.home-buttons__rate
@@ -15,7 +15,7 @@ aside#homePage.home.fadeIn.animated
 		button#resetButton.home-buttons__reset
 		button#creditsButton.home-buttons__about
 		a#eulaButton.home-buttons__eula(onclick="openUrl('http://palette.ws/legal.html')" href="#")
-	section#homeHighScore.home-hiscore.hidden
+	section#homeHighScore.home-hiscore.invisible
 		.hiscore__title HI SCORE
 		.hiscore__body
 			p.header__level LEVEL #[span#highLevel 0]
