@@ -26,23 +26,23 @@ elms.forEach(function(elm) {
 
 function successfulLevel() {
 	let levelCurrent = mutations.getLevel();
+	console.log(mutations.areLevelsFinished());
 	if (mutations.areLevelsFinished()) {
 		showFinalPage();
-		return;
+	} else {
+		actions.increaseLife();
+		levelCurrent = actions.increaseLevel();
+		progression.classList.add('progression', `level-${ levelCurrent + 1 }`);
+
+		control.classList.add('fadeIn');
+		control.classList.remove('hidden');
+		app.classList.remove('fadeIn');
+		app.classList.add('fadeOut');
+		nextButton.classList.remove('hidden');
+		nextButton.classList.add('fadeIn');
+		replayButton.classList.add('hidden');
+		replayText.classList.add('hidden');
 	}
-
-	actions.increaseLife();
-	levelCurrent = actions.increaseLevel();
-	progression.classList.add('progression', `level-${ levelCurrent + 1 }`);
-
-	control.classList.add('fadeIn');
-	control.classList.remove('hidden');
-	app.classList.remove('fadeIn');
-	app.classList.add('fadeOut');
-	nextButton.classList.remove('hidden');
-	nextButton.classList.add('fadeIn');
-	replayButton.classList.add('hidden');
-	replayText.classList.add('hidden');
 }
 
 function failedLevel() {

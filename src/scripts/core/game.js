@@ -1,5 +1,5 @@
 const _ = require('lodash');
-import { constants, mutations } from '../common';
+import { constants, mutations, config } from '../common';
 import drag from './drag';
 import grid from './grid';
 import color from './color';
@@ -9,9 +9,6 @@ import spy from '../tools/spy';
 import bonus from '../extras/bonus';
 
 const statusObserver = constants.statusObserver;
-
-// ONLY DEVELOPMENT:
-let _isDev = false;
 
 let baseActive,
 	swatches,
@@ -81,7 +78,7 @@ function launchTutorial() {
 function handSuccessfulMix(dropzone) {
 	dropzone.el.classList.add('disabled');
 	updateActive(createActive());
-	if (_isDev) {
+	if (config._isDev) {
 		spy._giveMeTheSolution(numItems, swatches, dropzones, activeColor);
 	}
 }
@@ -225,7 +222,7 @@ function playLevel() {
 	drag.init(activeColor.el, dropzones, statusObserver, activeIsMoved);
 	limitActive.append(activeColor.el);
 	
-	if (_isDev) {
+	if (config._isDev) {
 		document.getElementById('app').classList.add('--is-dev');
 		spy._giveMeTheSolution(numItems, swatches, dropzones, activeColor);
 	} else {

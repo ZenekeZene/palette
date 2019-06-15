@@ -11,11 +11,12 @@ export const config = {
 		android: 'market://details?id=com.pilpilgames.palette',
 		ios: 'https://itunes.apple.com/app/id1467492943',
 	},
+	_isDev: false,
 }
 
 export const constants = {
 	livesInitial: 3,
-	levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+	levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15],
 	lifePrizes: [1, 1, 2, 2, 3, 3, 5, 5, 8, 8, 13, 13, 21, 21],
 	scorePerSuccess: 10,
 	intervalBonus: 2200, // ms
@@ -27,6 +28,7 @@ export const binding = Bind(
 		lives: Number(persist.getData('lives')) || constants.livesInitial,
 		score: Number(persist.getData('score')) || 0,
 		level: Number(persist.getData('level')) || 0,
+		bonus: Number(persist.getData('bonus')) || 0,
 	}, {
 		lives: '#lives',
 		score: '#score',
@@ -35,7 +37,8 @@ export const binding = Bind(
 			transform: function(value) {
 				return value + 1;
 			},
-		}
+		},
+		bonus: '#bonusText',
 	}
 );
 
@@ -61,8 +64,15 @@ export let mutations = {
 		binding.level = value;
 		persist.saveData('level', value);
 	},
+	getBonus: function() {
+		return binding.bonus;
+	},
+	setBonus: function(value) {
+		binding.bonus = value;
+		persist.saveData('bonus', value);
+	},
 	areLevelsFinished: function() {
-		return binding.lives === constants.levels.length - 1;
+		return binding.level === constants.levels.length - 1;
 	},
 };
 
@@ -86,5 +96,22 @@ export const actions = {
 		const level = mutations.getLevel() + 1;
 		mutations.setLevel(level);
 		return level;
-	}
+	},
+	increaseBonus: function() {
+		const bonus = mutations.getBonus() + 1;
+		mutations.setBonus(bonus);
+		return bonus;
+	},
+	decreaseBonus: function() {
+		const bonus = mutations.getBonus() - 1;
+		mutations.setBonus(bonus);
+		return bonus;
+	},
+	resetState: function() {
+		persist.saveData('tutorialIsNotLaunched', true);
+		mutations.setLives(constants.livesInitial);
+		mutations.setLevel(0);
+		mutations.setScore(0);
+		mutations.setBonus(0);
+	},
 }

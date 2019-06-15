@@ -7,8 +7,8 @@ const quotePhrase = document.getElementById('quotePhrase');
 const quoteAuthor = document.getElementById('quoteAuthor');
 const quoteNode = document.getElementById('quote');
 
-var quotesArray = [];
-for (var i in quotes) {
+let quotesArray = [];
+for (let i in quotes) {
 	quotesArray.push([i, quotes[i]]);
 }
 
@@ -38,7 +38,7 @@ function init() {
 	});
 
 	// Get sub-array of first n elements after shuffled
-	quotesSelected = shuffled.slice(0, constants.levels.length);
+	quotesSelected = shuffled.slice(0, constants.levels.length + 1);
 }
 
 export default {

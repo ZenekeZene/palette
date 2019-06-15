@@ -1,42 +1,24 @@
-import persist from '../tools/persist';
-import { constants } from '../common';
+import { constants, mutations, actions } from '../common';
 const statusObserver = constants.statusObserver;
 
-let contBonus = 0;
 const bonusWrapper = document.getElementById('bonusWrapper');
-const bonusText = document.getElementById('bonusText');
 const bonusButton = document.getElementById('bonusButton');
 let timerId;
 let bonusCheck = 0;
 
-function increaseBonus() {
-	contBonus += 1;
-	updateBonus();
-	saveBonus();
-}
-
-function decreaseBonus() {
-	contBonus -= 1;
-	updateBonus();
-	saveBonus();
-}
-
 function useBonus() {
-	decreaseBonus();
+	actions.decreaseBonus();
+	showBonus();
 	statusObserver.notify('bonusUsed');
 }
 
-function updateBonus() {
-	bonusText.innerHTML = contBonus;
-	if (contBonus <= 0) {
+function showBonus() {
+	const bonus = mutations.getBonus();
+	if (bonus <= 0) {
 		bonusWrapper.classList.add('hidden');
 	} else {
 		bonusWrapper.classList.remove('hidden');
 	}
-}
-
-function saveBonus() {
-	persist.saveData('bonus', contBonus);
 }
 
 function checkIsBonus(index) {
@@ -49,7 +31,7 @@ function checkIsBonus(index) {
 		bonusCheck = true;
 		return false;
 	} else if (bonusCheck) {
-		increaseBonus();
+		actions.increaseBonus();
 		statusObserver.notify('showCombo', index);
 		bonusCheck = false;
 	}
@@ -60,14 +42,12 @@ function init() {
 	statusObserver.subscribe(function(status, data) {
 		if (status === 'stepSuccess') {
 			checkIsBonus(data[0]);
-		} else if (status === 'playLevel') {
-			contBonus = Number(persist.getData('bonus')) || 0;
-			updateBonus();
+			showBonus();
 		}
 	});
 	
 	bonusButton.addEventListener('touchstart', function() {
-		if (contBonus) {
+		if (mutations.getBonus() > 0) {
 			useBonus();
 		}
 	});

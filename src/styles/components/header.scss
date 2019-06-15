@@ -23,6 +23,7 @@
 
 	&__back.header__back {
 		bottom: 2px;
+		z-index: 2;
 		width: $gutter-4;
 
 		&::before {

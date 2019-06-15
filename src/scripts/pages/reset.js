@@ -1,7 +1,4 @@
-import { constants, mutations } from '../common';
-import persist from '../tools/persist';
-
-const statusObserver = constants.statusObserver;
+import { actions } from '../common';
 
 const resetPage = document.getElementById('resetPage');
 const resetCancel = document.getElementById('resetCancel');
@@ -9,20 +6,17 @@ const resetAccept = document.getElementById('resetAccept');
 const resetButton = document.getElementById('resetButton');
 
 function handEvents() {
-	resetButton.addEventListener('click', function(event) {
+	resetButton.addEventListener('click', function() {
 		resetPage.classList.remove('hidden');
 	});
 
-	resetCancel.addEventListener('click', function(event) {
+	resetCancel.addEventListener('click', function() {
 		resetPage.classList.add('hidden');
 	});
 
-	resetAccept.addEventListener('click', function(event) {
+	resetAccept.addEventListener('click', function() {
 		resetPage.classList.add('hidden');
-		persist.saveData('tutorialIsNotLaunched', true);
-		mutations.setLives(constants.livesInitial);
-		mutations.setLevel(0);
-		mutations.setScore(0);
+		actions.resetState();
 		location.reload();
 	});
 }
