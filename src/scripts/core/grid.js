@@ -32,7 +32,7 @@ function cleanGrid(wrapperGrid) {
 function init(sizeEntry) {
 	size = sizeEntry;
 	swatchNodes = fillGrid(swatchesGrid);
-	if (mutations.getLevel() < 5) {
+	if (mutations.getLevel() < 4) {
 		swatchesGrid.classList.add('initial');
 	} else {
 		swatchesGrid.classList.remove('initial');
