@@ -134,6 +134,10 @@ function getRandomEnabledItem() {
 		return swatch.isEnabled === true;
 	});
 	const sample = _.sample(swatchActives);
+	if (!sample) {
+		console.log('Oh, oh...');
+		statusObserver.notify('reset');
+	}
 	return sample.index;
 }
 

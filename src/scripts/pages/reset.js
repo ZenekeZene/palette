@@ -1,9 +1,15 @@
-import { actions } from '../common';
+import { constants, actions } from '../common';
+const statusObserver = constants.statusObserver;
 
 const resetPage = document.getElementById('resetPage');
 const resetCancel = document.getElementById('resetCancel');
 const resetAccept = document.getElementById('resetAccept');
 const resetButton = document.getElementById('resetButton');
+
+function reset() {
+	actions.resetState();
+	location.reload();
+}
 
 function handEvents() {
 	resetButton.addEventListener('click', function() {
@@ -16,13 +22,17 @@ function handEvents() {
 
 	resetAccept.addEventListener('click', function() {
 		resetPage.classList.add('hidden');
-		actions.resetState();
-		location.reload();
+		reset();
 	});
 }
 
 function init() {
 	handEvents();
+	statusObserver.subscribe(function(status) {
+		if (status === 'reset') {
+			reset();
+		}
+	});
 }
 
 export default {
