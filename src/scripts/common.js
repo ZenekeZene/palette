@@ -11,7 +11,7 @@ export const config = {
 		android: 'market://details?id=com.pilpilgames.palette',
 		ios: 'https://itunes.apple.com/app/id1467492943',
 	},
-	_isDev: true,
+	_isDev: false,
 }
 
 export const constants = {
