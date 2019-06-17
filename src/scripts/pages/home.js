@@ -58,7 +58,6 @@ function handPlay() {
 }
 
 function handRate() {
-	let storeUrl;
 	if (isMobile === 'Android') {
 		window.location.replace(config.store.android);
 	} else if (isMobile === 'iOS') {

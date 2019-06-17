@@ -11,7 +11,7 @@ let isPlaying = false;
 const soundButton = document.getElementById('soundButton');
 
 function init() {
-	mute = persist.getData('mute') || true;
+	mute = persist.getData('mute') || false;
 	
 	if (mute) {
 		soundButton.classList.add('--silence');

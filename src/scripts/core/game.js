@@ -7,6 +7,8 @@ import ui from './ui';
 import persist from '../tools/persist';
 import spy from '../tools/spy';
 import bonus from '../extras/bonus';
+import sound from '../extras/sound';
+import record from '../extras/record';
 
 const statusObserver = constants.statusObserver;
 
@@ -277,8 +279,10 @@ function init() {;
 	statusObserver.subscribe(function(status, data) {
 		execAction(status, data);
 	});
-	ui.init(statusObserver);
-	bonus.init(statusObserver);
+	ui.init();
+	bonus.init();
+	sound.init();
+	record.init();
 }
 
 export default {

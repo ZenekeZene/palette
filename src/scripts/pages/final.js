@@ -1,10 +1,11 @@
-import { constants, mutations, config } from '../common';
+import { constants, mutations, actions, config } from '../common';
 const statusObserver = constants.statusObserver;
 const finalPage = document.getElementById('finalPage');
 const control = document.getElementById('control');
 const livesOutMessage = document.getElementById('livesOutMessage');
 const gameEndMessage = document.getElementById('gameEndMessage');
-const shareLinkFinal = document.getElementsByClassName('js-shareLinkFinal');
+const backButtonFinal = document.getElementById('backButtonFinal');
+const shareLinkFinal = document.getElementsByClassName('js-share-link');
 let shareUrlFinal;
 
 function setFinalMessage(isGameCompleted) {
@@ -39,6 +40,17 @@ function handEvents() {
 	for (let i = 0; i < shareLinkFinal.length - 1; i++) {
 		shareLinkFinal[i].addEventListener('click', shareUrl);
 	}
+	backButtonFinal.addEventListener('click', function() {
+		app.classList.add('hidden');
+		finalPage.classList.add('hidden');
+		finalPage.classList.remove('fadeIn');
+
+		statusObserver.notify('showHome');
+		statusObserver.notify('cleanLevel');
+		statusObserver.notify('showRecord');
+		statusObserver.notify('backButton');
+		actions.resetState();
+	});
 }
 
 function init() {

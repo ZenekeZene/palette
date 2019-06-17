@@ -44,8 +44,8 @@ function initDrag () {
 			origin.y = rect.top;
 		},
 		ondragenter: function (event) {
-			var draggableElement = event.relatedTarget;
-			var dropzoneElement = event.target;
+			const draggableElement = event.relatedTarget;
+			const dropzoneElement = event.target;
 
 			// feedback the possibility of a drop
 			dropzoneElement.classList.add('drop-target');
@@ -101,7 +101,7 @@ function initDrag () {
 					dropZoneCurrent.el,
 				)
 				isEntered = false;
-				setTimeout(statusObserver.notify('dropSuccessful', { dropZoneCurrent, index }), 500);
+				statusObserver.notify('dropSuccessful', { dropZoneCurrent, index });
 			} else {
 				setPosition(target, 0, 0);
 				statusObserver.notify('dropFailed');

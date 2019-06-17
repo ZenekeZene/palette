@@ -1,19 +1,13 @@
 import interact from 'interactjs';
 import { constants } from '../common';
 const statusObserver = constants.statusObserver;
-statusObserver.subscribe(function(status) {
-	if (status === 'init') {
-		init();
-	}
-});
-
 
 let creditsEnabled = true;
 let creditsInterval;
 const credits = document.getElementById('credits');
 const creditsPage = document.getElementById('creditsPage');
 const homePage = document.getElementById('homePage');
-const backButtonCredits = document.getElementById('backButtonCredits');
+const backButton = document.getElementById('backButton');
 
 function initDragCredits() {
 	creditsInterval = setInterval(function() {
@@ -90,7 +84,7 @@ function handEvents() {
 		}
 	});
 
-	backButtonCredits.addEventListener('click', function() {
+	backButton.addEventListener('click', function() {
 		statusObserver.notify('showHome');
 		creditsEnabled = true;
 		creditsPage.classList.add('hidden');

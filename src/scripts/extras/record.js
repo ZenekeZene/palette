@@ -22,7 +22,6 @@ function getRecord() {
 function handRecord() {
 	const levelCurrent = mutations.getLevel();
 	const score = mutations.getScore();
-	console.log(levelCurrent + ' , ' + score);
 	const {levelRecord, scoreRecord } = getRecord();
 	if (levelRecord) {
 		homeHighScore.classList.remove('invisible');
@@ -45,7 +44,7 @@ function saveRecord(levelCurrent, score) {
 
 function showRecord() {
 	const { levelRecord, scoreRecord } = getRecord();
-	if (levelRecord) {
+	if (levelRecord > 0) {
 		updateRecord(levelRecord, scoreRecord);
 		homeHighScore.classList.remove('invisible');
 	}
@@ -57,7 +56,7 @@ function updateRecord(level, score) {
 }
 
 function init() {
-	statusObserver.subscribe(function(status, data) {
+	statusObserver.subscribe(function(status) {
 		if (status === 'handRecord') {
 			handRecord();
 		} else if (status === 'showRecord') {

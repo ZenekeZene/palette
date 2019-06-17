@@ -2,39 +2,40 @@ const brightnessCoef = 30;
 const rangePercentageRelated = [0.1, 0.9];
 let swatchesHistorical = [];
 
-function ColorObject(cmyk, el) {
-	this.cmyk = cmyk;
-	this.el = el;
-	this.setCMYK(cmyk);
-	this.isEnabled = true;
+class ColorObject {
+	constructor(cmyk, el) {
+		this.cmyk = cmyk;
+		this.el = el;
+		this.setCMYK(cmyk);
+		this.isEnabled = true;
+	}
+
+	getCMYK() {
+		if (this.el) {
+			return JSON.parse('[' + this.el.getAttribute('data-cmyk') + ']');
+		}
+		return null;
+	}
+
+	setCMYK(cmyk) {
+		this.cmyk = cmyk;
+		if (this.el) {
+			this.el.setAttribute('data-cmyk', cmyk);
+			const cmykNode = document.createElement('span');
+			cmykNode.classList.add('swatch__cmyk');
+			cmykNode.innerHTML = cmyk;
+			this.el.append(cmykNode);
+			const rgbColor = getRGBColor(convertCMYKtoRGB(cmyk));
+			this.el.style.backgroundColor = rgbColor;
+			this.el.style['backgroundColor'] = rgbColor;
+			this.el.style.setProperty('background-color', rgbColor);
+		}
+	}
+
+	isMyNode(el) {
+		return this.el === el;
+	}
 }
-
-ColorObject.prototype.getCMYK = function() {
-	if (this.el) {
-		return JSON.parse('[' + this.el.getAttribute('data-cmyk') + ']');
-	}
-	return null;
-};
-
-ColorObject.prototype.setCMYK = function(cmyk) {
-	this.cmyk = cmyk;
-	if (this.el) {
-		this.el.setAttribute('data-cmyk', cmyk);
-		const cmykNode = document.createElement('span');
-		cmykNode.classList.add('swatch__cmyk');
-		cmykNode.innerHTML = cmyk;
-		this.el.append(cmykNode);
-
-		const rgbColor = getRGBColor(convertCMYKtoRGB(cmyk));
-		this.el.style.backgroundColor = rgbColor;
-		this.el.style['backgroundColor'] = rgbColor;
-		this.el.style.setProperty('background-color', rgbColor);
-	}
-};
-
-ColorObject.prototype.isMyNode = function(el) {
-	return this.el === el;
-};
 
 function getRandomInterval(min, max) {
 	min = Math.ceil(min);
@@ -116,7 +117,7 @@ function subtractColors(color1, color2) {
 	return null;
 }
 
-const color =  {
+export default {
 	ColorObject,
 	getRGBColor,
 	convertCMYKtoRGB,
@@ -126,5 +127,3 @@ const color =  {
 	subtractColors,
 	getRandomInterval,
 };
-
-export default color;

@@ -1,7 +1,5 @@
 import { constants, mutations, actions } from '../common';
-import record from '../extras/record';
 import quote from '../extras/quote/quote';
-import sound from '../extras/sound';
 import credits from '../pages/credits';
 import home from '../pages/home';
 import final from '../pages/final';
@@ -11,13 +9,12 @@ const statusObserver = constants.statusObserver;
 
 // Cache references to DOM elements:
 const elms = [
-	'control', 'nextButton', 'replayButton', 'playButton', 'backButton',
-	'rateButton',
+	'app',
+	'control', 'nextButton', 'replayButton', 'backButton',
 	'liveIcon',
 	'screenTutorial', 'replayText',
-	'backButtonFinal',
+	'backButton',
 	'progression',
-	'shareLink',
 ];
 
 elms.forEach(function(elm) {
@@ -26,7 +23,6 @@ elms.forEach(function(elm) {
 
 function successfulLevel() {
 	let levelCurrent = mutations.getLevel();
-	console.log(mutations.areLevelsFinished());
 	if (mutations.areLevelsFinished()) {
 		showFinalPage();
 	} else {
@@ -48,7 +44,7 @@ function successfulLevel() {
 function failedLevel() {
 	progression.classList.add('progression', `level-${mutations.getLevel()}`);
 	let lives = mutations.getLives();
-	if (lives !== 1) {
+	if (lives > 1) {
 		actions.decreaseLife();
 
 		liveIcon.classList.add('hidden');
@@ -61,22 +57,11 @@ function failedLevel() {
 		replayButton.classList.remove('hidden');
 		replayButton.classList.add('fadeIn');
 	} else {
-		statusObserver.notify('showFinalPage', false);
+		showFinalPage(false);
 	}
 }
 
 function handEvents() {
-
-	backButtonFinal.addEventListener('click', function() {
-		app.classList.add('hidden');
-		finalPage.classList.add('hidden');
-		finalPage.classList.remove('fadeIn');
-
-		statusObserver.notify('showHome');
-		statusObserver.notify('cleanLevel');
-		statusObserver.notify('showRecord');
-		statusObserver.notify('backButton');
-	});
 
 	backButton.addEventListener('click', function() {
 		statusObserver.notify('showHome');		
@@ -90,8 +75,7 @@ function handEvents() {
 		screenTutorial.classList.remove('fadeIn');
 		screenTutorial.classList.add('fadeOut');
 		app.classList.add('fadeIn');
-		app.classList.remove('fadeOut');
-		app.classList.remove('hidden');
+		app.classList.remove('fadeOut', 'hidden');
 	});
 
 	nextButton.addEventListener('click', showLevel);
@@ -124,10 +108,8 @@ function init() {
 	handEvents();
 	
 	home.init();
-	quote.init();
-	sound.init();
+	quote.init();	
 	credits.init();
-	record.init();
 	final.init();
 	reset.init();
 	

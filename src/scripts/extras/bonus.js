@@ -43,6 +43,8 @@ function init() {
 		if (status === 'stepSuccess') {
 			checkIsBonus(data[0]);
 			showBonus();
+		} else if (status == 'playLevel') {
+			showBonus();
 		}
 	});
 	
@@ -51,6 +53,8 @@ function init() {
 			useBonus();
 		}
 	});
+
+	showBonus();
 }
 
 export default {
