@@ -1,6 +1,6 @@
 {
   "name": "Palette",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Palette, el juego",
   "main": "./app/index.js",
   "author": "Héctor Villar Mozo y Jorge Fuente",
