@@ -7,7 +7,7 @@ let creditsInterval;
 const credits = document.getElementById('credits');
 const creditsPage = document.getElementById('creditsPage');
 const homePage = document.getElementById('homePage');
-const backButton = document.getElementById('backButton');
+const backButton = document.getElementById('backButtonCredits');
 
 function initDragCredits() {
 	creditsInterval = setInterval(function() {
@@ -28,7 +28,7 @@ function initDragCredits() {
 
 function clearCredits() {
 	clearInterval(creditsInterval);
-	setPositionCredits(0, 0);
+	setPositionCredits(0, 150);
 }
 
 function setPositionCredits(x, y) {
@@ -93,6 +93,7 @@ function handEvents() {
 }
 
 function init() {
+	setPositionCredits(0, 150);
 	handCreditsDrag();
 	handEvents();
 }

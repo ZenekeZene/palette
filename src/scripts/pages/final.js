@@ -4,7 +4,7 @@ const finalPage = document.getElementById('finalPage');
 const control = document.getElementById('control');
 const livesOutMessage = document.getElementById('livesOutMessage');
 const gameEndMessage = document.getElementById('gameEndMessage');
-const backButtonFinal = document.getElementById('backButtonFinal');
+const backButton = document.getElementById('backButton');
 const shareLinkFinal = document.getElementsByClassName('js-share-link');
 let shareUrlFinal;
 
@@ -40,7 +40,7 @@ function handEvents() {
 	for (let i = 0; i < shareLinkFinal.length - 1; i++) {
 		shareLinkFinal[i].addEventListener('click', shareUrl);
 	}
-	backButtonFinal.addEventListener('click', function() {
+	backButton.addEventListener('click', function() {
 		app.classList.add('hidden');
 		finalPage.classList.add('hidden');
 		finalPage.classList.remove('fadeIn');

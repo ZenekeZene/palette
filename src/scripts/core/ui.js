@@ -10,7 +10,7 @@ const statusObserver = constants.statusObserver;
 // Cache references to DOM elements:
 const elms = [
 	'app',
-	'control', 'nextButton', 'replayButton', 'backButton',
+	'control', 'nextButton', 'replayButton',
 	'liveIcon',
 	'screenTutorial', 'replayText',
 	'backButton',
@@ -64,6 +64,7 @@ function failedLevel() {
 function handEvents() {
 
 	backButton.addEventListener('click', function() {
+		console.log(app);
 		statusObserver.notify('showHome');		
 		statusObserver.notify('cleanLevel');
 		statusObserver.notify('backButton');
