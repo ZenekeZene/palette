@@ -4,7 +4,7 @@ const finalPage = document.getElementById('finalPage');
 const control = document.getElementById('control');
 const livesOutMessage = document.getElementById('livesOutMessage');
 const gameEndMessage = document.getElementById('gameEndMessage');
-const backButton = document.getElementById('backButton');
+const backButton = document.getElementById('backButtonFinal');
 const shareLinkFinal = document.getElementsByClassName('js-share-link');
 let shareUrlFinal;
 
