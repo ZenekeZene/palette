@@ -33,6 +33,7 @@ $size-active: 8vh;
 		transition: none;
 
 		&.drag-active {
+			animation: none;
 			animation-play-state: paused;
 			border-radius: 50px;
 			$size: calc((30vh - 48px) / 3);
