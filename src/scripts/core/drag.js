@@ -64,9 +64,6 @@ function initDrag () {
 			isEntered = false;
 			dropZoneCurrent = null;
 		},
-		ondrop: function (event) {
-			event.relatedTarget.textContent = 'Dropped';
-		},
 		ondropdeactivate: function (event) {
 			// remove active dropzone feedback
 			event.target.classList.remove('drop-active');

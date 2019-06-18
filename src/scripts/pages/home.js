@@ -31,7 +31,6 @@ function showTutorial() {
 
 function setShareUrl() {
 	const { levelRecord, scoreRecord } = record.getRecord();
-	console.log(constants.levels.length);
 	if (levelRecord !== constants.levels.length) {
 		shareUrl = `I have finished @Palette at level ${ levelRecord } with ${ scoreRecord } points!!! Can you make it better?`;
 	} else {
