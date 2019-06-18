@@ -32,7 +32,7 @@ function setShareUrl() {
 	const levelCurrent = mutations.getLevel();
 	const score = mutations.getScore(); 
 
-	if (mutations.areLevelsFinished()) {
+	if (!mutations.areLevelsFinished()) {
 		shareUrl = `I have finished @Palette at level ${levelCurrent + 1} with ${score} points!!! Can you make it better?`;
 	} else {
 		shareUrl = `I have overcome all the levels of @Palette with ${score} points  at level ${levelCurrent + 1}!!!`;

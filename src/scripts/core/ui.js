@@ -21,10 +21,15 @@ elms.forEach(function(elm) {
 	window[elm] = document.getElementById(elm);
 });
 
+function showFinalPage(isGameCompleted) {
+	statusObserver.notify('showFinalPage', isGameCompleted);
+	statusObserver.notify('handRecord');
+}
+
 function successfulLevel() {
 	let levelCurrent = mutations.getLevel();
 	if (mutations.areLevelsFinished()) {
-		showFinalPage();
+		showFinalPage(true);
 	} else {
 		actions.increaseLife();
 		levelCurrent = actions.increaseLevel();
@@ -64,7 +69,6 @@ function failedLevel() {
 function handEvents() {
 
 	backButton.addEventListener('click', function() {
-		console.log(app);
 		statusObserver.notify('showHome');		
 		statusObserver.notify('cleanLevel');
 		statusObserver.notify('backButton');
@@ -81,11 +85,6 @@ function handEvents() {
 
 	nextButton.addEventListener('click', showLevel);
 	replayButton.addEventListener('click', showLevel);
-}
-
-function showFinalPage(isGameCompleted) {
-	statusObserver.notify('showFinalPage', isGameCompleted);
-	statusObserver.notify('handRecord');
 }
 
 function showLevel() {

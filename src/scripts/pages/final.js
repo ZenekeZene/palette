@@ -14,7 +14,7 @@ function setFinalMessage(isGameCompleted) {
 	const score = mutations.getScore();
 	
 	if (!isGameCompleted) {
-		textTweet = `I+have+finished+@PlayPalette+with+${score}+points+at+level+${levelCurrent}!!!`;
+		textTweet = `I+have+finished+@PlayPalette+with+${score}+points+at+level+${levelCurrent + 1}!!!`;
 		livesOutMessage.classList.remove('hidden');
 		gameEndMessage.classList.add('hidden');
 	} else {
