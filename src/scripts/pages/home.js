@@ -1,5 +1,6 @@
 import { constants, mutations, config } from '../common';
 import persist from '../tools/persist';
+import record from '../extras/record';
 
 let playEnabled = true;
 let shareUrl;
@@ -29,13 +30,12 @@ function showTutorial() {
 }
 
 function setShareUrl() {
-	const levelCurrent = mutations.getLevel();
-	const score = mutations.getScore(); 
-
-	if (!mutations.areLevelsFinished()) {
-		shareUrl = `I have finished @Palette at level ${levelCurrent + 1} with ${score} points!!! Can you make it better?`;
+	const { levelRecord, scoreRecord } = record.getRecord();
+	console.log(constants.levels.length);
+	if (levelRecord !== constants.levels.length) {
+		shareUrl = `I have finished @Palette at level ${ levelRecord } with ${ scoreRecord } points!!! Can you make it better?`;
 	} else {
-		shareUrl = `I have overcome all the levels of @Palette with ${score} points  at level ${levelCurrent + 1}!!!`;
+		shareUrl = `I have overcome all the levels of @Palette with ${ scoreRecord } points  at level ${ levelRecord }!!!`;
 	}
 }
 

@@ -68,4 +68,5 @@ function init() {
 
 export default {
 	init,
+	getRecord,
 }
