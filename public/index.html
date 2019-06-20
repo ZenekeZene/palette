@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Palette</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+		crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but palette-vue doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+
+	<script>
+		function getMobileOperatingSystem() {
+			let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+			// Windows Phone must come first because its UA also contains "Android"
+			if (/windows phone/i.test(userAgent)) {
+				return "Windows Phone";
+			}
+
+			if (/android/i.test(userAgent)) {
+				return "Android";
+			}
+
+			// iOS detection from: http://stackoverflow.com/a/9039885/177710
+			if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+				return "iOS";
+			}
+
+			return "unknown";
+		}
+		isMobile = this.getMobileOperatingSystem();
+		
+		document.body.classList.add(( isMobile.localeCompare('Android') === 0 ? 'android' : 'ios'));
+
+		function openUrl(theUrl) {
+			window.open(theUrl, '_blank', 'location=yes');
+		}
+	</script>
+  </body>
+</html>
