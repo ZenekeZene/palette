@@ -13,11 +13,11 @@
 		</div>
 	</header>
 	<nav class="home-buttons">
-		<button id="playButton" class="home-buttons__play"></button>
+		<router-link to="game" class="home-buttons__play"></router-link>
 		<button id="rateButton" class="home-buttons__rate"></button>
 		<button id="soundButton" class="home-buttons__sound"></button>
 		<button id="resetButton" class="home-buttons__reset"></button>
-		<button id="creditsButton" class="home-buttons__about"></button>
+		<router-link to="credits" class="home-buttons__about"></router-link>
 		<a id="eulaButton" class="home-buttons__eula" onclick="openUrl('http://palette.ws/legal.html')" href="#"></a>
 	</nav>
 	<section id="homeHighScore" class="home-hiscore invisible">
