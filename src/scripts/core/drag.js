@@ -51,6 +51,7 @@ function initDrag () {
 			dropzoneElement.classList.add('drop-target');
 			draggableElement.classList.add('can-drop');
 			isEntered = true;
+
 			for (let i = 0; i < dropzones.length; i++) {
 				if (dropzones[i].isMyNode(dropzoneElement)) {
 					dropZoneCurrent = dropzones[i];
@@ -86,6 +87,7 @@ function initDrag () {
 			const target = event.target;
 			target.classList.remove('drag-active');
 			const isEnabled = !dropZoneCurrent || !dropZoneCurrent.el.classList.contains('disabled');
+            
 			if (isEntered && isEnabled) {
 				const rect = offset(dropZoneCurrent.el);
 				target.style.webkitTransform = target.style.transform = 'translate(0, 0)';
@@ -98,6 +100,7 @@ function initDrag () {
 					dropZoneCurrent.el,
 				)
 				isEntered = false;
+				console.log('dropSuccessful');
 				statusObserver.notify('dropSuccessful', { dropZoneCurrent, index });
 			} else {
 				setPosition(target, 0, 0);

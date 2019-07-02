@@ -1,4 +1,4 @@
-import { constants, mutations, actions } from '../common';
+import { constants } from '../common';
 const statusObserver = constants.statusObserver;
 
 const bonusWrapper = document.getElementById('bonusWrapper');

@@ -1,4 +1,4 @@
-import { constants, mutations, config } from '../common';
+import { constants, config } from '../common';
 import persist from '../tools/persist';
 import record from '../extras/record';
 

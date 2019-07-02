@@ -1,5 +1,5 @@
 const _ = require('lodash');
-import { constants, mutations, config } from '../common';
+import { constants, config } from '../common';
 import drag from './drag';
 import grid from './grid';
 import color from './color';

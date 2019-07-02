@@ -1,15 +1,15 @@
 <template>
-<aside id="homePage" class="home fadeIn animated">
+<aside id="homePage" class="home">
 	<header class="home-header">
-		<div class="home-header__logo fadeInDown animated">
+		<div class="home-header__logo">
 			<img src="img/logo.svg" alt="Palette logo" height="50">
 		</div>
 		<div class="header">
 			<p class="header__level">LEVEL&nbsp;
-				<span id="level"></span>
+				<span>{{ level }}</span>
 			</p>
-			<p id="score" class="header__score">40</p>
-			<p id="lives" class="header__lives">17</p>
+			<p class="header__score">{{ score }}</p>
+			<p class="header__lives">{{ lives }}</p>
 		</div>
 	</header>
 	<nav class="home-buttons">
@@ -33,7 +33,16 @@
 </template>
 
 <script>
+import { mutations } from '../scripts/common';
 export default {
-  name: "HomePage",
+	name: "HomePage",
+	data() {
+		return {
+			lives: mutations.getLives(),
+			score: mutations.getScore(),
+			level: mutations.getLevel(),
+			highLevel: 0,
+		} 
+	}
 };
 </script>

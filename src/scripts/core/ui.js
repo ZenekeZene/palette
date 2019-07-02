@@ -1,4 +1,4 @@
-import { constants, mutations, actions } from '../common';
+import { constants } from '../common';
 import quote from '../extras/quote/quote';
 import credits from '../pages/credits';
 import home from '../pages/home';

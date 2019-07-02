@@ -12,7 +12,7 @@
 html {
 	width: 100vw;
 	height: 100vh;
-	height: calc(var(--vh, 1vh) * 100);
+	//height: calc(var(--vh, 1vh) * 100);
 	font-size: 32px;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 300;
@@ -36,5 +36,5 @@ body {
 	@include flex(flex, start, center);
 	flex-direction: column;
 	height: 100vh; // Use vh as a fallback for browsers that do not support Custom Properties
-	height: calc((var(--vh, 1vh) * 100) - 24px);
+	//height: calc((var(--vh, 1vh) * 100) - 24px);
 }

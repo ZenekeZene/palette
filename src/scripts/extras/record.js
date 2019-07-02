@@ -1,5 +1,5 @@
 import persist from '../tools/persist';
-import { constants, mutations } from '../common';
+import { constants } from '../common';
 
 let statusObserver = constants.statusObserver;
 

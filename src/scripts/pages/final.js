@@ -1,4 +1,4 @@
-import { constants, mutations, actions, config } from '../common';
+import { constants, config } from '../common';
 const statusObserver = constants.statusObserver;
 const finalPage = document.getElementById('finalPage');
 const control = document.getElementById('control');

@@ -1,4 +1,4 @@
-import { constants, actions } from '../common';
+import { constants } from '../common';
 const statusObserver = constants.statusObserver;
 
 const resetPage = document.getElementById('resetPage');

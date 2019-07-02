@@ -5,7 +5,7 @@ $size-active: 8vh;
 
 	&__swatch,
 	&__base {
-		@include absolute(bottom 1rem);
+		@include absolute(bottom 2rem);
 		left: 50%;
 		margin-left: -$size-active / 2;
 	}
