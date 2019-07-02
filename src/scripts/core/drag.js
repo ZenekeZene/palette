@@ -1,6 +1,5 @@
 import interact from 'interactjs'
-import { constants } from '../common';
-const statusObserver = constants.statusObserver;
+import { serverBus } from './bus';
 
 let activeNode, dropzones;
 
@@ -17,7 +16,7 @@ function dragMoveListener (event) {
 	const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 	target.classList.add('drag-active');
 	setPosition(target, x, y);
-	statusObserver.notify('activeIsMoved');
+	serverBus.$emit('activeIsMoved');
 }
 
 function initDrag () {
@@ -100,11 +99,10 @@ function initDrag () {
 					dropZoneCurrent.el,
 				)
 				isEntered = false;
-				console.log('dropSuccessful');
-				statusObserver.notify('dropSuccessful', { dropZoneCurrent, index });
+				serverBus.$emit('dropSuccessful', { dropZoneCurrent, index });
 			} else {
 				setPosition(target, 0, 0);
-				statusObserver.notify('dropFailed');
+				serverBus.$emit('dropFailed');
 			}
 		}
 	});

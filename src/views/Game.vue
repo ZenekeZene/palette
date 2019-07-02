@@ -29,6 +29,7 @@
 <script>
 const _ = require('lodash');
 import { constants, mutations, config } from '../scripts/common';
+import { serverBus } from '../scripts/core/bus';
 import drag from '../scripts/core/drag';
 import color from '../scripts/core/color';
 import persist from '../scripts/tools/persist';
@@ -55,26 +56,10 @@ export default {
 		};
 	},
 	mounted() {
-		this.swatchNodes = this.fillGrid(this.swatchesGrid);
-		this.dropzoneNodes = this.fillGrid(this.mixesGrid);
-
-		// Init Swatches, Dropzones and Active
-		this.swatches = this.initSwatches(this.swatchNodes);
-		this.dropzones = this.initDropzones(this.dropzoneNodes);
-		this.activeColor = this.createActive();
-		this.tutorialIsNotLaunched = persist.getData('tutorialIsNotLaunched') !== 'false';
-		if (this.tutorialIsNotLaunched === true) {
-			this.activeBase.classList.add('tutorial');
-		}
-		drag.init(this.activeColor.el, this.dropzones);
-		this.limitActive.append(this.activeColor.el);
-		
-		if (config._isDev) {
-			document.getElementById('app').classList.add('--is-dev');
-			spy._giveMeTheSolution(numItems, this.swatches, this.dropzones, this.activeColor);
-		} else {
-			document.getElementById('app').classList.remove('--is-dev');
-		}
+		this.playLevel();
+		serverBus.$on('activeIsMoved', () => { this.activeIsMoved()});
+		serverBus.$on('dropSuccessful', (data) => { this.dropSuccessful(data)});
+		serverBus.$on('playLevel', () => { this.playLevel();});
 	},
 	computed: {
 		limitActive() {
@@ -91,6 +76,28 @@ export default {
 		},
 	},
 	methods: {
+		playLevel() {
+			this.swatchNodes = this.fillGrid(this.swatchesGrid);
+			this.dropzoneNodes = this.fillGrid(this.mixesGrid);
+
+			// Init Swatches, Dropzones and Active
+			this.swatches = this.initSwatches(this.swatchNodes);
+			this.dropzones = this.initDropzones(this.dropzoneNodes);
+			this.activeColor = this.createActive();
+			this.tutorialIsNotLaunched = persist.getData('tutorialIsNotLaunched') !== 'false';
+			if (this.tutorialIsNotLaunched === true) {
+				this.activeBase.classList.add('tutorial');
+			}
+			drag.init(this.activeColor.el, this.dropzones);
+			this.limitActive.append(this.activeColor.el);
+			
+			if (config._isDev) {
+				document.getElementById('app').classList.add('--is-dev');
+				spy._giveMeTheSolution(numItems, this.swatches, this.dropzones, this.activeColor);
+			} else {
+				document.getElementById('app').classList.remove('--is-dev');
+			}
+		},
 		fillGrid(wrapperGrid) {
 			let items = [];
 			for (let i = 0; i < this.numItems; i++) {
@@ -102,7 +109,7 @@ export default {
 			return items;
 		},
 		isSuccessfulMix(indexToCheck) {
-			if (_.isEqual(this.swatches[indexToCheck].cmyk, dropzones[indexToCheck].cmyk)) {
+			if (_.isEqual(this.swatches[indexToCheck].cmyk, this.dropzones[indexToCheck].cmyk)) {
 				this.swatches[indexToCheck].el.classList.add('match-swatch');
 				this.dropzones[indexToCheck].el.classList.add('match-mixer');
 				this.swatches[indexToCheck].isEnabled = false;
@@ -112,20 +119,22 @@ export default {
 			return false;
 		},
 		updateActive(newActiveColor) {
-			this.limitActive.removeChild(activeColor.el);
+			this.limitActive.removeChild(this.activeColor.el);
 			this.activeColor = newActiveColor;
-			this.limitActive.append(activeColor.el);
-			drag.setActiveNode(activeColor.el);
+			this.limitActive.append(this.activeColor.el);
+			drag.setActiveNode(this.activeColor.el);
 		},
 		doStep(dropzone, index, isFromBonus) {
-			const colorMixed = mix(dropzone.cmyk, activeColor.cmyk);
+			const colorMixed = this.mix(dropzone.cmyk, this.activeColor.cmyk);
+            console.log("TCL: doStep -> this.activeColor.cmyk", this.activeColor.cmyk)
+            console.log("TCL: doStep -> dropzone.cmyk", dropzone.cmyk)
 			dropzone.setCMYK(colorMixed);
 
-			if (isSuccessfulMix(index)) {
+			if (this.isSuccessfulMix(index)) {
 				this.contSuccess++;
 				if (!isFromBonus) {
-					statusObserver.notify('increaseScore');
-					statusObserver.notify('stepSuccess', index);
+					serverBus.$emit('increaseScore');
+					serverBus.$emit('stepSuccess', index);
 				}
 				if (this.contSuccess !== this.swatches.length) {
 					this.handSuccessfulMix(dropzone, isFromBonus);
@@ -149,17 +158,17 @@ export default {
 		},
 		handSuccessfulMix(dropzone) {
 			dropzone.el.classList.add('disabled');
-			this.updateActive(createActive());
+			this.updateActive(this.createActive());
 			if (config._isDev) {
 				spy._giveMeTheSolution(this.numItems, this.swatches, this.dropzones, this.activeColor);
 			}
 		},
 		handFailedMix() {
-			const { dropzoneWasCorrect, swatchWasCorrect } = searchCorrectSwatchAndDropzone();
-			this.limitActive.removeChild(activeColor.el);
+			const { dropzoneWasCorrect, swatchWasCorrect } = this.searchCorrectSwatchAndDropzone();
+			this.limitActive.removeChild(this.activeColor.el);
 			this.activeColor = null;
 			this.contSuccess = 0;
-			statusObserver.notify('failedLevel'); 
+			serverBus.$emit('failedLevel');
 			dropzoneWasCorrect.el.classList.add('wasCorrect');
 			swatchWasCorrect.el.classList.add('wasCorrect');
 			const swatchesNotCorrect = this.swatches.filter(
@@ -179,7 +188,7 @@ export default {
 			this.limitActive.removeChild(this.activeColor.el);
 			this.activeColor = null;
 			this.contSuccess = 0;
-			statusObserver.notify('successfulLevel');
+			serverBus.$emit('successfulLevel');
 		},
 		searchCorrectSwatchAndDropzone() {
 			let dropzoneWasCorrect, swatchWasCorrect;
@@ -187,8 +196,8 @@ export default {
 				for (let j = 0; j < this.dropzones.length; j++) {
 					let cmyk = color.addColors(this.activeColor.cmyk, this.dropzones[j].cmyk);
 					if (_.isEqual(cmyk, this.swatches[i].cmyk)) {
-						dropzoneWasCorrect = dropzones[j];
-						swatchWasCorrect = swatches[i];
+						dropzoneWasCorrect = this.dropzones[j];
+						swatchWasCorrect = this.swatches[i];
 					}
 				}
 			}
@@ -204,7 +213,7 @@ export default {
 			const sample = _.sample(swatchActives);
 			if (!sample) {
 				console.log('Oh, oh...');
-				statusObserver.notify('reset');
+				serverBus.$emit('reset');
 			}
 			return sample.index;
 		},
@@ -237,11 +246,11 @@ export default {
 			}
 		},
 		dropSuccessful(data) {
-			const {dropZoneCurrent, index } = data[0];
-			if (tutorialIsNotLaunched) {
-				launchTutorial();
+			const {dropZoneCurrent, index } = data;
+			if (this.tutorialIsNotLaunched) {
+				this.launchTutorial();
 			}
-			doStep(dropZoneCurrent, index, false);
+			this.doStep(dropZoneCurrent, index, false);
 		},
 		dropFailed() {
 			if (this.tutorialIsNotLaunched) {
@@ -274,7 +283,7 @@ export default {
 		},
 		bonusUsed() {
 			const index = spy._giveMeTheSolution(this.numItems, this.swatches, this.dropzones, this.activeColor);
-			doStep(this.dropzones[index], index, true);
+			this.doStep(this.dropzones[index], index, true);
 			statusObserver.notify('stepSuccessBonus');
 		}
 	}
