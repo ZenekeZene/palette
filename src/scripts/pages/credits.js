@@ -25,7 +25,6 @@ function initDragCredits() {
 	}, 30);
 }
 
-
 function clearCredits() {
 	clearInterval(creditsInterval);
 	setPositionCredits(0, 150);
@@ -84,7 +83,7 @@ function handEvents() {
 		}
 	});
 
-	backButton.addEventListener('click', function() {
+	this.$refs.backButton.addEventListener('click', function() {
 		statusObserver.notify('showHome');
 		creditsEnabled = true;
 		creditsPage.classList.add('hidden');

@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Game from "./views/Game.vue";
 import Control from "./views/Control.vue";
+import Credits from "./views/Credits.vue";
 
 Vue.use(Router);
 
@@ -26,7 +27,7 @@ export default new Router({
 		{
 			path: "/credits",
 			name: "credits",
-			//component: Credits
+			component: Credits,
 		},
 	]
 });

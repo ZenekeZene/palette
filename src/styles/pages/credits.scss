@@ -4,7 +4,7 @@
 	display: block!important;
 	width: 100vw;
 	height: 100vh; // Use vh as a fallback for browsers that do not support Custom Properties
-	height: calc(var(--vh, 1vh) * 100);
+	//height: calc(var(--vh, 1vh) * 100);
 	padding: $gutter-2 $gutter-4;
 	font-size: 0.6rem;
 	background: $paper;
