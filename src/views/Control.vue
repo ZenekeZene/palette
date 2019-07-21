@@ -43,9 +43,7 @@
 <script>
 	import { serverBus } from '../scripts/core/bus';
 	import quote from '../scripts/extras/quote/quote';
-	import credits from '../scripts/pages/credits';
 	import final from '../scripts/pages/final';
-	import reset from '../scripts/pages/reset';
 
 	export default {
 		name: 'control',

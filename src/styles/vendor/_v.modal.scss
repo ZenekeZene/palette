@@ -1,0 +1,28 @@
+.v-custom-modal {
+
+	.v--modal {
+		display: block;
+		left: 50% !important;
+		transform: translateX(-50%);
+		height: auto !important; // (1)
+		max-width: 80%;
+		margin: 0;
+		text-align: center;
+		border-radius: 0.39rem;
+	}
+
+	&.v--modal-overlay {
+		background-color: rgba($color-black, 0.6);
+	}
+
+	[slot="top-right"] {
+		@include absolute(top $gutter right $gutter);
+	}
+
+	[slot="top-left"] {
+		@include absolute(top $gutter left $gutter);
+	}
+}
+
+// (1): To override JS authoring.
+// (2): To save the space occupied by close button.

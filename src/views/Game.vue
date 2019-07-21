@@ -1,16 +1,7 @@
 <template>
 <transition name="fade">
 	<section id="app" class="game animated">
-		<header class="header">
-			<p id="backButton" class="header__back"></p>
-			<p class="header__level">LEVEL&nbsp;
-				<span>{{ level }}</span>
-			</p>
-			<p class="header__score">{{ score }}</p>
-			<p class="header__lives">
-				<span class="animated">{{ lives }}</span>
-			</p>
-		</header>
+		<header-item></header-item>
 		<main>
 			<section ref="swatchesGrid" class="swatches"></section>
 			<section id="mixesGrid" ref="mixesGrid" class="swatches mixer"></section>
@@ -28,7 +19,8 @@
 
 <script>
 const _ = require('lodash');
-import { constants, mutations, config } from '../scripts/common';
+import HeaderItem from './HeaderItem';
+import { constants, mutations, config } from '../scripts/common';
 import { serverBus } from '../scripts/core/bus';
 import drag from '../scripts/core/drag';
 import color from '../scripts/core/color';
@@ -54,6 +46,9 @@ export default {
 			lives: mutations.getLives(),
 			score: mutations.getScore(),
 		};
+	},
+	components: {
+		HeaderItem,
 	},
 	mounted() {
 		this.playLevel();
