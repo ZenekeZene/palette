@@ -1,13 +1,11 @@
 .notification {
-	border: 2px solid red;
-	position: relative;
-	top: 0;
+	@include relative(top);
 	padding: $gutter-2;
 	border-radius: $gutter;
 	background: $paper;
 	box-shadow: 0 0 $gutter $cool;
-	-webkit-transition: top .6s cubic-bezier(.08,.49,.4,1.25) .3s;
-	transition: top .6s cubic-bezier(.08,.49,.4,1.25) .3s;
+	-webkit-transition: top 0.6s cubic-bezier(0.08, 0.49, 0.4, 1.25) 0.3s;
+	transition: top 0.6s cubic-bezier(0.08, 0.49, 0.4, 1.25) 0.3s;
 
 	&__title {
 		padding-bottom: $gutter;
@@ -55,7 +53,7 @@
 			}
 		}
 
-		&--acept {
+		&--accept {
 			background-color: $cool;
 
 			&::before {

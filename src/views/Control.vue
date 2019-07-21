@@ -1,6 +1,6 @@
 <template>
-	<aside id="control" class="control hidden">
-		<div id="quote" class="quote hidden">
+	<aside id="control" class="control">
+		<div id="quote" class="quote">
 			<p id="quotePhrase">Creativity takes courage</p>
 			<span id="quoteAuthor">Henry Matisse</span>
 		</div>
@@ -9,12 +9,8 @@
 				<span>TRY AGAIN</span>
 			</p>
 		</div>
-		<button id="nextButton" class="animated">
-			<i class="fa fa-play" aria-hidden="true"></i>
-		</button>
-		<button id="replayButton" class="animated">
-			<i class="fa fa-redo" aria-hidden="true"></i>
-		</button>
+		<button v-if="isSuccess" @click="showLevel()"><i class="fa fa-play" aria-hidden="true"></i></button>
+		<button v-if="!isSuccess" @click="showLevel()"><i class="fa fa-redo" aria-hidden="true"></i></button>
 		<div id="liveIcon" class="liveUp">+1</div>
 		<div id="progression" class="progression level-1">
 			<p class="progression__text">Game progression:
@@ -43,7 +39,6 @@
 <script>
 	import { serverBus } from '../scripts/core/bus';
 	import quote from '../scripts/extras/quote/quote';
-	import final from '../scripts/pages/final';
 
 	export default {
 		name: 'control',
@@ -69,24 +64,20 @@
 			replayText() {
 				return this.$refs.replayText;
 			},
-			backButton() {
-				return this.$refs.backButton;
-			},
 			progression() {
 				return this.$refs.progression;
 			},
 		},
+		data() {
+			return {
+				isSuccess: false,	
+			};
+		},
 		mounted() {
-			serverBus.$on('successfulLevel', ()=> { successfulLevel(); });
-			serverBus.$on('failedLevel', ()=> { failedLevel(); });
-			serverBus.$on('increaseScore', ()=> { increaseScore(); });
-
-			this.handEvents();
+			serverBus.$on('successfulLevel', () => { this.successfulLevel(); });
+			serverBus.$on('failedLevel', () => { this.failedLevel(); });
 			
 			quote.init();	
-			credits.init();
-			final.init();
-			reset.init();
 			
 			serverBus.$emit('showHome');
 		},
@@ -108,10 +99,7 @@
 					this.control.classList.remove('hidden');
 					this.app.classList.remove('fadeIn');
 					this.app.classList.add('fadeOut');
-					this.nextButton.classList.remove('hidden');
-					this.nextButton.classList.add('fadeIn');
-					this.replayButton.classList.add('hidden');
-					this.replayText.classList.add('hidden');
+					this.isSuccess = true;
 				}
 			},
 			failedLevel() {
@@ -124,40 +112,14 @@
 					this.control.classList.add('fadeIn');
 					this.control.classList.remove('hidden');
 					this.app.classList.add('fadeOut');
-					this.nextButton.classList.add('hidden');
-					this.replayText.classList.remove('hidden');
-					this.replayText.classList.add('fadeIn');
-					this.replayButton.classList.remove('hidden');
-					this.replayButton.classList.add('fadeIn');
+					this.isSuccess = false;
 				} else {
 					this.showFinalPage(false);
 				}
 			},
-			handEvents() {
-				backButton.addEventListener('click', function() {
-					serverBus.$emit('showHome');		
-					serverBus.$emit('cleanLevel');
-					serverBus.$emit('backButton');
-					this.app.classList.add('fadeOut', 'animated');
-					this.app.classList.remove('fadeIn');
-				});
-
-				screenTutorial.addEventListener('click', function() {
-					screenTutorial.classList.remove('fadeIn');
-					screenTutorial.classList.add('fadeOut');
-					this.app.classList.add('fadeIn');
-					this.app.classList.remove('fadeOut', 'hidden');
-				});
-
-				this.nextButton.addEventListener('click', showLevel);
-				this.replayButton.addEventListener('click', showLevel);
-			},
 			showLevel() {
-				serverBus.$emit('playLevel');
-				this.control.classList.add('hidden');
-				this.app.classList.remove('fadeOut');
-				this.app.classList.add('fadeIn');
-			}
+				this.$router.push({ name: 'game', });
+			},
 		}
 	}
 </script>

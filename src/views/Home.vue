@@ -8,7 +8,7 @@
 	</aside>
 	<nav class="home-buttons">
 		<router-link to="game" class="home-buttons__play"></router-link>
-		<button id="rateButton" class="home-buttons__rate"></button>
+		<button @click="handRate" class="home-buttons__rate"></button>
 		<button id="soundButton" class="home-buttons__sound"></button>
 		<button @click="launchReset" class="home-buttons__reset"></button>
 		<router-link to="credits" class="home-buttons__about"></router-link>
@@ -44,6 +44,13 @@ export default {
 	methods: {
 		launchReset() {
 			this.$modal.show('reset-modal');
+		},
+		handRate() {
+			if (isMobile === 'Android') {
+				window.location.replace(config.stores.android);
+			} else if (isMobile === 'iOS') {
+				openUrl(config.stores.ios);
+			}
 		},
 	},
 };

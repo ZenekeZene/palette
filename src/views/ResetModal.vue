@@ -5,7 +5,7 @@
 			<p class="notification__text">Are you sure you want to reset your game? All your progression will be deleted.</p>
 			<p class="notification__button">
 				<button @click="$modal.hide('reset-modal')" class="notification__button--refuse"></button>
-				<button @click="reset" class="notification__button--acept"></button>
+				<button @click="reset" class="notification__button--accept"></button>
 			</p>
 		</div>
 	</modal>

@@ -1,6 +1,6 @@
 <template>
 <transition name="fade">
-	<section id="app" class="game animated">
+	<section id="app" class="game animated" :class="{ '--is-dev': isDev }">
 		<header-item></header-item>
 		<main>
 			<section ref="swatchesGrid" class="swatches"></section>
@@ -45,6 +45,7 @@ export default {
 			level: mutations.getLevel(),
 			lives: mutations.getLives(),
 			score: mutations.getScore(),
+			isDev: false,
 		};
 	},
 	components: {
@@ -52,9 +53,9 @@ export default {
 	},
 	mounted() {
 		this.playLevel();
+		serverBus.$on('playLevel', () => { this.playLevel(); });
 		serverBus.$on('activeIsMoved', () => { this.activeIsMoved()});
 		serverBus.$on('dropSuccessful', (data) => { this.dropSuccessful(data)});
-		serverBus.$on('playLevel', () => { this.playLevel();});
 	},
 	computed: {
 		limitActive() {
@@ -86,11 +87,8 @@ export default {
 			drag.init(this.activeColor.el, this.dropzones);
 			this.limitActive.append(this.activeColor.el);
 			
-			if (config._isDev) {
-				document.getElementById('app').classList.add('--is-dev');
+			if (this.isDev) {
 				spy._giveMeTheSolution(numItems, this.swatches, this.dropzones, this.activeColor);
-			} else {
-				document.getElementById('app').classList.remove('--is-dev');
 			}
 		},
 		fillGrid(wrapperGrid) {
@@ -104,6 +102,7 @@ export default {
 			return items;
 		},
 		isSuccessfulMix(indexToCheck) {
+            console.log("TCL: isSuccessfulMix -> isSuccessfulMix");
 			if (_.isEqual(this.swatches[indexToCheck].cmyk, this.dropzones[indexToCheck].cmyk)) {
 				this.swatches[indexToCheck].el.classList.add('match-swatch');
 				this.dropzones[indexToCheck].el.classList.add('match-mixer');
@@ -121,12 +120,10 @@ export default {
 		},
 		doStep(dropzone, index, isFromBonus) {
 			const colorMixed = this.mix(dropzone.cmyk, this.activeColor.cmyk);
-            console.log("TCL: doStep -> this.activeColor.cmyk", this.activeColor.cmyk)
-            console.log("TCL: doStep -> dropzone.cmyk", dropzone.cmyk)
 			dropzone.setCMYK(colorMixed);
 
 			if (this.isSuccessfulMix(index)) {
-				this.contSuccess++;
+				this.contSuccess += 1;
 				if (!isFromBonus) {
 					serverBus.$emit('increaseScore');
 					serverBus.$emit('stepSuccess', index);
@@ -152,13 +149,15 @@ export default {
 			persist.saveData('tutorialIsNotLaunched', false);
 		},
 		handSuccessfulMix(dropzone) {
+            console.log("TCL: handSuccessfulMix -> handSuccessfulMix");
 			dropzone.el.classList.add('disabled');
 			this.updateActive(this.createActive());
-			if (config._isDev) {
+			if (this.isDev) {
 				spy._giveMeTheSolution(this.numItems, this.swatches, this.dropzones, this.activeColor);
 			}
 		},
 		handFailedMix() {
+            console.log("TCL: handFailedMix -> handFailedMix");
 			const { dropzoneWasCorrect, swatchWasCorrect } = this.searchCorrectSwatchAndDropzone();
 			this.limitActive.removeChild(this.activeColor.el);
 			this.activeColor = null;
@@ -180,13 +179,17 @@ export default {
 			}
 		},
 		handGameFinished() {
+            console.log("TCL: handGameFinished -> handGameFinished");
 			this.limitActive.removeChild(this.activeColor.el);
 			this.activeColor = null;
 			this.contSuccess = 0;
-			serverBus.$emit('successfulLevel');
+			this.$router.push({ name: 'control' });
+			//serverBus.$emit('successfulLevel');
 		},
 		searchCorrectSwatchAndDropzone() {
+            console.log("TCL: searchCorrectSwatchAndDropzone -> searchCorrectSwatchAndDropzone");
 			let dropzoneWasCorrect, swatchWasCorrect;
+			debugger;
 			for (let i = 0; i < this.swatches.length; i++) {
 				for (let j = 0; j < this.dropzones.length; j++) {
 					let cmyk = color.addColors(this.activeColor.cmyk, this.dropzones[j].cmyk);
@@ -241,6 +244,7 @@ export default {
 			}
 		},
 		dropSuccessful(data) {
+            console.log("TCL: dropSuccessful -> dropSuccessful");
 			const {dropZoneCurrent, index } = data;
 			if (this.tutorialIsNotLaunched) {
 				this.launchTutorial();
@@ -280,7 +284,7 @@ export default {
 			const index = spy._giveMeTheSolution(this.numItems, this.swatches, this.dropzones, this.activeColor);
 			this.doStep(this.dropzones[index], index, true);
 			statusObserver.notify('stepSuccessBonus');
-		}
-	}
+		},
+	},
 };
 </script>
