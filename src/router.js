@@ -20,7 +20,7 @@ export default new Router({
 			component: Game,
 		},
 		{
-			path: "/control",
+			path: "/control:status",
 			name: "control",
 			component: Control,
 		},

@@ -13,6 +13,7 @@
 	z-index: 14;
 	@include share(width, height, 7vh);
 	margin: $gutter-1-2;
+	font-size: 10px;
 	background: transparent;
 	border-radius: 50%;
 	-webkit-animation: swatch-appear 1s cubic-bezier(0.5, 0, 0.53, 1.49) 0s 1;

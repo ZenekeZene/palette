@@ -1,41 +1,6 @@
+const _ = require('lodash');
 const brightnessCoef = 30;
 const rangePercentageRelated = [0.1, 0.9];
-let swatchesHistorical = [];
-
-class ColorObject {
-	constructor(cmyk, el) {
-		this.cmyk = cmyk;
-		this.el = el;
-		this.setCMYK(cmyk);
-		this.isEnabled = true;
-	}
-
-	getCMYK() {
-		if (this.el) {
-			return JSON.parse('[' + this.el.getAttribute('data-cmyk') + ']');
-		}
-		return null;
-	}
-
-	setCMYK(cmyk) {
-		this.cmyk = cmyk;
-		if (this.el) {
-			this.el.setAttribute('data-cmyk', cmyk);
-			const cmykNode = document.createElement('span');
-			cmykNode.classList.add('swatch__cmyk');
-			cmykNode.innerHTML = cmyk;
-			this.el.append(cmykNode);
-			const rgbColor = getRGBColor(convertCMYKtoRGB(cmyk));
-			this.el.style.backgroundColor = rgbColor;
-			this.el.style['backgroundColor'] = rgbColor;
-			this.el.style.setProperty('background-color', rgbColor);
-		}
-	}
-
-	isMyNode(el) {
-		return this.el === el;
-	}
-}
 
 function getRandomInterval(min, max) {
 	min = Math.ceil(min);
@@ -71,7 +36,6 @@ function getColorCMYKRandom(contRepetitions) {
 			return getColorCMYKRandom(contRepetitions);
 		}
 	}
-	swatchesHistorical.push(cmyk);
 	return cmyk;
 }
 
@@ -94,6 +58,8 @@ function getColorRelated(cmyk) {
 }
 
 function addColors(color1, color2) {
+	console.log(color1);
+	console.log(color2);
 	if (color1.length === color2.length) {
 		let color = [];
 		for (let i = 0; i < color1.length; i++) {
@@ -117,13 +83,17 @@ function subtractColors(color1, color2) {
 	return null;
 }
 
+function areEqualColors(color1, color2) {
+	return _.isEqual(color1, color2);
+}
+
 export default {
-	ColorObject,
 	getRGBColor,
 	convertCMYKtoRGB,
 	getColorCMYKRandom,
 	getColorRelated,
 	addColors,
 	subtractColors,
+	areEqualColors,
 	getRandomInterval,
 };

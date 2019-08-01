@@ -1,8 +1,6 @@
 import interact from 'interactjs'
 import { serverBus } from './bus';
 
-let activeNode, dropzones;
-
 function offset (el) {
 	const rect = el.getBoundingClientRect();
 	return { top: rect.top, left: rect.left };
@@ -16,33 +14,32 @@ function dragMoveListener (event) {
 	const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 	target.classList.add('drag-active');
 	setPosition(target, x, y);
-	serverBus.$emit('activeIsMoved');
+	//serverBus.$emit('activeIsMoved');
 }
 
 function initDrag () {
-	const rect = activeNode.getBoundingClientRect();
 	const origin = {
-		x: rect.right,
-		y: rect.top
+		x: 0,
+		y: 0,
 	}
 	let isEntered = false;
 	let dropZoneCurrent;
 
 	// enable draggables to be dropped into this
-	interact('#mixesGrid .swatch:not(.disabled)').dropzone({
+	interact('#dropzonesGrid .swatch:not(.disabled)').dropzone({
 		// only accept elements matching this CSS selector
 		accept: '.drag-drop',
 		// Require a 75% element overlap for a drop to be possible
 		overlap: 0.05,
 		// listen for drop related events:
-		ondropactivate: function (event) {
+		ondropactivate: function(event) {
 			// add active dropzone feedback
 			event.target.classList.add('drop-active');
 			const rect = offset(event.relatedTarget);
 			origin.x = rect.left;
 			origin.y = rect.top;
 		},
-		ondragenter: function (event) {
+		ondragenter: function(event) {
 			const draggableElement = event.relatedTarget;
 			const dropzoneElement = event.target;
 
@@ -51,20 +48,16 @@ function initDrag () {
 			draggableElement.classList.add('can-drop');
 			isEntered = true;
 
-			for (let i = 0; i < dropzones.length; i++) {
-				if (dropzones[i].isMyNode(dropzoneElement)) {
-					dropZoneCurrent = dropzones[i];
-				}
-			}
+			dropZoneCurrent = dropzoneElement;
 		},
-		ondragleave: function (event) {
+		ondragleave: function(event) {
 			// remove the drop feedback style
 			event.target.classList.remove('drop-target');
 			event.relatedTarget.classList.remove('can-drop');
 			isEntered = false;
 			dropZoneCurrent = null;
 		},
-		ondropdeactivate: function (event) {
+		ondropdeactivate: function(event) {
 			// remove active dropzone feedback
 			event.target.classList.remove('drop-active');
 			event.target.classList.remove('drop-target');
@@ -83,23 +76,15 @@ function initDrag () {
 		// dragMoveListener from the dragging demo above
 		onmove: dragMoveListener,
 		onend: (event) => {
+			const dropZoneCurrent = event.relatedTarget;
+			console.log("TCL: initDrag -> dropZoneCurrent", dropZoneCurrent)
 			const target = event.target;
 			target.classList.remove('drag-active');
-			const isEnabled = !dropZoneCurrent || !dropZoneCurrent.el.classList.contains('disabled');
-            
-			if (isEntered && isEnabled) {
-				const rect = offset(dropZoneCurrent.el);
-				target.style.webkitTransform = target.style.transform = 'translate(0, 0)';
-				target.style.position = 'absolute';
-				target.style.left = `${rect.left}px`;
-				target.style.top = `${rect.top}px`;
-				interact(event.target).unset();
-				const index = [].indexOf.call(
-					dropZoneCurrent.el.parentNode.children,
-					dropZoneCurrent.el,
-				)
-				isEntered = false;
-				serverBus.$emit('dropSuccessful', { dropZoneCurrent, index });
+			const isEnabled = dropZoneCurrent && !dropZoneCurrent.classList.contains('disabled');
+
+			if (isEnabled) {
+				setPosition(target, 0, 0);
+				serverBus.$emit('dropSuccessful', dropZoneCurrent);
 			} else {
 				setPosition(target, 0, 0);
 				serverBus.$emit('dropFailed');
@@ -116,20 +101,10 @@ function setPosition(target, x, y) {
 	target.setAttribute('data-y', y);
 }
 
-function setActiveNode(activeNodeEntry) {
-	activeNode = activeNodeEntry;
-}
-
-function init (
-	activeNodeEntry,
-	dropzonesEntry,
-) {
-	activeNode = activeNodeEntry;
-	dropzones = dropzonesEntry;
+function init () {
 	initDrag();
 }
 
 export default {
 	init,
-	setActiveNode,
 }

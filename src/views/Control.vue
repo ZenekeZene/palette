@@ -37,6 +37,7 @@
 	</aside>
 </template>
 <script>
+	import { mapState, mapGetters, mapMutations } from 'vuex';
 	import { serverBus } from '../scripts/core/bus';
 	import quote from '../scripts/extras/quote/quote';
 
@@ -70,42 +71,26 @@
 		},
 		data() {
 			return {
-				isSuccess: false,	
+				isSuccess: false,
 			};
 		},
+		computed: {
+			...mapGetters([
+				'areLevelsFinished',
+			]),
+		},
 		mounted() {
-			serverBus.$on('successfulLevel', () => { this.successfulLevel(); });
-			serverBus.$on('failedLevel', () => { this.failedLevel(); });
-			
-			quote.init();	
-			
-			serverBus.$emit('showHome');
+			this.isSuccess = this.$route.params.isSuccess;
 		},
 		methods: {
-			showFinalPage(isGameCompleted) {
-				serverBus.$emit('showFinalPage', isGameCompleted);
+			showFinalPage() {
+				this.$router.push({ name: 'Final' });
 				serverBus.$emit('handRecord');
 			},
-			successfulLevel() {
-				let levelCurrent = mutations.getLevel();
-				if (mutations.areLevelsFinished()) {
-					this.showFinalPage(true);
-				} else {
-					actions.increaseLife();
-					levelCurrent = actions.increaseLevel();
-					progression.classList.add('progression', `level-${ levelCurrent + 1 }`);
-
-					this.control.classList.add('fadeIn');
-					this.control.classList.remove('hidden');
-					this.app.classList.remove('fadeIn');
-					this.app.classList.add('fadeOut');
-					this.isSuccess = true;
-				}
-			},
 			failedLevel() {
-				progression.classList.add('progression', `level-${mutations.getLevel()}`);
-				let lives = mutations.getLives();
-				if (lives > 1) {
+				console.log("TCL: failedLevel -> failedLevel")
+				progression.classList.add('progression', `level-${this.level}`);
+				if (this.lives > 1) {
 					actions.decreaseLife();
 
 					liveIcon.classList.add('hidden');

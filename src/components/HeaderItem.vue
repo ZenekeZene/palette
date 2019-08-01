@@ -9,17 +9,21 @@
 	</header>
 </template>
 <script>
-import { mutations } from '../scripts/common';
+import { mapState } from 'vuex';
 
 export default {
 	name: 'HeaderItem',
 	data() {
 		return {
-			lives: mutations.getLives(),
-			score: mutations.getScore(),
-			level: mutations.getLevel(),
 			highLevel: 0,
 		};
+	},
+	computed: {
+		...mapState([
+			'lives',
+			'score',
+			'level',
+		]),
 	},
 	props: {
 		noBack: {
