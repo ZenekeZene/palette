@@ -2,12 +2,11 @@
 	@include fixed(top left);
 	z-index: 10; //all the elements in homepage are between 10 and 20 z-index
 	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: 100vw;
 	height: 100vh;
 	//height: calc(var(--vh, 1vh) * 100);
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
 	padding: $gutter-2;
 	padding-top: $gutter-4;
 	font-size: 0.7rem;

@@ -1,5 +1,5 @@
 import interact from 'interactjs'
-import { EventBus } from '../../EventBus.js';
+import { EventBus } from '../EventBus.js';
 
 function offset (el) {
 	const rect = el.getBoundingClientRect();
@@ -21,11 +21,11 @@ function initDrag () {
 	const origin = {
 		x: 0,
 		y: 0,
-	}
+	};
 
 	// enable draggables to be dropped into this
-	interact('#dropzonesGrid .swatch:not(.match-mixer)').unset();
-	interact('#dropzonesGrid .swatch:not(.match-mixer)').dropzone({
+	interact('.swatches.mixer .swatch:not(.match-mixer)').unset();
+	interact('.swatches.mixer .swatch:not(.match-mixer)').dropzone({
 		// only accept elements matching this CSS selector
 		accept: '.drag-drop',
 		// Require a 75% element overlap for a drop to be possible

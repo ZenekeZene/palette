@@ -30,7 +30,7 @@ body {
 
 @import 'variables';
 
-#app {
+.game {
 	position: relative;
 	z-index: 2;
 	@include flex(flex, start, center);

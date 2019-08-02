@@ -6,7 +6,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import color from '../scripts/core/color';
+import color from '../scripts/color';
 
 export default {
 	name: 'ColorChip',

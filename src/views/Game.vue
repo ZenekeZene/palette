@@ -1,47 +1,48 @@
 <template>
-	<section id="app" class="game animated" :class="{ '--is-dev': isDev }">
+	<article class="game" :class="{ '--is-dev': isDev }">
 		<header-item></header-item>
-		<main>
-			<section ref="swatchesGrid" class="swatches">
-				<color-chip v-for="(swatch, index) in swatches" :key="index"
-					:index=swatch.index
-					:cmyk="swatch.cmyk"
-					:class="{
-						'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
-						'match-mixer': swatch.isEnabled === false,
-					}"
-					:ref="`swatch-${index}`"
-					:data-index=swatch.index></color-chip>
-			</section>
-			<section ref="dropzonesGrid" id="dropzonesGrid" class="swatches mixer">
-				<color-chip v-for="(dropzone, index) in dropzones" :key="index"
-					:index=dropzone.index
-					:cmyk="dropzone.cmyk"
-					:class="{
-						'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
-						'match-mixer': dropzone.isEnabled === false,
-					}"
-					:ref="`dropzone-${index}`"
-					:data-index=dropzone.index></color-chip>
-			</section>
-		</main>
-		<div ref="limitActive" class="limit-drag">
-			<div ref="activeBase" class="active__base" :class="{ 'tutorial': tutorialIsLaunched }"></div>
+		<section ref="swatchesGrid" class="swatches">
+			<color-chip v-for="(swatch, index) in swatches" :key="index"
+				:index=swatch.index
+				:cmyk="swatch.cmyk"
+				:class="{
+					'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
+					'match-mixer': swatch.isEnabled === false,
+				}"
+				:ref="`swatch-${index}`"
+				:data-index=swatch.index
+			></color-chip>
+		</section>
+		<section ref="dropzonesGrid" class="swatches mixer">
+			<color-chip v-for="(dropzone, index) in dropzones" :key="index"
+				:index=dropzone.index
+				:cmyk="dropzone.cmyk"
+				:class="{
+					'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
+					'match-mixer': dropzone.isEnabled === false,
+				}"
+				:ref="`dropzone-${index}`"
+				:data-index=dropzone.index
+			></color-chip>
+		</section>
+		<section ref="limitActive" class="limit-drag">
+			<div ref="activeBase" class="active__base"></div>
 			<color-chip
 					v-if="activeColor"
 					:cmyk=activeColor.cmyk
-					class="active__swatch drag-drop active"></color-chip>
+					class="active__swatch drag-drop active"
+				></color-chip>
 			<bonus-item v-show="bonus > 0" :triggerCheckBonus="triggerCheckBonus" @bonusUsed="bonusUsed"></bonus-item>
-		</div>
-	</section>
+		</section>
+	</article>
 </template>
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import config from '../config';
 import { EventBus } from '../EventBus.js';
-import drag from '../scripts/core/drag';
-import color from '../scripts/core/color';
+import drag from '../scripts/drag';
+import color from '../scripts/color';
 import HeaderItem from '../components/HeaderItem';
 import ColorChip from '../components/ColorChip';
 import BonusItem from '../components/BonusItem';
@@ -72,10 +73,9 @@ export default {
 	computed: {
 		...mapState([
 			'lives',
-			'score',
 			'level',
+			'score',
 			'bonus',
-			'tutorialIsLaunched',
 			'swatches',
 			'dropzones',
 			'activeColor',
@@ -94,7 +94,6 @@ export default {
 	},
 	methods: {
 		...mapMutations([
-			'setTutorialIsLaunched',
 			'incrementLive',
 			'decreaseLive',
 			'incrementLevel',
@@ -160,9 +159,13 @@ export default {
 			return false;
 		},
 		handFailedMix() {
-			this.$router.push({ name: 'control', params: { isSuccess: false }});
-			this.decreaseLive();
-			this.resetGame();
+			if (this.lives > 1) {
+				this.decreaseLive();
+				this.resetGame();
+				this.$router.push({ name: 'control', params: { isSuccess: false }});
+			} else {
+				this.$router.push({ name: 'final', params: { isCompleted: false }});
+			}
 		},
 		handLevelFinished() {
 			this.$router.push({ name: 'control', params: { isSuccess: true } });

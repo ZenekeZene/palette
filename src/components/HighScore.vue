@@ -1,17 +1,24 @@
 <template>
-	<section id="homeHighScore" class="home-hiscore invisible">
-		<div class="hiscore__title">HI SCORE</div>
-		<div class="hiscore__body">
-			<p class="header__level">LEVEL <span id="highLevel">0</span></p>
-			<p id="highScore" class="header__score">0</p>
-			<p id="shareLink" class="header__share">SHARE</p>
-		</div>
-	</section>
+	<article class="home-hiscore" v-if="highscore">
+		<header class="hiscore__title">HI SCORE</header>
+		<section class="hiscore__body">
+			<p class="header__level">LEVEL <span>{{ highscore.level }}</span></p>
+			<p class="header__score">{{ highscore.score }}</p>
+			<p class="header__share">SHARE</p>
+		</section>
+	</article>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 export default {
 	name: 'HighScore',
+	computed: {
+		...mapState([
+			'highscore',
+		]),
+	},
 };
 </script>
 

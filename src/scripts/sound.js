@@ -1,8 +1,5 @@
 //const Tone = require("tone");
 import { Howl, Howler } from 'howler';
-import { constants } from '../common';
-import persist from '../tools/persist';
-let statusObserver = constants.statusObserver;
 
 let mute;
 const musicAsset = require("../../sounds/music-bg.mp3")
@@ -56,7 +53,7 @@ function init() {
 				}
 				isPlaying = true;
 				ambient.fade(ambient.volume(ambientSound), 1, 1250);
-			} else if (status === 'successfulLevel' || status === 'stepSuccess' || status === 'stepSuccessBonus') {
+			} else if (status === 'successfulLevel' || status === 'stepSuccess' || status === 'stepSuccessBonus') {
 				success.play();
 				isPlaying = false;
 			} else if (status === 'failedLevel') {

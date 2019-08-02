@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import config from '../config';
+import config from './config';
 
 Vue.use(Vuex);
 
@@ -17,6 +17,10 @@ const store = new Vuex.Store({
 		swatches: [],
 		dropzones: [],
 		activeColor: null,
+		highScore: {
+			level: 0,
+			score: 0,
+		},
 	},
 	getters: {
 		displayLevel: (state) => (state.level + 1).toString(),
@@ -85,6 +89,11 @@ const store = new Vuex.Store({
 			state.swatches = [];
 			state.dropzones = [];
 			state.activeColor = null;
+		},
+		setHighScore(state, payload) {
+			state.highScore.level = payload.level;
+			state.highScore.score = payload.score;
+			localStorage.setItem('highScore', JSON.stringify(state.highScore));
 		},
 	},
 });
