@@ -8,7 +8,7 @@
 					:cmyk="swatch.cmyk"
 					:class="{
 						'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
-						'match-swatch': swatch.isEnabled === false,
+						'match-mixer': swatch.isEnabled === false,
 					}"
 					:ref="`swatch-${index}`"
 					:data-index=swatch.index></color-chip>
@@ -42,7 +42,6 @@ import config from '../config';
 import { EventBus } from '../EventBus.js';
 import drag from '../scripts/core/drag';
 import color from '../scripts/core/color';
-//import bonus from '../scripts/extras/bonus';
 import HeaderItem from '../components/HeaderItem';
 import ColorChip from '../components/ColorChip';
 import BonusItem from '../components/BonusItem';
@@ -60,6 +59,15 @@ export default {
 			isDev: true,
 			triggerCheckBonus: 0,
 		};
+	},
+	mounted() {
+		this.playLevel();
+		EventBus.$on('dropSuccessful', (data) => {
+			this.dropSuccessful(data);
+		});
+	},
+	beforeDestroy() {
+		EventBus.$off('dropSuccessful');
 	},
 	computed: {
 		...mapState([
@@ -83,15 +91,6 @@ export default {
 		numItems() {
 			return config.levels[this.level];
 		},
-	},
-	mounted() {
-		this.playLevel();
-		EventBus.$on('dropSuccessful', (data) => {
-			this.dropSuccessful(data);
-		});
-	},
-	beforeDestroy() {
-		EventBus.$off('dropSuccessful');
 	},
 	methods: {
 		...mapMutations([
@@ -122,28 +121,36 @@ export default {
 			}
 		},
 		forceStep(index) {
+			const dropzone = this.$refs[`dropzone-${index}`][0].$el;
+			const swatch = this.$refs[`swatch-${index}`][0].$el;
+
+			// Igual que en doStep
 			const colorMixed = color.addColors(
 				this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
 			
 			const swatchCompared = this.getSwatchByIndex(index).cmyk;
 			this.setDropzoneCMYKByIndex({ index, cmyk: colorMixed });
 			
-			this.setSwatchDisabledByIndex({ index, isEnabled: false });
-			this.setDropzoneDisabledByIndex({ index, isEnabled: false });
-
-			const swatch = this.$refs[`swatch-${index}`][0].$el;
-			swatch.classList.add('disabled', 'match-swatch');
-			const dropzone = this.$refs[`dropzone-${index}`][0].$el;
-			dropzone.classList.add('disabled', 'match-mixer');
+			if (color.areEqualColors(colorMixed, swatchCompared)) {
+				this.setSwatchDisabledByIndex({ index, isEnabled: false });
+				this.setDropzoneDisabledByIndex({ index, isEnabled: false });
+			}
 
 			if (this.getSwatchesEnabledCount > 0) {
 				this.setActive();
 			} else {
 				this.handLevelFinished();
 			}
+
+			swatch.classList.add('match-mixer');
+			dropzone.classList.add('match-mixer');
+
 		},
 		doStep(dropzone) {
+			// Diferente respecto a forceStep:
 			const index = Number(dropzone.dataset.index);
+
+			// Igual que en doStep
 			const colorMixed = color.addColors(
 				this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
 			
@@ -154,17 +161,15 @@ export default {
 				this.setSwatchDisabledByIndex({ index, isEnabled: false });
 				this.setDropzoneDisabledByIndex({ index, isEnabled: false });
 
-				this.incrementScore();
-				
-				this.triggerCheckBonus++;
-
-				dropzone.classList.add('disabled');
-
 				if (this.getSwatchesEnabledCount > 0) {
 					this.setActive();
 				} else {
 					this.handLevelFinished();
 				}
+
+				// Diferente respecto a forceStep:
+				this.incrementScore();
+				this.triggerCheckBonus++;
 			} else {
 				this.handFailedMix();
 			}

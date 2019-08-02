@@ -24,8 +24,8 @@ function initDrag () {
 	}
 
 	// enable draggables to be dropped into this
-	interact('#dropzonesGrid .swatch:not(.disabled)').unset();
-	interact('#dropzonesGrid .swatch:not(.disabled)').dropzone({
+	interact('#dropzonesGrid .swatch:not(.match-mixer)').unset();
+	interact('#dropzonesGrid .swatch:not(.match-mixer)').dropzone({
 		// only accept elements matching this CSS selector
 		accept: '.drag-drop',
 		// Require a 75% element overlap for a drop to be possible
