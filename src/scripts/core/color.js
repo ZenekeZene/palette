@@ -58,29 +58,22 @@ function getColorRelated(cmyk) {
 }
 
 function addColors(color1, color2) {
-	console.log(color1);
-	console.log(color2);
-	if (color1.length === color2.length) {
-		let color = [];
-		for (let i = 0; i < color1.length; i++) {
-			const add = parseInt(color1[i], 10) + parseInt(color2[i], 10);
-			color.push(add < 100 ? add : 100);
-		}
-		return color;
+	let result = [];
+	for (let i = 0; i < color1.length; i++) {
+		const add = Number(color1[i] + color2[i]);
+		result[i] = add < 100 ? add : 100;
 	}
-	return null;
+	console.log(result[0]);
+	return result;
 }
 
 function subtractColors(color1, color2) {
-	if (color1.length === color2.length) {
-		let color = [];
-		for (let i = 0; i < color1.length; i++) {
-			const sub = parseInt(color1[i], 10) - parseInt(color2[i], 10);
-			color.push(sub > 0 ? sub : 0);
-		}
-		return color;
+	let result = [];
+	for (let i = 0; i < color1.length; i++) {
+		const sub = Number(color1[i] - color2[i]);
+		result[i] = sub > 0 ? sub : 0;
 	}
-	return null;
+	return result;
 }
 
 function areEqualColors(color1, color2) {

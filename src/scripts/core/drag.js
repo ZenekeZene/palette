@@ -76,19 +76,21 @@ function initDrag () {
 		// dragMoveListener from the dragging demo above
 		onmove: dragMoveListener,
 		onend: (event) => {
+			event.stopPropagation();
+			console.log("TCL: initDrag -> onend");
 			const dropZoneCurrent = event.relatedTarget;
 			console.log("TCL: initDrag -> dropZoneCurrent", dropZoneCurrent)
 			const target = event.target;
+			console.log(event);
 			target.classList.remove('drag-active');
 			const isEnabled = dropZoneCurrent && !dropZoneCurrent.classList.contains('disabled');
 
-			if (isEnabled) {
-				setPosition(target, 0, 0);
+			setPosition(target, 0, 0);
+			//if (isEnabled) {
 				serverBus.$emit('dropSuccessful', dropZoneCurrent);
-			} else {
-				setPosition(target, 0, 0);
-				serverBus.$emit('dropFailed');
-			}
+			//} else {
+				//serverBus.$emit('dropFailed');
+			//}
 		}
 	});
 }

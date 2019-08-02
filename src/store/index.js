@@ -27,8 +27,9 @@ const store = new Vuex.Store({
 		getSwatchByIndex: (state) => (index) => state.swatches[index],
 		getDropzoneByIndex: (state) => (index) => state.dropzones[index],
 		getSwatchesCount: (state) => state.swatches.length,
-		getSwatchesEnabled: (state) => state.swatches.filter(swatch => swatch.isEnabled),
-		getRandomSwatchIndexEnabled: (state, getters) => _.sample(getters.getSwatchesEnabled).index,
+		getSwatchesEnabled: (state) => state.swatches.filter(swatch => swatch.isEnabled === true),
+		getSwatchesEnabledCount: (state, getters) => getters.getSwatchesEnabled.length,
+		getRandomSwatchIndexEnabled: (state, getters) => _.sample(getters.getSwatchesEnabled).index,	
 	},
 	mutations: {
 		incrementLive(state) {

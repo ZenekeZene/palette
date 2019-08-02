@@ -76,7 +76,8 @@
 	}
 }
 
-.reset-swatch, .reset-mixer {
+.reset-swatch,
+.reset-mixer {
 	background: $paper !important;
 	box-shadow: 0 0 $gutter-1-2 $shadow !important;
 }
@@ -103,8 +104,9 @@
 		}
 	}
 
-	.wasCorrect::before, .match-swatch::before {
-			visibility: hidden;
+	.wasCorrect::before,
+	.match-swatch::before {
+		visibility: hidden;
 	}
 }
 

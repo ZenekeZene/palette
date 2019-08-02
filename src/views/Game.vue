@@ -1,5 +1,4 @@
 <template>
-<transition name="fade">
 	<section id="app" class="game animated" :class="{ '--is-dev': isDev }">
 		<header-item></header-item>
 		<main>
@@ -26,7 +25,6 @@
 			</div>
 		</div>
 	</section>
-</transition>
 </template>
 
 <script>
@@ -66,6 +64,7 @@ export default {
 			'getSwatchByIndex',
 			'getSwatchesCount',
 			'getSwatchesEnabled',
+			'getSwatchesEnabledCount',
 			'getRandomSwatchIndexEnabled',
 		]),
 		numItems() {
@@ -101,35 +100,32 @@ export default {
 		},
 		doStep(dropzone, isFromBonus) {
 			const index = Number(dropzone.dataset.index);
-			const colorMixed = this.mix(this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
+			const colorMixed = color.addColors(
+				this.getDropzoneByIndex(index).cmyk, this.$store.state.activeColor.cmyk);
+			
 			const swatchCompared = this.getSwatchByIndex(index).cmyk;
 			this.setDropzoneCMYKByIndex({ index, cmyk: colorMixed });
-			
 			if (color.areEqualColors(colorMixed, swatchCompared)) {
-				this.contSuccess += 1;
 				this.setSwatchDisabledByIndex({ index, isEnabled: false});
+				
+				this.contSuccess += 1;
 				if (this.contSuccess !== this.getSwatchesCount) {
-					dropzone.classList.add('disabled');
+					//dropzone.classList.add('disabled');
 					this.setActive();
 				} else {
-					this.handGameFinished();
+					this.handLevelFinished();
 				}
 			} else {
-				this.handFailedMix();
+				//this.handFailedMix();
 			}
 		},
-		mix(color1, color2) {
-			return color.addColors(color1, color2);
-		},
 		handFailedMix() {
-			setTimeout(() => {
-				this.$router.push({ name: 'control', params: { isSuccess: false }});
-			}, 1000);
+			this.$router.push({ name: 'control', params: { isSuccess: false }});
 		},
-		handGameFinished() {
+		handLevelFinished() {
+			this.$router.push({ name: 'control', params: { isSuccess: true } });
 			this.incrementLevel();
 			this.incrementLive();
-			this.$router.push({ name: 'control', params: { isSuccess: true } });
 		},
 		dropSuccessful(dropZoneCurrent) {
 			this.doStep(dropZoneCurrent, false);
@@ -157,16 +153,15 @@ export default {
 			this.setDropzones({ dropzones });
 		},
 		setActive() {
-			let activeColor;
 			const indexRandom = this.getRandomSwatchIndexEnabled;
-			activeColor = {
+			const activeColor = {
 				index: indexRandom,
 				cmyk: color.subtractColors(
 						this.getSwatchByIndex(indexRandom).cmyk,
 						this.getDropzoneByIndex(indexRandom).cmyk,
 					),
 			}
-			this.setActiveColor({ activeColor });
+			this.setActiveColor({ activeColor: activeColor });
 		},
 	},
 };
