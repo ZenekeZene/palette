@@ -158,8 +158,9 @@ export default {
 				
 				this.triggerCheckBonus++;
 
+				dropzone.classList.add('disabled');
+
 				if (this.getSwatchesEnabledCount > 0) {
-					dropzone.classList.add('disabled');
 					this.setActive();
 				} else {
 					this.handLevelFinished();
@@ -170,15 +171,14 @@ export default {
 		},
 		handFailedMix() {
 			this.$router.push({ name: 'control', params: { isSuccess: false }});
+			this.decreaseLive();
 			this.resetGame();
 		},
 		handLevelFinished() {
-			setTimeout(() => {
-				this.$router.push({ name: 'control', params: { isSuccess: true } });
-				this.incrementLevel();
-				this.incrementLive();
-				this.resetGame();
-			});
+			this.$router.push({ name: 'control', params: { isSuccess: true } });
+			this.incrementLevel();
+			this.incrementLive();
+			this.resetGame();
 		},
 		initSwatches() {
 			if (this.swatches.length === 0) {
