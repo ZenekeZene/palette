@@ -65,8 +65,8 @@
 	&::after {
 		content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOCAxOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTggMTg7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojODBDNEQ2O30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTcsMTQuOWMtMC41LDAtMS0wLjItMS40LTAuNmwtNC4yLTQuMmMtMC44LTAuOC0wLjgtMiwwLTIuOGMwLjgtMC44LDItMC44LDIuOCwwTDcsMTAuMUwxNCwzCgljMC44LTAuOCwyLTAuOCwyLjgsMGMwLjgsMC44LDAuOCwyLDAsMi44bC04LjUsOC41QzgsMTQuNyw3LjUsMTQuOSw3LDE0Ljl6Ii8+Cjwvc3ZnPg==');
 		position: absolute;
-		top: calc(50% - 16px);
-		left: calc(50% - 12px);
+		top: calc(50% - #{$gutter});
+		left: calc(50% - #{$gutter});
 		z-index: 11;
 		width: $gutter-2;
 		height: $gutter-2;

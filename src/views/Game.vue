@@ -124,39 +124,28 @@ export default {
 			const dropzone = this.$refs[`dropzone-${index}`][0].$el;
 			const swatch = this.$refs[`swatch-${index}`][0].$el;
 
-			// Igual que en doStep
-			const colorMixed = color.addColors(
-				this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
-			
-			const swatchCompared = this.getSwatchByIndex(index).cmyk;
-			this.setDropzoneCMYKByIndex({ index, cmyk: colorMixed });
-			
-			if (color.areEqualColors(colorMixed, swatchCompared)) {
-				this.setSwatchDisabledByIndex({ index, isEnabled: false });
-				this.setDropzoneDisabledByIndex({ index, isEnabled: false });
+			if (this.mixCompared(index)) {
+				swatch.classList.add('match-mixer');
+				dropzone.classList.add('match-mixer');
 			}
-
-			if (this.getSwatchesEnabledCount > 0) {
-				this.setActive();
-			} else {
-				this.handLevelFinished();
-			}
-
-			swatch.classList.add('match-mixer');
-			dropzone.classList.add('match-mixer');
-
 		},
 		doStep(dropzone) {
-			// Diferente respecto a forceStep:
 			const index = Number(dropzone.dataset.index);
 
-			// Igual que en doStep
+			if (this.mixCompared(index)) {
+				this.incrementScore();
+				this.triggerCheckBonus++;
+			} else {
+				this.handFailedMix();
+			}
+		},
+		mixCompared(index) {
 			const colorMixed = color.addColors(
 				this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
-			
+
 			const swatchCompared = this.getSwatchByIndex(index).cmyk;
 			this.setDropzoneCMYKByIndex({ index, cmyk: colorMixed });
-			
+
 			if (color.areEqualColors(colorMixed, swatchCompared)) {
 				this.setSwatchDisabledByIndex({ index, isEnabled: false });
 				this.setDropzoneDisabledByIndex({ index, isEnabled: false });
@@ -166,13 +155,9 @@ export default {
 				} else {
 					this.handLevelFinished();
 				}
-
-				// Diferente respecto a forceStep:
-				this.incrementScore();
-				this.triggerCheckBonus++;
-			} else {
-				this.handFailedMix();
+				return true;
 			}
+			return false;
 		},
 		handFailedMix() {
 			this.$router.push({ name: 'control', params: { isSuccess: false }});
@@ -235,7 +220,7 @@ export default {
 		},
 		bonusUsed() {
 			this.forceStep(this.giveMeTheIndexOfTheSolution());
-		}
+		},
 	},
 };
 </script>
