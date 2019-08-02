@@ -20,7 +20,7 @@ const store = new Vuex.Store({
 		tutorialIsLaunched: false,
 		swatches: [],
 		dropzones: [],
-		activeColor: null,
+		activeColor: {},
 	},
 	getters: {
 		areLevelsFinished: (state) => state.level === constants.levels.length - 1,
@@ -29,7 +29,7 @@ const store = new Vuex.Store({
 		getSwatchesCount: (state) => state.swatches.length,
 		getSwatchesEnabled: (state) => state.swatches.filter(swatch => swatch.isEnabled === true),
 		getSwatchesEnabledCount: (state, getters) => getters.getSwatchesEnabled.length,
-		getRandomSwatchIndexEnabled: (state, getters) => _.sample(getters.getSwatchesEnabled).index,	
+		getRandomSwatchIndexEnabled: (state, getters) => getters.getSwatchesEnabledCount > 0 ? _.sample(getters.getSwatchesEnabled).index : -1,
 	},
 	mutations: {
 		incrementLive(state) {
@@ -65,6 +65,7 @@ const store = new Vuex.Store({
 			localStorage.setItem('tutorialIsLaunched', payload.status);
 		},
 		setSwatches(state, payload) {
+			state.swatches = [];
 			state.swatches = payload.swatches;
 		},
 		setDropzones(state, payload) {
@@ -72,6 +73,7 @@ const store = new Vuex.Store({
 		},
 		setActiveColor(state, payload) {
 			state.activeColor = payload.activeColor;
+			console.log(state.activeColor);
 		},
 		setDropzoneCMYKByIndex(state, payload) {
 			state.dropzones[payload.index].cmyk = payload.cmyk;

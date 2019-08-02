@@ -1,5 +1,5 @@
 import interact from 'interactjs'
-import { serverBus } from './bus';
+import { EventBus } from '../../EventBus.js';
 
 function offset (el) {
 	const rect = el.getBoundingClientRect();
@@ -22,11 +22,10 @@ function initDrag () {
 		x: 0,
 		y: 0,
 	}
-	let isEntered = false;
-	let dropZoneCurrent;
 
 	// enable draggables to be dropped into this
-	interact('#dropzonesGrid .swatch:not(.disabled)').dropzone({
+	interact('#dropzonesGrid .swatch').unset();
+	interact('#dropzonesGrid .swatch').dropzone({
 		// only accept elements matching this CSS selector
 		accept: '.drag-drop',
 		// Require a 75% element overlap for a drop to be possible
@@ -46,16 +45,11 @@ function initDrag () {
 			// feedback the possibility of a drop
 			dropzoneElement.classList.add('drop-target');
 			draggableElement.classList.add('can-drop');
-			isEntered = true;
-
-			dropZoneCurrent = dropzoneElement;
 		},
 		ondragleave: function(event) {
 			// remove the drop feedback style
 			event.target.classList.remove('drop-target');
 			event.relatedTarget.classList.remove('can-drop');
-			isEntered = false;
-			dropZoneCurrent = null;
 		},
 		ondropdeactivate: function(event) {
 			// remove active dropzone feedback
@@ -73,24 +67,18 @@ function initDrag () {
 			elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
 		},
 		autoScroll: false,
-		// dragMoveListener from the dragging demo above
 		onmove: dragMoveListener,
 		onend: (event) => {
 			event.stopPropagation();
-			console.log("TCL: initDrag -> onend");
+			console.log('[[[[[[[[[[ ONEND ]]]]]]]]]')
 			const dropZoneCurrent = event.relatedTarget;
 			console.log("TCL: initDrag -> dropZoneCurrent", dropZoneCurrent)
 			const target = event.target;
-			console.log(event);
 			target.classList.remove('drag-active');
-			const isEnabled = dropZoneCurrent && !dropZoneCurrent.classList.contains('disabled');
 
 			setPosition(target, 0, 0);
-			//if (isEnabled) {
-				serverBus.$emit('dropSuccessful', dropZoneCurrent);
-			//} else {
-				//serverBus.$emit('dropFailed');
-			//}
+			console.log('Emitimos dropSuccessful');
+			EventBus.$emit('dropSuccessful', dropZoneCurrent);
 		}
 	});
 }

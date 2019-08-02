@@ -7,5 +7,6 @@
 	"git.ignoreLimitWarning": true,
 	"cSpell.ignoreWords": [
 		"dropzones"
-	]
+	],
+	"workbench.colorCustomizations": {}
 }

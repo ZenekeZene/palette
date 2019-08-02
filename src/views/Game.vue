@@ -5,7 +5,8 @@
 			<section ref="swatchesGrid" class="swatches">
 				<color-chip v-for="(swatch, index) in swatches" :key="index"
 					:index=swatch.index
-					:cmyk="swatch.cmyk"></color-chip>
+					:cmyk="swatch.cmyk"
+					:data-index=swatch.index></color-chip>
 			</section>
 			<section ref="dropzonesGrid" id="dropzonesGrid" class="swatches mixer">
 				<color-chip v-for="(dropzone, index) in dropzones" :key="index"
@@ -17,6 +18,7 @@
 		<div ref="limitActive" class="limit-drag">
 			<div ref="activeBase" class="active__base" :class="{ 'tutorial': tutorialIsLaunched }"></div>
 			<color-chip
+					v-if="activeColor"
 					:cmyk=activeColor.cmyk
 					class="active__swatch drag-drop active"></color-chip>
 			<div class="bonus">
@@ -30,12 +32,13 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import { constants } from '../scripts/common';
-import { serverBus } from '../scripts/core/bus';
+import { EventBus } from '../EventBus.js';
 import drag from '../scripts/core/drag';
 import color from '../scripts/core/color';
 import bonus from '../scripts/extras/bonus';
 import HeaderItem from '../components/HeaderItem';
 import ColorChip from '../components/ColorChip';
+import { setTimeout } from 'timers';
 
 export default {
 	name: 'Game',
@@ -45,7 +48,6 @@ export default {
 	},
 	data() {
 		return {
-			contSuccess: 0,
 			isDev: false,
 		};
 	},
@@ -71,11 +73,14 @@ export default {
 			return constants.levels[this.level];
 		},
 	},
-	created() {
+	mounted() {
 		this.playLevel();
-		serverBus.$on('playLevel', () => { this.playLevel(); });
-		serverBus.$on('activeIsMoved', () => { this.activeIsMoved()});
-		serverBus.$on('dropSuccessful', (data) => { this.dropSuccessful(data)});
+		EventBus.$on('dropSuccessful', (data) => {
+			this.dropSuccessful(data);
+		});
+	},
+	beforeDestroy() {
+		EventBus.$off('dropSuccessful');
 	},
 	methods: {
 		...mapMutations([
@@ -98,22 +103,33 @@ export default {
 			this.setActive();
 			drag.init();
 		},
-		doStep(dropzone, isFromBonus) {
+		dropSuccessful(dropZoneCurrent) {
+			console.log('dropzoneCurrent', dropZoneCurrent);
+			if (dropZoneCurrent) {
+				this.doStep(dropZoneCurrent);
+			}
+		},
+		doStep(dropzone) {
+			console.log('---------- Do Step ----------');
 			const index = Number(dropzone.dataset.index);
+			console.log('dropzone.cmyk', this.getDropzoneByIndex(index).cmyk);
+			console.log('activeColor.cmyk', this.activeColor.cmyk);
 			const colorMixed = color.addColors(
-				this.getDropzoneByIndex(index).cmyk, this.$store.state.activeColor.cmyk);
+				this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
 			
 			const swatchCompared = this.getSwatchByIndex(index).cmyk;
 			this.setDropzoneCMYKByIndex({ index, cmyk: colorMixed });
 			if (color.areEqualColors(colorMixed, swatchCompared)) {
 				this.setSwatchDisabledByIndex({ index, isEnabled: false});
 				
-				this.contSuccess += 1;
-				if (this.contSuccess !== this.getSwatchesCount) {
+				console.log(this.swatches.filter(swatch => swatch.isEnabled).length);
+				if (this.swatches.filter(swatch => swatch.isEnabled).length > 0) {
 					//dropzone.classList.add('disabled');
 					this.setActive();
 				} else {
+					console.log('Hemos acabado.', this.getSwatchesEnabledCount);
 					this.handLevelFinished();
+					EventBus.$emit('disableDrag');
 				}
 			} else {
 				//this.handFailedMix();
@@ -123,12 +139,12 @@ export default {
 			this.$router.push({ name: 'control', params: { isSuccess: false }});
 		},
 		handLevelFinished() {
-			this.$router.push({ name: 'control', params: { isSuccess: true } });
-			this.incrementLevel();
-			this.incrementLive();
-		},
-		dropSuccessful(dropZoneCurrent) {
-			this.doStep(dropZoneCurrent, false);
+			console.log('handLevelFinished');
+			setTimeout(() => {
+				this.$router.push({ name: 'control', params: { isSuccess: true } });
+				this.incrementLevel();
+				this.incrementLive();
+			}, 2000);
 		},
 		initSwatches() {
 			let swatches = [];
