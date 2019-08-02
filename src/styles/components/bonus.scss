@@ -34,7 +34,7 @@
 	}
 
 	&__quantity {
-		@include absolute(bottom -18px left);
+		@include absolute(top -28px left);
 		width: 100%;
 		height: $gutter;
 		font-weight: 700;

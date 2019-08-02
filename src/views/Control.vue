@@ -38,8 +38,7 @@
 </template>
 <script>
 	import { mapState, mapGetters, mapMutations } from 'vuex';
-	import { serverBus } from '../scripts/core/bus';
-	import quote from '../scripts/extras/quote/quote';
+	//import quote from '../scripts/extras/quote/quote';
 
 	export default {
 		name: 'control',

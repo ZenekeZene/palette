@@ -1,4 +1,3 @@
-import { constants } from '../../common';
 const quotes = require('./quotes.json');
 
 let statusObserver = constants.statusObserver;

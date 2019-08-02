@@ -34,6 +34,7 @@
 
 <script>
 import interact from 'interactjs';
+
 export default {
 	name: 'Credits',
 	data() {

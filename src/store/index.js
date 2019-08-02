@@ -1,14 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import config from '../config';
 
 Vue.use(Vuex);
 
 const _ = require('lodash');
-
-const constants = {
-	levels: [2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-	scorePerSuccess: 10,
-};
 
 const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
@@ -24,13 +20,14 @@ const store = new Vuex.Store({
 	},
 	getters: {
 		displayLevel: (state) => (state.level + 1).toString(),
-		areLevelsFinished: (state) => state.level === constants.levels.length - 1,
+		areLevelsFinished: (state) => state.level === config.levels.length - 1,
 		getSwatchByIndex: (state) => (index) => state.swatches[index],
 		getDropzoneByIndex: (state) => (index) => state.dropzones[index],
 		getSwatchesCount: (state) => state.swatches.length,
-		getSwatchesEnabled: (state) => state.swatches.filter(swatch => swatch.isEnabled),
+		getSwatchesEnabled: (state) => state.swatches.filter((swatch) => swatch.isEnabled),
 		getSwatchesEnabledCount: (state, getters) => getters.getSwatchesEnabled.length,
-		getRandomSwatchIndexEnabled: (state, getters) => getters.getSwatchesEnabledCount > 0 ? _.sample(getters.getSwatchesEnabled).index : -1,
+		getRandomSwatchIndexEnabled: (state, getters) =>
+			getters.getSwatchesEnabledCount > 0 ? _.sample(getters.getSwatchesEnabled).index : -1,
 	},
 	mutations: {
 		incrementLive(state) {
@@ -42,7 +39,7 @@ const store = new Vuex.Store({
 			localStorage.setItem('lives', state.lives);
 		},
 		incrementScore(state) {
-			state.score += constants.scorePerSuccess;
+			state.score += config.scorePerSuccess;
 			localStorage.setItem('score', state.score);
 		},
 		incrementLevel(state) {
@@ -80,6 +77,9 @@ const store = new Vuex.Store({
 		},
 		setSwatchDisabledByIndex(state, payload) {
 			state.swatches[payload.index].isEnabled = payload.isEnabled;
+		},
+		setDropzoneDisabledByIndex(state, payload) {
+			state.dropzones[payload.index].isEnabled = payload.isEnabled;
 		},
 		resetGame(state) {
 			state.swatches = [];

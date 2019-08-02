@@ -12,17 +12,15 @@
 </template>
 
 <script>
-import { constants, actions } from '../scripts/common';
 
 export default {
 	name: 'ResetModal',
 	methods: {
 		reset() {
-			actions.resetState();
 			location.reload();
 		},
 		cancel() {
-            console.log("TCL: cancel -> cancel");
+			console.log("TCL: cancel -> cancel");
 		},
 	},
 };

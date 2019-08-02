@@ -2,8 +2,7 @@
 	<div class="swatch" 
 		:class="{ 'tutorial': tutorialIsLaunched }"
 		:style="{ backgroundColor: colorRender }"
-	>{{ cmyk }}
-	</div>
+	></div>
 </template>
 <script>
 import { mapState } from 'vuex';

@@ -6,12 +6,22 @@
 				<color-chip v-for="(swatch, index) in swatches" :key="index"
 					:index=swatch.index
 					:cmyk="swatch.cmyk"
+					:class="{
+						'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
+						'match-swatch': swatch.isEnabled === false,
+					}"
+					:ref="`swatch-${index}`"
 					:data-index=swatch.index></color-chip>
 			</section>
 			<section ref="dropzonesGrid" id="dropzonesGrid" class="swatches mixer">
 				<color-chip v-for="(dropzone, index) in dropzones" :key="index"
 					:index=dropzone.index
 					:cmyk="dropzone.cmyk"
+					:class="{
+						'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
+						'match-mixer': dropzone.isEnabled === false,
+					}"
+					:ref="`dropzone-${index}`"
 					:data-index=dropzone.index></color-chip>
 			</section>
 		</main>
@@ -21,23 +31,21 @@
 					v-if="activeColor"
 					:cmyk=activeColor.cmyk
 					class="active__swatch drag-drop active"></color-chip>
-			<div class="bonus" @click="resetGame">
-				<button class="bonus__button"></button>
-				<button class="bonus__quantity">x1</button>
-			</div>
+			<bonus-item v-show="bonus > 0" :triggerCheckBonus="triggerCheckBonus" @bonusUsed="bonusUsed"></bonus-item>
 		</div>
 	</section>
 </template>
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
-import { constants } from '../scripts/common';
+import config from '../config';
 import { EventBus } from '../EventBus.js';
 import drag from '../scripts/core/drag';
 import color from '../scripts/core/color';
-import bonus from '../scripts/extras/bonus';
+//import bonus from '../scripts/extras/bonus';
 import HeaderItem from '../components/HeaderItem';
 import ColorChip from '../components/ColorChip';
+import BonusItem from '../components/BonusItem';
 import { setTimeout } from 'timers';
 
 export default {
@@ -45,10 +53,12 @@ export default {
 	components: {
 		HeaderItem,
 		ColorChip,
+		BonusItem,
 	},
 	data() {
 		return {
-			isDev: false,
+			isDev: true,
+			triggerCheckBonus: 0,
 		};
 	},
 	computed: {
@@ -56,6 +66,7 @@ export default {
 			'lives',
 			'score',
 			'level',
+			'bonus',
 			'tutorialIsLaunched',
 			'swatches',
 			'dropzones',
@@ -70,7 +81,7 @@ export default {
 			'getRandomSwatchIndexEnabled',
 		]),
 		numItems() {
-			return constants.levels[this.level];
+			return config.levels[this.level];
 		},
 	},
 	mounted() {
@@ -89,13 +100,12 @@ export default {
 			'decreaseLive',
 			'incrementLevel',
 			'incrementScore',
-			'incrementBonus',
-			'decreaseBonus',
 			'setSwatches',
 			'setDropzones',
 			'setActiveColor',
 			'setDropzoneCMYKByIndex',
 			'setSwatchDisabledByIndex',
+			'setDropzoneDisabledByIndex',
 			'resetGame',
 		]),
 		playLevel() {
@@ -111,6 +121,27 @@ export default {
 				this.doStep(dropZoneCurrent);
 			}
 		},
+		forceStep(index) {
+			const colorMixed = color.addColors(
+				this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
+			
+			const swatchCompared = this.getSwatchByIndex(index).cmyk;
+			this.setDropzoneCMYKByIndex({ index, cmyk: colorMixed });
+			
+			this.setSwatchDisabledByIndex({ index, isEnabled: false });
+			this.setDropzoneDisabledByIndex({ index, isEnabled: false });
+
+			const swatch = this.$refs[`swatch-${index}`][0].$el;
+			swatch.classList.add('disabled', 'match-swatch');
+			const dropzone = this.$refs[`dropzone-${index}`][0].$el;
+			dropzone.classList.add('disabled', 'match-mixer');
+
+			if (this.getSwatchesEnabledCount > 0) {
+				this.setActive();
+			} else {
+				this.handLevelFinished();
+			}
+		},
 		doStep(dropzone) {
 			const index = Number(dropzone.dataset.index);
 			const colorMixed = color.addColors(
@@ -118,9 +149,15 @@ export default {
 			
 			const swatchCompared = this.getSwatchByIndex(index).cmyk;
 			this.setDropzoneCMYKByIndex({ index, cmyk: colorMixed });
+			
 			if (color.areEqualColors(colorMixed, swatchCompared)) {
-				this.setSwatchDisabledByIndex({ index, isEnabled: false});
+				this.setSwatchDisabledByIndex({ index, isEnabled: false });
+				this.setDropzoneDisabledByIndex({ index, isEnabled: false });
+
+				this.incrementScore();
 				
+				this.triggerCheckBonus++;
+
 				if (this.getSwatchesEnabledCount > 0) {
 					dropzone.classList.add('disabled');
 					this.setActive();
@@ -132,16 +169,16 @@ export default {
 			}
 		},
 		handFailedMix() {
-			console.log("TCL: handFailedMix -> handFailedMix");
 			this.$router.push({ name: 'control', params: { isSuccess: false }});
 			this.resetGame();
 		},
 		handLevelFinished() {
-			console.log("TCL: handLevelFinished -> handLevelFinished");
-			this.$router.push({ name: 'control', params: { isSuccess: true } });
-			this.incrementLevel();
-			this.incrementLive();
-			this.resetGame();
+			setTimeout(() => {
+				this.$router.push({ name: 'control', params: { isSuccess: true } });
+				this.incrementLevel();
+				this.incrementLive();
+				this.resetGame();
+			});
 		},
 		initSwatches() {
 			if (this.swatches.length === 0) {
@@ -164,6 +201,7 @@ export default {
 					dropzones.push({
 						index: i,
 						cmyk: color.getColorRelated(swatch.cmyk),
+						isEnabled: true,
 					});
 				}
 				this.setDropzones({ dropzones });
@@ -180,6 +218,19 @@ export default {
 			}
 			this.setActiveColor({ activeColor: activeColor });
 		},
+		giveMeTheIndexOfTheSolution() {
+			for(let i = 0; i < this.numItems; i++) {
+				const colorMixed = color.addColors(
+					this.getDropzoneByIndex(i).cmyk, this.activeColor.cmyk);
+				if (_.isEqual(this.getSwatchByIndex(i).cmyk, colorMixed)) {
+					return i;
+				}
+			}
+			return null;
+		},
+		bonusUsed() {
+			this.forceStep(this.giveMeTheIndexOfTheSolution());
+		}
 	},
 };
 </script>
