@@ -63,7 +63,6 @@ function addColors(color1, color2) {
 		const add = Number(color1[i] + color2[i]);
 		result[i] = add < 100 ? add : 100;
 	}
-	console.log(result[0]);
 	return result;
 }
 

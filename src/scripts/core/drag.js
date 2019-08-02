@@ -24,8 +24,8 @@ function initDrag () {
 	}
 
 	// enable draggables to be dropped into this
-	interact('#dropzonesGrid .swatch').unset();
-	interact('#dropzonesGrid .swatch').dropzone({
+	interact('#dropzonesGrid .swatch:not(.disabled)').unset();
+	interact('#dropzonesGrid .swatch:not(.disabled)').dropzone({
 		// only accept elements matching this CSS selector
 		accept: '.drag-drop',
 		// Require a 75% element overlap for a drop to be possible
@@ -69,15 +69,10 @@ function initDrag () {
 		autoScroll: false,
 		onmove: dragMoveListener,
 		onend: (event) => {
-			event.stopPropagation();
-			console.log('[[[[[[[[[[ ONEND ]]]]]]]]]')
 			const dropZoneCurrent = event.relatedTarget;
-			console.log("TCL: initDrag -> dropZoneCurrent", dropZoneCurrent)
 			const target = event.target;
 			target.classList.remove('drag-active');
-
 			setPosition(target, 0, 0);
-			console.log('Emitimos dropSuccessful');
 			EventBus.$emit('dropSuccessful', dropZoneCurrent);
 		}
 	});

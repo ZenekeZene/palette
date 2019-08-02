@@ -1,15 +1,15 @@
 <template>
 	<header class="header">
-		<p id="backButton" v-if="noBack === false" class="header__back"></p>
+		<p v-if="noBack === false" class="header__back" @click="$router.back()"></p>
 		<p class="header__level">LEVEL&nbsp;
-			<span>{{ level }}</span>
+			<span>{{ displayLevel }}</span>
 		</p>
 		<p class="header__score">{{ score }}</p>
 		<p class="header__lives">{{ lives }}</p>
 	</header>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
 	name: 'HeaderItem',
@@ -23,6 +23,9 @@ export default {
 			'lives',
 			'score',
 			'level',
+		]),
+		...mapGetters([
+			'displayLevel',
 		]),
 	},
 	props: {

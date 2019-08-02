@@ -20,14 +20,15 @@ const store = new Vuex.Store({
 		tutorialIsLaunched: false,
 		swatches: [],
 		dropzones: [],
-		activeColor: {},
+		activeColor: null,
 	},
 	getters: {
+		displayLevel: (state) => (state.level + 1).toString(),
 		areLevelsFinished: (state) => state.level === constants.levels.length - 1,
 		getSwatchByIndex: (state) => (index) => state.swatches[index],
 		getDropzoneByIndex: (state) => (index) => state.dropzones[index],
 		getSwatchesCount: (state) => state.swatches.length,
-		getSwatchesEnabled: (state) => state.swatches.filter(swatch => swatch.isEnabled === true),
+		getSwatchesEnabled: (state) => state.swatches.filter(swatch => swatch.isEnabled),
 		getSwatchesEnabledCount: (state, getters) => getters.getSwatchesEnabled.length,
 		getRandomSwatchIndexEnabled: (state, getters) => getters.getSwatchesEnabledCount > 0 ? _.sample(getters.getSwatchesEnabled).index : -1,
 	},
@@ -73,13 +74,17 @@ const store = new Vuex.Store({
 		},
 		setActiveColor(state, payload) {
 			state.activeColor = payload.activeColor;
-			console.log(state.activeColor);
 		},
 		setDropzoneCMYKByIndex(state, payload) {
 			state.dropzones[payload.index].cmyk = payload.cmyk;
 		},
 		setSwatchDisabledByIndex(state, payload) {
 			state.swatches[payload.index].isEnabled = payload.isEnabled;
+		},
+		resetGame(state) {
+			state.swatches = [];
+			state.dropzones = [];
+			state.activeColor = null;
 		},
 	},
 });

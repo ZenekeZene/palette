@@ -21,7 +21,7 @@
 					v-if="activeColor"
 					:cmyk=activeColor.cmyk
 					class="active__swatch drag-drop active"></color-chip>
-			<div class="bonus">
+			<div class="bonus" @click="resetGame">
 				<button class="bonus__button"></button>
 				<button class="bonus__quantity">x1</button>
 			</div>
@@ -96,24 +96,23 @@ export default {
 			'setActiveColor',
 			'setDropzoneCMYKByIndex',
 			'setSwatchDisabledByIndex',
+			'resetGame',
 		]),
 		playLevel() {
 			this.initSwatches();
 			this.initDropzones();
-			this.setActive();
+			if (!this.activeColor) {
+				this.setActive();
+			}
 			drag.init();
 		},
 		dropSuccessful(dropZoneCurrent) {
-			console.log('dropzoneCurrent', dropZoneCurrent);
 			if (dropZoneCurrent) {
 				this.doStep(dropZoneCurrent);
 			}
 		},
 		doStep(dropzone) {
-			console.log('---------- Do Step ----------');
 			const index = Number(dropzone.dataset.index);
-			console.log('dropzone.cmyk', this.getDropzoneByIndex(index).cmyk);
-			console.log('activeColor.cmyk', this.activeColor.cmyk);
 			const colorMixed = color.addColors(
 				this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
 			
@@ -122,51 +121,53 @@ export default {
 			if (color.areEqualColors(colorMixed, swatchCompared)) {
 				this.setSwatchDisabledByIndex({ index, isEnabled: false});
 				
-				console.log(this.swatches.filter(swatch => swatch.isEnabled).length);
-				if (this.swatches.filter(swatch => swatch.isEnabled).length > 0) {
-					//dropzone.classList.add('disabled');
+				if (this.getSwatchesEnabledCount > 0) {
+					dropzone.classList.add('disabled');
 					this.setActive();
 				} else {
-					console.log('Hemos acabado.', this.getSwatchesEnabledCount);
 					this.handLevelFinished();
-					EventBus.$emit('disableDrag');
 				}
 			} else {
-				//this.handFailedMix();
+				this.handFailedMix();
 			}
 		},
 		handFailedMix() {
+			console.log("TCL: handFailedMix -> handFailedMix");
 			this.$router.push({ name: 'control', params: { isSuccess: false }});
+			this.resetGame();
 		},
 		handLevelFinished() {
-			console.log('handLevelFinished');
-			setTimeout(() => {
-				this.$router.push({ name: 'control', params: { isSuccess: true } });
-				this.incrementLevel();
-				this.incrementLive();
-			}, 2000);
+			console.log("TCL: handLevelFinished -> handLevelFinished");
+			this.$router.push({ name: 'control', params: { isSuccess: true } });
+			this.incrementLevel();
+			this.incrementLive();
+			this.resetGame();
 		},
 		initSwatches() {
-			let swatches = [];
-			for (let i = 0; i < this.numItems; i++) {
-				swatches.push({
-					index: i,
-					cmyk: color.getColorCMYKRandom(),
-					isEnabled: true,
-				});
+			if (this.swatches.length === 0) {
+				let swatches = [];
+				for (let i = 0; i < this.numItems; i++) {
+					swatches.push({
+						index: i,
+						cmyk: color.getColorCMYKRandom(),
+						isEnabled: true,
+					});
+				}
+				this.setSwatches({ swatches });
 			}
-			this.setSwatches({ swatches });
 		},
 		initDropzones() {
-			let dropzones = [];
-			for (let i = 0; i < this.numItems; i++) {
-				let swatch = this.getSwatchByIndex(i);
-				dropzones.push({
-					index: i,
-					cmyk: color.getColorRelated(swatch.cmyk),
-				});
+			if (this.dropzones.length === 0) {
+				let dropzones = [];
+				for (let i = 0; i < this.numItems; i++) {
+					let swatch = this.getSwatchByIndex(i);
+					dropzones.push({
+						index: i,
+						cmyk: color.getColorRelated(swatch.cmyk),
+					});
+				}
+				this.setDropzones({ dropzones });
 			}
-			this.setDropzones({ dropzones });
 		},
 		setActive() {
 			const indexRandom = this.getRandomSwatchIndexEnabled;
