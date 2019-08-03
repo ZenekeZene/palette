@@ -1,27 +1,8 @@
 .final {
-	@include fixed(top left);
-	z-index: 20;
-	width: 100vw;
-	height: 100vh;
-	height: calc(var(--vh, 1vh) * 100);
-	padding: $gutter-4 $gutter-2 $gutter-2 $gutter-2;
-	font-size: 0.6rem;
-	background: $paper;
-	-webkit-opacity: 1;
-	opacity: 1;
-	-webkit-transition: opacity 1s ease-out;
-	transition: opacity 1s ease-out;
-
-	&.hidden {
-		-webkit-opacity: 0;
-		opacity: 0;
-		-webkit-transition: opacity 1s ease-out;
-		transition: opacity 1s ease-out;
-	}
 
 	&-message {
 		position: relative;
-		z-index: 22;
+		z-index: 21;
 
 		h2 {
 			margin-bottom: $gutter;
@@ -95,112 +76,5 @@
 		font-size: 0.4rem;
 		font-weight: 700;
 		border-bottom: 1px solid black;
-	}
-
-	.header {
-		position: fixed;
-		top: $gutter-2;
-		left: 0;
-		z-index: 22;
-	}
-
-	$duration: 9000;
-
-	@function randomNum($min, $max) {
-		$rand: random();
-		$randomNum: $min + floor($rand * (($max - $min) + 1));
-
-		@return $randomNum;
-	}
-
-	.confetti {
-		@include fixed(top left);
-		@include flex(flex, center, center);
-		z-index: 21;
-		width: 100vw;
-		height: 100vh;
-		height: calc(var(--vh, 1vh) * 100);
-		overflow: hidden;
-
-		&-piece {
-			@include absolute(top);
-			width: $gutter-3;
-			height: $gutter-3;
-			background: $hot;
-			border-radius: 50%;
-			-webkit-opacity: 0;
-			opacity: 0;
-
-			@for $i from 1 through 13 {
-				&:nth-child(#{$i}) {
-					left: $i * 7%;
-					animation: makeItRain $duration * 1ms infinite ease-out;
-					animation-delay: #{randomNum(0, $duration * .5)}ms;
-					animation-duration: #{randomNum($duration * .7, $duration * 1.2)}ms;
-					-webkit-animation: makeItRain $duration * 1ms infinite ease-out;
-					-webkit-animation-delay: #{randomNum(0, $duration * .5)}ms;
-					-webkit-animation-duration: #{randomNum($duration * .7, $duration * 1.2)}ms
-				}
-			}
-
-			&:nth-child(odd) {
-				background: $cool;
-			}
-
-			&:nth-child(even) {
-				z-index: 1;
-			}
-
-			&:nth-child(4n) {
-				width: $gutter-2;
-				height: $gutter-2;
-				-webkit-animation-duration: $duration * 2ms;
-				animation-duration: $duration * 2ms;
-			}
-
-			&:nth-child(3n) {
-				width: $gutter;
-				height: $gutter;
-				-webkit-animation-duration: $duration * 2.5ms;
-				animation-duration: $duration * 2.5ms;
-			}
-
-			&:nth-child(6n) {
-				-webkit-animation-delay: $duration * 1.5ms;
-				animation-delay: $duration * 1.5ms;
-			}
-
-			&:nth-child(4n-7) {
-				background: $warm;
-			}
-		}
-	}
-
-	@keyframes makeItRain {
-		from {
-			opacity: 0;
-		}
-
-		20% {
-			opacity: 0.5;
-		}
-
-		to {
-			transform: translateY(100vh);
-		}
-	}
-
-	@-webkit-keyframes makeItRain {
-		from {
-			-webkit-opacity: 0;
-		}
-
-		20% {
-			-webkit-opacity: 0.5;
-		}
-
-		to {
-			-webkit-transform: translateY(100vh);
-		}
 	}
 }

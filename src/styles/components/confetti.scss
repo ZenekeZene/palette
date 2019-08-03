@@ -1,0 +1,70 @@
+@function randomNum($min, $max) {
+	$rand: random();
+	$randomNum: $min + floor($rand * (($max - $min) + 1));
+
+	@return $randomNum;
+}
+
+$duration: 9000;
+.confetti {
+
+	&-piece {
+		@include absolute(top);
+		width: $gutter-3;
+		height: $gutter-3;
+		background: $hot;
+		border-radius: 50%;
+		opacity: 0;
+
+		@for $i from 1 through 13 {
+			&:nth-child(#{$i}) {
+				left: $i * 7%;
+				animation: makeItRain $duration * 1ms infinite ease-out;
+				animation-delay: #{randomNum(0, $duration * 0.5)}ms;
+				animation-duration: #{randomNum($duration * 0.7, $duration * 1.2)}ms;
+			}
+		}
+
+		&:nth-child(odd) {
+			background: $cool;
+		}
+
+		&:nth-child(even) {
+			z-index: 1;
+		}
+
+		&:nth-child(4n) {
+			width: $gutter-2;
+			height: $gutter-2;
+			animation-duration: $duration * 2ms;
+		}
+
+		&:nth-child(3n) {
+			width: $gutter;
+			height: $gutter;
+			animation-duration: $duration * 2.5ms;
+		}
+
+		&:nth-child(6n) {
+			animation-delay: $duration * 1.5ms;
+		}
+
+		&:nth-child(4n-7) {
+			background: $warm;
+		}
+	}
+}
+
+@keyframes makeItRain {
+	from {
+		opacity: 0;
+	}
+
+	20% {
+		opacity: 0.5;
+	}
+
+	to {
+		transform: translateY(100vh);
+	}
+}

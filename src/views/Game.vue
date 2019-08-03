@@ -28,11 +28,15 @@
 		<section ref="limitActive" class="limit-drag">
 			<div ref="activeBase" class="active__base"></div>
 			<color-chip
-					v-if="activeColor"
-					:cmyk=activeColor.cmyk
-					class="active__swatch drag-drop active"
-				></color-chip>
-			<bonus-item v-show="bonus > 0" :triggerCheckBonus="triggerCheckBonus" @bonusUsed="bonusUsed"></bonus-item>
+				v-if="activeColor"
+				:cmyk=activeColor.cmyk
+				class="active__swatch drag-drop active"
+			></color-chip>
+			<bonus-item
+				v-show="bonus > 0"
+				:triggerCheckBonus="triggerCheckBonus"
+				@bonusUsed="bonusUsed"
+			></bonus-item>
 		</section>
 	</article>
 </template>
@@ -40,13 +44,12 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import config from '../config';
-import { EventBus } from '../EventBus.js';
 import drag from '../scripts/drag';
 import color from '../scripts/color';
+import { EventBus } from '../scripts/EventBus.js';
 import HeaderItem from '../components/HeaderItem';
 import ColorChip from '../components/ColorChip';
 import BonusItem from '../components/BonusItem';
-import { setTimeout } from 'timers';
 
 export default {
 	name: 'Game',
@@ -87,6 +90,7 @@ export default {
 			'getSwatchesEnabled',
 			'getSwatchesEnabledCount',
 			'getRandomSwatchIndexEnabled',
+			'wasTheLastLevel',
 		]),
 		numItems() {
 			return config.levels[this.level];
@@ -130,10 +134,10 @@ export default {
 		},
 		doStep(dropzone) {
 			const index = Number(dropzone.dataset.index);
+			this.triggerCheckBonus++;
 
 			if (this.mixCompared(index)) {
 				this.incrementScore();
-				this.triggerCheckBonus++;
 			} else {
 				this.handFailedMix();
 			}
@@ -168,10 +172,14 @@ export default {
 			}
 		},
 		handLevelFinished() {
-			this.$router.push({ name: 'control', params: { isSuccess: true } });
-			this.incrementLevel();
-			this.incrementLive();
-			this.resetGame();
+			if (this.wasTheLastLevel) {
+				this.$router.push({ name: 'final', params: { isCompleted: true }});
+			} else {
+				this.$router.push({ name: 'control', params: { isSuccess: true }});
+				this.incrementLevel();
+				this.incrementLive();
+				this.resetGame();
+			}
 		},
 		initSwatches() {
 			if (this.swatches.length === 0) {

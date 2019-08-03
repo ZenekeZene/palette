@@ -204,7 +204,7 @@
 		}
 	}
 
-	&-hiscore {
+	&-high-score {
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -213,7 +213,7 @@
 		padding: 18px 12px;
 		border: solid 1px $shadow;
 
-		.hiscore {
+		.high-score {
 
 			&__title {
 				position: absolute;

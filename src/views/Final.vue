@@ -1,7 +1,7 @@
 <template>
-	<aside class="final">
+	<aside>
 		<header class="header">
-			<p @click="back()" class="header__back"></p>
+			<p @click="back" class="header__back"></p>
 		</header>
 		<div class="final-message game-end" v-if="isCompleted">
 			<h2>Congratulations!</h2>
@@ -18,32 +18,23 @@
 			<p><span>{{ level }}</span></p>
 			<a class="header__share">SHARE YOUR RECORD</a>
 		</div>
-		<div class="confetti">
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-			<div class="confetti-piece"></div>
-		</div>
+		<confetti-decorator></confetti-decorator>
 	</aside>
 </template>
 <script>
 import { mapState } from 'vuex';
+import ConfettiDecorator from '../components/ConfettiDecorator';
 
 export default {
 	name: 'Final',
+	components: {
+		ConfettiDecorator,
+	},
 	computed: {
 		...mapState([
 			'level',
 			'score',
+			'highScore'
 		]),
 	},
 	data() {
@@ -53,12 +44,22 @@ export default {
 	},
 	mounted() {
 		this.isCompleted = this.$route.params.isCompleted;
+		this.calculateHighScore();
 	},
 	methods: {
 		back() {
-			this.$router.push({ name: 'home' });
+			this.$store.commit('resetDisplay');
+			this.$router.push('/home');
 		},
+		calculateHighScore() {
+			if (this.level > this.highScore.level) {
+				this.$store.commit('setHighScore', { level: this.level, score: this.score });
+			} else if (this.level > this.highScore.level) {
+				if (this.score > this.highScore.record) {
+					this.$store.commit('setHighScore', { level: this.level, score: this.score });
+				}
+			}
+		}
 	},
 };
 </script>
-

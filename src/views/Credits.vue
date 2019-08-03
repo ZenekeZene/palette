@@ -1,5 +1,5 @@
 <template>
-	<aside id="creditsPage" class="credits">
+	<aside class="credits">
 		<header class="header">
 			<p class="header__back" @click="back"></p>
 		</header>
@@ -7,11 +7,11 @@
 			<div class="credits-inner">
 				<header class="credits-title"></header>
 				<div class="credits-title__logo">
-					<img src="img/logo.svg" alt="Palette logo" height="50" />
+					<img :src="logo" alt="Palette logo" height="50" />
 				</div>
 				<p class="credits-version">v.1.0.0</p>
 				<div class="credits-title__logo">
-					<img src="img/pilpil-logo.svg" alt="Pil-Pil logo" height="80" />
+					<img :src="pilpil" alt="Pil-Pil logo" height="80" />
 				</div>
 				<main class="credits-text">
 					<h2>Game design and programming</h2>
@@ -34,6 +34,8 @@
 
 <script>
 import interact from 'interactjs';
+import Logo from '../img/logo.svg';
+import PilPil from '../img/pilpil-logo.svg';
 
 export default {
 	name: 'Credits',
@@ -42,7 +44,16 @@ export default {
 			creditsEnabled: true,
 			creditsInterval: null,
 			credits: null,
+			logo: Logo,
+			pilpil: PilPil,
 		};
+	},
+	mounted() {
+		this.credits = this.$refs.credits;
+		this.initDragCredits();
+		this.creditsEnabled = false;
+		this.setPositionCredits(0, 150);
+		this.handCreditsDrag();
 	},
 	methods: {
 		initDragCredits() {
@@ -104,15 +115,6 @@ export default {
 				bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
 			);
 		}
-	},
-	created() {
-	},
-	mounted() {
-		this.credits = this.$refs.credits;
-		this.initDragCredits();
-		this.creditsEnabled = false;
-		this.setPositionCredits(0, 150);
-		this.handCreditsDrag();
 	},
 };
 </script>

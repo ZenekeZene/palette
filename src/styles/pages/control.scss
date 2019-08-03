@@ -1,10 +1,10 @@
 .control {
-	@include absolute(top left);
+	@include relative(top left);
 	z-index: 2;
 	@include flex(flex, center, center);
 	order: 2;
 	width: 100vw;
-	height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+	height: 100vh; // Use vh as a fallback for browsers that do not support Custom Properties
 	//height: calc(var(--vh, 1vh) * 100);
 	background-color: $color-white;
 
@@ -29,7 +29,7 @@
 
 .replay {
 	@include fixed(top left);
-  	display: flex;
+	display: flex;
 	width: 100vw;
 	height: calc(50vh - 50px);
 	flex-direction: column;
@@ -57,16 +57,10 @@
 	color: $paper;
 	font-size: 0.8rem;
 	font-weight: 500;
-	-webkit-transform: scale(1);
 	transform: scale(1);
-	-webkit-opacity: 1;
 	opacity: 1;
-	-webkit-animation: life-appear 1.5s ease-in-out 0.5s 1;
-	-webkit-animation-fill-mode: both;
 	animation: life-appear 1.5s ease-in-out 0.5s 1;
 	animation-fill-mode: both;
-	//-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
-	//transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 
 	&::before {
 		position: absolute;
@@ -94,30 +88,9 @@
 			transform: scale(1);
 		}
 	}
-
-	@-webkit-keyframes life-appear {
-		0% {
-			-webkit-opacity: 1;
-			-webkit-transform: scale(1);
-		}
-
-		50% {
-			-webkit-opacity: 0.6;
-			-webkit-transform: scale(0.8);
-		}
-
-		100% {
-			-webkit-opacity: 1;
-			-webkit-transform: scale(1);
-		}
-	}
 }
 
 .hidden .liveUp {
-	-webkit-transform: scale(0.4);
 	transform: scale(0.4);
-	-webkit-opacity: 0;
 	opacity: 0;
-	//-webkit-transition: -webkit-transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, -webkit-opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
-	//transition: transform 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s, opacity 1.5s cubic-bezier(.5,.27,.58,1.41) 1.5s;
 }

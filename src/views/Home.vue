@@ -3,7 +3,7 @@
 	<aside class="home">
 		<aside class="home-header">
 			<div class="home-header__logo">
-				<img src="img/logo.svg" alt="Palette logo" height="50">
+				<img :src="logo" alt="Palette logo" height="50">
 			</div>
 			<header-item noBack></header-item>
 		</aside>
@@ -15,7 +15,7 @@
 			<router-link to="credits" class="home-buttons__about"></router-link>
 			<a id="eulaButton" class="home-buttons__eula" @click="openUrl('http://palette.ws/legal.html')" href="#"></a>
 		</nav>
-		<high-score></high-score>
+		<high-score v-if="highScore.level"></high-score>
 		<a class="donate-button" onclick="openUrl('https://www.buymeacoffee.com/PilPilGames')" href="#"></a>
 		<reset-modal :adaptive="true"></reset-modal>
 	</aside>
@@ -23,10 +23,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import Logo from '../img/logo.svg';
 import ResetModal from '../components/ResetModal';
 import HeaderItem from '../components/HeaderItem';
 import HighScore from '../components/HighScore';
-import { mapState } from 'vuex';
 
 export default {
 	name: "HomePage",
@@ -38,7 +39,13 @@ export default {
 	data() {
 		return {
 			highLevel: 0,
+			logo: Logo,
 		};
+	},
+	computed: {
+		...mapState([
+			'highScore',
+		]),
 	},
 	methods: {
 		launchReset() {

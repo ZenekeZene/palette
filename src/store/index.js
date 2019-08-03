@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import config from './config';
+import config from '../config';
 
 Vue.use(Vuex);
 
@@ -32,10 +32,12 @@ const store = new Vuex.Store({
 		getSwatchesEnabledCount: (state, getters) => getters.getSwatchesEnabled.length,
 		getRandomSwatchIndexEnabled: (state, getters) =>
 			getters.getSwatchesEnabledCount > 0 ? _.sample(getters.getSwatchesEnabled).index : -1,
+		getLivesToWinByLevel: (state) => config.lifePrizes[state.level],
+		wasTheLastLevel: (state) => state.level + 1 === config.levels.length,
 	},
 	mutations: {
 		incrementLive(state) {
-			state.lives++;
+			state.lives += config.lifePrizes[state.level];
 			localStorage.setItem('lives', state.lives);
 		},
 		decreaseLive(state) {
@@ -50,9 +52,15 @@ const store = new Vuex.Store({
 			state.level++;
 			localStorage.setItem('level', state.level);
 		},
-		resetLevel(state) {
+		resetDisplay(state) {
 			state.level = 0;
 			localStorage.setItem('level', state.level);
+
+			state.score = 0;
+			localStorage.setItem('score', state.score);
+
+			state.bonus = 0;
+			localStorage.setItem('bonus', state.bonus);
 		},
 		incrementBonus(state) {
 			state.bonus++;

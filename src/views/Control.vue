@@ -1,18 +1,20 @@
 <template>
-	<article id="control" class="control">
-		<template v-if="isSuccess">
-			<quote-item></quote-item>
-			<button @click="showLevel()"><i class="fa fa-play" aria-hidden="true"></i></button>
-			<div class="liveUp">+1</div>
-		</template>
-		<template v-else>
-			<section class="replay">
-				<p>You almost got it!
-					<span>TRY AGAIN</span>
-				</p>
-			</section>
-			<button @click="showLevel()"><i class="fa fa-redo" aria-hidden="true"></i></button>
-		</template>
+	<article class="control">
+		<transition name="fade">
+			<div v-if="isSuccess" key="success">
+				<quote-item></quote-item>
+				<button @click="showLevel()"><i class="fa fa-play" aria-hidden="true"></i></button>
+				<div class="liveUp">+{{ getLivesToWinByLevel }}</div>
+			</div>
+			<div v-else key="failed">
+				<section class="replay">
+					<p>You almost got it!
+						<span>TRY AGAIN</span>
+					</p>
+				</section>
+				<button @click="showLevel"><i class="fa fa-redo" aria-hidden="true"></i></button>
+			</div>
+		</transition>
 		<progression-decorator></progression-decorator>
 	</article>
 </template>
@@ -35,6 +37,7 @@
 		computed: {
 			...mapGetters([
 				'areLevelsFinished',
+				'getLivesToWinByLevel',
 			]),
 		},
 		mounted() {
@@ -42,7 +45,7 @@
 		},
 		methods: {
 			showLevel() {
-				this.$router.push({ name: 'game', });
+				this.$router.push({ name: 'game' });
 			},
 		}
 	}

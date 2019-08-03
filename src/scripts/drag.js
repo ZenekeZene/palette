@@ -1,5 +1,5 @@
 import interact from 'interactjs'
-import { EventBus } from '../EventBus.js';
+import { EventBus } from '../scripts/EventBus.js';
 
 function offset (el) {
 	const rect = el.getBoundingClientRect();

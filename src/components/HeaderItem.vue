@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<p v-if="noBack === false" class="header__back" @click="$router.back()"></p>
+		<p v-if="noBack === false" class="header__back" @click="back"></p>
 		<p class="header__level">LEVEL&nbsp;
 			<span>{{ displayLevel }}</span>
 		</p>
@@ -32,6 +32,11 @@ export default {
 		noBack: {
 			type: Boolean,
 			default: false,
+		},
+	},
+	methods: {
+		back() {
+			this.$router.push('/home');
 		},
 	},
 };

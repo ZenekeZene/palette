@@ -17,19 +17,17 @@ for (let i in quotes) {
 
 // Shuffle array
 const shuffled = quotesArray.sort(() => 0.5 - Math.random());
-let quotesSelected;
-
 // Get sub-array of first n elements after shuffled
-quotesSelected = shuffled.slice(0, config.levels.length);
+let quotesSelected = shuffled.slice(0, config.levels.length);
 
 export default {
 	name: 'QuoteItem',
 	computed: {
-		... mapState([
+		...mapState([
 			'level',
 		]),
 		quote() {
-			return quotesSelected[this.level][1];
+			return quotesSelected[this.level - 1][1];
 		},
 	},
 };
