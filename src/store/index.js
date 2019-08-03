@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import config from '../config';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -8,6 +9,7 @@ const _ = require('lodash');
 
 const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
+	plugins: [createPersistedState()],
 	state: {
 		lives: 3,
 		score: 0,
@@ -38,41 +40,38 @@ const store = new Vuex.Store({
 	mutations: {
 		incrementLive(state) {
 			state.lives += config.lifePrizes[state.level];
-			localStorage.setItem('lives', state.lives);
 		},
 		decreaseLive(state) {
 			state.lives--;
-			localStorage.setItem('lives', state.lives);
 		},
 		incrementScore(state) {
 			state.score += config.scorePerSuccess;
-			localStorage.setItem('score', state.score);
 		},
 		incrementLevel(state) {
 			state.level++;
-			localStorage.setItem('level', state.level);
 		},
 		resetDisplay(state) {
 			state.level = 0;
-			localStorage.setItem('level', state.level);
-
 			state.score = 0;
-			localStorage.setItem('score', state.score);
-
 			state.bonus = 0;
-			localStorage.setItem('bonus', state.bonus);
+
+			state.swatches = [];
+			state.dropzones = [];
+			state.activeColor = null;
+		},
+		resetGame(state) {
+			state.swatches = [];
+			state.dropzones = [];
+			state.activeColor = null;
 		},
 		incrementBonus(state) {
 			state.bonus++;
-			localStorage.setItem('bonus', state.bonus);
 		},
 		decreaseBonus(state) {
 			state.bonus--;
-			localStorage.setItem('bonus', state.bonus);
 		},
 		setTutorialIsLaunched(state, payload) {
 			state.tutorialIsLaunched = payload.status;
-			localStorage.setItem('tutorialIsLaunched', payload.status);
 		},
 		setSwatches(state, payload) {
 			state.swatches = [];
@@ -93,15 +92,9 @@ const store = new Vuex.Store({
 		setDropzoneDisabledByIndex(state, payload) {
 			state.dropzones[payload.index].isEnabled = payload.isEnabled;
 		},
-		resetGame(state) {
-			state.swatches = [];
-			state.dropzones = [];
-			state.activeColor = null;
-		},
 		setHighScore(state, payload) {
 			state.highScore.level = payload.level;
 			state.highScore.score = payload.score;
-			localStorage.setItem('highScore', JSON.stringify(state.highScore));
 		},
 	},
 });

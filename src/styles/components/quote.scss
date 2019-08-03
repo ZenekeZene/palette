@@ -1,6 +1,5 @@
 .quote {
-	position: absolute;
-	top: 0;
+	@include absolute(top left);
 	display: flex;
 	width: 100%;
 	height: calc(50vh - 50px);
