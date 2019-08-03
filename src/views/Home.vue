@@ -1,5 +1,4 @@
 <template>
-<transition name="fade">
 	<aside class="home">
 		<aside class="home-header">
 			<div class="home-header__logo">
@@ -19,7 +18,6 @@
 		<a class="donate-button" onclick="openUrl('https://www.buymeacoffee.com/PilPilGames')" href="#"></a>
 		<reset-modal :adaptive="true"></reset-modal>
 	</aside>
-</transition>
 </template>
 
 <script>
