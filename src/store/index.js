@@ -9,7 +9,9 @@ const _ = require('lodash');
 
 const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
-	plugins: [createPersistedState()],
+	plugins: [createPersistedState({
+		key: 'palette-state',
+	})],
 	state: {
 		lives: 3,
 		score: 0,
