@@ -1,7 +1,7 @@
 <template>
 	<div class="bonus" @click="activateBonus">
 		<button class="bonus__button">
-			<span class="bonus__quantity">x{{ bonus }}</span>
+			<span class="bonus__quantity">{{ bonus }}</span>
 		</button>
 	</div>
 </template>
@@ -18,6 +18,10 @@ export default {
 	},
 	props: {
 		triggerCheckBonus: {
+			type: Number,
+			default: 0,
+		},
+		indexOfDropzoneToCheck: {
 			type: Number,
 			default: 0,
 		},
@@ -45,12 +49,11 @@ export default {
 			}, config.intervalBonus);
 
 			if (this.bonusCheck === false) {
-				console.log('Bonus ready...')
 				this.bonusCheck = true;
 			} else if (this.bonusCheck) {
-				console.log('Bonus got it!!!!');
 				this.incrementBonus();
 				this.bonusCheck = false;
+				this.$emit('bonusGot', true);
 			}
 		},
 		activateBonus() {

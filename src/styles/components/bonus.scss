@@ -1,5 +1,5 @@
 .bonus {
-	@include absolute(bottom $gutter-2 right $gutter);
+	@include absolute(bottom 2rem right $gutter);
 	@include size(8vh);
 
 	&__button {
@@ -66,10 +66,10 @@
 	font-weight: 700;
 	text-align: center;
 	color: $cool;
-	animation: getbonus 1.6s normal both;
+	animation: getBonus 1.6s normal both;
 }
 
-@keyframes getbonus {
+@keyframes getBonus {
 	0% {
 		opacity: 0;
 		top: -20px;

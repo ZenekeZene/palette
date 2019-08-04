@@ -20,7 +20,7 @@
 				:class="{
 					'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
 					'match-mixer': dropzone.isEnabled === false,
-					'tutorial': tutorialIsLaunched && activeIsMoved
+					'tutorial': !tutorialIsLaunched && activeIsMoved
 				}"
 				:ref="`dropzone-${index}`"
 				:data-index=dropzone.index
@@ -28,7 +28,7 @@
 		</section>
 		<section ref="limitActive" class="limit-drag">
 			<div ref="activeBase" class="active__base"
-				:class="{ 'tutorial': tutorialIsLaunched && !activeIsMoved }"
+				:class="{ 'tutorial': !tutorialIsLaunched && !activeIsMoved }"
 			></div>
 			<color-chip
 				v-if="activeColor"
@@ -40,6 +40,8 @@
 			<bonus-item
 				v-show="bonus > 0"
 				:triggerCheckBonus="triggerCheckBonus"
+				:indexOfDropzoneToCheck="lastIndexDropped"
+				@bonusGot="bonusGot"
 				@bonusUsed="bonusUsed"
 			></bonus-item>
 		</section>
@@ -68,6 +70,7 @@ export default {
 			isDev: true,
 			triggerCheckBonus: 0,
 			activeIsMoved: false,
+			lastIndexDropped: 0,
 		};
 	},
 	mounted() {
@@ -121,6 +124,7 @@ export default {
 			'setDropzoneCMYKByIndex',
 			'setSwatchDisabledByIndex',
 			'setDropzoneDisabledByIndex',
+			'setTutorialIsLaunched',
 			'resetGame',
 		]),
 		playLevel() {
@@ -131,17 +135,17 @@ export default {
 			}
 			drag.init();
 		},
-		dropSuccessful(dropZoneCurrent) {
+		dropSuccessful(dropzoneCurrent) {
 			this.activeIsMoved = false;
-			if (dropZoneCurrent) {
-				this.doStep(dropZoneCurrent);
+			if (dropzoneCurrent) {
+				this.doStep(dropzoneCurrent);
 			}
 		},
-		forceStep(index) {
-			const dropzone = this.$refs[`dropzone-${index}`][0].$el;
-			const swatch = this.$refs[`swatch-${index}`][0].$el;
+		forceStep(indexOfDropzone) {
+			const dropzone = this.$refs[`dropzone-${indexOfDropzone}`][0].$el;
+			const swatch = this.$refs[`swatch-${indexOfDropzone}`][0].$el;
 
-			if (this.mixCompared(index)) {
+			if (this.isMixSuccessful(indexOfDropzone)) {
 				swatch.classList.add('match-mixer');
 				dropzone.classList.add('match-mixer');
 			}
@@ -150,22 +154,26 @@ export default {
 			const index = Number(dropzone.dataset.index);
 			this.triggerCheckBonus++;
 
-			if (this.mixCompared(index)) {
+			if (this.isMixSuccessful(index)) {
+				if (!this.tutorialIsLaunched) {
+					this.setTutorialIsLaunched({ status : true });
+				}
+				this.lastIndexDropped = index;
 				this.incrementScore();
 			} else {
 				this.handFailedMix();
 			}
 		},
-		mixCompared(index) {
+		isMixSuccessful(indexOfDropzone) {
 			const colorMixed = color.addColors(
-				this.getDropzoneByIndex(index).cmyk, this.activeColor.cmyk);
+				this.getDropzoneByIndex(indexOfDropzone).cmyk, this.activeColor.cmyk);
 
-			const swatchCompared = this.getSwatchByIndex(index).cmyk;
-			this.setDropzoneCMYKByIndex({ index, cmyk: colorMixed });
+			const swatchCompared = this.getSwatchByIndex(indexOfDropzone).cmyk;
+			this.setDropzoneCMYKByIndex({ index: indexOfDropzone, cmyk: colorMixed });
 
 			if (color.areEqualColors(colorMixed, swatchCompared)) {
-				this.setSwatchDisabledByIndex({ index, isEnabled: false });
-				this.setDropzoneDisabledByIndex({ index, isEnabled: false });
+				this.setSwatchDisabledByIndex({ index: indexOfDropzone, isEnabled: false });
+				this.setDropzoneDisabledByIndex({ index: indexOfDropzone, isEnabled: false });
 
 				if (this.getSwatchesEnabledCount > 0) {
 					this.setActive();
@@ -242,6 +250,9 @@ export default {
 				}
 			}
 			return null;
+		},
+		bonusGot(status) {
+			this.$refs[`dropzone-${this.lastIndexDropped}`][0].$el.classList.add('combo');
 		},
 		bonusUsed() {
 			this.forceStep(this.giveMeTheIndexOfTheSolution());

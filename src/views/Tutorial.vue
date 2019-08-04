@@ -12,16 +12,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
 export default {
 	name: 'Tutorial',
 	methods: {
-		...mapMutations([
-			'setTutorialIsLaunched',
-		]),
 		skipTutorial() {
 			this.$router.push({ name: 'game', });
-			this.setTutorialIsLaunched({ status : true });
 		},
 	},
 };
