@@ -33,3 +33,8 @@
 @mixin height($height) {
 	@include share(height, line-height, $height);
 }
+
+@mixin size($size: 100%) {
+	width: $size;
+	height: $size;
+}

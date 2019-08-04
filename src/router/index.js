@@ -5,6 +5,7 @@ import Game from "../views/Game.vue";
 import Control from '../views/Control.vue';
 import Final from '../views/Final.vue';
 import Credits from "../views/Credits.vue";
+import Tutorial from '../views/Tutorial.vue';
 
 Vue.use(Router);
 
@@ -34,6 +35,15 @@ export default new Router({
 			path: '/credits',
 			name: 'credits',
 			component: Credits,
+		},
+		{
+			path: '/tutorial',
+			name: 'tutorial',
+			component: Tutorial,
+		},
+		{
+			path: '*',
+			component: Home,
 		},
 	],
 });

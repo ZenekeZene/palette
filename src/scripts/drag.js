@@ -14,7 +14,7 @@ function dragMoveListener (event) {
 	const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 	target.classList.add('drag-active');
 	setPosition(target, x, y);
-	//serverBus.$emit('activeIsMoved');
+	EventBus.$emit('activeIsMoved');
 }
 
 function initDrag () {

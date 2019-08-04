@@ -1,11 +1,9 @@
 <template>
 	<div class="swatch" 
-		:class="{ 'tutorial': tutorialIsLaunched }"
 		:style="{ backgroundColor: colorRender }"
-	></div>
+	><slot></slot></div>
 </template>
 <script>
-import { mapState } from 'vuex';
 import color from '../scripts/color';
 
 export default {
@@ -26,9 +24,6 @@ export default {
 		},
 	},
 	computed: {
-		...mapState([
-			'tutorialIsLaunched',
-		]),
 		colorRender() {
 			return color.getRGBColor(color.convertCMYKtoRGB(this.cmyk));
 		},

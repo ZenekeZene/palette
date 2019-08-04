@@ -1,5 +1,5 @@
 <template>
-	<aside @click="handTutorial()" class="screentutorial" v-if="isVisible">
+	<aside @click="skipTutorial" class="screentutorial">
 		<div class="screentutorial-text">MIX THE COLORS TO MATCH THE SAMPLES</div>
 		<div class="screentutorial-graphic">
 			<div class="screentutorial-graphic__swatch"></div>
@@ -12,17 +12,16 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
 	name: 'Tutorial',
-	data() {
-		return {
-			isVisible: false,	
-		};
-	},
 	methods: {
-		handTutorial() {
-			this.screenTutorial.classList.remove('fadeIn');
-			this.screenTutorial.classList.add('fadeOut');
+		...mapMutations([
+			'setTutorialIsLaunched',
+		]),
+		skipTutorial() {
+			this.$router.push({ name: 'game', });
+			this.setTutorialIsLaunched({ status : true });
 		},
 	},
 };

@@ -20,18 +20,23 @@
 				:class="{
 					'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
 					'match-mixer': dropzone.isEnabled === false,
+					'tutorial': tutorialIsLaunched && activeIsMoved
 				}"
 				:ref="`dropzone-${index}`"
 				:data-index=dropzone.index
 			></color-chip>
 		</section>
 		<section ref="limitActive" class="limit-drag">
-			<div ref="activeBase" class="active__base"></div>
+			<div ref="activeBase" class="active__base"
+				:class="{ 'tutorial': tutorialIsLaunched && !activeIsMoved }"
+			></div>
 			<color-chip
 				v-if="activeColor"
-				:cmyk=activeColor.cmyk
 				class="active__swatch drag-drop active"
-			></color-chip>
+				:cmyk=activeColor.cmyk
+			>
+				<span class="active__beat" :style="{ backgroundColor: activeColorRender }"></span>
+			</color-chip>
 			<bonus-item
 				v-show="bonus > 0"
 				:triggerCheckBonus="triggerCheckBonus"
@@ -62,12 +67,16 @@ export default {
 		return {
 			isDev: true,
 			triggerCheckBonus: 0,
+			activeIsMoved: false,
 		};
 	},
 	mounted() {
 		this.playLevel();
 		EventBus.$on('dropSuccessful', (data) => {
 			this.dropSuccessful(data);
+		});
+		EventBus.$on('activeIsMoved', () => {
+			this.activeIsMoved = true;
 		});
 	},
 	beforeDestroy() {
@@ -82,6 +91,7 @@ export default {
 			'swatches',
 			'dropzones',
 			'activeColor',
+			'tutorialIsLaunched',
 		]),
 		...mapGetters([
 			'getDropzoneByIndex',
@@ -94,6 +104,9 @@ export default {
 		]),
 		numItems() {
 			return config.levels[this.level];
+		},
+		activeColorRender() {
+			return color.getRGBColor(color.convertCMYKtoRGB(this.activeColor.cmyk));
 		},
 	},
 	methods: {
@@ -119,6 +132,7 @@ export default {
 			drag.init();
 		},
 		dropSuccessful(dropZoneCurrent) {
+			this.activeIsMoved = false;
 			if (dropZoneCurrent) {
 				this.doStep(dropZoneCurrent);
 			}

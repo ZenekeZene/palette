@@ -1,4 +1,5 @@
 <template>
+<fade-transition>
 	<modal name="reset-modal" class="v-custom-modal">
 		<div class="notification">
 			<h2 class="notification__title">Reset game</h2>
@@ -9,6 +10,7 @@
 			</p>
 		</div>
 	</modal>
+</fade-transition>
 </template>
 
 <script>

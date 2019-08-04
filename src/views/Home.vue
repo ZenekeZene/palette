@@ -7,7 +7,7 @@
 			<header-item noBack></header-item>
 		</aside>
 		<nav class="home-buttons">
-			<router-link to="game" class="home-buttons__play"></router-link>
+			<button @click="handGame" class="home-buttons__play"></button>
 			<button @click="handRate" class="home-buttons__rate"></button>
 			<button id="soundButton" class="home-buttons__sound"></button>
 			<button @click="launchReset" class="home-buttons__reset"></button>
@@ -43,6 +43,7 @@ export default {
 	computed: {
 		...mapState([
 			'highScore',
+			'tutorialIsLaunched',
 		]),
 	},
 	methods: {
@@ -56,6 +57,14 @@ export default {
 				openUrl(config.stores.ios);
 			}
 		},
+		handGame() {
+			console.log('handGame');
+			if (!this.tutorialIsLaunched) {
+				this.$router.push({ name: 'tutorial' });
+			} else {
+				this.$router.push({ name: 'game' });
+			}
+		}
 	},
 };
 </script>
