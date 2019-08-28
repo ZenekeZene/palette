@@ -9,7 +9,7 @@
 		<nav class="home-buttons">
 			<button @click="handGame" class="home-buttons__play"></button>
 			<button @click="handRate" class="home-buttons__rate"></button>
-			<button id="soundButton" class="home-buttons__sound"></button>
+			<button @click="handSound" class="home-buttons__sound" :class="{'--silence': isMuted }"></button>
 			<button @click="launchReset" class="home-buttons__reset"></button>
 			<router-link to="credits" class="home-buttons__about"></router-link>
 			<a id="eulaButton" class="home-buttons__eula" @click="openUrl('http://palette.ws/legal.html')" href="#"></a>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import Logo from '../img/logo.svg';
 import ResetModal from '../components/ResetModal';
 import HeaderItem from '../components/HeaderItem';
@@ -44,9 +44,13 @@ export default {
 		...mapState([
 			'highScore',
 			'tutorialIsLaunched',
+			'isMuted',
 		]),
 	},
 	methods: {
+		...mapMutations([
+			'setIsMuted',
+		]),
 		launchReset() {
 			this.$modal.show('reset-modal');
 		},
@@ -56,6 +60,10 @@ export default {
 			} else if (isMobile === 'iOS') {
 				openUrl(config.stores.ios);
 			}
+		},
+		handSound() {
+			console.log(!this.isMuted);
+			this.setIsMuted({ isMuted: !this.isMuted });
 		},
 		handGame() {
 			console.log('handGame');

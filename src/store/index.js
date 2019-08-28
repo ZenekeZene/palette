@@ -9,22 +9,22 @@ const _ = require('lodash');
 
 const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
-	plugins: [createPersistedState({
-		key: 'palette-state',
-	})],
+	plugins: [
+		createPersistedState({
+			key: 'palette-state',
+		}),
+	],
 	state: {
-		lives: 3,
-		score: 0,
-		level: 0,
-		bonus: 0,
-		tutorialIsLaunched: false,
-		swatches: [],
-		dropzones: [],
-		activeColor: null,
-		highScore: {
-			level: 0,
-			score: 0,
-		},
+		lives: config.initialState.lives,
+		score: config.initialState.score,
+		level: config.initialState.level,
+		bonus: config.initialState.bonus,
+		tutorialIsLaunched: config.initialState.tutorialIsLaunched,
+		swatches: config.initialState.swatches,
+		dropzones: config.initialState.dropzones,
+		activeColor: config.initialState.activeColor,
+		highScore: config.initialState.highScore,
+		isMuted: config.initialState.isMuted,
 	},
 	getters: {
 		displayLevel: (state) => (state.level + 1).toString(),
@@ -53,18 +53,19 @@ const store = new Vuex.Store({
 			state.level++;
 		},
 		resetDisplay(state) {
-			state.level = 0;
-			state.score = 0;
-			state.bonus = 0;
+			state.level = config.initialState.level;
+			state.score = config.initialState.score;
+			state.bonus = config.initialState.bonus;
+			state.lives = config.initialState.lives;
 
-			state.swatches = [];
-			state.dropzones = [];
-			state.activeColor = null;
+			state.swatches = config.initialState.swatches;
+			state.dropzones = config.initialState.dropzones;
+			state.activeColor = config.initialState.activeColor;
 		},
 		resetGame(state) {
-			state.swatches = [];
-			state.dropzones = [];
-			state.activeColor = null;
+			state.swatches = config.initialState.swatches;
+			state.dropzones = config.initialState.dropzones;
+			state.activeColor = config.initialState.activeColor;
 		},
 		incrementBonus(state) {
 			state.bonus++;
@@ -97,6 +98,9 @@ const store = new Vuex.Store({
 		setHighScore(state, payload) {
 			state.highScore.level = payload.level;
 			state.highScore.score = payload.score;
+		},
+		setIsMuted(state, payload) {
+			state.isMuted = payload.isMuted;
 		},
 	},
 });
