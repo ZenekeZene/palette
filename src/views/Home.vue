@@ -9,7 +9,7 @@
 		<nav class="home-buttons">
 			<button @click="handGame" class="home-buttons__play"></button>
 			<button @click="handRate" class="home-buttons__rate"></button>
-			<button @click="handSound" class="home-buttons__sound" :class="{'--silence': isMuted }"></button>
+			<!--<button @click="handSound" class="home-buttons__sound" :class="{'--silence': isMuted }"></button>-->
 			<button @click="launchReset" class="home-buttons__reset"></button>
 			<router-link to="credits" class="home-buttons__about"></router-link>
 			<a id="eulaButton" class="home-buttons__eula" @click="openLink('http://palette.ws/legal.html')" href="#"></a>

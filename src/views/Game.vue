@@ -67,7 +67,7 @@ export default {
 	},
 	data() {
 		return {
-			isDev: true,
+			isDev: config._isDev,
 			triggerCheckBonus: 0,
 			activeIsMoved: false,
 			lastIndexDropped: 0,
