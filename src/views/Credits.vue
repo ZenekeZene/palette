@@ -25,7 +25,7 @@
 					<p>Yuka&nbsp;&nbsp;🐶</p>
 					<h2>Music and sound effects</h2>
 					<p>POND 5&nbsp;&nbsp;🎙</p>
-					<a class="link-final" onclick="openUrl('http://palette.ws')" href='#'>palette.ws</a>
+					<a class="link-final" onclick="openLink('http://palette.ws')" href='#'>palette.ws</a>
 				</main>
 			</div>
 		</div>

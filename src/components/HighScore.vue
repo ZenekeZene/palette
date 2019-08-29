@@ -5,11 +5,11 @@
 			<p class="header__level">LEVEL <span>{{ highScore.level }}</span></p>
 			<p class="header__score">{{ highScore.score }}</p>
 			<a class="header__share"
-				:href="`https://twitter.com/intent/tweet?text=I+have+overcome+all+the+levels+of+@PlayPalette+with+${ highScore.score }+points!!!+http://palette.ws`"
+				@click="openLink(mountTweet(`I+have+overcome+all+the+levels+of+@PlayPalette+with+${ highScore.score }+points!!!`))"
 				v-if="areLevelsFinished"
 			>SHARE</a>
 			<a class="header__share"
-				:href="`https://twitter.com/intent/tweet?text=I+have+finished+@PlayPalette+with+${ highScore.score }+points+at+level+${ highScore.level }!!!+http://palette.ws`"
+				@click="openLink(mountTweet(`I+have+finished+@PlayPalette+with+${ highScore.score }+points+at+level+${ highScore.level }!!!`))"
 				v-else
 			>SHARE</a>
 		</section>

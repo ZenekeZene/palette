@@ -12,16 +12,17 @@
 			<button @click="handSound" class="home-buttons__sound" :class="{'--silence': isMuted }"></button>
 			<button @click="launchReset" class="home-buttons__reset"></button>
 			<router-link to="credits" class="home-buttons__about"></router-link>
-			<a id="eulaButton" class="home-buttons__eula" @click="openUrl('http://palette.ws/legal.html')" href="#"></a>
+			<a id="eulaButton" class="home-buttons__eula" @click="openLink('http://palette.ws/legal.html')" href="#"></a>
 		</nav>
 		<high-score v-if="highScore.level"></high-score>
-		<a class="donate-button" onclick="openUrl('https://www.buymeacoffee.com/PilPilGames')" href="#"></a>
+		<a class="donate-button" @click="openLink('https://www.buymeacoffee.com/PilPilGames')" href="#"></a>
 		<reset-modal :adaptive="true"></reset-modal>
 	</aside>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import config from '../config';
 import Logo from '../img/logo.svg';
 import ResetModal from '../components/ResetModal';
 import HeaderItem from '../components/HeaderItem';
@@ -56,17 +57,15 @@ export default {
 		},
 		handRate() {
 			if (isMobile === 'Android') {
-				window.location.replace(config.stores.android);
+				this.openLink(config.stores.android);
 			} else if (isMobile === 'iOS') {
-				openUrl(config.stores.ios);
+				this.openLink(config.stores.ios);
 			}
 		},
 		handSound() {
-			console.log(!this.isMuted);
 			this.setIsMuted({ isMuted: !this.isMuted });
 		},
 		handGame() {
-			console.log('handGame');
 			if (!this.tutorialIsLaunched) {
 				this.$router.push({ name: 'tutorial' });
 			} else {

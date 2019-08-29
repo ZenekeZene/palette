@@ -7,7 +7,7 @@
 			<h2>Congratulations!</h2>
 			<h3>You have overcome all the levels of Palette with <span>{{ score }}</span></h3>
 			<a class="header__share"
-				:href="`https://twitter.com/intent/tweet?text=I+have+overcome+all+the+levels+of+@PlayPalette+with+${ score }+points!!!+http://palette.ws`"
+				@click="openLink(mountTweet(`I+have+overcome+all+the+levels+of+@PlayPalette+with+${ score }+points!!!`))"
 			>SHARE YOUR RECORD</a>
 		</section>
 		<section class="final-message" v-else>
@@ -15,7 +15,7 @@
 			<h3>You have finished Palette with <span>{{ score }} points at level</span></h3>
 			<p><span>{{ level }}</span></p>
 			<a class="header__share"
-				:href="`https://twitter.com/intent/tweet?text=I+have+finished+@PlayPalette+with+${ score }+points+at+level+${ displayLevel }!!!+http://palette.ws`">
+				@click="openLink(mountTweet(`I+have+finished+@PlayPalette+with+${ score }+points+at+level+${ displayLevel }!!!`))">
 			>SHARE YOUR RECORD</a>
 		</section>
 		<confetti-decorator></confetti-decorator>
