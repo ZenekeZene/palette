@@ -1,22 +1,32 @@
 <template>
-	<article class="home-highscore">
-		<header class="highscore__title">HI SCORE</header>
-		<section class="highscore__body">
+	<article class="home-high-score">
+		<header class="high-score__title">HI SCORE</header>
+		<section class="high-score__body">
 			<p class="header__level">LEVEL <span>{{ highScore.level }}</span></p>
 			<p class="header__score">{{ highScore.score }}</p>
-			<a class="header__share">SHARE</a>
+			<a class="header__share"
+				:href="`https://twitter.com/intent/tweet?text=I+have+overcome+all+the+levels+of+@PlayPalette+with+${ highScore.score }+points!!!+http://palette.ws`"
+				v-if="areLevelsFinished"
+			>SHARE</a>
+			<a class="header__share"
+				:href="`https://twitter.com/intent/tweet?text=I+have+finished+@PlayPalette+with+${ highScore.score }+points+at+level+${ highScore.level }!!!+http://palette.ws`"
+				v-else
+			>SHARE</a>
 		</section>
 	</article>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
 	name: 'HighScore',
 	computed: {
 		...mapState([
 			'highScore',
+		]),
+		...mapGetters([
+			'areLevelsFinished',
 		]),
 	},
 };

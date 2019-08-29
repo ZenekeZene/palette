@@ -1,0 +1,48 @@
+.high-score-home {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-bottom: 24px;
+	padding: 18px 12px;
+	border: solid 1px $shadow;
+
+	.high-score {
+
+		&__title {
+			position: absolute;
+			top: -10px;
+			left: calc(50% - 60px);
+			width: 120px;
+			height: 20px;
+			font-size: 0.5rem;
+			color: $shadow;
+			background: $paper;
+		}
+
+		&__body {
+			display: flex;
+
+			.header {
+
+				&__level {
+					width: 50%;
+					color: $shadow;
+				}
+
+				&__score {
+					width: 50%;
+					text-align: right;
+				}
+
+				&__share {
+					position: absolute;
+					bottom: -15px;
+					left: calc(50% - 55px);
+					width: 110px;
+					height: 30px;
+				}
+			}
+		}
+	}
+}

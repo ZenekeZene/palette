@@ -1,28 +1,28 @@
 <template>
-	<aside>
+	<article>
 		<header class="header">
 			<p @click="back" class="header__back"></p>
 		</header>
-		<div class="final-message game-end" v-if="isCompleted">
+		<section class="final-message game-end" v-if="isCompleted">
 			<h2>Congratulations!</h2>
-			<h3>You have overcome all the levels of Palette with
-				<span>{{ score }}</span>
-			</h3>
-			<a class="header__share">SHARE YOUR RECORD</a>
-		</div>
-		<div class="final-message" v-else>
+			<h3>You have overcome all the levels of Palette with <span>{{ score }}</span></h3>
+			<a class="header__share"
+				:href="`https://twitter.com/intent/tweet?text=I+have+overcome+all+the+levels+of+@PlayPalette+with+${ score }+points!!!+http://palette.ws`"
+			>SHARE YOUR RECORD</a>
+		</section>
+		<section class="final-message" v-else>
 			<h2>Well done!</h2>
-			<h3>You have finished Palette with {{ score }}
-				<span>points at level</span>
-			</h3>
+			<h3>You have finished Palette with <span>{{ score }} points at level</span></h3>
 			<p><span>{{ level }}</span></p>
-			<a class="header__share">SHARE YOUR RECORD</a>
-		</div>
+			<a class="header__share"
+				:href="`https://twitter.com/intent/tweet?text=I+have+finished+@PlayPalette+with+${ score }+points+at+level+${ displayLevel }!!!+http://palette.ws`">
+			>SHARE YOUR RECORD</a>
+		</section>
 		<confetti-decorator></confetti-decorator>
-	</aside>
+	</article>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import ConfettiDecorator from '../components/ConfettiDecorator';
 
 export default {
@@ -35,6 +35,9 @@ export default {
 			'level',
 			'score',
 			'highScore'
+		]),
+		...mapGetters([
+			'displayLevel',
 		]),
 	},
 	data() {
@@ -52,12 +55,9 @@ export default {
 			this.$router.push('/home');
 		},
 		calculateHighScore() {
-			if (this.level > this.highScore.level) {
+			if (this.level > this.highScore.level ||
+				(this.level === this.highScore.level && this.score > this.highScore.score)) {
 				this.$store.commit('setHighScore', { level: this.level, score: this.score });
-			} else if (this.level > this.highScore.level) {
-				if (this.score > this.highScore.record) {
-					this.$store.commit('setHighScore', { level: this.level, score: this.score });
-				}
 			}
 		}
 	},
