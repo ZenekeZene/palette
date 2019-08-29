@@ -1,5 +1,6 @@
 <template>
-	<div class="swatch" 
+	<div class="swatch"
+		:class="classTrigger"
 		:style="{ backgroundColor: colorRender }"
 	><slot></slot></div>
 </template>
@@ -21,6 +22,10 @@ export default {
 		cmyk: {
 			type: Array,
 			default: () => [],
+		},
+		classTrigger: {
+			type: String,
+			default: '',
 		},
 	},
 	computed: {

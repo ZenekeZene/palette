@@ -8,6 +8,8 @@
 				:class="{
 					'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
 					'match-mixer': swatch.isEnabled === false,
+					'was-correct': giveMeTheIndexOfTheSolution() === index && launchFailFeedback,
+					'was-not-correct': giveMeTheIndexOfTheSolution() !== index && launchFailFeedback,
 				}"
 				:ref="`swatch-${index}`"
 				:data-index=swatch.index
@@ -20,7 +22,9 @@
 				:class="{
 					'--is-correct': giveMeTheIndexOfTheSolution() === index && isDev,
 					'match-mixer': dropzone.isEnabled === false,
-					'tutorial': !tutorialIsLaunched && activeIsMoved
+					'tutorial': !tutorialIsLaunched && activeIsMoved,
+					'was-correct': giveMeTheIndexOfTheSolution() === index && launchFailFeedback,
+					'was-not-correct': giveMeTheIndexOfTheSolution() !== index && launchFailFeedback,
 				}"
 				:ref="`dropzone-${index}`"
 				:data-index=dropzone.index
@@ -34,6 +38,7 @@
 				v-if="activeColor"
 				class="active__swatch drag-drop active"
 				:cmyk=activeColor.cmyk
+				:style="{ 'opacity': launchFailFeedback ? 0: 1 }"
 			>
 				<span class="active__beat" :style="{ backgroundColor: activeColorRender }"></span>
 			</color-chip>
@@ -71,6 +76,7 @@ export default {
 			triggerCheckBonus: 0,
 			activeIsMoved: false,
 			lastIndexDropped: 0,
+			launchFailFeedback: false,
 		};
 	},
 	mounted() {
@@ -185,13 +191,16 @@ export default {
 			return false;
 		},
 		handFailedMix() {
-			if (this.lives > 1) {
-				this.decreaseLive();
-				this.resetGame();
-				this.$router.push({ name: 'control', params: { isSuccess: false }});
-			} else {
-				this.$router.push({ name: 'final', params: { isCompleted: false }});
-			}
+			this.launchFailFeedback = true;
+			setTimeout(() => {
+				if (this.lives > 1) {
+					this.decreaseLive();
+					this.resetGame();
+					this.$router.push({ name: 'control', params: { isSuccess: false }});
+				} else {
+					this.$router.push({ name: 'final', params: { isCompleted: false }});
+				}
+			}, 2500);
 		},
 		handLevelFinished() {
 			if (this.wasTheLastLevel) {
