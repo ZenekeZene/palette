@@ -35,7 +35,7 @@
 				:class="{ 'tutorial': !tutorialIsLaunched && !activeIsMoved }"
 			></div>
 			<color-chip
-				v-if="activeColor"
+				v-if="activeColor && !launchFailFeedback"
 				class="active__swatch drag-drop active"
 				:cmyk=activeColor.cmyk
 				:style="{ 'opacity': launchFailFeedback ? 0: 1 }"
