@@ -15,7 +15,6 @@
 			<a id="eulaButton" class="home-buttons__eula" @click="openLink('http://palette.ws/legal.html')" href="#"></a>
 		</nav>
 		<high-score v-if="highScore.level"></high-score>
-		<a class="donate-button" @click="openLink('https://www.buymeacoffee.com/PilPilGames')" href="#"></a>
 		<reset-modal :adaptive="true"></reset-modal>
 	</aside>
 </template>
