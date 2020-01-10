@@ -83,6 +83,8 @@ Versión 1.2: Ranking Social
 
 ---
 ### ISSUES
+-	[ ] La pantalla entre niveles entra tan rápido que no da tiempo a ver cuál era la respuesta correcta. Aumentar 1 segundo de delay antes de que aparezca.
+-	[ ] El botón físico de back de los móviles Android no cierra la aplicación.
 -	[ ] VETE A OPENBANK HÉCTOR!!! Integrar sistema de monetización. Idea: donativos voluntarios a través de Buy me a Coffee
 -	[ ] El sonido queda siempre en background en android y a veces se corta. Probar a enlazarlo desde nativo solamente.
 -	[ ] En iOS si se abre una aplicación con teclado, se "empujan" los contenidos.
