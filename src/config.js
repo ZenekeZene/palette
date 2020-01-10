@@ -7,7 +7,7 @@ export default {
 		android: 'market://details?id=com.pilpilgames.palette',
 		ios: 'https://itunes.apple.com/app/id1467492943',
 	},
-	_isDev: true,
+	_isDev: true, 
 	levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
 	prizes: [
 		{ l: 0, b: 0 },
