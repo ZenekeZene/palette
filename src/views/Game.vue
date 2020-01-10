@@ -120,7 +120,7 @@ export default {
 	},
 	methods: {
 		...mapMutations([
-			'incrementLive',
+			'givePrizes',
 			'decreaseLive',
 			'incrementLevel',
 			'incrementScore',
@@ -208,7 +208,7 @@ export default {
 			} else {
 				this.$router.push({ name: 'control', params: { isSuccess: true }});
 				this.incrementLevel();
-				this.incrementLive();
+				this.givePrizes();
 				this.resetGame();
 			}
 		},

@@ -3,7 +3,10 @@
 		<template v-if="isSuccess">
 			<quote-item></quote-item>
 			<button @click="showLevel"><i class="fa fa-play" aria-hidden="true"></i></button>
-			<div class="liveUp">+{{ getLivesToWinByLevel }}</div>
+			<section class="prizes">
+				<div v-if="getLivesToWinByLevel > 0" class="prize --lives">+{{ getLivesToWinByLevel }}</div>
+				<div v-if="getBonusToWinByLevel > 0" class="prize --bonus">+{{ getBonusToWinByLevel }}</div>
+			</section>
 		</template>
 		<template v-else>
 			<section class="replay">
@@ -30,6 +33,7 @@
 		computed: {
 			...mapGetters([
 				'getLivesToWinByLevel',
+				'getBonusToWinByLevel',
 			]),
 			isSuccess() {
 				return this.$route.params.isSuccess;

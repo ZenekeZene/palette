@@ -36,12 +36,15 @@ const store = new Vuex.Store({
 		getSwatchesEnabledCount: (state, getters) => getters.getSwatchesEnabled.length,
 		getRandomSwatchIndexEnabled: (state, getters) =>
 			getters.getSwatchesEnabledCount > 0 ? _.sample(getters.getSwatchesEnabled).index : -1,
-		getLivesToWinByLevel: (state) => config.lifePrizes[state.level],
+		getLivesToWinByLevel: (state) => config.prizes[state.level].l,
+		getBonusToWinByLevel: (state) => config.prizes[state.level].b,
 		wasTheLastLevel: (state) => state.level + 1 === config.levels.length,
 	},
 	mutations: {
-		incrementLive(state) {
-			state.lives += config.lifePrizes[state.level];
+		givePrizes(state) {
+			console.log(config.prizes[state.level]);
+			state.lives += config.prizes[state.level].l;
+			state.bonus += config.prizes[state.level].b;
 		},
 		decreaseLive(state) {
 			state.lives--;
