@@ -57,6 +57,7 @@
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import config from '../config';
 import drag from '../scripts/drag';
+import sound from '../scripts/sound';
 import color from '../scripts/color';
 import { EventBus } from '../scripts/EventBus.js';
 import HeaderItem from '../components/HeaderItem';
@@ -80,7 +81,12 @@ export default {
 		};
 	},
 	mounted() {
+		sound.init();
 		this.playLevel();
+		if (!this.isPlayingMusic) {
+			EventBus.$emit('playMusic');
+			this.setPlayingMusic({ isPlayingMusic: true });
+		}
 		EventBus.$on('dropSuccessful', (data) => {
 			this.dropSuccessful(data);
 		});
@@ -101,12 +107,11 @@ export default {
 			'dropzones',
 			'activeColor',
 			'tutorialIsLaunched',
+			'isPlayingMusic',
 		]),
 		...mapGetters([
 			'getDropzoneByIndex',
 			'getSwatchByIndex',
-			'getSwatchesCount',
-			'getSwatchesEnabled',
 			'getSwatchesEnabledCount',
 			'getRandomSwatchIndexEnabled',
 			'wasTheLastLevel',
@@ -132,6 +137,7 @@ export default {
 			'setDropzoneDisabledByIndex',
 			'setTutorialIsLaunched',
 			'resetGame',
+			'setPlayingMusic',
 		]),
 		playLevel() {
 			this.initSwatches();
@@ -171,6 +177,7 @@ export default {
 			}
 		},
 		isMixSuccessful(indexOfDropzone) {
+			EventBus.$emit('playSuccessfulSound');
 			const colorMixed = color.addColors(
 				this.getDropzoneByIndex(indexOfDropzone).cmyk, this.activeColor.cmyk);
 
@@ -184,7 +191,10 @@ export default {
 				if (this.getSwatchesEnabledCount > 0) {
 					this.setActive();
 				} else {
-					this.handLevelFinished();
+					//this.setActive();
+					setTimeout(() => {
+						this.handLevelFinished();
+					}, 1000);
 				}
 				return true;
 			}
@@ -192,6 +202,8 @@ export default {
 		},
 		handFailedMix() {
 			this.launchFailFeedback = true;
+			EventBus.$emit('playFailSound');
+			this.setPlayingMusic({ isPlayingMusic: false });
 			setTimeout(() => {
 				if (this.lives > 1) {
 					this.decreaseLive();
@@ -241,14 +253,16 @@ export default {
 		},
 		setActive() {
 			const indexRandom = this.getRandomSwatchIndexEnabled;
-			const activeColor = {
-				index: indexRandom,
-				cmyk: color.subtractColors(
-						this.getSwatchByIndex(indexRandom).cmyk,
-						this.getDropzoneByIndex(indexRandom).cmyk,
-					),
+			if (indexRandom !== -1) {
+				const activeColor = {
+					index: indexRandom,
+					cmyk: color.subtractColors(
+							this.getSwatchByIndex(indexRandom).cmyk,
+							this.getDropzoneByIndex(indexRandom).cmyk,
+						),
+				}
+				this.setActiveColor({ activeColor: activeColor });
 			}
-			this.setActiveColor({ activeColor: activeColor });
 		},
 		giveMeTheIndexOfTheSolution() {
 			for(let i = 0; i < this.numItems; i++) {

@@ -10,6 +10,10 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@capacitor/android": "^1.4.0",
+    "@capacitor/cli": "^1.4.0",
+    "@capacitor/core": "^1.4.0",
+    "@capacitor/ios": "^1.4.0",
     "bind.js": "^1.1.1",
     "core-js": "^2.6.5",
     "howler": "^2.1.2",
