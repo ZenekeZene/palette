@@ -105,8 +105,6 @@ export default {
 		...mapGetters([
 			'getDropzoneByIndex',
 			'getSwatchByIndex',
-			'getSwatchesCount',
-			'getSwatchesEnabled',
 			'getSwatchesEnabledCount',
 			'getRandomSwatchIndexEnabled',
 			'wasTheLastLevel',
@@ -184,7 +182,10 @@ export default {
 				if (this.getSwatchesEnabledCount > 0) {
 					this.setActive();
 				} else {
-					this.handLevelFinished();
+					//this.setActive();
+					setTimeout(() => {
+						this.handLevelFinished();
+					}, 1000);
 				}
 				return true;
 			}
@@ -241,14 +242,16 @@ export default {
 		},
 		setActive() {
 			const indexRandom = this.getRandomSwatchIndexEnabled;
-			const activeColor = {
-				index: indexRandom,
-				cmyk: color.subtractColors(
-						this.getSwatchByIndex(indexRandom).cmyk,
-						this.getDropzoneByIndex(indexRandom).cmyk,
-					),
+			if (indexRandom !== -1) {
+				const activeColor = {
+					index: indexRandom,
+					cmyk: color.subtractColors(
+							this.getSwatchByIndex(indexRandom).cmyk,
+							this.getDropzoneByIndex(indexRandom).cmyk,
+						),
+				}
+				this.setActiveColor({ activeColor: activeColor });
 			}
-			this.setActiveColor({ activeColor: activeColor });
 		},
 		giveMeTheIndexOfTheSolution() {
 			for(let i = 0; i < this.numItems; i++) {

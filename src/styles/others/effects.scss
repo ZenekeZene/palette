@@ -45,6 +45,10 @@
 .was-not-correct {
 	animation: was-not-correct-animation 2.5s;
 	animation-fill-mode: forwards;
+
+	&:before {
+		display: none;
+	}
 }
 
 @keyframes was-not-correct-animation {
