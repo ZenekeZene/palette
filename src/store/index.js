@@ -43,7 +43,6 @@ const store = new Vuex.Store({
 	},
 	mutations: {
 		givePrizes(state) {
-			console.log(config.prizes[state.level]);
 			state.lives += config.prizes[state.level].l;
 			state.bonus += config.prizes[state.level].b;
 		},
