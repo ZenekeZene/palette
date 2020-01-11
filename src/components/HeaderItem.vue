@@ -9,7 +9,8 @@
 	</header>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
+import { EventBus } from '../scripts/EventBus.js';
 
 export default {
 	name: 'HeaderItem',
@@ -35,8 +36,11 @@ export default {
 		},
 	},
 	methods: {
+		...mapMutations(['setPlayingMusic']),
 		back() {
 			this.$router.push('/home');
+			EventBus.$emit('stopMusic');
+			this.setPlayingMusic({ isPlayingMusic: false });
 		},
 	},
 };

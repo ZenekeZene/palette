@@ -25,6 +25,7 @@ const store = new Vuex.Store({
 		activeColor: config.initialState.activeColor,
 		highScore: config.initialState.highScore,
 		isMuted: config.initialState.isMuted,
+		isPlayingMusic: false,
 	},
 	getters: {
 		displayLevel: (state) => (state.level + 1).toString(),
@@ -104,6 +105,9 @@ const store = new Vuex.Store({
 		},
 		setIsMuted(state, payload) {
 			state.isMuted = payload.isMuted;
+		},
+		setPlayingMusic(state, payload) {
+			state.isPlayingMusic = payload.isPlayingMusic;
 		},
 	},
 });

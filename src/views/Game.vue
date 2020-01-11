@@ -57,6 +57,7 @@
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import config from '../config';
 import drag from '../scripts/drag';
+import sound from '../scripts/sound';
 import color from '../scripts/color';
 import { EventBus } from '../scripts/EventBus.js';
 import HeaderItem from '../components/HeaderItem';
@@ -80,7 +81,12 @@ export default {
 		};
 	},
 	mounted() {
+		sound.init();
 		this.playLevel();
+		if (!this.isPlayingMusic) {
+			EventBus.$emit('playMusic');
+			this.setPlayingMusic({ isPlayingMusic: true });
+		}
 		EventBus.$on('dropSuccessful', (data) => {
 			this.dropSuccessful(data);
 		});
@@ -101,6 +107,7 @@ export default {
 			'dropzones',
 			'activeColor',
 			'tutorialIsLaunched',
+			'isPlayingMusic',
 		]),
 		...mapGetters([
 			'getDropzoneByIndex',
@@ -130,6 +137,7 @@ export default {
 			'setDropzoneDisabledByIndex',
 			'setTutorialIsLaunched',
 			'resetGame',
+			'setPlayingMusic',
 		]),
 		playLevel() {
 			this.initSwatches();
@@ -169,6 +177,7 @@ export default {
 			}
 		},
 		isMixSuccessful(indexOfDropzone) {
+			EventBus.$emit('playSuccessfulSound');
 			const colorMixed = color.addColors(
 				this.getDropzoneByIndex(indexOfDropzone).cmyk, this.activeColor.cmyk);
 
@@ -193,6 +202,8 @@ export default {
 		},
 		handFailedMix() {
 			this.launchFailFeedback = true;
+			EventBus.$emit('playFailSound');
+			this.setPlayingMusic({ isPlayingMusic: false });
 			setTimeout(() => {
 				if (this.lives > 1) {
 					this.decreaseLive();

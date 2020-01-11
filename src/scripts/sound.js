@@ -1,21 +1,12 @@
 //const Tone = require("tone");
 import { Howl, Howler } from 'howler';
+import { EventBus } from '../scripts/EventBus.js';
 
 let mute;
-const musicAsset = require("../../sounds/music-bg.mp3")
+const musicAsset = require("../sounds/music-bg.mp3")
 let ambient, fail, success, ambientSound;
-let isPlaying = false;
-const soundButton = document.getElementById('soundButton');
 
 function init() {
-	mute = persist.getData('mute') || false;
-	
-	if (mute) {
-		soundButton.classList.add('--silence');
-	} else {
-		soundButton.classList.remove('--silence');
-	}
-
 	Howler.autoUnlock = true;
 	ambient = new Howl({
 		src: [musicAsset],
@@ -28,7 +19,7 @@ function init() {
 	});
 
 	fail = new Howl({
-		src: [require("../../sounds/effect-fail.mp3")],
+		src: [require("../sounds/effect-fail.mp3")],
 		autoplay: false,
 		loop: false,
 		volume: 0.5,
@@ -37,7 +28,7 @@ function init() {
 	});
 
 	success = new Howl({
-		src: [require("../../sounds/effect-success.mp3")],
+		src: [require("../sounds/effect-success.mp3")],
 		autoplay: false,
 		loop: false,
 		volume: 0.1,
@@ -45,52 +36,31 @@ function init() {
 		mobileAutoEnable: true,
 	});
 
-	statusObserver.subscribe(function(status, data) {
-		if (mute === false) {
-			if (status === 'playLevel') {
-				if (!ambient.playing(ambientSound)) {
-					ambientSound = ambient.play();
-				}
-				isPlaying = true;
-				ambient.fade(ambient.volume(ambientSound), 1, 1250);
-			} else if (status === 'successfulLevel' || status === 'stepSuccess' || status === 'stepSuccessBonus') {
-				success.play();
-				isPlaying = false;
-			} else if (status === 'failedLevel') {
-				ambient.fade(1, 0, 250, ambientSound);
-				fail.play();
-				isPlaying = false;
-			} else if (status === 'backButton') {
-				ambient.fade(1, 0, 1250);
-				isPlaying = false;
-			}
+	EventBus.$on('playMusic', () => {
+		if (!ambient.playing(ambientSound)) {
+			ambientSound = ambient.play();
 		}
-		if (status === 'mute') {
-			mute = data[0];
-		}
+		ambient.fade(ambient.volume(ambientSound), 1, 1250);
 	});
 
-	soundButton.addEventListener('click', function() {
-		mute = !mute;
-		persist.saveData('mute', mute);
-		if (mute) {
-			soundButton.classList.add('--silence');
-		} else {
-			soundButton.classList.remove('--silence');
-		}
-		statusObserver.notify('mute', mute);
-	})
+	EventBus.$on('stopMusic', () => {
+		ambient.fade(ambient.volume(ambientSound), 0, 1250);
+	});
 
-	window.addEventListener("focus", function(event) {
-		if (isPlaying) {
-			ambient.fade(0, 1, 250);
+	EventBus.$on('playFailSound', () => {
+		if (!ambient.playing(ambientSound)) {
+			ambientSound = ambient.play();
 		}
-	}, false);
+		ambient.fade(ambient.volume(ambientSound), 0, 250);
+		fail.play();
+	});
+
+	EventBus.$on('playSuccessfulSound', () => {
+		success.play();
+	});
 
 	window.addEventListener("blur", function(event) {
-		if (isPlaying) {
-			ambient.fade(1, 0, 250);
-		}
+		ambient.fade(1, 0, 250);
 	}, false);
 }
 
