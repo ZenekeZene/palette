@@ -59,7 +59,7 @@
 .match-mixer {
 	position: relative;
 	background: $paper !important;
-	box-shadow: 0 0 $gutter-1-2 $shadow !important;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
 	border: none !important;
 
 	&::after {

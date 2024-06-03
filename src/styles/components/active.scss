@@ -54,7 +54,7 @@ $size-active: 8vh;
 		@include share(width, height, $size);
 		background: $paper;
 		border: solid $gutter $paper;
-		box-shadow: 0 0 $gutter-1-2 $shadow;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 		-webkit-transition: none;
 		transition: none;
 		border-radius: 50%;

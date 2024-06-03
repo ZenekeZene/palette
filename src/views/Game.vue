@@ -85,7 +85,6 @@ export default {
 		this.playLevel();
 		if (!this.isPlayingMusic) {
 			EventBus.$emit('playMusic');
-			this.setPlayingMusic({ isPlayingMusic: true });
 		}
 		EventBus.$on('dropSuccessful', (data) => {
 			this.dropSuccessful(data);
@@ -172,12 +171,12 @@ export default {
 				}
 				this.lastIndexDropped = index;
 				this.incrementScore();
+				EventBus.$emit('playSuccessfulSound');
 			} else {
 				this.handFailedMix();
 			}
 		},
 		isMixSuccessful(indexOfDropzone) {
-			EventBus.$emit('playSuccessfulSound');
 			const colorMixed = color.addColors(
 				this.getDropzoneByIndex(indexOfDropzone).cmyk, this.activeColor.cmyk);
 
@@ -203,7 +202,6 @@ export default {
 		handFailedMix() {
 			this.launchFailFeedback = true;
 			EventBus.$emit('playFailSound');
-			this.setPlayingMusic({ isPlayingMusic: false });
 			setTimeout(() => {
 				if (this.lives > 1) {
 					this.decreaseLive();

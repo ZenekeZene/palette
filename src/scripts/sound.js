@@ -22,7 +22,7 @@ function init() {
 		src: [require("../sounds/effect-fail.mp3")],
 		autoplay: false,
 		loop: false,
-		volume: 0.5,
+		volume: 0.005,
 		html5: true,
 		mobileAutoEnable: true,
 	});
@@ -37,9 +37,6 @@ function init() {
 	});
 
 	EventBus.$on('playMusic', () => {
-		if (!ambient.playing(ambientSound)) {
-			ambientSound = ambient.play();
-		}
 		ambient.fade(ambient.volume(ambientSound), 1, 1250);
 	});
 
@@ -48,14 +45,12 @@ function init() {
 	});
 
 	EventBus.$on('playFailSound', () => {
-		if (!ambient.playing(ambientSound)) {
-			ambientSound = ambient.play();
-		}
-		ambient.fade(ambient.volume(ambientSound), 0, 250);
-		fail.play();
+		// ambient.fade(ambient.volume(ambientSound), 0, 250);
+		// fail.play();
 	});
 
 	EventBus.$on('playSuccessfulSound', () => {
+		console.log('playSuccessfulSound');
 		success.play();
 	});
 

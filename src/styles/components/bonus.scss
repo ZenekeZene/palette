@@ -1,16 +1,17 @@
 .bonus {
-	@include absolute(bottom 2rem right $gutter);
-	@include size(8vh);
+	@include absolute(bottom 2rem right calc(50% - 5rem));
+	@include size(2rem);
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	border-radius: $gutter;
+	overflow: hidden;
 
 	&__button {
 		@include absolute(bottom right);
-		@include size(8vh);
+		@include size(2rem);
 		border: none;
-		border-radius: $gutter;
 		outline: none;
 		background-color: $paper;
 		opacity: 1;
-		box-shadow: 0 0 $gutter-1-2 $shadow;
 		transition: all 0.3s ease-in-out;
 
 		&:active {
@@ -21,13 +22,13 @@
 
 		&::before {
 			content: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0OCA0OCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDggNDg7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojODBDNEQ2O30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTM2LjksMTcuNWgtOC40TDM2LDQuNmMxLjItMS45LTAuMi00LjMtMi40LTQuM2gtNi4yYy0zLjMsMC02LjMsMS44LTcuOCw0LjdsLTcuMSwxNS40Yy0yLjEsNCwwLjgsOC44LDUuMyw4LjgKCWgzLjlMMTUsNDQuNGMtMS4xLDIuNSwyLjIsNC42LDQsMi41bDIwLjItMjQuNUM0MC44LDIwLjQsMzkuNCwxNy41LDM2LjksMTcuNXoiLz4KPC9zdmc+');
-			@include absolute(top 2vh left 2vh);
-			width: 4vh;
+			@include absolute(top 0.5rem left 0.5rem);
+			width: 1rem;
 		}
 	}
 
 	&__quantity {
-		@include absolute(bottom -18px left);
+		@include absolute(bottom 0.5rem left 0.4rem);
 		width: 100%;
 		height: $gutter;
 		font-weight: 700;
