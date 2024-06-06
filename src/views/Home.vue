@@ -1,18 +1,13 @@
 <template>
 	<aside class="home">
 		<aside class="home-header">
-			<div class="home-header__logo">
-				<img :src="logo" alt="Palette logo" height="50">
-			</div>
-			<header-item noBack></header-item>
+			<h1 class="home-title nunito-9">THE <span class="color">COLOR</span> ALCHEMIST</h1>
+
 		</aside>
+		<img src="/img/pet.png" alt="Ilustration" class="home-image" />
 		<nav class="home-buttons">
-			<button @click="handGame" class="home-buttons__play"></button>
-			<button @click="handRate" class="home-buttons__rate"></button>
-			<button @click="handSound" class="home-buttons__sound" :class="{'--silence': isMuted }"></button>
-			<button @click="launchReset" class="home-buttons__reset"></button>
-			<router-link to="credits" class="home-buttons__about"></router-link>
-			<a id="eulaButton" class="home-buttons__eula" @click="openLink('http://palette.ws/legal.html')" href="#"></a>
+			<button @click="handGame" class="home-buttons__play button">Jugar</button>
+			<button @click="handRate" class="home-buttons__rate button">Ranking</button>
 		</nav>
 		<high-score v-if="highScore.level"></high-score>
 		<reset-modal :adaptive="true"></reset-modal>

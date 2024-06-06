@@ -13,9 +13,14 @@ html {
 	width: 100vw;
 	height: 100vh;
 	//height: calc(var(--vh, 1vh) * 100);
-	font-size: 32px;
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 300;
+	font-size: 16px;
+	font-family: 'Nunito', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 900;
+	font-style: normal;
+	font-variation-settings:
+		"wdth" 100,
+		"YTLC" 500;
 }
 
 body {
@@ -23,12 +28,21 @@ body {
 	text-align: center;
 	overflow: hidden;
 
-	&.ios {
-		padding-top: 24px;
-	}
+	background: linear-gradient(180deg, #ffffff 0%, #ffffff 42%, #53C5D9 200%);
 }
 
 @import 'variables';
+
+h1 {
+	font-size: 3rem;
+	line-height: 1;
+	text-align: left;
+	color: #53C5D9;
+
+	.color {
+		color: #D953A4;
+	}
+}
 
 .game {
 	position: relative;
@@ -37,4 +51,29 @@ body {
 	flex-direction: column;
 	height: 100vh; // Use vh as a fallback for browsers that do not support Custom Properties
 	//height: calc((var(--vh, 1vh) * 100) - 24px);
+}
+
+.button {
+	padding: 1rem;
+	box-shadow: none;
+	border: none;
+	border-radius: 4px;
+	font-size: 1rem;
+	font-family: inherit;
+	font-weight: inherit;
+}
+
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 200 to 1000
+// Use a @for in sass to generate the classes
+@for $i from 2 through 10 {
+	.nunito-#{$i} {
+		font-family: "Nunito", sans-serif;
+		font-optical-sizing: auto;
+		font-weight: #{$i * 100};
+		font-style: normal;
+		font-variation-settings:
+			"wdth" 100,
+			"YTLC" 500;
+	}
 }
